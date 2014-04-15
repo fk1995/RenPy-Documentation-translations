@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Movie &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Voice" href="voice.html" />
+    <link rel="prev" title="Audio" href="audio.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="voice.html" title="Voice"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="audio.html" title="Audio"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Movie</a><ul>
+<li><a class="reference internal" href="#fullscreen-movies">Fullscreen Movies</a></li>
+<li><a class="reference internal" href="#movies-inside-displayables">Movies Inside Displayables</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="audio.html"
+                        title="previous chapter">Audio</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="voice.html"
+                        title="next chapter">Voice</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="movie">
+<h1>Movie<a class="headerlink" href="#movie" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py is capable of using libav (included) to play movies using the
+video codecs:</p>
+<ul class="simple">
+<li>Theora</li>
+<li>V8</li>
+<li>MPEG 4 part 2 (including Xvid and DivX)</li>
+<li>MPEG 2</li>
+<li>MPEG 1</li>
+</ul>
+<p>and the following audio codecs:</p>
+<ul class="simple">
+<li>Vorbis</li>
+<li>MP3</li>
+<li>MP2</li>
+<li>PCM</li>
+</ul>
+<p>inside the following container formats:</p>
+<ul class="simple">
+<li>Matroska</li>
+<li>WebM</li>
+<li>Ogg</li>
+<li>Avi</li>
+<li>Various kinds of MPEG stream.</li>
+</ul>
+<p>(Note that using some of these formats may require patent licenses.
+When in doubt, and especially for commercial games, we recommend using
+Theora, Vorbis, and Matroska or Ogg.)</p>
+<p>Ren'Py expects that every movie will have an audio track associated with it,
+even if that audio track consists of nothing but silence. This is because
+the audio track is used for synchronization purposes.</p>
+<p>Movies can be displayed fullscreen, or in a displayable. Fullscreen movies
+are the more efficient.</p>
+<div class="section" id="fullscreen-movies">
+<h2>Fullscreen Movies<a class="headerlink" href="#fullscreen-movies" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to display a movie fullscreen is to display it using
+the <a class="reference internal" href="#renpy.movie_cutscene" title="renpy.movie_cutscene"><tt class="xref py py-func docutils literal"><span class="pre">renpy.movie_cutscene()</span></tt></a> function. This function displays a movie for a specified
+length of time. When that time has elapsed, or when the user clicks to dismiss
+the movie, the movie ends and the function returns.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">$</span> <span class="n">renpy</span><span class="o">.</span><span class="n">movie_cutscene</span><span class="p">(</span><span class="s">&quot;On_Your_Mark.mpg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="renpy.movie_cutscene">
+<tt class="descclassname">renpy.</tt><tt class="descname">movie_cutscene</tt><big>(</big><em>filename</em>, <em>delay=None</em>, <em>loops=0</em>, <em>stop_music=True</em><big>)</big><a class="headerlink" href="#renpy.movie_cutscene" title="Permalink to this definition">¶</a></dt>
+<dd><p>This displays an MPEG-1 cutscene for the specified number of
+seconds. The user can click to interrupt the cutscene.
+Overlays and Underlays are disabled for the duration of the cutscene.</p>
+<dl class="docutils">
+<dt><cite>filename</cite></dt>
+<dd>The name of a file containing an MPEG-1 movie.</dd>
+<dt><cite>delay</cite></dt>
+<dd>The number of seconds to wait before ending the cutscene.
+Normally the length of the movie, in seconds. If None, then the
+delay is computed from the number of loops (that is, loops + 1) *
+the length of the movie. If -1, we wait until the user clicks.</dd>
+<dt><cite>loops</cite></dt>
+<dd>The number of extra loops to show, -1 to loop forever.</dd>
+</dl>
+<p>Returns True if the movie was terminated by the user, or False if the
+given delay elapsed uninterrupted.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="movies-inside-displayables">
+<h2>Movies Inside Displayables<a class="headerlink" href="#movies-inside-displayables" title="Permalink to this headline">¶</a></h2>
+<p>A movie can also be displayed inside a displayable, allowing it to be combined with
+other things on the screen. To do this, one must first show a Movie displayable, and
+then play the movie on an audio channel. (We recommend using the movie channel
+for this purpose.)</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span><span class="p">:</span>
+    <span class="k">image</span> <span class="n">movie</span> <span class="o">=</span> <span class="n">Movie</span><span class="p">(</span><span class="na">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="k">label</span> <span class="n">movie_sign</span><span class="p">:</span>
+    <span class="k">scene</span> <span class="n">black</span>
+    <span class="k">show</span> <span class="n">movie</span>
+
+    <span class="k">play</span> <span class="n">movie</span> <span class="s">&quot;incubus.mkv&quot;</span>
+
+    <span class="s">&quot;Wow, this movie is really terrible.&quot;</span>
+
+    <span class="s">&quot;I mean, it stars William Shatner...&quot;</span>
+
+    <span class="s">&quot;... speaking Esperanto.&quot;</span>
+
+    <span class="s">&quot;MAKE IT STOP!&quot;</span>
+
+    <span class="k">stop</span> <span class="n">movie</span>
+    <span class="k">hide</span> <span class="n">movie</span>
+
+    <span class="s">&quot;Thats... better.&quot;</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="Movie">
+<tt class="descname">Movie</tt><big>(</big><em>fps=24</em>, <em>size=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Movie" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a displayable that shows the current movie.</p>
+<dl class="docutils">
+<dt><cite>fps</cite></dt>
+<dd>The framerate that the movie should be shown at. (This is currently
+ignored, but the parameter is kept for backwards compatibility.
+The framerate is auto-detected.)</dd>
+<dt><cite>size</cite></dt>
+<dd>This should always be specified. A tuple giving the width and height
+of the movie.</dd>
+</dl>
+<p>The contents of this displayable when a movie is not playing are undefined.
+(And may change when a rollback occurs.)</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="voice.html" title="Voice"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="audio.html" title="Audio"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Special Screen Names &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Configuration Variables" href="config.html" />
+    <link rel="prev" title="Screen Actions, Values, and Functions" href="screen_actions.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="config.html" title="Configuration Variables"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="screen_actions.html" title="Screen Actions, Values, and Functions"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Special Screen Names</a><ul>
+<li><a class="reference internal" href="#in-game-screens">In-Game Screens</a><ul>
+<li><a class="reference internal" href="#say">Say</a></li>
+<li><a class="reference internal" href="#choice">Choice</a></li>
+<li><a class="reference internal" href="#input">Input</a></li>
+<li><a class="reference internal" href="#nvl">NVL</a></li>
+<li><a class="reference internal" href="#notify">Notify</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#menu-screens">Menu Screens</a><ul>
+<li><a class="reference internal" href="#main-menu">Main Menu</a></li>
+<li><a class="reference internal" href="#navigation">Navigation</a></li>
+<li><a class="reference internal" href="#save">Save</a></li>
+<li><a class="reference internal" href="#load">Load</a></li>
+<li><a class="reference internal" href="#preferences">Preferences</a></li>
+<li><a class="reference internal" href="#yesno-prompt">Yesno_Prompt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="screen_actions.html"
+                        title="previous chapter">Screen Actions, Values, and Functions</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="config.html"
+                        title="next chapter">Configuration Variables</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="special-screen-names">
+<h1>Special Screen Names<a class="headerlink" href="#special-screen-names" title="Permalink to this headline">¶</a></h1>
+<p>There are two kinds of special screen names in Ren'Py. The first are
+screens that will be automatically displayed when Ren'Py script
+language commands (or their programmatic equivalents) are run. The
+other type are menu screens. These have conventional names for
+conventional functionality, but screens can be omitted or changed as
+is deemed necessary.</p>
+<p>On this page, we'll give example screens. It's important to realize
+that, while some screens must have minimal functionality, the screen
+system makes it possible to add additional functionality to
+screens. For example, while the standard say screen only displays
+text, the screen systen makes it easy to add features like skipping,
+auto-forward mode, or muting.</p>
+<p>Some special screens take parameters. These parameters can be accessed
+as variables in the screen's scope.</p>
+<p>Some of the screens also have special ids associated with them. A
+special id should be assigned to a displayable of a given type. It can
+cause properties to be assigned to that displayable, and can make that
+displayable accessible to calling code.</p>
+<div class="section" id="in-game-screens">
+<h2>In-Game Screens<a class="headerlink" href="#in-game-screens" title="Permalink to this headline">¶</a></h2>
+<p>These screens are automatically displayed when certain Ren'Py
+statements execute.</p>
+<div class="section" id="say">
+<span id="say-screen"></span><h3>Say<a class="headerlink" href="#say" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">say</span></tt> screen is called by the say statement, when displaying
+ADV-mode dialogue. It is displayed with the following parameters:</p>
+<dl class="docutils">
+<dt><cite>who</cite></dt>
+<dd>The text of the name of the speaking character.</dd>
+<dt><cite>what</cite></dt>
+<dd>The dialogue being said by the speaking character.</dd>
+</dl>
+<p>It's expected to declare displayables with the following ids:</p>
+<dl class="docutils">
+<dt>&quot;who&quot;</dt>
+<dd>A text displayable, displaying the name of the speaking
+character. The character object can be given arguments that style
+this displayable.</dd>
+<dt>&quot;what&quot;</dt>
+<dd>A text displayable, displaying the dialogue being said by the
+speaking character. The character object can be given arguments that style
+this displayable. <strong>A displayable with this id must be defined</strong>,
+as Ren'Py uses it to calculate auto-forward-mode time,
+click-to-continue, and other things.</dd>
+<dt>&quot;window&quot;</dt>
+<dd>A window or frame. This conventionally contains the who and what
+text. The character object can be given arguments that style
+this displayable.</dd>
+</dl>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">say</span><span class="p">:</span>
+
+    <span class="k">window</span> <span class="na">id</span> <span class="s">&quot;window&quot;</span><span class="p">:</span>
+        <span class="k">has</span> <span class="k">vbox</span>
+
+        <span class="k">if</span> <span class="n">who</span><span class="p">:</span>
+            <span class="k">text</span> <span class="n">who</span> <span class="na">id</span> <span class="s">&quot;who&quot;</span>
+
+        <span class="k">text</span> <span class="n">what</span> <span class="na">id</span> <span class="s">&quot;what&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="choice">
+<span id="choice-screen"></span><h3>Choice<a class="headerlink" href="#choice" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">choice</span></tt> screen is used to display the in-game choices created
+with the menu statement. It is given the following parameter:</p>
+<dl class="docutils">
+<dt><cite>items</cite></dt>
+<dd>This is a list of (<cite>caption</cite>, <cite>action</cite>, <cite>chosen</cite>)
+tuples. For each choice, <cite>caption</cite> is the name of the choice, and
+<cite>action</cite> is the action to invoke for the choice, or None if this
+is a choice label. <cite>Chosen</cite> if a choice with this label has been
+chosen by the user before. (It doesn't have to be in the current
+game.)</dd>
+</dl>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="k">choice</span><span class="p">:</span>
+
+    <span class="k">window</span><span class="p">:</span>
+        <span class="k">style</span> <span class="s">&quot;menu_window&quot;</span>
+
+        <span class="k">vbox</span><span class="p">:</span>
+            <span class="k">style</span> <span class="s">&quot;menu&quot;</span>
+
+            <span class="k">for</span> <span class="n">caption</span><span class="p">,</span> <span class="na">action</span><span class="p">,</span> <span class="n">chosen</span> <span class="k">in</span> <span class="n">items</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="na">action</span><span class="p">:</span>
+
+                    <span class="k">button</span><span class="p">:</span>
+                        <span class="na">action</span> <span class="na">action</span>
+                        <span class="k">style</span> <span class="s">&quot;menu_choice_button&quot;</span>
+
+                        <span class="k">text</span> <span class="n">caption</span> <span class="k">style</span> <span class="s">&quot;menu_choice&quot;</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">text</span> <span class="n">caption</span> <span class="k">style</span> <span class="s">&quot;menu_caption&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="input">
+<span id="input-screen"></span><h3>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">input</span></tt> screen is used to display <a class="reference internal" href="input.html#renpy.input" title="renpy.input"><tt class="xref py py-func docutils literal"><span class="pre">renpy.input()</span></tt></a>. It is given one
+parameter:</p>
+<dl class="docutils">
+<dt><cite>prompt</cite></dt>
+<dd>The prompt text supplied to renpy.input.</dd>
+</dl>
+<p>It is expected to declare a displayable with the following id:</p>
+<dl class="docutils">
+<dt>&quot;input&quot;</dt>
+<dd>An input displayable, which must exist. This is given all the
+parameters supplied to renpy.input, so it must exist.</dd>
+</dl>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="nb">input</span><span class="p">:</span>
+
+    <span class="k">window</span><span class="p">:</span>
+        <span class="k">has</span> <span class="k">vbox</span>
+
+        <span class="k">text</span> <span class="n">prompt</span>
+        <span class="nb">input</span> <span class="na">id</span> <span class="s">&quot;input&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="nvl">
+<span id="nvl-screen"></span><h3>NVL<a class="headerlink" href="#nvl" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">nvl</span></tt> screen is used to display NVL-mode dialogue. It is given
+the following parameter:</p>
+<dl class="docutils">
+<dt><cite>dialogue</cite></dt>
+<dd>This is a list of ( <cite>who</cite>, <cite>what</cite>, <cite>who_id</cite>, <cite>what_id</cite>,
+<cite>window_id</cite>) tuples, each of which corresponds to a line of
+dialogue on the screen. <cite>Who</cite> and <cite>what</cite> are strings containing
+the speaking character and the line of dialogue, respectively. The
+ids should be assigned to the who and what text displayables, and
+a window containing each unit of dialogue.</dd>
+<dt><cite>items</cite></dt>
+<dd><p class="first">This is a list of (<cite>caption</cite>, <cite>action</cite>, <cite>chosen</cite>)
+tuples. For each choice, <cite>caption</cite> is the name of the choice, and
+<cite>action</cite> is the action to invoke for the choice, or None if this
+is a choice label. <cite>Chosen</cite> if a choice with this label has been
+chosen by the user before. (It doesn't have to be in the current
+game.)</p>
+<p class="last">If items is empty, the menu should not be shown.</p>
+</dd>
+</dl>
+<p>Ren'Py also supports an <tt class="docutils literal"><span class="pre">nvl_choice</span></tt> screen, which takes the same
+parameters as <tt class="docutils literal"><span class="pre">nvl</span></tt>, and is used in preference to <tt class="docutils literal"><span class="pre">nvl</span></tt> when
+an in-game choice is presented to the user, if it exists.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="k">nvl</span><span class="p">:</span>
+
+    <span class="k">window</span><span class="p">:</span>
+        <span class="k">style</span> <span class="s">&quot;nvl_window&quot;</span>
+
+        <span class="k">has</span> <span class="k">vbox</span><span class="p">:</span>
+            <span class="k">style</span> <span class="s">&quot;nvl_vbox&quot;</span>
+
+        <span class="c"># Display dialogue.</span>
+        <span class="k">for</span> <span class="n">who</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="n">who_id</span><span class="p">,</span> <span class="n">what_id</span><span class="p">,</span> <span class="n">window_id</span> <span class="k">in</span> <span class="n">dialogue</span><span class="p">:</span>
+            <span class="k">window</span><span class="p">:</span>
+                <span class="na">id</span> <span class="n">window_id</span>
+
+                <span class="k">has</span> <span class="k">hbox</span><span class="p">:</span>
+                    <span class="na">spacing</span> <span class="mi">10</span>
+
+                <span class="k">if</span> <span class="n">who</span> <span class="k">is</span> <span class="k">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">text</span> <span class="n">who</span> <span class="na">id</span> <span class="n">who_id</span>
+
+                <span class="k">text</span> <span class="n">what</span> <span class="na">id</span> <span class="n">what_id</span>
+
+        <span class="c"># Display a menu, if given.</span>
+        <span class="k">if</span> <span class="n">items</span><span class="p">:</span>
+
+            <span class="k">vbox</span><span class="p">:</span>
+                <span class="na">id</span> <span class="s">&quot;menu&quot;</span>
+
+                <span class="k">for</span> <span class="n">caption</span><span class="p">,</span> <span class="na">action</span><span class="p">,</span> <span class="n">chosen</span> <span class="k">in</span> <span class="n">items</span><span class="p">:</span>
+
+                    <span class="k">if</span> <span class="na">action</span><span class="p">:</span>
+
+                        <span class="k">button</span><span class="p">:</span>
+                            <span class="k">style</span> <span class="s">&quot;nvl_menu_choice_button&quot;</span>
+                            <span class="na">action</span> <span class="na">action</span>
+
+                            <span class="k">text</span> <span class="n">caption</span> <span class="k">style</span> <span class="s">&quot;nvl_menu_choice&quot;</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+
+                        <span class="k">text</span> <span class="n">caption</span> <span class="k">style</span> <span class="s">&quot;nvl_dialogue&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="notify">
+<span id="notify-screen"></span><h3>Notify<a class="headerlink" href="#notify" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">notify</span></tt> screen is used by <a class="reference internal" href="other.html#renpy.notify" title="renpy.notify"><tt class="xref py py-func docutils literal"><span class="pre">renpy.notify()</span></tt></a> to display
+notifications to the user. It's generally used in conjunction with a
+transform to handle the entire task of notification. It's given a
+single parameter:</p>
+<dl class="docutils">
+<dt><cite>message</cite></dt>
+<dd>The message to display.</dd>
+</dl>
+<p>The default notify screen, and its associated transform, are:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">notify</span><span class="p">:</span>
+    <span class="k">zorder</span> <span class="mi">100</span>
+
+    <span class="k">text</span> <span class="n">message</span> <span class="k">at</span> <span class="n">_notify_transform</span>
+
+    <span class="c"># This controls how long it takes between when the screen is</span>
+    <span class="c"># first shown, and when it begins hiding.</span>
+    <span class="k">timer</span> <span class="mf">3.25</span> <span class="na">action</span> <span class="n">Hide</span><span class="p">(</span><span class="s">&#39;notify&#39;</span><span class="p">)</span>
+
+<span class="k">transform</span> <span class="n">_notify_transform</span><span class="p">:</span>
+    <span class="c"># These control the position.</span>
+    <span class="na">xalign</span> <span class="o">.</span><span class="mo">02</span> <span class="na">yalign</span> <span class="o">.</span><span class="mo">015</span>
+
+    <span class="c"># These control the actions on show and hide.</span>
+    <span class="k">on</span> <span class="k">show</span><span class="p">:</span>
+        <span class="na">alpha</span> <span class="mi">0</span>
+        <span class="n">linear</span> <span class="o">.</span><span class="mi">25</span> <span class="na">alpha</span> <span class="mf">1.0</span>
+    <span class="k">on</span> <span class="k">hide</span><span class="p">:</span>
+        <span class="n">linear</span> <span class="o">.</span><span class="mi">5</span> <span class="na">alpha</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="menu-screens">
+<h2>Menu Screens<a class="headerlink" href="#menu-screens" title="Permalink to this headline">¶</a></h2>
+<p>These are the menu screens. The <tt class="docutils literal"><span class="pre">main_menu</span></tt> and <tt class="docutils literal"><span class="pre">yesno_prompt</span></tt> are
+invoked implictly.  When the user invokes the game menu, the screen
+named in <tt class="xref py py-data docutils literal"><span class="pre">_game_menu_screen</span></tt> will be displayed. (This defaults
+to <tt class="docutils literal"><span class="pre">save</span></tt>.)</p>
+<p>Remember, menu screens can be combined and modified fairly freely.</p>
+<div class="section" id="main-menu">
+<span id="main-menu-screen"></span><h3>Main Menu<a class="headerlink" href="#main-menu" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">main_menu</span></tt> screen is the first screen shown when the game
+begins.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">main_menu</span><span class="p">:</span>
+
+    <span class="c"># This ensures that any other menu screen is replaced.</span>
+    <span class="n">tag</span> <span class="k">menu</span>
+
+    <span class="c"># The background of the main menu.</span>
+    <span class="k">window</span><span class="p">:</span>
+        <span class="k">style</span> <span class="s">&quot;mm_root&quot;</span>
+
+    <span class="c"># The main menu buttons.</span>
+    <span class="k">frame</span><span class="p">:</span>
+        <span class="na">style_group</span> <span class="s">&quot;mm&quot;</span>
+        <span class="na">xalign</span> <span class="o">.</span><span class="mi">98</span>
+        <span class="na">yalign</span> <span class="o">.</span><span class="mi">98</span>
+
+        <span class="k">has</span> <span class="k">vbox</span>
+
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Start Game&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Start</span><span class="p">()</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Load Game&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;load&quot;</span><span class="p">)</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Preferences&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;preferences&quot;</span><span class="p">)</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Help&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Help</span><span class="p">()</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Quit&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Quit</span><span class="p">(</span><span class="n">confirm</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="c"># Make all the main menu buttons be the same size.</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">mm_button</span><span class="o">.</span><span class="na">size_group</span> <span class="o">=</span> <span class="s">&quot;mm&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="navigation">
+<span id="navigation-screen"></span><h3>Navigation<a class="headerlink" href="#navigation" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">navigation</span></tt> screen isn't special to Ren'Py. But by convention,
+we place the game menu navigation in a screen named <tt class="docutils literal"><span class="pre">navigation</span></tt>, and
+then use that screen from the save, load and preferences screens.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">navigation</span><span class="p">:</span>
+
+    <span class="c"># The background of the game menu.</span>
+    <span class="k">window</span><span class="p">:</span>
+        <span class="k">style</span> <span class="s">&quot;gm_root&quot;</span>
+
+    <span class="c"># The various buttons.</span>
+    <span class="k">frame</span><span class="p">:</span>
+        <span class="na">style_group</span> <span class="s">&quot;gm_nav&quot;</span>
+        <span class="na">xalign</span> <span class="o">.</span><span class="mi">98</span>
+        <span class="na">yalign</span> <span class="o">.</span><span class="mi">98</span>
+
+        <span class="k">has</span> <span class="k">vbox</span>
+
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Return&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Return</span><span class="p">()</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Preferences&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;preferences&quot;</span><span class="p">)</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Save Game&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;save&quot;</span><span class="p">)</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Load Game&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;load&quot;</span><span class="p">)</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Main Menu&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">MainMenu</span><span class="p">()</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Help&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Help</span><span class="p">()</span>
+        <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Quit&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Quit</span><span class="p">()</span>
+
+<span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">gm_nav_button</span><span class="o">.</span><span class="na">size_group</span> <span class="o">=</span> <span class="s">&quot;gm_nav&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="save">
+<span id="save-screen"></span><h3>Save<a class="headerlink" href="#save" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">save</span></tt> screen is used to select a file in which to save the
+game.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">save</span><span class="p">:</span>
+
+    <span class="c"># This ensures that any other menu screen is replaced.</span>
+    <span class="n">tag</span> <span class="k">menu</span>
+
+    <span class="k">use</span> <span class="n">navigation</span>
+
+    <span class="k">frame</span><span class="p">:</span>
+        <span class="k">has</span> <span class="k">vbox</span>
+
+        <span class="c"># The buttons at the top allow the user to pick a</span>
+        <span class="c"># page of files.</span>
+        <span class="k">hbox</span><span class="p">:</span>
+            <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Previous&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePagePrevious</span><span class="p">()</span>
+            <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Auto&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePage</span><span class="p">(</span><span class="s">&quot;auto&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="na">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+                <span class="k">textbutton</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePage</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Next&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePageNext</span><span class="p">()</span>
+
+        <span class="c"># Display a grid of file slots.</span>
+        <span class="k">grid</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="na">transpose</span> <span class="bp">True</span>
+            <span class="na">xfill</span> <span class="bp">True</span>
+
+            <span class="c"># Display ten file slots, numbered 1 - 10.</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="na">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+
+                <span class="c"># Each file slot is a button.</span>
+                <span class="k">button</span><span class="p">:</span>
+                    <span class="na">action</span> <span class="n">FileAction</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="na">xfill</span> <span class="bp">True</span>
+                    <span class="k">style</span> <span class="s">&quot;large_button&quot;</span>
+
+                    <span class="k">has</span> <span class="k">hbox</span>
+
+                    <span class="c"># Add the screenshot and the description to the</span>
+                    <span class="c"># button.</span>
+                    <span class="k">add</span> <span class="n">FileScreenshot</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="k">text</span> <span class="p">(</span> <span class="s">&quot; </span><span class="si">%2d</span><span class="s">. &quot;</span> <span class="o">%</span> <span class="n">i</span>
+                           <span class="o">+</span> <span class="n">FileTime</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">empty</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;Empty Slot.&quot;</span><span class="p">))</span>
+                           <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+                           <span class="o">+</span> <span class="n">FileSaveName</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">style</span> <span class="s">&quot;large_button_text&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="load">
+<span id="load-screen"></span><h3>Load<a class="headerlink" href="#load" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">load</span></tt> screen is used to select a file from which to load the
+game.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">load</span><span class="p">:</span>
+
+    <span class="c"># This ensures that any other menu screen is replaced.</span>
+    <span class="n">tag</span> <span class="k">menu</span>
+
+    <span class="k">use</span> <span class="n">navigation</span>
+
+    <span class="k">frame</span><span class="p">:</span>
+        <span class="k">has</span> <span class="k">vbox</span>
+
+        <span class="c"># The buttons at the top allow the user to pick a</span>
+        <span class="c"># page of files.</span>
+        <span class="k">hbox</span><span class="p">:</span>
+            <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Previous&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePagePrevious</span><span class="p">()</span>
+            <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Auto&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePage</span><span class="p">(</span><span class="s">&quot;auto&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="na">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+                <span class="k">textbutton</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePage</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Next&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePageNext</span><span class="p">()</span>
+
+        <span class="c"># Display a grid of file slots.</span>
+        <span class="k">grid</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="na">transpose</span> <span class="bp">True</span>
+            <span class="na">xfill</span> <span class="bp">True</span>
+
+            <span class="c"># Display ten file slots, numbered 1 - 10.</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="na">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+
+                <span class="c"># Each file slot is a button.</span>
+                <span class="k">button</span><span class="p">:</span>
+                    <span class="na">action</span> <span class="n">FileAction</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="na">xfill</span> <span class="bp">True</span>
+                    <span class="k">style</span> <span class="s">&quot;large_button&quot;</span>
+
+                    <span class="k">has</span> <span class="k">hbox</span>
+
+                    <span class="c"># Add the screenshot and the description to the</span>
+                    <span class="c"># button.</span>
+                    <span class="k">add</span> <span class="n">FileScreenshot</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="k">text</span> <span class="p">(</span> <span class="s">&quot; </span><span class="si">%2d</span><span class="s">. &quot;</span> <span class="o">%</span> <span class="n">i</span>
+                           <span class="o">+</span> <span class="n">FileTime</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">empty</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;Empty Slot.&quot;</span><span class="p">))</span>
+                           <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+                           <span class="o">+</span> <span class="n">FileSaveName</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">style</span> <span class="s">&quot;large_button_text&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="preferences">
+<span id="preferences-screen"></span><h3>Preferences<a class="headerlink" href="#preferences" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">preferences</span></tt> screen is used to select options that control the
+display of the game.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">preferences</span><span class="p">:</span>
+
+    <span class="n">tag</span> <span class="k">menu</span>
+
+    <span class="c"># Include the navigation.</span>
+    <span class="k">use</span> <span class="n">navigation</span>
+
+    <span class="c"># Put the navigation columns in a three-wide grid.</span>
+    <span class="k">grid</span> <span class="mi">3</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="na">style_group</span> <span class="s">&quot;prefs&quot;</span>
+        <span class="na">xfill</span> <span class="bp">True</span>
+
+        <span class="c"># The left column.</span>
+        <span class="k">vbox</span><span class="p">:</span>
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Display&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Window&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;display&quot;</span><span class="p">,</span> <span class="s">&quot;window&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Fullscreen&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;display&quot;</span><span class="p">,</span> <span class="s">&quot;fullscreen&quot;</span><span class="p">)</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Transitions&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;All&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;transitions&quot;</span><span class="p">,</span> <span class="s">&quot;all&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;None&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;transitions&quot;</span><span class="p">,</span> <span class="s">&quot;none&quot;</span><span class="p">)</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Text Speed&quot;</span><span class="p">)</span>
+                <span class="k">bar</span> <span class="na">value</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;text speed&quot;</span><span class="p">)</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Joystick...&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;joystick_preferences&quot;</span><span class="p">)</span>
+
+        <span class="k">vbox</span><span class="p">:</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Skip&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Seen Messages&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;skip&quot;</span><span class="p">,</span> <span class="s">&quot;seen&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;All Messages&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;skip&quot;</span><span class="p">,</span> <span class="s">&quot;all&quot;</span><span class="p">)</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Begin Skipping&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Skip</span><span class="p">()</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;After Choices&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Stop Skipping&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;after choices&quot;</span><span class="p">,</span> <span class="s">&quot;stop&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Keep Skipping&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;after choices&quot;</span><span class="p">,</span> <span class="s">&quot;skip&quot;</span><span class="p">)</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Auto-Forward Time&quot;</span><span class="p">)</span>
+                <span class="k">bar</span> <span class="na">value</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;auto-forward time&quot;</span><span class="p">)</span>
+
+        <span class="k">vbox</span><span class="p">:</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Music Volume&quot;</span><span class="p">)</span>
+                <span class="k">bar</span> <span class="na">value</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;music volume&quot;</span><span class="p">)</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Sound Volume&quot;</span><span class="p">)</span>
+                <span class="k">bar</span> <span class="na">value</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;sound volume&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="s">&quot;Test&quot;</span> <span class="na">action</span> <span class="n">Play</span><span class="p">(</span><span class="s">&quot;sound&quot;</span><span class="p">,</span> <span class="s">&quot;sound_test.ogg&quot;</span><span class="p">)</span> <span class="k">style</span> <span class="s">&quot;soundtest_button&quot;</span>
+
+            <span class="k">frame</span><span class="p">:</span>
+                <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
+                <span class="k">has</span> <span class="k">vbox</span>
+
+                <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Voice Volume&quot;</span><span class="p">)</span>
+                <span class="k">bar</span> <span class="na">value</span> <span class="n">Preference</span><span class="p">(</span><span class="s">&quot;voice volume&quot;</span><span class="p">)</span>
+                <span class="k">textbutton</span> <span class="s">&quot;Test&quot;</span> <span class="na">action</span> <span class="n">Play</span><span class="p">(</span><span class="s">&quot;voice&quot;</span><span class="p">,</span> <span class="s">&quot;voice_test.ogg&quot;</span><span class="p">)</span> <span class="k">style</span> <span class="s">&quot;soundtest_button&quot;</span>
+
+<span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="k">style</span><span class="o">.</span><span class="n">pref_frame</span><span class="o">.</span><span class="na">xfill</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">pref_frame</span><span class="o">.</span><span class="na">xmargin</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">pref_frame</span><span class="o">.</span><span class="na">top_margin</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="k">style</span><span class="o">.</span><span class="n">pref_vbox</span><span class="o">.</span><span class="na">xfill</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">style</span><span class="o">.</span><span class="n">pref_button</span><span class="o">.</span><span class="na">size_group</span> <span class="o">=</span> <span class="s">&quot;pref&quot;</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">pref_button</span><span class="o">.</span><span class="na">xalign</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="k">style</span><span class="o">.</span><span class="n">pref_slider</span><span class="o">.</span><span class="na">xmaximum</span> <span class="o">=</span> <span class="mi">192</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">pref_slider</span><span class="o">.</span><span class="na">xalign</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="k">style</span><span class="o">.</span><span class="n">soundtest_button</span><span class="o">.</span><span class="na">xalign</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="yesno-prompt">
+<span id="yesno-prompt-screen"></span><h3>Yesno_Prompt<a class="headerlink" href="#yesno-prompt" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">yesno_prompt</span></tt> message is used to ask yes/no choices of the
+user. It takes the following parameters:</p>
+<dl class="docutils">
+<dt><cite>message</cite></dt>
+<dd><p class="first">The message to display to the user. This is one of:</p>
+<ul class="simple">
+<li>layout.ARE_YOU_SURE - &quot;Are you sure?&quot; This should be
+the default if the message is unknown.</li>
+<li>layout.DELETE_SAVE - &quot;Are you sure you want to delete this save?&quot;</li>
+<li>layout.OVERWRITE_SAVE - &quot;Are you sure you want to overwrite your save?&quot;</li>
+<li>layout.LOADING - &quot;Loading will lose unsaved progress.nAre you sure you want to do this?&quot;</li>
+<li>layout.QUIT - &quot;Are you sure you want to quit?&quot;</li>
+<li>layout.MAIN_MENU - &quot;Are you sure you want to return to the mainnmenu? This will lose unsaved progress.&quot;</li>
+</ul>
+<p class="last">The values of the variables are strings, which means they can be
+displayed using a text displayable.</p>
+</dd>
+<dt><cite>yes_action</cite></dt>
+<dd>The action to run when the user picks &quot;Yes&quot;.</dd>
+<dt><cite>no_action</cite></dt>
+<dd>The action to run when the user picks &quot;No&quot;.</dd>
+</dl>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">yesno_prompt</span><span class="p">:</span>
+
+    <span class="n">modal</span> <span class="bp">True</span>
+
+    <span class="k">window</span><span class="p">:</span>
+        <span class="k">style</span> <span class="s">&quot;gm_root&quot;</span>
+
+    <span class="k">frame</span><span class="p">:</span>
+        <span class="na">style_group</span> <span class="s">&quot;yesno_prompt&quot;</span>
+
+        <span class="na">xfill</span> <span class="bp">True</span>
+        <span class="na">xmargin</span> <span class="mi">50</span>
+        <span class="na">ypadding</span> <span class="mi">25</span>
+        <span class="na">yalign</span> <span class="o">.</span><span class="mi">25</span>
+
+        <span class="k">vbox</span><span class="p">:</span>
+            <span class="na">xfill</span> <span class="bp">True</span>
+            <span class="na">spacing</span> <span class="mi">25</span>
+
+            <span class="k">text</span> <span class="n">_</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+                <span class="na">text_align</span> <span class="mf">0.5</span>
+                <span class="na">xalign</span> <span class="mf">0.5</span>
+
+            <span class="k">hbox</span><span class="p">:</span>
+                <span class="na">spacing</span> <span class="mi">100</span>
+                <span class="na">xalign</span> <span class="o">.</span><span class="mi">5</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Yes&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">yes_action</span>
+                <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;No&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">no_action</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="config.html" title="Configuration Variables"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="screen_actions.html" title="Screen Actions, Values, and Functions"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

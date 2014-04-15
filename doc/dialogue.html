@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>对话与叙述</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Displaying Images" href="displaying_images.html" />
+    <link rel="prev" title="Labels & Control Flow" href="label.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="displaying_images.html" title="Displaying Images"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="label.html" title="Labels & Control Flow"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">首页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">对话与叙述</a><ul>
+<li><a class="reference internal" href="#say-statement">Say命令</a></li>
+<li><a class="reference internal" href="#defining-character-objects">定义Character对象</a></li>
+<li><a class="reference internal" href="#say-with-image-attributes">带Image属性的say命令</a></li>
+<li><a class="reference internal" href="#example-characters">Character对象范例</a></li>
+<li><a class="reference internal" href="#special-characters">特殊的Character对象</a></li>
+<li><a class="reference internal" href="#dialogue-window-management">对话窗口管理</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="label.html"
+                        title="previous chapter">标签与控制流</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="displaying_images.html"
+                        title="next chapter">显示图像</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dialogue-and-narration">
+<h1>对话与叙述<a class="headerlink" href="#dialogue-and-narration" title="Permalink to this headline">¶</a></h1>
+<p>文本是视觉小说的基础，也是所有基于剧情的游戏的重要组成部分。文本是由对话和叙述组成的。（方便起见，我们将会把对话和叙述统称为对话，除非在某个方面它们之间会有很大的区别。）同样地，用户能够自由地调整对话窗口的外观也是很重要的。</p>
+<p>在Ren'Py中，大部分对话使用say命令来完成。对话的文本外观可以使用Character对象来为每名角色进行自定义。</p>
+<div class="section" id="say-statement">
+<span id="id1"></span><h2>Say命令<a class="headerlink" href="#say-statement" title="Permalink to this headline">¶</a></h2>
+<p>Say命令用于显示对话和叙述。因为它几乎总是在Ren'Py脚本中使用频率最高的一个命令，所以我们尽可能地简化了say命令的语法。以下是say命令的几个例子：</p>
+<div class="highlight-renpy"><div class="highlight"><pre>
+    <span class="s">&quot;这是叙述。&quot;</span>
+
+    <span class="s">&quot;Eileen&quot;</span> <span class="s">&quot;这是个对话，显式地提供了角色名称。&quot;</span>
+
+    <span class="n">e</span> <span class="s">&quot;这是使用了一个Character对象的对话。&quot;</span>
+
+    <span class="s">&quot;乓！&quot;</span> <span class="k">with</span> <span class="n">vpunch</span>
+</pre></div>
+</div>
+<p>say命令的第一种形式是一个字符串。这种形式用来显示叙述文本，而字符串的内容就是叙述的内容。</p>
+<p>say命令的第二种形式是两个字符串。第一个字符串是正在说话的角色名称，第二个是说话的内容。</p>
+<p>第三种形式是一个简单表达式，后面跟着一个字符串。简单表达式的值应该是一个字符串或者一个Character对象。如果是个Character对象的话，该对象将会被用于决定对话的外观以及其他设置。</p>
+<p>最后一种形式是一个字符串加上一个with从句。在上面这个例子里，该字符串将会被显示，同时屏幕会震动起来。</p>
+<p>尽管具体的细节是由该say命令使用的Character对象决定的，但通常情况下say命令被用于显示文本，并等待用户点击，然后从屏幕上消去该文本。</p>
+<p>在Ren'Py里，某些字符是特别的，因此在使用的时候应该特别注意。<tt class="docutils literal"><span class="pre">{</span></tt>字符是一个文本标记的开始字符，<tt class="docutils literal"><span class="pre">[</span></tt> 字符是一个文本替换的开始字符。若想在对话中使用它们，您必须双写它们。若想使用引号，您也必须先使用反斜杠来进行转移，以免它不正确地结束当前字符串。<s>栗</s>例子：</p>
+<div class="highlight-renpy"><div class="highlight"><pre>
+    <span class="s">&quot;我听到了一个基佬的怒吼，</span><span class="se">\&quot;</span><span class="s">让菊花盛开得更壮丽些吧！</span><span class="se">\&quot;</span><span class="s">&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="defining-character-objects">
+<h2>定义Character对象<a class="headerlink" href="#defining-character-objects" title="Permalink to this headline">¶</a></h2>
+<p>通过定义一个Character对象并在say命令中使用它，您可以自定义对话的外观（以及从某种程度上，对话的处理方式）。Character对象的创建方式是使用define命令将一个Character对象赋值给一个变量。如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">db</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;逗比&quot;</span><span class="p">,</span>
+                     <span class="n">who_color</span><span class="o">=</span><span class="s">&quot;#c8ffc8&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>定义好之后，就可以在say命令里使用这个Character对象了：</p>
+<div class="highlight-renpy"><div class="highlight"><pre>
+    <span class="n">db</span> <span class="s">&quot;大家好，我是逗比。&quot;</span>
+</pre></div>
+</div>
+<p>Character实际上是个python函数，而且有很多参数。这些参数将会控制该Character对象的行为。</p>
+<p>define命令会对提供的表达式求值，然后将其赋值给指定的名称。如果不在init区块内的话，define命令会自动以优先级0的init区块运行。（也就是说，无论您是否在init区块中使用define，define命令一定会在init区块内运行，且优先度默认为0。）</p>
+<dl class="function">
+<dt id="Character">
+<tt class="descname">Character</tt><big>(</big><em>name</em>, <em>kind=adv</em>, <em>**args</em><big>)</big><a class="headerlink" href="#Character" title="Permalink to this definition">¶</a></dt>
+<dd><p>创建并返回一个Character对象，用于控制对话和叙述的外观和行为。</p>
+<dl class="docutils">
+<dt><cite>name</cite></dt>
+<dd>如果是个字符串，那此字符串就是该角色的姓名。当
+<cite>name</cite>的值是<tt class="docutils literal"><span class="pre">None</span></tt>的时候，不会显示角色的名称，正如叙述的时候不会显示叙述者的名称一样。</dd>
+<dt><cite>kind</cite></dt>
+<dd>该Character对象的类型。如果提供此参数，所有其他未提供的参数值将采用<cite>kind</cite>指定的Character对象的参数。此参数可以用来创建一个模板Character对象，其他的Character对象可基于该模板对象，在其基础上稍作修改。</dd>
+</dl>
+<p><strong>关联图像</strong>
+一个Character对象可以与一个图像标记相关联。这将允许使用该角色的say命令显示一张与此标记相应的图像，也使得Ren'Py可以为该角色自动选择对话框头像。</p>
+<dl class="docutils">
+<dt><cite>image</cite></dt>
+<dd>指定与该Character对象关联的图像标记的字符串。</dd>
+</dl>
+<p><strong>语音标记</strong>
+若该Character对象拥有语音标记，则可以在设置界面内调整其语音音量。</p>
+<dl class="docutils">
+<dt><cite>voice_tag</cite></dt>
+<dd>该字符串将允许在设置界面调整该角色的语音音量。</dd>
+</dl>
+<p><strong>前缀与后缀</strong>
+使用这些参数，您可以在角色姓名和对话内容前后加上一些前缀和后缀。这可以用于为该角色的对话添加引号。</p>
+<dl class="docutils">
+<dt><cite>what_prefix</cite></dt>
+<dd>添加到对话内容之前的字符串。</dd>
+<dt><cite>what_suffix</cite></dt>
+<dd>添加到对话内容之后的字符串。</dd>
+<dt><cite>who_prefix</cite></dt>
+<dd>添加到角色姓名之前的字符串。</dd>
+<dt><cite>who_suffix</cite></dt>
+<dd>添加到角色姓名之后的字符串</dd>
+</dl>
+<p><strong>改变显示的姓名</strong>
+这些选项可以用来调整角色的姓名显示。</p>
+<dl class="docutils">
+<dt><cite>dynamic</cite></dt>
+<dd>若值为True，<cite>name</cite>应该是含python表达式的字符串。在该角色每次说话前，该字符串将被求值，求得的值将作为该角色的姓名。</dd>
+</dl>
+<p><strong>交互控制</strong>
+这些选项将会控制对话是否显示，交互是否发生，已经显示对话时Ren'Py进入的状态。</p>
+<dl class="docutils">
+<dt><cite>condition</cite></dt>
+<dd>如果提供该参数，它应该是含有一个python表达式的字符串。若该表达式值为False，则对话不会发生，就好像这条say命令不存在一样。</dd>
+<dt><cite>interact</cite></dt>
+<dd>如果值为True，也就是默认值，那么当对话被显示的时候将进入一个交互。若为False，则不会进入交互，在此时您可以向屏幕上添加其他的元素，然后手动进入交互状态。</dd>
+<dt><cite>mode</cite></dt>
+<dd>指定该角色说话时进入的系统状态的字符串。详情见<a class="reference internal" href="modes.html#modes"><em>系统状态</em></a>这一节。</dd>
+<dt><cite>callback</cite></dt>
+<dd>当该角色说话时某事件发生后调用的函数，详情见
+<a class="reference internal" href="character_callbacks.html#character-callbacks"><em>角色回调函数</em></a>这一节。此参数的值应该是一个能够接受并处理事件的函数。</dd>
+</dl>
+<p><strong>等待点击标志</strong>
+等待点击标志将会在所有的文本显示完毕之后出现，提示用户点击屏幕以继续。</p>
+<dl class="docutils">
+<dt><cite>ctc</cite></dt>
+<dd>此参数应该是一个作为等待点击标志的可显示对象，除非您提供一下更加详细的设置。</dd>
+<dt><cite>ctc_pause</cite></dt>
+<dd>当对话被{p}或者{w}暂停时，使用该可显示对象作为等待点击标志。</dd>
+<dt><cite>ctc_timedpause</cite></dt>
+<dd>当对话被{p=}或者{w=}暂停时，使用该可显示对象作为等待点击标志。若为None，将会使用ctc_pause的值。如果您想使用ctc_pause而不想要ctc_timedpause的话，请使用<tt class="docutils literal"><span class="pre">Null()</span></tt>作为此参数的值。
+</dd>
+<dt><cite>ctc_position</cite></dt>
+<dd>该参数控制等待点击标志的位置，若为
+<tt class="docutils literal"><span class="pre">&quot;nestled&quot;</span></tt>，该标志将会出现在文本最后一个字符的后面。若为<tt class="docutils literal"><span class="pre">&quot;fixed&quot;</span></tt>,
+，该标志将会出现在一个固定的位置，由位置样式属性决定。</dd>
+</dl>
+<p><strong>视屏</strong>
+对话的显示使用了一个<a class="reference internal" href="screens.html#screens"><em>视屏</em></a>。这些参数允许您选择相应的视屏，并向其提供参数。</p>
+<dl class="docutils">
+<dt><cite>screen</cite></dt>
+<dd>用于显示对话的视屏的名称。</dd>
+</dl>
+<p>以<tt class="docutils literal"><span class="pre">show_</span></tt>开始的关键字参数会把它们的值传递给此屏幕对应的参数（去掉show_这个前缀以后）。例如，<tt class="docutils literal"><span class="pre">show_side_image</span></tt>的值将会成为该视屏中<tt class="docutils literal"><span class="pre">side_image</span></tt> 的值。</p>
+<p>一些常用的<tt class="docutils literal"><span class="pre">show_</span></tt>变量已被整合到了默认的say视屏中，如：</p>
+<dl class="docutils">
+<dt><cite>show_side_image</cite></dt>
+<dd>当提供一个可显示对象作为参数时，将会在显示对话的同时显示该可显示对象。该对象的位置由它的位置属性控制。这个参数一般用于显示角色头像。</dd>
+<dt><cite>show_two_window</cite></dt>
+<dd>如果为True，那么姓名框和对话框将会是两个独立的窗口。</dd>
+</dl>
+<p><strong>调整文本样式和窗口样式</strong>
+以<tt class="docutils literal"><span class="pre">who_</span></tt>, <tt class="docutils literal"><span class="pre">what_</span></tt>, and
+<cite>window_</cite>开始的参数，去掉这些前缀之后，将会用于调整角色姓名，对话内容，以及包含两者的窗口的<a class="reference internal" href="style.html#styles"><em>样式属性</em></a>。</p>
+<p>比如，如果一个Character对象有关键字参数
+<tt class="docutils literal"><span class="pre">who_color=&quot;#c8ffc8&quot;</span></tt>，它的姓名将会变成绿色。<tt class="docutils literal"><span class="pre">window_background=&quot;frame.png&quot;</span></tt>这样的参数将会改变现实该角色对话窗口的背景。
+</p>
+<p>角色姓名，对话内容和窗口的样式属性也能通过<cite>who_style</cite>, <cite>what_style</cite>, 和
+<cite>window_style</cite>参数来设置。</p>
+</dd></dl>
+
+</div>
+<div class="section" id="say-with-image-attributes">
+<h2>带Image属性的say命令<a class="headerlink" href="#say-with-image-attributes" title="Permalink to this headline">¶</a></h2>
+<p>当一个Character对象带有图像标签的时候，say命令的第一部分和第二部分之间可以插入图像属性。</p>
+<p>在这种情况下，若当前该标签的图像正被显示在屏幕上，则Ren'Py会自动执行一条show命令，显示该图像标签以及相应属性对应的图像。若该标签的图像没有出现在屏幕上，Ren'Py会将图像属性用于显示对话框头像图片，但是并不会执行show命令。</p>
+<p>作为例子，可以看看下面的代码：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span> <span class="k">image</span><span class="o">=</span><span class="s">&quot;eileen&quot;</span><span class="p">)</span>
+
+<span class="k">label</span> <span class="n">start</span><span class="p">:</span>
+
+    <span class="k">show</span> <span class="n">eileen</span> <span class="n">mad</span>
+    <span class="n">e</span> <span class="s">&quot;我对你有些失望。&quot;</span>
+
+    <span class="n">e</span> <span class="n">happy</span> <span class="s">&quot;不过现在都无所谓了。&quot;</span>
+</pre></div>
+</div>
+<p>它等价于：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">)</span>
+
+<span class="k">label</span> <span class="n">start</span><span class="p">:</span>
+
+    <span class="k">show</span> <span class="n">eileen</span> <span class="n">mad</span>
+    <span class="n">e</span> <span class="s">&quot;我对你有些失望。&quot;</span>
+
+    <span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span>
+    <span class="n">e</span> <span class="s">&quot;不过现在都无所谓了。&quot;</span>
+</pre></div>
+</div>
+<p>若您希望当以此法改变图像时，有一个渐变特效的话，您可以将
+<a class="reference internal" href="config.html#var-config.say_attribute_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.say_attribute_transition</span></tt></a>设定为您希望的特效来达到这一点。</p>
+</div>
+<div class="section" id="example-characters">
+<h2>Character对象范例<a class="headerlink" href="#example-characters" title="Permalink to this headline">¶</a></h2>
+<p>下面是一些Character对象的范例：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c">#此Character对象的对话都在一对半角括号内。</span>
+<span class="k">define</span> <span class="n">skydark</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;skydark&quot;</span><span class="p">,</span> <span class="n">what_prefix</span><span class="o">=</span><span class="s">&#39;(&#39;</span><span class="p">,</span> <span class="n">what_suffix</span><span class="o">=</span><span class="s">&#39;)&#39;</span><span class="p">)</span>
+
+<span class="c">#此Character对象的名称由一个变量(player_name)决定。</span>
+<span class="k">define</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;player_name&quot;</span><span class="p">,</span> <span class="n">dynamic</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="special-characters">
+<h2>特殊的Character对象<a class="headerlink" href="#special-characters" title="Permalink to this headline">¶</a></h2>
+<p>有些Character对象是预定义的，会在特定场合下被自动使用。若您手动重新定义这些角色，则Ren'Py的某些行为将会被改变。但如果是无意中使用这些角色，则可能会造成一些意料之外的问题。</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">adv</span></tt></dt>
+<dd>Character对象默认的种类（即kind参数的默认值）。此Character对象只会在屏幕上显示一行对话。</dd>
+<dt><tt class="docutils literal"><span class="pre">nvl</span></tt></dt>
+<dd>在
+<a class="reference internal" href="nvl_mode.html#nvl-mode"><em>小说模式</em></a>中显示对话的Character对象，会在屏幕上显示多行对话。</dd>
+<dt><tt class="docutils literal"><span class="pre">narrator</span></tt></dt>
+<dd>用于显示叙述的Character对象，在没有角色姓名的say命令中使用。</dd>
+<dt><tt class="docutils literal"><span class="pre">name_only</span></tt></dt>
+<dd>在角色名称是字符串的say命令中使用的Character对象。Ren'Py会创建一个该对象的一个副本，将其名称设为接收到的字符串，然后使用新创建的Character对象来显示此对话。</dd>
+<dt><tt class="docutils literal"><span class="pre">centered</span></tt></dt>
+<dd>该Character对象的对话将显示在屏幕下方的正中央（与对话窗口的位置无关）。</dd>
+<dt><tt class="docutils literal"><span class="pre">vcentered</span></tt></dt>
+<dd>该Character对象的对话将显示在屏幕的正中央（与对话窗口的位置无关）。</dd>
+<dt><tt class="docutils literal"><span class="pre">extend</span></tt></dt>
+<dd><p class="first">A character that causes the last character to speak to say 用于延续前一个角色的对话的Character。这样，您可以在对话的过程中改变屏幕的内容。</p>
+<p class="last">extend在小说模式下也会正常地工作。</p>
+</dd>
+</dl>
+<p>例子：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c">#显示第一行对话，等待点击，改变表情，然后显示</span>
+<span class="c">#剩下的部分。</span>
+
+<span class="k">show</span> <span class="n">eileen</span> <span class="n">concerned</span>
+<span class="n">e</span> <span class="s">&quot;有时候，我心情不太好，比如大姨妈来了。&quot;</span>
+<span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span>
+<span class="n">extend</span> <span class="s">&quot;但是我一般能很快恢复过来！&quot;</span>
+
+<span class="c">#以下代码效果相似，唯一的不同在于第一行结束后没有等待点击。</span>
+<span class="c">#仅当玩家没有把文字速度设得很高的时候才有区别。</span> 
+<span class="k">show</span> <span class="n">eileen</span> <span class="n">concerned</span>
+<span class="n">e</span> <span class="s">&quot;有时候，我心情不太好，比如大姨妈来了。{nw}&quot;</span>
+<span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span>
+<span class="n">extend</span> <span class="s">&quot;但是我一般能很快恢复过来！&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dialogue-window-management">
+<h2>对话窗口管理<a class="headerlink" href="#dialogue-window-management" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py提供了几个命令，使您能够自由地控制对话窗口。在对话交互的过程中，对话窗口是不会被隐藏的，因此这些命令用于在非对话交互中控制对话窗口的出现和隐藏。</p>
+<p><tt class="docutils literal"><span class="pre">window</span> <span class="pre">show</span></tt></p>
+<p>window show命令会显示对话窗口。它可以带一个渐变特效作为参数，如果没有提供此参数，<a class="reference internal" href="config.html#var-config.window_show_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_show_transition</span></tt></a>
+将被使用。</p>
+<p><tt class="docutils literal"><span class="pre">window</span> <span class="pre">hide</span></tt></p>
+<p>window hide命令会隐藏对话窗口。它可以带一个渐变特效作为参数，如果没有提供此参数，<a class="reference internal" href="config.html#var-config.window_hide_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_hide_transition</span></tt></a>将被使用。</p>
+<p><tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt></p>
+<p>此命令将开启窗口自动管理。窗口将在<a class="reference internal" href="config.html#var-config.window_auto_show"><tt class="xref std std-var docutils literal"><span class="pre">config.window_auto_show</span></tt></a>中指定的命令前被显示（默认情况下是say命令）；在
+<a class="reference internal" href="config.html#var-config.window_auto_hide"><tt class="xref std std-var docutils literal"><span class="pre">config.window_auto_hide</span></tt></a>中指定的命令前被隐藏（默认情况下是scene命令）。</p>
+<p><tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt>命令使用<a class="reference internal" href="config.html#var-config.window_show_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_show_transition</span></tt></a>
+和<a class="reference internal" href="config.html#var-config.window_hide_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_hide_transition</span></tt></a>来显示和隐藏对话窗口。 <tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt>会在使用<tt class="docutils literal"><span class="pre">window</span> <span class="pre">show</span></tt>或<tt class="docutils literal"><span class="pre">window</span> <span class="pre">hide</span></tt>后无效。</p>
+<p>如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">window</span> <span class="k">show</span> <span class="c"># 以默认特效显示对话窗口。</span>
+<span class="k">pause</span>       <span class="c"># 对话窗口在此暂停过程中出现。</span>
+<span class="k">window</span> <span class="k">hide</span> <span class="c"># 隐藏对话窗口</span>
+<span class="k">pause</span>       <span class="c"># 对话窗口在此暂停过程中消失。</span>
+
+<span class="k">window</span> <span class="k">show</span> <span class="n">dissolve</span> <span class="c"># 以dissolve特效显示窗口。</span>
+<span class="k">pause</span>                <span class="c"># the window is shown during this pause.</span>
+<span class="k">window</span> <span class="k">hide</span> <span class="n">dissolve</span> <span class="c"># 以dissolve特效隐藏窗口。</span>
+<span class="k">pause</span>                <span class="c">#对话窗口在此暂停过程中消失。</span>
+
+
+<span class="k">window</span> <span class="na">auto</span>
+
+<span class="s">&quot;对话窗口将自动在该行之前出现。&quot;</span>
+<span class="k">pause</span>                <span class="c"># 窗口一直在屏幕上。</span>
+
+<span class="k">scene</span> <span class="n">bg</span> <span class="n">washington</span>  <span class="c">#窗口将在scene命令之前被隐藏。</span>
+<span class="k">with</span> <span class="n">dissolve</span>
+</pre></div>
+</div>
+<p>对话窗口管理命令受到设置中的“显示空窗口”的设定值的影响，具体见
+<a class="reference internal" href="screen_actions.html#Preference" title="Preference"><tt class="xref py py-func docutils literal"><span class="pre">Preference()</span></tt></a>。若此设定被设置为关闭状态，这些命令将会无效。</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="displaying_images.html" title="Displaying Images"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="label.html" title="Labels & Control Flow"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

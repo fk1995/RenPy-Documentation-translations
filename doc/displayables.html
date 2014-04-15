@@ -1,0 +1,787 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Displayables &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Transforms" href="transforms.html" />
+    <link rel="prev" title="Translation" href="translation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="transforms.html" title="Transforms"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="translation.html" title="Translation"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Displayables</a><ul>
+<li><a class="reference internal" href="#images">Images</a></li>
+<li><a class="reference internal" href="#image-like-displayables">Image-Like Displayables</a></li>
+<li><a class="reference internal" href="#dynamic-displayables">Dynamic Displayables</a></li>
+<li><a class="reference internal" href="#applying-transforms-to-displayables">Applying Transforms to Displayables</a></li>
+<li><a class="reference internal" href="#layout-boxes-and-grids">Layout Boxes and Grids</a></li>
+<li><a class="reference internal" href="#effects">Effects</a></li>
+<li><a class="reference internal" href="#image-manipulators">Image Manipulators</a></li>
+<li><a class="reference internal" href="#im-matrixcolor">im.MatrixColor</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="translation.html"
+                        title="previous chapter">Translation</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="transforms.html"
+                        title="next chapter">Transforms</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="displayables">
+<span id="id1"></span><h1>Displayables<a class="headerlink" href="#displayables" title="Permalink to this headline">¶</a></h1>
+<p>A displayable is an object that can be shown to the user. Ren'Py
+displayables can be used in many ways.</p>
+<ul class="simple">
+<li>Assignment to an image name using the image statement.</li>
+<li>Added to a screen using the screen language add statement.</li>
+<li>Assignment to certain config variables.</li>
+<li>Assignment to certain style properties.</li>
+</ul>
+<p>When a Ren'Py function or variable expects a displayable, there are
+four things that can be provided:</p>
+<ul class="simple">
+<li>An object of type Displayable, created by calling one of the
+functions given below.</li>
+<li>A string with a dot (.) in it. Such a string is interpreted as
+a filename by <a class="reference internal" href="#Image" title="Image"><tt class="xref py py-func docutils literal"><span class="pre">Image()</span></tt></a>.</li>
+<li>A color. A color may either be given as a hexidecimal color string in &quot;#rgb&quot;,
+&quot;#rgba&quot;, &quot;#rrggbb&quot;, or &quot;#rrggbbaa&quot; form, or an (r, g, b, a) tuple,
+where each component is an integer between 0 and 255. Colors are
+passed to <a class="reference internal" href="#Solid" title="Solid"><tt class="xref py py-func docutils literal"><span class="pre">Solid()</span></tt></a>.</li>
+<li>An image name. Any other string is interpreted as a reference to an
+image defined with the image statement.</li>
+</ul>
+<div class="section" id="images">
+<span id="id2"></span><h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
+<p>The most commonly used displayable is Image, which loads a file from
+disk and displays it. Since Image is so commonly used, when a string
+giving a filename is used in a context that expects a displayable, an
+Image is automatically created. The only time it's necessary to use
+Image directly is when you want to create an image with style
+properties.</p>
+<dl class="function">
+<dt id="Image">
+<tt class="descname">Image</tt><big>(</big><em>filename</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads an image from a file. <cite>filename</cite> is a
+string giving the name of the file.</p>
+<p><cite>filename</cite> should be a JPEG or PNG file with an appropriate
+extension.</p>
+</dd></dl>
+
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># These two lines are equivalent.</span>
+<span class="k">image</span> <span class="n">logo</span> <span class="o">=</span> <span class="s">&quot;logo.png&quot;</span>
+<span class="k">image</span> <span class="n">logo</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">)</span>
+
+<span class="c"># Using Image allows us to specify a default position as part of</span>
+<span class="c"># an image.</span>
+<span class="k">image</span> <span class="n">logo</span> <span class="n">right</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Loading an Image from from a file on disk and decoding it so it can be
+drawn to the screen takes a long amount of time. While measured in the
+tenths or hundreds of seconds, the duration of the loading process is
+long enough that it can prevent an acceptable framerate, and become
+annoying to the user.</p>
+<p>Since an Image is of a fixed size, and doesn't change in response to
+input, game state, or the size of the area available to it, an Image
+can be loaded before it is needed, and placed into an area of memory
+known as the image cache. Once an Image is decoded and in the cache,
+it can be quickly drawn to the screen.</p>
+<p>Ren'Py attempts to predict the images that will be used in the future,
+and loads them into the image cache before they are used. When space
+in the cache is needed for other images, Ren'Py will remove images
+that are no longer being used.</p>
+<p>By default, Ren'Py will predictively cache up to 8 screens worth of
+image data. (If your screen is 800x600, then a screen's worth of data
+is one 800x600 image, two 400x600 images, and so on.) This can be
+changed with the :var:config.image_cache_size configuration
+variable.</p>
+<p>Although the precise amount is dependent on implementation details and
+there is significant overhead, as a rule of thumb, each pixel in the
+image cache consumes 4 bytes of main memory and 4 bytes of video
+memory.</p>
+</div>
+<div class="section" id="image-like-displayables">
+<h2>Image-Like Displayables<a class="headerlink" href="#image-like-displayables" title="Permalink to this headline">¶</a></h2>
+<p>We call these displayables image-like because they take up a
+rectangular area of the screen, and do not react to input.  These
+differ from normal images by varying their size to fill an area
+(Frame, LiveTile, and Solid), or by allowing the user to specify their
+size (LiveComposite, LiveCrop, Null). They are not image manipulators.</p>
+<p>Image-like displayables take <a class="reference internal" href="style_properties.html#position-style-properties"><em>Position Style Properties</em></a>.</p>
+<dl class="function">
+<dt id="Flatten">
+<tt class="descname">Flatten</tt><big>(</big><em>child</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>This flattens <cite>child</cite>, which may be made up of multiple textures, into
+a single texture.</p>
+<p>Certain operations, like the alpha transform property, apply to every
+texture making up a displayable, which can yield incorrect results
+when the textures overlap on screen. Flatten creates a single texture
+from multiple textures, which can prevent this problem.</p>
+<p>Flatten is a relatively expensive operation, and so should only be used
+when absolutely required.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Frame">
+<tt class="descname">Frame</tt><big>(</big><em>image</em>, <em>left</em>, <em>top</em>, <em>right=None</em>, <em>bottom=None</em>, <em>tile=False</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>A displayable that resizes an image to fill the available area,
+while preserving the width and height of its borders.  is often
+used as the background of a window or button.</p>
+<div class="figure">
+<img alt="_images/frame_example.png" src="_images/frame_example.png" />
+<p class="caption">Using a frame to resize an image to double its size.</p>
+</div>
+<dl class="docutils">
+<dt><cite>image</cite></dt>
+<dd>An image manipulator that will be resized by this frame.</dd>
+<dt><cite>left</cite></dt>
+<dd>The size of the border on the left side.</dd>
+<dt><cite>top</cite></dt>
+<dd>The size of the border on the top.</dd>
+<dt><cite>right</cite></dt>
+<dd>The size of the border on the right side. If None, defaults
+to <cite>left</cite>.</dd>
+<dt><cite>bottom</cite></dt>
+<dd>The side of the border on the bottom. If None, defaults to <cite>top</cite>.</dd>
+<dt><cite>tile</cite></dt>
+<dd>If true, tiling is used to resize sections of the image,
+rather than scaling.</dd>
+</dl>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Resize the background of the text window if it&#39;s too small.</span>
+<span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="k">style</span><span class="o">.</span><span class="k">window</span><span class="o">.</span><span class="na">background</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="s">&quot;frame.png&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="LiveCrop">
+<tt class="descname">LiveCrop</tt><big>(</big><em>rect</em>, <em>child</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#LiveCrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This created a displayable by cropping <cite>child</cite> to <cite>rect</cite>, where
+<cite>rect</cite> is an (x, y, width, height) tuple.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">eileen</span> <span class="n">cropped</span> <span class="o">=</span> <span class="n">LiveCrop</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s">&quot;eileen happy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="LiveTile">
+<tt class="descname">LiveTile</tt><big>(</big><em>child</em>, <em>style='tile'</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#LiveTile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tiles <cite>child</cite> until it fills the area allocated to this displayable.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">bg</span> <span class="n">tile</span> <span class="o">=</span> <span class="n">LiveTile</span><span class="p">(</span><span class="s">&quot;bg.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="Null">
+<tt class="descname">Null</tt><big>(</big><em>width=0</em>, <em>height=0</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Null" title="Permalink to this definition">¶</a></dt>
+<dd><p>A displayable that creates an empty box on the screen. The size
+of the box is controlled by <cite>width</cite> and <cite>height</cite>. This can be used
+when a displayable requires a child, but no child is suitable, or
+as a spacer inside a box.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">logo</span> <span class="n">spaced</span> <span class="o">=</span> <span class="n">HBox</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="n">Null</span><span class="p">(</span><span class="na">width</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span> <span class="s">&quot;logo.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="Solid">
+<tt class="descname">Solid</tt><big>(</big><em>color</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Solid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A displayable that fills the area its assigned with <cite>color</cite>.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">white</span> <span class="o">=</span> <span class="n">Solid</span><span class="p">(</span><span class="s">&quot;#fff&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="dynamic-displayables">
+<h2>Dynamic Displayables<a class="headerlink" href="#dynamic-displayables" title="Permalink to this headline">¶</a></h2>
+<p>Dynamic displayables display a child displayable based on the state of
+the game. They do not take any properties, as layout is controlled
+by the properties of the child displayable they return.</p>
+<dl class="function">
+<dt id="ConditionSwitch">
+<tt class="descname">ConditionSwitch</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#ConditionSwitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a displayable that changes what it is showing based on
+python conditions. The positional argument should be given in
+groups of two, where each group consists of:</p>
+<ul class="simple">
+<li>A string containing a python condition.</li>
+<li>A displayable to use if the condition is true.</li>
+</ul>
+<p>The first true condition has its displayable shown, at least
+one condition should always be true.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">jill</span> <span class="o">=</span> <span class="n">ConditionSwitch</span><span class="p">(</span>
+    <span class="s">&quot;jill_beers &gt; 4&quot;</span><span class="p">,</span> <span class="s">&quot;jill_drunk.png&quot;</span><span class="p">,</span>
+    <span class="s">&quot;True&quot;</span><span class="p">,</span> <span class="s">&quot;jill_sober.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="DynamicDisplayable">
+<tt class="descname">DynamicDisplayable</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#DynamicDisplayable" title="Permalink to this definition">¶</a></dt>
+<dd><p>A displayable that can change its child based on a Python
+function, over the course of an interaction.</p>
+<dl class="docutils">
+<dt><cite>function</cite></dt>
+<dd><p class="first">A function that is called with the arguments:</p>
+<ul class="simple">
+<li>The amount of time the displayable has been shown for.</li>
+<li>The amount of time any displayable with the same tag has been shown for.</li>
+<li>Any positional or keyword arguments supplied to DynamicDisplayable.</li>
+</ul>
+<p>and should return a (d, redraw) tuple, where:</p>
+<ul class="simple">
+<li><cite>d</cite> is a displayable to show.</li>
+<li><cite>redraw</cite> is the amount of time to wait before calling the
+function again, or None to not call the function again
+before the start of the next interaction.</li>
+</ul>
+<p class="last"><cite>function</cite> is called at the start of every interaction.</p>
+</dd>
+</dl>
+<p>As a special case, <cite>function</cite> may also be a python string that evaluates
+to a displayable. In that case, function is run once per interaction.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># If tooltip is not empty, shows it in a text. Otherwise,</span>
+<span class="c"># show Null. Checks every tenth of a second to see if the</span>
+<span class="c"># tooltip has been updated.</span>
+<span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+     <span class="k">def</span> <span class="nf">show_tooltip</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="k">at</span><span class="p">):</span>
+         <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
+             <span class="k">return</span> <span class="n">tooltip</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span>
+         <span class="k">else</span><span class="p">:</span>
+             <span class="k">return</span> <span class="n">Null</span><span class="p">()</span>
+
+<span class="k">image</span> <span class="n">tooltipper</span> <span class="o">=</span> <span class="n">DynamicDisplayable</span><span class="p">(</span><span class="n">show_tooltip</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="ShowingSwitch">
+<tt class="descname">ShowingSwitch</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#ShowingSwitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a displayable that changes what it is showing based on the
+images are showing on the screen. The positional argument should
+be given in groups of two, where each group consists of:</p>
+<ul class="simple">
+<li>A string giving an image name, or None to indicate the default.</li>
+<li>A displayable to use if the condition is true.</li>
+</ul>
+<p>A default image should be specified.</p>
+<p>One use of ShowingSwitch is to have side images change depending on
+the current emotion of a character. For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span>
+    <span class="n">show_side_image</span><span class="o">=</span><span class="n">ShowingSwitch</span><span class="p">(</span>
+        <span class="s">&quot;eileen happy&quot;</span><span class="p">,</span> <span class="n">Image</span><span class="p">(</span><span class="s">&quot;eileen_happy_side.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="s">&quot;eileen vhappy&quot;</span><span class="p">,</span> <span class="n">Image</span><span class="p">(</span><span class="s">&quot;eileen_vhappy_side.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="bp">None</span><span class="p">,</span> <span class="n">Image</span><span class="p">(</span><span class="s">&quot;eileen_happy_default.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="applying-transforms-to-displayables">
+<h2>Applying Transforms to Displayables<a class="headerlink" href="#applying-transforms-to-displayables" title="Permalink to this headline">¶</a></h2>
+<p>The At function produces a displayable from a displayable and one or
+more <a class="reference internal" href="transforms.html#transforms"><em>transforms</em></a>.</p>
+<dl class="function">
+<dt id="At">
+<tt class="descname">At</tt><big>(</big><em>d</em>, <em>*args</em><big>)</big><a class="headerlink" href="#At" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a displayable <cite>d</cite>, applies each of the transforms in <cite>args</cite>
+to it. The transforms are applied in left-to-right order, so that
+the outermost transform is the rightmost argument.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">transform</span> <span class="n">birds_transform</span><span class="p">:</span>
+     <span class="na">xpos</span> <span class="o">-</span><span class="mi">200</span>
+     <span class="n">linear</span> <span class="mi">10</span> <span class="na">xpos</span> <span class="mi">800</span>
+     <span class="k">pause</span> <span class="mi">20</span>
+     <span class="k">repeat</span>
+
+<span class="k">image</span> <span class="n">birds</span> <span class="o">=</span> <span class="n">At</span><span class="p">(</span><span class="s">&quot;birds.png&quot;</span><span class="p">,</span> <span class="n">birds_transform</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="layout-boxes-and-grids">
+<h2>Layout Boxes and Grids<a class="headerlink" href="#layout-boxes-and-grids" title="Permalink to this headline">¶</a></h2>
+<p>Layout boxes are displayables that lay out their children on the
+screen. They can lay out the children in a horizontal or vertical
+manner, or can lay them out using the standard positioning algorithm.</p>
+<p>The box displayables take any number of positional and keyword
+arguments. Positional arguments should be displayables that are
+added to the box as children. Keyword arguments are style properties
+that are applied to the box.</p>
+<p>Boxes take <a class="reference internal" href="style_properties.html#position-style-properties"><em>Position Style Properties</em></a> and <a class="reference internal" href="style_properties.html#box-style-properties"><em>Box Style Properties</em></a>.</p>
+<dl class="function">
+<dt id="Fixed">
+<tt class="descname">Fixed</tt><big>(</big><em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Fixed" title="Permalink to this definition">¶</a></dt>
+<dd><p>A box that fills the screen. Its members are laid out
+from back to front, with their position properties
+controlling their position.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="HBox">
+<tt class="descname">HBox</tt><big>(</big><em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#HBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>A box that lays out its members from left to right.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="VBox">
+<tt class="descname">VBox</tt><big>(</big><em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#VBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>A layout that lays out its members from top to bottom.</p>
+</dd></dl>
+
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Display two logos, to the left and right of each other.</span>
+<span class="k">image</span> <span class="n">logo</span> <span class="k">hbox</span> <span class="o">=</span> <span class="n">HBox</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="s">&quot;logo.png&quot;</span><span class="p">)</span>
+
+<span class="c"># Display two logos, one on top of the other.</span>
+<span class="k">image</span> <span class="n">logo</span> <span class="k">vbox</span> <span class="o">=</span> <span class="n">VBox</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="s">&quot;logo.png&quot;</span><span class="p">)</span>
+
+<span class="c"># Display two logos. Since both default to the upper-left</span>
+<span class="c"># corner of the screen, we need to use Image to place</span>
+<span class="c"># those logos on the screen.</span>
+<span class="k">image</span> <span class="n">logo</span> <span class="k">fixed</span> <span class="o">=</span> <span class="n">Fixed</span><span class="p">(</span>
+    <span class="n">Image</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.0</span><span class="p">),</span>
+    <span class="n">Image</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The Grid layout displays its children in a grid on the screen. It takes
+<a class="reference internal" href="style_properties.html#position-style-properties"><em>Position Style Properties</em></a> and the <a class="reference internal" href="style_properties.html#style-property-spacing"><tt class="xref std std-propref docutils literal"><span class="pre">spacing</span></tt></a> style
+property.</p>
+<dl class="function">
+<dt id="Grid">
+<tt class="descname">Grid</tt><big>(</big><em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lays out displayables in a a grid. The first two positional arguments
+are the number of columns and rows in the grid. This must be followed
+by <cite>columns * rows</cite> positional arguments giving the displayables that
+fill the grid.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="effects">
+<h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
+<p>These displayables are used to create certain visual effects.</p>
+<dl class="function">
+<dt id="AlphaBlend">
+<tt class="descname">AlphaBlend</tt><big>(</big><em>control</em>, <em>old</em>, <em>new</em>, <em>alpha=False</em><big>)</big><a class="headerlink" href="#AlphaBlend" title="Permalink to this definition">¶</a></dt>
+<dd><p>This transition uses a <cite>control</cite> displayable (almost always some sort of
+animated transform) to transition from one displayable to another. The
+transform is evaluated. The <cite>new</cite> displayable is used where the transform
+is opaque, and the <cite>old</cite> displayable is used when it is transparent.</p>
+<dl class="docutils">
+<dt><cite>alpha</cite></dt>
+<dd>If true, the image is composited with what's behind it. If false,
+the default, the image is opaque and overwrites what's behind it.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="image-manipulators">
+<h2>Image Manipulators<a class="headerlink" href="#image-manipulators" title="Permalink to this headline">¶</a></h2>
+<p>An image manipulator is a displayable that takes an image or image
+manipulator, performs an operation to it, and stores the result of
+that operation in the image cache. Since image manipulators can be
+predicted like images, they can perform expensive operations without
+incuring a display-time overhead.</p>
+<p>Image manipulators are limited to storing image data to the
+cache. This means that their result is of a fixed size, known in
+advance, and they can't change in response to game state or
+input. Generally, image manipulators can only take images or other
+image manipulators as input.</p>
+<p>An image manipulator can be used any place a displayable can, but not
+vice-versa. An <a class="reference internal" href="#Image" title="Image"><tt class="xref py py-func docutils literal"><span class="pre">Image()</span></tt></a> is a kind of image manipulator, so an
+Image can be used whenever an image manipulator is required.</p>
+<p>Many image manipulators provide the same functionality as other
+displayables. Most of these exist so they can be provided as input to
+other image manipulators, and so the game-maker can choose between
+cache memory usage and work done at render-time. There's also an
+element of historical accident here - many of these image manipulators
+predate their equivalents.</p>
+<dl class="function">
+<dt id="im.AlphaMask">
+<tt class="descclassname">im.</tt><tt class="descname">AlphaMask</tt><big>(</big><em>base</em>, <em>mask</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.AlphaMask" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image manipulator that takes two image manipulators, <cite>base</cite> and
+<cite>mask</cite>, as arguments. It replaces the alpha channel of <cite>base</cite> with
+the red channel of <cite>mask</cite>.</p>
+<p>This is used to provide an image's alpha channel in a second
+image, like having one jpeg for color data, and a second one
+for alpha. In some cases, two jpegs can be smaller than a
+single png file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.Composite">
+<tt class="descclassname">im.</tt><tt class="descname">Composite</tt><big>(</big><em>size</em>, <em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Composite" title="Permalink to this definition">¶</a></dt>
+<dd><p>This image manipulator composites multiple images together to
+form a single image.</p>
+<p>The <cite>size</cite> should be a (width, height) tuple giving the size
+of the composed image.</p>
+<p>The remaining positional arguments are interpreted as groups of
+two. The first argument in a group should be an (x, y) tuple,
+while the second should be an image manipulator. The image
+produced by the image manipulator is composited at the location
+given by the tuple.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">girl</span> <span class="n">clothed</span> <span class="n">happy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">Composite</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s">&quot;girl_body.png&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s">&quot;girl_clothes.png&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s">&quot;girl_happy.png&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.Crop">
+<tt class="descclassname">im.</tt><tt class="descname">Crop</tt><big>(</big><em>im</em>, <em>rect</em><big>)</big><a class="headerlink" href="#im.Crop" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image manipulator that crops <cite>rect</cite>, a (x, y, width, height) tuple,
+out of <cite>im</cite>, an image manipulator.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">logo</span> <span class="na">crop</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">Crop</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">307</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.FactorScale">
+<tt class="descclassname">im.</tt><tt class="descname">FactorScale</tt><big>(</big><em>im</em>, <em>width</em>, <em>height=None</em>, <em>bilinear=True</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.FactorScale" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image manipulator that scales <cite>im</cite> (a second image manipulator)
+to <cite>width</cite> times its original <cite>width</cite>, and <cite>height</cite> times its
+original height. If <cite>height</cite> is ommitted, it defaults to <cite>width</cite>.</p>
+<p>If <cite>bilinear</cite> is true, then bilinear interpolation is used for
+the scaling. Otherwise, nearest neighbor interpolation is used.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">logo</span> <span class="n">doubled</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">FactorScale</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.Flip">
+<tt class="descclassname">im.</tt><tt class="descname">Flip</tt><big>(</big><em>im</em>, <em>horizontal=False</em>, <em>vertical=False</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Flip" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image manipulator that flips <cite>im</cite> (an image manipulator)
+vertically or horizontally.  <cite>vertical</cite> and <cite>horizontal</cite> control
+the directions in which the image is flipped.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">eileen</span> <span class="n">flip</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">Flip</span><span class="p">(</span><span class="s">&quot;eileen_happy.png&quot;</span><span class="p">,</span> <span class="na">vertical</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.Grayscale">
+<tt class="descclassname">im.</tt><tt class="descname">Grayscale</tt><big>(</big><em>im</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Grayscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image manipulator that creats a desaturated version of the image
+manipulator <cite>im</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.Scale">
+<tt class="descclassname">im.</tt><tt class="descname">Scale</tt><big>(</big><em>im</em>, <em>width</em>, <em>height</em>, <em>bilinear=True</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image manipulator that scales <cite>im</cite> (an image manipulator) to
+<cite>width</cite> and <cite>height</cite>.</p>
+<p>If <cite>bilinear</cite> is true, then bilinear interpolation is used for
+the scaling. Otherwise, nearest neighbor interpolation is used.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">logo</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.Sepia">
+<tt class="descclassname">im.</tt><tt class="descname">Sepia</tt><big>(</big><em>im</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Sepia" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image manipulator that creates a sepia-toned version of the image
+manipulator <cite>im</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.Tile">
+<tt class="descclassname">im.</tt><tt class="descname">Tile</tt><big>(</big><em>im</em>, <em>size=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image manipulator that tiles the image manipulator <cite>im</cite>, until
+it is <cite>size</cite>.</p>
+<dl class="docutils">
+<dt><cite>size</cite></dt>
+<dd>If not None, a (width, height) tuple. If None, this defaults to
+(<a class="reference internal" href="config.html#var-config.screen_width"><tt class="xref std std-var docutils literal"><span class="pre">config.screen_width</span></tt></a>, <a class="reference internal" href="config.html#var-config.screen_height"><tt class="xref std std-var docutils literal"><span class="pre">config.screen_height</span></tt></a>).</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="im-matrixcolor">
+<h2>im.MatrixColor<a class="headerlink" href="#im-matrixcolor" title="Permalink to this headline">¶</a></h2>
+<p>The im.MatrixColor image manipulator is an image manipulator that uses
+a matrix to control how the colors of an image are transformed. The
+matrix used can be an im.matrix object, which encodes a 5x5 matrix in
+an object that supports matrix multiplication, and is returned by a
+series of functions. im.matrix objects may be multiplied together to
+yield a second object that performs both operations. For example, the
+code:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">city</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">MatrixColor</span><span class="p">(</span>
+    <span class="s">&quot;city.jpg&quot;</span><span class="p">,</span>
+    <span class="n">im</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">desaturate</span><span class="p">()</span> <span class="o">*</span> <span class="n">im</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">tint</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>first desaturates the image, and then tints it blue. When the
+intermediate image is not needed, multiplying matrices is far
+more efficient, in both time and image cache space, than using
+two im.MatrixColors.</p>
+<dl class="function">
+<dt id="im.MatrixColor">
+<tt class="descclassname">im.</tt><tt class="descname">MatrixColor</tt><big>(</big><em>im</em>, <em>matrix</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.MatrixColor" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image operator that uses <cite>matrix</cite> to linearly transform the
+image manipulator <cite>im</cite>.</p>
+<p><cite>Matrix</cite> should be a list, tuple, or <a class="reference internal" href="#im.matrix" title="im.matrix"><tt class="xref py py-func docutils literal"><span class="pre">im.matrix()</span></tt></a> that is 20
+or 25 elements long. If the object has 25 elements, then elements
+past the 20th are ignored.</p>
+<p>When the four components of the source color are R, G, B, and A,
+which range from 0.0 to 1.0; the four components of the transformed
+color are R', G', B', and A', with the same range; and the elements
+of the matrix are named:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="p">[</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span>
+  <span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span>
+  <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span>
+  <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>the transformed colors can be computed with the formula:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">R&#39; = (a * R) + (b * G) + (c * B) + (d * A) + e</span>
+<span class="n">G</span><span class="s">&#39; = (f * R) + (g * G) + (h * B) + (i * A) + j</span>
+<span class="n">B</span><span class="s">&#39; = (k * R) + (l * G) + (m * B) + (n * A) + o</span>
+<span class="n">A</span><span class="s">&#39; = (p * R) + (q * G) + (r * B) + (s * A) + t</span>
+</pre></div>
+</div>
+<p>The components of the transformed color are clamped to the
+range [0.0, 1.0].</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix">
+<tt class="descclassname">im.</tt><tt class="descname">matrix</tt><big>(</big><big>)</big><a class="headerlink" href="#im.matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs an im.matrix object from <cite>matrix</cite>. im.matrix objects
+support The operations supported are matrix multiplication, scalar
+multiplication, element-wise addition, and element-wise
+subtraction. These operations are invoked using the standard
+mathematical operators (*, *, +, and -, respectively). If two
+im.matrix objects are multiplied, matrix multiplication is
+performed, otherwise scalar multiplication is used.</p>
+<p><cite>matrix</cite> is a 20 or 25 element list or tuple. If it is 20 elements
+long, it is padded with (0, 0, 0, 0, 1) to make a 5x5 matrix,
+suitable for multiplication.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.brightness">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">brightness</tt><big>(</big><em>b</em><big>)</big><a class="headerlink" href="#im.matrix.brightness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an im.matrix that alters the brightness of an image.</p>
+<dl class="docutils">
+<dt><cite>b</cite></dt>
+<dd>The amount of change in image brightness. This should be
+a number between -1 and 1, with -1 the darkest possible
+image and 1 the brightest.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.colorize">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">colorize</tt><big>(</big><em>black_color</em>, <em>white_color</em><big>)</big><a class="headerlink" href="#im.matrix.colorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an im.matrix that colorizes a black and white image.
+<cite>black_color</cite> and <cite>white_color</cite> are Ren'Py style colors, so
+they may be specfied as strings or tuples of (0-255) color
+values.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># This makes black colors red, and white colors blue.</span>
+<span class="k">image</span> <span class="n">logo</span> <span class="n">colored</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">MatrixColor</span><span class="p">(</span>
+    <span class="s">&quot;bwlogo.png&quot;</span><span class="p">,</span>
+    <span class="n">im</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">colorize</span><span class="p">(</span><span class="s">&quot;#f00&quot;</span><span class="p">,</span> <span class="s">&quot;#00f&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.contrast">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">contrast</tt><big>(</big><em>c</em><big>)</big><a class="headerlink" href="#im.matrix.contrast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an im.matrix that alters the contrast of an image. <cite>c</cite> should
+be greater than 0.0, with values between 0.0 and 1.0 decreasing contrast, and
+values greater than 1.0 increasing contrast.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.desaturate">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">desaturate</tt><big>(</big><big>)</big><a class="headerlink" href="#im.matrix.desaturate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an im.matrix that desaturates the image (makes it
+grayscale). This is equivalent to calling
+im.matrix.saturation(0).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.hue">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">hue</tt><big>(</big><em>h</em><big>)</big><a class="headerlink" href="#im.matrix.hue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an im.matrix that rotates the hue by <cite>h</cite> degrees, while
+preserving luminosity.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.identity">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">identity</tt><big>(</big><big>)</big><a class="headerlink" href="#im.matrix.identity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an identity matrix, one that does not change color or
+alpha.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.invert">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">invert</tt><big>(</big><big>)</big><a class="headerlink" href="#im.matrix.invert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an im.matrix that inverts the red, green, and blue
+channels of the image without changing the alpha channel.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.opacity">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">opacity</tt><big>(</big><em>o</em><big>)</big><a class="headerlink" href="#im.matrix.opacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an im.matrix that alters the opacity of an image. An
+<cite>o</cite> of 0.0 is fully transparent, while 1.0 is fully opaque.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.saturation">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">saturation</tt><big>(</big><em>level</em>, <em>desat=(0.2126</em>, <em>0.7152</em>, <em>0.0722)</em><big>)</big><a class="headerlink" href="#im.matrix.saturation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an im.matrix that alters the saturation of an
+image. The alpha channel is untouched.</p>
+<dl class="docutils">
+<dt><cite>level</cite></dt>
+<dd>The amount of saturation in the resulting image. 1.0 is
+the unaltered image, while 0.0 is grayscale.</dd>
+<dt><cite>desat</cite></dt>
+<dd>This is a 3-element tuple that controls how much of the
+red, green, and blue channels will be placed into all
+three channels of a fully desaturated image. The default
+is based on the constants used for the luminance channel
+of an NTSC television signal. Since the human eye is
+mostly sensitive to green, more of the green channel is
+kept then the other two channels.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="im.matrix.tint">
+<tt class="descclassname">im.matrix.</tt><tt class="descname">tint</tt><big>(</big><em>r</em>, <em>g</em>, <em>b</em><big>)</big><a class="headerlink" href="#im.matrix.tint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an im.matrix that tints an image, without changing
+the alpha channel. <cite>r</cite>, <cite>g</cite>, and <cite>b</cite> should be numbers between
+0 and 1, and control what fraction of the given channel is
+placed into the final image. (For example, if <cite>r</cite> is .5, and
+the value of the red channel is 100, the transformed color
+will have a red value of 50.)</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="transforms.html" title="Transforms"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="translation.html" title="Translation"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

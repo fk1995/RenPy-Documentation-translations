@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>显示图像</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="In-Game Menus" href="menus.html" />
+    <link rel="prev" title="Dialogue and Narration" href="dialogue.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="menus.html" title="In-Game Menus"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="dialogue.html" title="Dialogue and Narration"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">显示图像</a><ul>
+<li><a class="reference internal" href="#concepts">概念</a><ul>
+<li><a class="reference internal" href="#image">图像</a></li>
+<li><a class="reference internal" href="#layer">层</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#image-statement">Image命令</a></li>
+<li><a class="reference internal" href="#show-statement">Show命令</a></li>
+<li><a class="reference internal" href="#scene-statement">Scene命令</a></li>
+<li><a class="reference internal" href="#hide-statement">Hide命令</a></li>
+<li><a class="reference internal" href="#with-statement">With命令</a><ul>
+<li><a class="reference internal" href="#with-none">With None的用法</a></li>
+<li><a class="reference internal" href="#with-clause-of-scene-show-and-hide-statements">Scene,show,hide命令的With从句</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hide-and-show-window">隐藏与显示对话窗口</a></li>
+<li><a class="reference internal" href="#image-functions">图像相关函数</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="dialogue.html"
+                        title="previous chapter">对话与叙述</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="menus.html"
+                        title="next chapter">游戏内选项</a></p>
+            <h4>搜索</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="displaying-images">
+<span id="id1"></span><h1>显示图像<a class="headerlink" href="#displaying-images" title="Permalink to this headline">¶</a></h1>
+<p>视觉小说，顾名思义，重点在于能看到的东西。Ren'Py拥有四条控制图像显示的命令，以及一套决定图像显示顺序的规则。因此，想要像在一般视觉小说以及游戏剧情里那样显示图像是一件很容易的事。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">image</span></tt> - 定义一张新图像。</li>
+<li><tt class="docutils literal"><span class="pre">show</span></tt> - 在一个层上显示一张图像。</li>
+<li><tt class="docutils literal"><span class="pre">scene</span></tt> - 清空一个层，然后可以在它上面显示一张图像。</li>
+<li><tt class="docutils literal"><span class="pre">hide</span></tt> -从一个层上移除一张图像。</li>
+</ul>
+<p>瞬间的图片显示/消失会让玩家感觉不适，所以Ren'Py还有<tt class="docutils literal"><span class="pre">with</span></tt>命令，允许您为图片的隐藏和显示添加特效。</p>
+<div class="section" id="concepts">
+<h2>概念<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="image">
+<h3>图像<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
+<p>图像是一种可以被show命令显示在屏幕上的对象。它由图像名称和一个可显示对象组成。当图像被显示屏幕上时，相应的可显示对象将出现在屏幕上。</p>
+<p><em class="dfn">图像名称</em>由一个或几个名称构成，以空格分开。图像名称中的第一个部分称为<em class="dfn">图像标记</em>，之后的部分称为<em class="dfn">图像属性</em>.</p>
+<p>比如说，这是个图像名称<tt class="docutils literal"><span class="pre">mary</span> <span class="pre">beach</span> <span class="pre">night</span> <span class="pre">happy</span></tt>。图像标记是<tt class="docutils literal"><span class="pre">mary</span></tt>，图像属性是<tt class="docutils literal"><span class="pre">beach</span></tt>, <tt class="docutils literal"><span class="pre">night</span></tt>,
+和<tt class="docutils literal"><span class="pre">happy</span></tt>。</p>
+<p>可显示对象，就如它的名字一样，是可以显示在屏幕上的对象。最常见的可显示对象是静态图像，可以通过提供文件名字符串的方式来指定。在上面这个例子中，我们可以使用<tt class="docutils literal"><span class="pre">&quot;mary_beach_night_happy.png&quot;</span></tt>作为该文件的名称。
+然而，图像可以是<a class="reference internal" href="displayables.html#displayables"><em>任意的可显示对象</em></a>，而不仅仅是静态图像。因此，显示图像的命令也能用于显示动画，色块，以及其他类型的可显示对象。</p>
+</div>
+<div class="section" id="layer">
+<h3>层<a class="headerlink" href="#layer" title="Permalink to this headline">¶</a></h3>
+<p>层由一系列在屏幕上的可显示对象构成。Ren'Py支持多层显示，包括自定义的层。层的优先度是固定的，由
+<a class="reference internal" href="config.html#var-config.layers"><tt class="xref std std-var docutils literal"><span class="pre">config.layers</span></tt></a>变量决定；同一层内的可显示对象的优先度是由show和scene的使用顺序以及它们接受的参数决定的。</p>
+<p>以下为Ren'Py内预定义的层：</p>
+<dl class="docutils">
+<dt>master</dt>
+<dd>默认情况下，scene，show和hide命令对该层操作。它一般用于显示背景和人物立绘。</dd>
+<dt>transient</dt>
+<dd>ui系列函数默认使用的层。该层将在每个交互结束后被清空。</dd>
+<dt>screens</dt>
+<dd>screen系统使用的层。</dd>
+<dt>overlay</dt>
+<dd>当ui函数在overlay函数里被调用时使用的层，该层将在每个交互开始时被清空。</dd>
+</dl>
+<p>通过改变<a class="reference internal" href="config.html#var-config.layers"><tt class="xref std std-var docutils literal"><span class="pre">config.layers</span></tt></a>的值，您可以添加新的层。使用
+<a class="reference internal" href="statement_equivalents.html#renpy.layer_at_list" title="renpy.layer_at_list"><tt class="xref py py-func docutils literal"><span class="pre">renpy.layer_at_list()</span></tt></a>您可以将一个或多个变换应用到某个层上。</p>
+<p>值得一提的是，以上4个层中只有master是常用的，您一般不需要手动对screen层进行操作，而overlay和transition层所相关的ui函数基本上已经被方便的视屏语法所取代，因而也并不常用了。</p>
+</div>
+</div>
+<div class="section" id="image-statement">
+<span id="id2"></span><h2>Image命令<a class="headerlink" href="#image-statement" title="Permalink to this headline">¶</a></h2>
+<p>image命令用于定义图像。image命令由一个逻辑行构成，由关键字<tt class="docutils literal"><span class="pre">image</span></tt>开始，后面是图像名称，等号(<tt class="docutils literal"><span class="pre">=</span></tt>)，和一个可显示对象。例：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="o">=</span> <span class="s">&quot;eileen_happy.png&quot;</span>
+<span class="k">image</span> <span class="n">black</span> <span class="o">=</span> <span class="s">&quot;#000&quot;</span>
+<span class="k">image</span> <span class="n">bg</span> <span class="n">tiled</span> <span class="o">=</span> <span class="n">LiveTile</span><span class="p">(</span><span class="s">&quot;tile.jpg&quot;</span><span class="p">)</span>
+
+<span class="k">image</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="n">question</span> <span class="o">=</span> <span class="n">VBox</span><span class="p">(</span>
+    <span class="s">&quot;question.png&quot;</span><span class="p">,</span>
+    <span class="s">&quot;eileen_happy.png&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>image命令必须在剧情代码前的初始化阶段运行。当不在init区块的时候，image命令仍然会在初始化阶段运行，就好像它们位于一个优先度0的init区块一般（与define命令的处理方法类似）。</p>
+<p>您也可以参考<a class="reference internal" href="atl.html#atl-image-statement"><em>image命令的ATL变体</em></a>。</p>
+</div>
+<div class="section" id="show-statement">
+<span id="id3"></span><h2>Show命令<a class="headerlink" href="#show-statement" title="Permalink to this headline">¶</a></h2>
+<p>命令用于将图像显示在某一层上。show命令同样占一个逻辑行，以关键字<tt class="docutils literal"><span class="pre">show</span></tt>开始，后面是一个图像名称，然后是0个或多个属性。</p>
+<p>如果show命令获得的图像姓名已被定义，那么该图像将被显示。否则，Ren'Py将会试图以下面的方式找到一张唯一的图像：</p>
+<ul class="simple">
+<li>此图像的图像标记与show命令里提供的相同。</li>
+<li>此图像的所有图像属性与show命令里的相同。</li>
+<li>若相同标记的图像已被显示，与该图像最大限度地共用图像属性。</li>
+</ul>
+<p>若依此法无法确定到一张唯一的图像（多个或是没有），那么一个异常将会发生。</p>
+<p>若相同图像标记的图像已被显示在屏幕上，新的图像将取代旧的；否则，该图像将位于所有之前以显示的图像上方。使用zorder和behind可以改变这一点。</p>
+<p>show命令并不会导致一个交互发生。为了让该图片真正地显示出来，您必须运行一个导致交互发生的命令（如say，menu，pause，和with命令）。</p>
+<p>show命令拥有以下属性：</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">as</span></tt></dt>
+<dd>此属性接受一个名称。当图像被显示时，该名称将会是此图像的别名。因此您就可以让一张图片在屏幕上显示两次。</dd>
+<dt><tt class="docutils literal"><span class="pre">at</span></tt></dt>
+<dd><p class="first">此属性接受一个或者多个逗号分隔的简单表达式。这些表达式的值都应该是一个变换。这些变换将从左到右依次应用到该图像上。</p>
+<p class="last">如果不提供at从句，Ren'Py会保留所有已添加到该图像上的变换。如果没有任何之前的变换，该图像将使用<a class="reference internal" href="transforms.html#var-default"><tt class="xref std std-var docutils literal"><span class="pre">default</span></tt></a>
+变换。</p>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">behind</span></tt></dt>
+<dd>此属性接受一个或多个逗号分隔的姓名。每个姓名将被作为图像标记处理。该图片将会显示在所有相应的图像后面。</dd>
+<dt><tt class="docutils literal"><span class="pre">onlayer</span></tt></dt>
+<dd>接受一个名称。将会在该名称指定的层上显示图像。</dd>
+<dt><tt class="docutils literal"><span class="pre">zorder</span></tt></dt>
+<dd>接受一个整数。这个整数指定了该图像的相对优先度。该整数愈大，此图像离玩家越近（zorder为2的图像将会出现在zorder为1的图像上方）。在Ren'Py中一般用不到这个参数，但是在移植其他引擎的游戏时可能会派上用场。</dd>
+</dl>
+<p>假设我们定义了如下的图像：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">mary</span> <span class="n">night</span> <span class="n">happy</span> <span class="o">=</span> <span class="s">&quot;mary_night_happy.png&quot;</span>
+<span class="k">image</span> <span class="n">mary</span> <span class="n">night</span> <span class="n">sad</span> <span class="o">=</span> <span class="s">&quot;mary_night_sad.png&quot;</span>
+<span class="k">image</span> <span class="n">moon</span> <span class="o">=</span> <span class="s">&quot;moon.png&quot;</span>
+</pre></div>
+</div>
+<p>一些show命令的例子：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 基本的show命令</span>
+<span class="k">show</span> <span class="n">mary</span> <span class="n">night</span> <span class="n">sad</span>
+
+<span class="c"># 因为&#39;mary night happy&#39;在屏幕上，下面这个命令</span>
+<span class="c"># 等价于：</span>
+<span class="c"># show mary night happy</span>
+<span class="k">show</span> <span class="n">mary</span> <span class="n">happy</span>
+
+<span class="c"># 在屏幕右侧显示一张图像。</span>
+<span class="k">show</span> <span class="n">mary</span> <span class="n">night</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">right</span>
+
+<span class="c"># 显示一张图像两次。</span>
+<span class="k">show</span> <span class="n">mary</span> <span class="n">night</span> <span class="n">sad</span> <span class="k">as</span> <span class="n">mary2</span> <span class="k">at</span> <span class="n">left</span>
+
+<span class="c"># 在一张图像后面显示另一张图像。</span>
+<span class="k">show</span> <span class="n">moon</span> <span class="k">behind</span> <span class="n">mary</span><span class="p">,</span> <span class="n">mary2</span>
+
+<span class="c"># 在用户自定义的层上显示图像。</span>
+<span class="k">show</span> <span class="n">moon</span> <span class="k">on</span> <span class="n">user_layer</span>
+</pre></div>
+</div>
+<p><strong>Show Expression命令</strong>
+是show命令的一个变体。在此命令中，不使用图像名称，而是使用关键字<tt class="docutils literal"><span class="pre">expression</span></tt>，然后是一个简单表达式。简单表达式的值必须是一个可显示对象。此对象将被显示在屏幕上。若想隐藏依此法显示的图像，您必须用as命令为其指定一个图像标记。</p>
+<p>例如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="k">expression</span> <span class="s">&quot;moon.png&quot;</span> <span class="k">as</span> <span class="n">moon</span>
+</pre></div>
+</div>
+<p><strong>Show Layer命令</strong>
+show layer命令允许将一个变换或者ATL变换应用到一个层上（比如master），使用的语法如下：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">layer</span> <span class="n">master</span> <span class="k">at</span> <span class="n">flip</span>
+</pre></div>
+</div>
+<p>或：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">layer</span> <span class="n">master</span><span class="p">:</span>
+    <span class="na">xalign</span> <span class="mf">0.5</span> <span class="na">yalign</span> <span class="mf">0.5</span> <span class="na">rotate</span> <span class="mi">180</span>
+</pre></div>
+</div>
+<p>若不希望继续使用该变换，可以使用：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">layer</span> <span class="n">master</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scene-statement">
+<span id="id4"></span><h2>Scene命令<a class="headerlink" href="#scene-statement" title="Permalink to this headline">¶</a></h2>
+<p>scene命令将会清除一个层上的所有可显示对象，然后在上面显示一张图像。它由关键字<tt class="docutils literal"><span class="pre">scene</span></tt>开始，后面是图像名称，再后面是0个或多个属性。该图像显示的方式和show命令显示图像的方式并无区别，而scene命令所接受的属性和show命令接受的属性也完全一致。,
+</p>
+<p>scene命令通常用于更新背景。例如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">scene</span> <span class="n">bg</span> <span class="n">beach</span>
+</pre></div>
+</div>
+<p><strong>Scene Expression命令</strong>
+和show命令一样，scene命令也可以接受表达式而不是图像名称作为参数。.</p>
+<p><strong>清空某一层</strong>
+当图像名称被完全省略时，scene命令将只会清空某一层，之后不显示任何图像。</p>
+</div>
+<div class="section" id="hide-statement">
+<span id="id5"></span><h2>Hide命令<a class="headerlink" href="#hide-statement" title="Permalink to this headline">¶</a></h2>
+<p>hide命令会从某一层上移除一张图像。它由关键字<tt class="docutils literal"><span class="pre">hide</span></tt>开始，后面是图像名称，以及可选的属性。hide命令会移除所有图像标记与提供的图像标记相同的图像。</p>
+<p>Hide命令很少是必须使用的，仅当角色离开画面时有用。如果想要改变某角色的表情，我们推荐使用show命令，因为show命令会自动取代相同图像标记的立绘。</p>
+<p>hide命令拥有以下属性：</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">onlayer</span></tt></dt>
+<dd>接受一个名称。将从指定层上移除该图像。</dd>
+</dl>
+<p>如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;我闪人了。&quot;</span>
+
+<span class="k">hide</span> <span class="n">eileen</span>
+</pre></div>
+</div>
+<p>下面的代码中有一部分是冗余的：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">hide</span> <span class="n">eileen</span>
+<span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span>
+</pre></div>
+</div>
+<p>您可以直接写：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="with-statement">
+<span id="id6"></span><h2>With命令<a class="headerlink" href="#with-statement" title="Permalink to this headline">¶</a></h2>
+<p>with命令用于在画面变化时显示一个特效，使得图像的消失和出现不那么突兀。with命令由关键字<tt class="docutils literal"><span class="pre">with</span></tt>开始，然后是一个简单表达式，该表达式的值应该是一个特效或者一个特殊的值，<tt class="docutils literal"><span class="pre">None</span></tt>。</p>
+<p>屏幕将从上一个交互结束的状态（图像和渐变都没有发生时）变化到show和hide这类命令执行完毕之后的状态。</p>
+<p>with命令将会导致一个交互发生。此交互的持续时间由玩家决定，他们可以提早结束这个交互（也就是可以手动跳过特效）。</p>
+<p>若您对有哪些特效可用感兴趣，我们建议您看看
+<a class="reference internal" href="transitions.html#transitions"><em>特效</em></a>这一节。</p>
+<p>以下是with命令的一个例子：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">bg</span> <span class="n">washington</span>
+<span class="k">with</span> <span class="n">dissolve</span>
+
+<span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">left</span>
+<span class="k">show</span> <span class="n">lucy</span> <span class="n">mad</span> <span class="k">at</span> <span class="n">right</span>
+<span class="k">with</span> <span class="n">dissolve</span>
+</pre></div>
+</div>
+<p>这里会有两个特效发生。第一个with命令使用了<tt class="docutils literal"><span class="pre">dissolve</span></tt>特效，将之前的画面渐变到了新的背景图。（<tt class="docutils literal"><span class="pre">dissolve</span></tt>
+是预定义的0.5秒平滑渐变特效）</p>
+<p>第二个特效在Eileen和Lucy这两个图像显示后发生。它将会使屏幕从原来只有背景图的状态变化到有背景图和两个人物的状态。注意，这两个人物立绘将会同时平滑淡入到屏幕上。</p>
+<div class="section" id="with-none">
+<span id="id7"></span><h3>With None命令<a class="headerlink" href="#with-none" title="Permalink to this headline">¶</a></h3>
+<p>在上面这个例子里，有两个dissolve特效。但要是我们希望第一个特效瞬间完成，然后第二个特效保持原样呢？只是删除第一个with命令不会奏效——三张图片将同时淡入——所以我们需要告诉Ren'Py第一张图像应该立刻显示在屏幕上。</p>
+<p>当参数是
+<tt class="docutils literal"><span class="pre">None</span></tt>时，with命令的行为会有所变化。<tt class="docutils literal"><span class="pre">with</span> <span class="pre">None</span></tt>命令会导致一个很短的交互发生，但并不会改变屏幕的内容。当下个特效发生时，它将从这个很短的交互发生之后的屏幕状态开始渐变。</p>
+<p>比如，以下代码：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">bg</span> <span class="n">washington</span>
+<span class="k">with</span> <span class="bp">None</span>
+
+<span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">left</span>
+<span class="k">show</span> <span class="n">lucy</span> <span class="n">mad</span> <span class="k">at</span> <span class="n">right</span>
+<span class="k">with</span> <span class="n">dissolve</span>
+</pre></div>
+</div>
+<p>只有一个特效会发生，画面从一张背景图像变成三张图像。</p>
+</div>
+<div class="section" id="with-clause-of-scene-show-and-hide-statements">
+<h3>Scene,show,hide命令的With从句<a class="headerlink" href="#with-clause-of-scene-show-and-hide-statements" title="Permalink to this headline">¶</a></h3>
+<p>show,scene和hide命令都可以带一个with从句，这样该命令就会使用with从句指定的特效来显示或者隐藏图像。with从句的位置在逻辑行的行尾，由关键字<tt class="docutils literal"><span class="pre">with</span></tt>后面是一个简单表达式。</p>
+<p>您需要注意的是，with从句必须出现在行尾，如果在with后面还有其他的内容（比如show命令的属性），将导致语法错误。</p>
+<p>with命令等价于在该行前添加一行<tt class="docutils literal"><span class="pre">with</span>
+<span class="pre">None</span></tt>，然后在该行后面添加一个相应的<a class="reference internal" href="#with-statement"><em>with命令</em></a> 。例如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">left</span> <span class="k">with</span> <span class="n">dissolve</span>
+<span class="k">show</span> <span class="n">lucy</span> <span class="n">mad</span> <span class="k">at</span> <span class="n">right</span> <span class="k">with</span> <span class="n">dissolve</span>
+</pre></div>
+</div>
+<p>这等价于：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">with</span> <span class="bp">None</span>
+<span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">left</span>
+<span class="k">with</span> <span class="n">dissolve</span>
+
+<span class="k">with</span> <span class="bp">None</span>
+<span class="k">show</span> <span class="n">lucy</span> <span class="n">mad</span> <span class="k">at</span> <span class="n">right</span>
+<span class="k">with</span> <span class="n">dissolve</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="hide-and-show-window">
+<h2>隐藏与显示对话窗口<a class="headerlink" href="#hide-and-show-window" title="Permalink to this headline">¶</a></h2>
+<p>window命令用于控制在一名角色没有说话时是否显示对话窗口。（比如，特效发生时或者pause命令生效时）window show命令会导致窗口在这些时候被显示出来，而windowh hide会在这些时候隐藏窗口。</p>
+<p>若提供一个特效，该特效将被用于显示或隐藏窗口。如果不提供，那么将使用<a class="reference internal" href="config.html#var-config.window_show_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_show_transition</span></tt></a>和
+<a class="reference internal" href="config.html#var-config.window_hide_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_hide_transition</span></tt></a>的值。使用None的话就不会有任何特效（就算上面两个config的值不是None）。</p>
+<p>显示窗口这个动作实际上可以自定义，用的是<a class="reference internal" href="config.html#var-config.empty_window"><tt class="xref std std-var docutils literal"><span class="pre">config.empty_window</span></tt></a>这个函数。默认情况下，它会令narrator这个角色说一个空的字符串。（于是看起来就像一个空的窗口出现了）</p>
+<div class="highlight-renpy"><div class="highlight"><pre>
+    <span class="k">show</span> <span class="n">bg</span> <span class="n">washington</span>
+    <span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+
+    <span class="k">window</span> <span class="k">show</span> <span class="n">dissolve</span>
+
+    <span class="s">&quot;我可以一边说话……&quot;</span>
+
+    <span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">right</span>
+    <span class="k">with</span> <span class="n">move</span>
+
+    <span class="s">&quot;……一边移动，而且对话窗口也不会关闭。&quot;</span>
+
+    <span class="k">window</span> <span class="k">hide</span> <span class="n">dissolve</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="image-functions">
+<h2>图像相关函数<a class="headerlink" href="#image-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renpy.copy_images">
+<tt class="descclassname">renpy.</tt><tt class="descname">copy_images</tt><big>(</big><em>old</em>, <em>new</em><big>)</big><a class="headerlink" href="#renpy.copy_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>将为所有以某个标记开始的图像制作一个副本。比如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">renpy</span><span class="o">.</span><span class="n">copy_images</span><span class="p">(</span><span class="s">&quot;eileen&quot;</span><span class="p">,</span> <span class="s">&quot;eileen2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>会为每一张以&quot;eileen&quot;开始的图像创建一张以&quot;eileen2&quot;开始的图像。比如说，如果图像&quot;eileen happy&quot;存在，那么将创建&quot;eileen2 happy&quot;，内容与前者完全相同。</p>
+<dl class="docutils">
+<dt><cite>old</cite></dt>
+<dd>空格分隔的欲复制的图像名称。</dd>
+<dt><cite>new</cite></dt>
+<dd>空格分隔的新图像名称。</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.get_image_bounds">
+<tt class="descclassname">renpy.</tt><tt class="descname">get_image_bounds</tt><big>(</big><em>tag</em>, <em>width=None</em>, <em>height=None</em>, <em>layer='master'</em><big>)</big><a class="headerlink" href="#renpy.get_image_bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>如果在<cite>layer</cite>层上存在以<cite>tag</cite>为图像标记的图像，返回该图像的边框数据。如果没有找到相应的图片，返回None。</p>
+<p>边框数据将会是（左上角x,左上角y,宽度，高度）的四元数组。单位是像素，可能带小数点。</p>
+<dl class="docutils">
+<dt><cite>width</cite>, <cite>height</cite></dt>
+<dd>包含该图像的区域的宽度和高度，默认值是屏幕的宽度和高度。</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.get_placement">
+<tt class="descclassname">renpy.</tt><tt class="descname">get_placement</tt><big>(</big><em>d</em><big>)</big><a class="headerlink" href="#renpy.get_placement" title="Permalink to this definition">¶</a></dt>
+<dd><p>这个函数会返回一个可显示对象的所有位置信息。这些位置信息并不是很可靠，因为它们会随着可显示对象的渲染而改变，而且在这个可显示对象第一次被渲染之前甚至不会存在。</p>
+<p>此函数返回一个有以下域的对象，这些域对应的是它的样式属性：</p>
+<blockquote>
+<div><ul class="simple">
+<li>xpos</li>
+<li>xanchor</li>
+<li>xoffset</li>
+<li>ypos</li>
+<li>yanchor</li>
+<li>yoffset</li>
+<li>subpixel</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.seen_image">
+<tt class="descclassname">renpy.</tt><tt class="descname">seen_image</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#renpy.seen_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>如果指定的图像被查看过，返回True，否则是False。若使用过show，scene或者<a class="reference internal" href="statement_equivalents.html#renpy.show" title="renpy.show"><tt class="xref py py-func docutils literal"><span class="pre">renpy.show()</span></tt></a>函数来显示该图像，则该图像算是被“查看过注意，就算用户没有真正地看到过某图像，它仍可以算是被“查看过”，比如在使用show命令后立刻使用hide命令来隐藏它。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.showing">
+<tt class="descclassname">renpy.</tt><tt class="descname">showing</tt><big>(</big><em>name</em>, <em>layer='master'</em><big>)</big><a class="headerlink" href="#renpy.showing" title="Permalink to this definition">¶</a></dt>
+<dd><p>如果标签为<cite>name</cite>的图像正被显示在层<cite>layer</cite>的话，返回True，否则返回False。</p>
+<dl class="docutils">
+<dt><cite>name</cite></dt>
+<dd>可以是完整的图像名称，也可以只是图像标签，还可以是一个元组，里面的元素是图像名称的各个部分。</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="menus.html" title="In-Game Menus"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="dialogue.html" title="Dialogue and Narration"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

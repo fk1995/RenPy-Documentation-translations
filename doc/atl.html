@@ -1,0 +1,1252 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Animation and Transformation Language &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Styles" href="style.html" />
+    <link rel="prev" title="Transitions" href="transitions.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="style.html" title="Styles"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="transitions.html" title="Transitions"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Animation and Transformation Language</a><ul>
+<li><a class="reference internal" href="#ren-py-script-statements">Ren'Py Script Statements</a><ul>
+<li><a class="reference internal" href="#transform-statement">Transform Statement</a></li>
+<li><a class="reference internal" href="#image-statement-with-atl-block">Image Statement With ATL Block</a></li>
+<li><a class="reference internal" href="#scene-and-show-statements-with-atl-block">Scene and Show Statements with ATL Block</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#atl-syntax-and-semantics">ATL Syntax and Semantics</a></li>
+<li><a class="reference internal" href="#atl-statements">ATL Statements</a><ul>
+<li><a class="reference internal" href="#interpolation-statement">Interpolation Statement</a></li>
+<li><a class="reference internal" href="#time-statement">Time Statement</a></li>
+<li><a class="reference internal" href="#expression-statement">Expression Statement</a></li>
+<li><a class="reference internal" href="#pass-statement">Pass Statement</a></li>
+<li><a class="reference internal" href="#repeat-statement">Repeat Statement</a></li>
+<li><a class="reference internal" href="#block-statement">Block Statement</a></li>
+<li><a class="reference internal" href="#choice-statement">Choice Statement</a></li>
+<li><a class="reference internal" href="#parallel-statement">Parallel Statement</a></li>
+<li><a class="reference internal" href="#event-statement">Event Statement</a></li>
+<li><a class="reference internal" href="#on-statement">On Statement</a></li>
+<li><a class="reference internal" href="#contains-statement">Contains Statement</a></li>
+<li><a class="reference internal" href="#function-statement">Function Statement</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#warpers">Warpers</a></li>
+<li><a class="reference internal" href="#list-of-transform-properties">List of Transform Properties</a></li>
+<li><a class="reference internal" href="#circular-motion">Circular Motion</a></li>
+<li><a class="reference internal" href="#external-events">External Events</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="transitions.html"
+                        title="previous chapter">Transitions</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="style.html"
+                        title="next chapter">Styles</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="animation-and-transformation-language">
+<span id="atl"></span><h1>Animation and Transformation Language<a class="headerlink" href="#animation-and-transformation-language" title="Permalink to this headline">¶</a></h1>
+<p>The Animation and Transformation Language (ATL) provides a high-level way of
+choosing a displayable to show, positioning it on the screen, and applying
+transformations such as rotation, zoom, and alpha-modification. These can be
+changed over time, and in response to events.</p>
+<p>The Python equivalent of an ATL transform is the <a class="reference internal" href="trans_trans_python.html#Transform" title="Transform"><tt class="xref py py-func docutils literal"><span class="pre">Transform()</span></tt></a>
+displayable. There is no way to create an ATL transform programatically.</p>
+<div class="section" id="ren-py-script-statements">
+<h2>Ren'Py Script Statements<a class="headerlink" href="#ren-py-script-statements" title="Permalink to this headline">¶</a></h2>
+<p>ATL Code can be included as part of three Ren'Py script statements.</p>
+<div class="section" id="transform-statement">
+<span id="id1"></span><h3>Transform Statement<a class="headerlink" href="#transform-statement" title="Permalink to this headline">¶</a></h3>
+<p>The transform statement creates a transform that can be supplied as part of an
+at clause. The syntax of the transform statement is:</p>
+<pre>
+<strong id="grammar-token-atl_transform">atl_transform</strong> ::=  &quot;transform&quot; <tt class="xref docutils literal"><span class="pre">name</span></tt> &quot;(&quot; <tt class="xref docutils literal"><span class="pre">parameters</span></tt> &quot;)&quot; &quot;:&quot;
+                      <tt class="xref docutils literal"><span class="pre">atl_block</span></tt>
+</pre>
+<p>The transform statement  must be run at init time. If it is found outside an
+init block, then it is automatically placed inside an init block with a
+priority of 0. The transform may have a list of parameters, which must be
+supplied when it is called.</p>
+<p><cite>Name</cite> must be a python identifier. The transform created by the ATL block is
+bound to this name.:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">transform</span> <span class="n">left_to_right</span><span class="p">:</span>
+    <span class="na">xalign</span> <span class="mf">0.0</span>
+    <span class="n">linear</span> <span class="mf">2.0</span> <span class="na">yalign</span> <span class="mf">1.0</span>
+    <span class="k">repeat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="image-statement-with-atl-block">
+<span id="atl-image-statement"></span><h3>Image Statement With ATL Block<a class="headerlink" href="#image-statement-with-atl-block" title="Permalink to this headline">¶</a></h3>
+<p>The second way to use ATL is as part of an image statement with ATL block.
+This binds an image name to the given transform. As there's no way to supply
+parameters to this transform, it's only useful if the transform defines an
+animation. The syntax for an image statement with ATL block is:</p>
+<pre>
+<strong id="grammar-token-atl_image">atl_image</strong> ::=  &quot;image&quot; <tt class="xref docutils literal"><span class="pre">image_name</span></tt> &quot;:&quot;
+                  <tt class="xref docutils literal"><span class="pre">atl_block</span></tt>
+</pre>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">eileen</span> <span class="n">animated</span><span class="p">:</span>
+    <span class="s">&quot;eileen_happy.png&quot;</span>
+    <span class="k">pause</span> <span class="mf">1.0</span>
+    <span class="s">&quot;eileen_vhappy.png&quot;</span>
+    <span class="k">pause</span> <span class="mf">1.0</span>
+    <span class="k">repeat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scene-and-show-statements-with-atl-block">
+<h3>Scene and Show Statements with ATL Block<a class="headerlink" href="#scene-and-show-statements-with-atl-block" title="Permalink to this headline">¶</a></h3>
+<p>The final way to use ATL is as part of a scene or show statement. This wraps
+the image being shown inside an ATL transformation.</p>
+<pre>
+<strong id="grammar-token-atl_scene">atl_scene</strong> ::=  <tt class="xref docutils literal"><span class="pre">stmt_scene</span></tt> &quot;:&quot;
+                   <tt class="xref docutils literal"><span class="pre">atl_block</span></tt>
+<strong id="grammar-token-atl_show">atl_show </strong> ::=  <tt class="xref docutils literal"><span class="pre">stmt_show</span></tt> &quot;:&quot;
+                   <tt class="xref docutils literal"><span class="pre">atl_block</span></tt>
+</pre>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">scene</span> <span class="n">bg</span> <span class="n">washington</span><span class="p">:</span>
+    <span class="na">zoom</span> <span class="mf">2.0</span>
+
+<span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span><span class="p">:</span>
+    <span class="na">xalign</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="atl-syntax-and-semantics">
+<h2>ATL Syntax and Semantics<a class="headerlink" href="#atl-syntax-and-semantics" title="Permalink to this headline">¶</a></h2>
+<p>An ATL block consists of one or more logical lines, all at the same
+indentation, and indented relative to the statement containing the block.
+Each logical line in an ATL block must contain one or more ATL statements.</p>
+<p>There are two kinds of ATL statements: simple and complex. Simple statements
+do not take an ATL block. A single logical line may contain one or more ATL
+statements, separated by commas. A complex statement contains a block, must
+be on its own line. The first line of a complex statement always ends with a
+colon (&quot;:&quot;).</p>
+<p>By default, statements in a block are executed in the order in which they
+appear, starting with the first statement in the block. Execution terminates
+when the end of the block is reached. Time statements change this, as
+described in the appropriate section below.</p>
+<p>Execution of a block terminates when all statements in the block have
+terminated.</p>
+<p>If an ATL statement requires evaluation of an expression, such evaluation
+occurs when the transform is first added to the scene list. (Such as when
+using a show statement or ui function.)</p>
+</div>
+<div class="section" id="atl-statements">
+<h2>ATL Statements<a class="headerlink" href="#atl-statements" title="Permalink to this headline">¶</a></h2>
+<p>The following are the ATL statements.</p>
+<div class="section" id="interpolation-statement">
+<h3>Interpolation Statement<a class="headerlink" href="#interpolation-statement" title="Permalink to this headline">¶</a></h3>
+<p>The interpolation statement is the main way that ATL controls transformations.</p>
+<pre>
+<strong id="grammar-token-atl_interp">atl_interp</strong> ::=  ( <tt class="xref docutils literal"><span class="pre">warper</span></tt> <tt class="xref docutils literal"><span class="pre">simple_expression</span></tt> | &quot;warp&quot; <tt class="xref docutils literal"><span class="pre">simple_expression</span></tt> <tt class="xref docutils literal"><span class="pre">simple_expression</span></tt> )?
+                ( <tt class="xref docutils literal"><span class="pre">property</span></tt> <tt class="xref docutils literal"><span class="pre">simple_expression</span></tt> ( &quot;knot&quot; <tt class="xref docutils literal"><span class="pre">simple_expression</span></tt> )*
+                | &quot;clockwise&quot;
+                | &quot;counterclockwise&quot;
+                | &quot;circles&quot; simple_expression
+                | simple_expression )*
+</pre>
+<p>The first part of the interpolation statement is used to select a function
+that time-warps the interpolation. (That is, a function from linear time to
+non-linear time.) This can either be done by giving the name of a warper
+registered with ATL, or by giving the keyword &quot;warp&quot; followed by an
+expression giving a function. Either case is followed by a number, giving the
+number of seconds the interpolation should take.</p>
+<p>If no warp function is given, the interpolation is run for 0 seconds, using
+the pause function.</p>
+<p>The warper and duration are used to compute a completion fraction. This is
+done by dividing the time taken by the interpolation by the duration of the
+interpolation. This is clamped to the duration, and then passed to the
+warper. The result returned by the warper is the completion fraction.</p>
+<p>The interpolation statement can then contain a number of other clauses. When a
+property and value are present, then the value is the value the property will
+obtain at the end of the statement. The value can be obtained in several ways:</p>
+<ul class="simple">
+<li>If the value is followed by one or two knots, then spline motion is used.
+The starting point is the value of the property at the start of the
+interpolation, the end point is the property value, and the knots are used
+to control the spline.</li>
+<li>If the interpolation statement contains a &quot;clockwise&quot; or
+&quot;counterclockwise&quot; clause, circular motion is used, as described below.</li>
+<li>Otherwise, the value is linearly interpolated between the start and end
+locations, using the completion fraction.</li>
+</ul>
+<p>If a simple expression is present, it should evaluate to a transform with only
+a single interpolation statement, without a warper, splines, or circular
+motion. The properties from the transform are processed as if they were
+included in this statement.</p>
+<p>Some sample interpolations are:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">logo</span> <span class="n">base</span><span class="p">:</span>
+     <span class="c"># Show the logo at the upper right side of the screen.</span>
+     <span class="na">xalign</span> <span class="mf">1.0</span> <span class="na">yalign</span> <span class="mf">0.0</span>
+
+     <span class="c"># Take 1.0 seconds to move things back to the left.</span>
+     <span class="n">linear</span> <span class="mf">1.0</span> <span class="na">xalign</span> <span class="mf">0.0</span>
+
+     <span class="c"># Take 1.0 seconds to move things to the location specified in the</span>
+     <span class="c"># truecenter transform. Use the ease warper to do this.</span>
+     <span class="n">ease</span> <span class="mf">1.0</span> <span class="n">truecenter</span>
+
+     <span class="c"># Just pause for a second.</span>
+     <span class="k">pause</span> <span class="mf">1.0</span>
+
+     <span class="c"># Set the location to circle around.</span>
+     <span class="na">alignaround</span> <span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+
+     <span class="c"># Use circular motion to bring us to spiral out to the top of</span>
+     <span class="c"># the screen. Take 2 seconds to do so.</span>
+     <span class="n">linear</span> <span class="mf">2.0</span> <span class="na">yalign</span> <span class="mf">0.0</span> <span class="k">clockwise</span> <span class="k">circles</span> <span class="mi">3</span>
+
+     <span class="c"># Use a spline motion to move us around the screen.</span>
+     <span class="n">linear</span> <span class="mf">2.0</span> <span class="na">align</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="k">knot</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">.</span><span class="mi">33</span><span class="p">)</span> <span class="k">knot</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">.</span><span class="mi">66</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>An important special case is that the pause warper, followed by a time and
+nothing else, causes ATL execution to pause for that amount of time.</p>
+<p>Some properties can have values of multiple types. For example, the xpos
+property can be an int, float, or absolute. The behavior is undefined when an
+interpolation has old and new property values of different types.</p>
+</div>
+<div class="section" id="time-statement">
+<h3>Time Statement<a class="headerlink" href="#time-statement" title="Permalink to this headline">¶</a></h3>
+<p>The time statement is a simple control statement. It contains a single
+simple_expression, which is evaluated to give a time, expressed as seconds
+from the start of execution of the containing block.</p>
+<pre>
+<strong id="grammar-token-atl_time">atl_time</strong> ::=  &quot;time&quot; <tt class="xref docutils literal"><span class="pre">simple_expression</span></tt>
+</pre>
+<p>When the time given in the statement is reached, the following statement
+begins to execute.This transfer of control occurs even if a previous
+statement is still executing, and causes any prior statement to immediately
+terminate.</p>
+<p>Time statements are implicitly preceded by a pause statement with an infinite
+time. This means that if control would otherwise reach the time statement, it
+waits until the time statement would take control.</p>
+<p>When there are multiple time statements in a block, they must strictly
+increase in order.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">backgrounds</span><span class="p">:</span>
+    <span class="s">&quot;bg band&quot;</span>
+    <span class="k">time</span> <span class="mf">2.0</span>
+    <span class="s">&quot;bg whitehouse&quot;</span>
+    <span class="k">time</span> <span class="mf">4.0</span>
+    <span class="s">&quot;bg washington&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="expression-statement">
+<h3>Expression Statement<a class="headerlink" href="#expression-statement" title="Permalink to this headline">¶</a></h3>
+<p>An expression statement is a simple statement that starts with a simple
+expression. It then contains an optional with clause, with a second simple
+expression.</p>
+<pre>
+<strong id="grammar-token-atl_expression">atl_expression</strong> ::=   <tt class="xref docutils literal"><span class="pre">simple_expression</span></tt> (&quot;with&quot; <tt class="xref docutils literal"><span class="pre">simple_expression</span></tt>)?
+</pre>
+<p>There are three things the first simple expression may evaluate to:</p>
+<ul class="simple">
+<li>If it's a transform, that transform is executed. With clauses are ignored
+when a transform is supplied.</li>
+<li>If it's an integer or floating point number,  it's taken as a number of
+seconds to pause execution for.</li>
+<li>Otherwise, the expression is interpreted to be a displayable. This
+displayable replaces the child of the transform when this clause executes,
+making it useful for animation. If a with clause is present, the second
+expression is evaluated as a transition, and the transition is applied to
+the old and new displayables.</li>
+</ul>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">atl</span> <span class="n">example</span><span class="p">:</span>
+     <span class="c"># Display logo_base.png</span>
+     <span class="s">&quot;logo_base.png&quot;</span>
+
+     <span class="c"># Pause for 1.0 seconds.</span>
+     <span class="mf">1.0</span>
+
+     <span class="c"># Show logo_bw.png, with a dissolve.</span>
+     <span class="s">&quot;logo_bw.png&quot;</span> <span class="k">with</span> <span class="n">Dissolve</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">alpha</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+     <span class="c"># Run the move_right tranform.</span>
+     <span class="n">move_right</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pass-statement">
+<h3>Pass Statement<a class="headerlink" href="#pass-statement" title="Permalink to this headline">¶</a></h3>
+<pre>
+<strong id="grammar-token-atl_pass">atl_pass</strong> ::=  &quot;pass&quot;
+</pre>
+<p>The pass statement is a simple statement that causes nothing to happen. This
+can be used when there's a desire to separate statements, like when there are
+two sets of choice statements that would otherwise be back-to-back.</p>
+</div>
+<div class="section" id="repeat-statement">
+<h3>Repeat Statement<a class="headerlink" href="#repeat-statement" title="Permalink to this headline">¶</a></h3>
+<p>The repeat statement is a simple statement that causes the block containing it
+to resume execution from the beginning. If the expression is present, then it
+is evaluated to give an integer number of times the block will execute. (So a
+block ending with &quot;repeat 2&quot; will execute at most twice.)</p>
+<pre>
+<strong id="grammar-token-atl_repeat">atl_repeat</strong> ::=  &quot;repeat&quot; (<tt class="xref docutils literal"><span class="pre">simple_expression</span></tt>)?
+</pre>
+<p>The repeat statement must be the last statement in a block.:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">logo</span> <span class="n">base</span><span class="p">:</span>
+    <span class="na">xalign</span> <span class="mf">0.0</span>
+    <span class="n">linear</span> <span class="mf">1.0</span> <span class="na">xalign</span> <span class="mf">1.0</span>
+    <span class="n">linear</span> <span class="mf">1.0</span> <span class="na">xalign</span> <span class="mf">0.0</span>
+    <span class="k">repeat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="block-statement">
+<h3>Block Statement<a class="headerlink" href="#block-statement" title="Permalink to this headline">¶</a></h3>
+<p>The block statement is a complex statement that contains a block of ATL code.
+This can be used to group statements that will repeat.</p>
+<pre>
+<strong id="grammar-token-atl_block_stmt">atl_block_stmt</strong> ::=  &quot;block&quot; &quot;:&quot;
+                         <tt class="xref docutils literal"><span class="pre">atl_block</span></tt>
+</pre>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">logo</span> <span class="n">base</span><span class="p">:</span>
+    <span class="na">alpha</span> <span class="mf">0.0</span> <span class="na">xalign</span> <span class="mf">0.0</span> <span class="na">yalign</span> <span class="mf">0.0</span>
+    <span class="n">linear</span> <span class="mf">1.0</span> <span class="na">alpha</span> <span class="mf">1.0</span>
+
+    <span class="k">block</span><span class="p">:</span>
+        <span class="n">linear</span> <span class="mf">1.0</span> <span class="na">xalign</span> <span class="mf">1.0</span>
+        <span class="n">linear</span> <span class="mf">1.0</span> <span class="na">xalign</span> <span class="mf">0.0</span>
+        <span class="k">repeat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="choice-statement">
+<h3>Choice Statement<a class="headerlink" href="#choice-statement" title="Permalink to this headline">¶</a></h3>
+<p>The choice statement is a complex statement that defines one of a set of
+potential choices. Ren'Py will pick one of the choices in the set, and
+execute the ATL block associated with it, and then continue execution after
+the last choice in the choice set.</p>
+<pre>
+<strong id="grammar-token-atl_choice">atl_choice</strong> ::=  &quot;choice&quot; (<tt class="xref docutils literal"><span class="pre">simple_expression</span></tt>)? &quot;:&quot;
+                    <tt class="xref docutils literal"><span class="pre">atl_block</span></tt>
+</pre>
+<p>Choice statements are greedily grouped into a choice set when more than one
+choice statement appears consecutively in a block. If the <cite>simple_expression</cite>
+is supplied, it is a floating-point weight given to that block, otherwise 1.0
+is assumed.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">eileen</span> <span class="n">random</span><span class="p">:</span>
+    <span class="k">choice</span><span class="p">:</span>
+        <span class="s">&quot;eileen happy&quot;</span>
+    <span class="k">choice</span><span class="p">:</span>
+        <span class="s">&quot;eileen vhappy&quot;</span>
+    <span class="k">choice</span><span class="p">:</span>
+        <span class="s">&quot;eileen concerned&quot;</span>
+
+    <span class="k">pause</span> <span class="mf">1.0</span>
+    <span class="k">repeat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parallel-statement">
+<h3>Parallel Statement<a class="headerlink" href="#parallel-statement" title="Permalink to this headline">¶</a></h3>
+<p>The parallel statement is used to define a set of ATL blocks to execute in
+parallel.</p>
+<pre>
+<strong id="grammar-token-atl_parallel">atl_parallel</strong> ::=  &quot;parallel&quot; &quot;:&quot;
+                     <tt class="xref docutils literal"><span class="pre">atl_block</span></tt>
+</pre>
+<p>Parallel statements are greedily grouped into a parallel set when more than
+one parallel statement appears consecutively in a block. The blocks of all
+parallel statements are then executed simultaneously. The parallel statement
+terminates when the last block terminates.</p>
+<p>The blocks within a set should be independent of each other, and manipulate
+different properties. When two blocks change the same property, the result is
+undefined.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">logo</span> <span class="n">base</span><span class="p">:</span>
+    <span class="k">parallel</span><span class="p">:</span>
+        <span class="na">xalign</span> <span class="mf">0.0</span>
+        <span class="n">linear</span> <span class="mf">1.3</span> <span class="na">xalign</span> <span class="mf">1.0</span>
+        <span class="n">linear</span> <span class="mf">1.3</span> <span class="na">xalign</span> <span class="mf">0.0</span>
+        <span class="k">repeat</span>
+    <span class="k">parallel</span><span class="p">:</span>
+        <span class="na">yalign</span> <span class="mf">0.0</span>
+        <span class="n">linear</span> <span class="mf">1.6</span> <span class="na">yalign</span> <span class="mf">1.0</span>
+        <span class="n">linear</span> <span class="mf">1.6</span> <span class="na">yalign</span> <span class="mf">0.0</span>
+        <span class="k">repeat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="event-statement">
+<h3>Event Statement<a class="headerlink" href="#event-statement" title="Permalink to this headline">¶</a></h3>
+<p>The event statement is a simple statement that causes an event with the given
+name to be produced.</p>
+<pre>
+<strong id="grammar-token-atl_event">atl_event</strong> ::=  &quot;event&quot; <tt class="xref docutils literal"><span class="pre">name</span></tt>
+</pre>
+<p>When an event is produced inside a block, the block is checked to see if an
+event handler for the given name exists. If it does, control is transferred
+to the event handler. Otherwise, the event propagates to any containing event
+handler.</p>
+</div>
+<div class="section" id="on-statement">
+<h3>On Statement<a class="headerlink" href="#on-statement" title="Permalink to this headline">¶</a></h3>
+<p>The On statement is a complex statement that defines an event handler. On
+statements are greedily grouped into a single statement.</p>
+<pre>
+<strong id="grammar-token-atl_on">atl_on</strong> ::=  &quot;on&quot; <tt class="xref docutils literal"><span class="pre">name</span></tt> &quot;:&quot;
+                 <tt class="xref docutils literal"><span class="pre">atl_block</span></tt>
+</pre>
+<p>The on statement is used to handle events. When an event is handled, handling
+of any other event ends and handing of the new event immediately starts. When
+an event handler ends without another event occuring, the <tt class="docutils literal"><span class="pre">default</span></tt> event
+is produced (unless were already handing the <tt class="docutils literal"><span class="pre">default</span></tt> event).</p>
+<p>Execution of the on statement will never naturally end. (But it can be ended
+by the time statement, or an enclosing event handler.)</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">logo</span> <span class="n">base</span><span class="p">:</span>
+    <span class="k">on</span> <span class="k">show</span><span class="p">:</span>
+        <span class="na">alpha</span> <span class="mf">0.0</span>
+        <span class="n">linear</span> <span class="o">.</span><span class="mi">5</span> <span class="na">alpha</span> <span class="mf">1.0</span>
+    <span class="k">on</span> <span class="k">hide</span><span class="p">:</span>
+        <span class="n">linear</span> <span class="o">.</span><span class="mi">5</span> <span class="na">alpha</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="contains-statement">
+<h3>Contains Statement<a class="headerlink" href="#contains-statement" title="Permalink to this headline">¶</a></h3>
+<p>The contains statement sets the displayable contained by this ATL transform.
+(The child of the transform.) There are two variants of the contains
+statement.</p>
+<p>The contains expression variant takes an expression, and sets that expression
+as the child of the transform. This is useful when an ATL transform wishes to
+contain, rather than include, a second ATL transform.</p>
+<pre>
+<strong id="grammar-token-atl_contains">atl_contains</strong> ::=  &quot;contains&quot; <tt class="xref docutils literal"><span class="pre">expression</span></tt>
+</pre>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">transform</span> <span class="n">an_animation</span><span class="p">:</span>
+    <span class="s">&quot;1.png&quot;</span>
+    <span class="k">pause</span> <span class="mi">2</span>
+    <span class="s">&quot;2.png&quot;</span>
+    <span class="k">pause</span> <span class="mi">2</span>
+    <span class="k">repeat</span>
+
+<span class="k">image</span> <span class="n">move_an_animation</span><span class="p">:</span>
+    <span class="k">contains</span> <span class="n">an_animation</span>
+
+    <span class="c"># If we didn&#39;t use contains, we&#39;d still be looping and</span>
+    <span class="c"># would never reach here.</span>
+    <span class="na">xalign</span> <span class="mf">0.0</span>
+    <span class="n">linear</span> <span class="mf">1.0</span> <span class="na">yalign</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>The contains block allows one to define an ATL block that is used for the
+child of this ATL transform. One or more contains block statements will be
+greedily grouped together, wrapped inside a <a class="reference internal" href="displayables.html#Fixed" title="Fixed"><tt class="xref py py-func docutils literal"><span class="pre">Fixed()</span></tt></a>, and set as the
+child of this transform.</p>
+<pre>
+<strong id="grammar-token-atl_counts">atl_counts</strong> ::=  &quot;contains&quot; &quot;:&quot;
+</pre>
+<p>Each block should define a displayable to use, or else an error will occur.
+The contains statement executes instantaneously, without waiting for the
+children to complete. This statement is mostly syntactic sugar, as it allows
+arguments to be easily passed to the children.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">test</span> <span class="n">double</span><span class="p">:</span>
+    <span class="k">contains</span><span class="p">:</span>
+        <span class="s">&quot;logo.png&quot;</span>
+        <span class="na">xalign</span> <span class="mf">0.0</span>
+        <span class="n">linear</span> <span class="mf">1.0</span> <span class="na">xalign</span> <span class="mf">1.0</span>
+        <span class="k">repeat</span>
+
+    <span class="k">contains</span><span class="p">:</span>
+        <span class="s">&quot;logo.png&quot;</span>
+        <span class="na">xalign</span> <span class="mf">1.0</span>
+        <span class="n">linear</span> <span class="mf">1.0</span> <span class="na">xalign</span> <span class="mf">0.0</span>
+        <span class="k">repeat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="function-statement">
+<h3>Function Statement<a class="headerlink" href="#function-statement" title="Permalink to this headline">¶</a></h3>
+<p>The function statement allows ATL to use Python functions to control the ATL
+properties.</p>
+<pre>
+<strong id="grammar-token-atl_function">atl_function</strong> ::=  &quot;function&quot; <tt class="xref docutils literal"><span class="pre">expression</span></tt>
+</pre>
+<p>The functions have the same signature as those used with <a class="reference internal" href="trans_trans_python.html#Transform" title="Transform"><tt class="xref py py-func docutils literal"><span class="pre">Transform()</span></tt></a>:</p>
+<ul class="simple">
+<li>The first argument is a transform object. Transform properties can be set
+on this object.</li>
+<li>The second argument is the shown timebase, the number of seconds since the
+function began executing.</li>
+<li>The third argument is the the animation timebase, which is the number of
+seconds something with the same tag has been on the screen.</li>
+<li>If the function returns a number, it will be called again after that
+number of seconds has elapsed. (0 seconds means to call the function as
+soon as possible.) If the function returns None, control will pass to the
+next ATL statement.</li>
+</ul>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">slide_function</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="k">at</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">st</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">trans</span><span class="o">.</span><span class="na">xalign</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">trans</span><span class="o">.</span><span class="na">xalign</span> <span class="o">=</span> <span class="n">st</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+<span class="k">label</span> <span class="n">start</span><span class="p">:</span>
+    <span class="k">show</span> <span class="n">logo</span> <span class="n">base</span><span class="p">:</span>
+        <span class="k">function</span> <span class="n">slide_function</span>
+        <span class="k">pause</span> <span class="mf">1.0</span>
+        <span class="k">repeat</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="warpers">
+<h2>Warpers<a class="headerlink" href="#warpers" title="Permalink to this headline">¶</a></h2>
+<p>A warper is a function that can change the amount of time an interpolation
+statement considers to have elapsed. The following warpers are defined by
+default. They are defined as functions from t to t', where t and t' are
+floating point numbers between 0.0 and 1.0. (If the statement has 0 duration,
+than t is 1.0 when it runs.)</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">pause</span></tt></dt>
+<dd>Pause, then jump to the new value. If t == 1.0, t = 1.0. Otherwise, t'
+= 0.0.</dd>
+<dt><tt class="docutils literal"><span class="pre">linear</span></tt></dt>
+<dd>Linear interpolation. t' = t</dd>
+<dt><tt class="docutils literal"><span class="pre">ease</span></tt></dt>
+<dd>Start slow, speed up, then slow down. t' = .5 - math.cos(math.pi
+* t) / 2.0</dd>
+<dt><tt class="docutils literal"><span class="pre">easein</span></tt></dt>
+<dd>Start fast, then slow down. t' = math.cos((1.0 - t) * math.pi / 2.0</dd>
+<dt><tt class="docutils literal"><span class="pre">easeout</span></tt></dt>
+<dd>Start slow, then speed up. t' = 1.0 - math.cos(t * math.pi / 2.0)</dd>
+</dl>
+<p>New warpers can be defined using the renpy.atl_warper decorator, in a python
+early block. It should be placed in a file that is parsed before any file
+that uses the warper. The code looks like:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">python</span> <span class="n">early</span> <span class="k">hide</span><span class="p">:</span>
+
+    <span class="nd">@renpy.atl_warper</span>
+    <span class="k">def</span> <span class="nf">linear</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">t</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-of-transform-properties">
+<span id="transform-properties"></span><h2>List of Transform Properties<a class="headerlink" href="#list-of-transform-properties" title="Permalink to this headline">¶</a></h2>
+<p>The following transform properties exist.</p>
+<p>When the type is given as position, it may be an int, renpy.absolute, or
+float. If it's a float, it's interpreted as a fraction of the size of the
+containing area (for pos) or displayable (for anchor).</p>
+<p>Note that not all properties are independent. For example, xalign and xpos
+both update some of the same underlying data. In a parallel statement, only
+one block should adjust horizontal position, and one should adjust vertical
+positions. (These may be the same block.) The angle and radius properties set
+both horizontal and vertical positions.</p>
+<dl class="transform-property">
+<dt id="transform-property-pos">
+<tt class="descname">pos</tt><a class="headerlink" href="#transform-property-pos" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">(position, position)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">(0, 0)</td>
+</tr>
+</tbody>
+</table>
+<p>The position, relative to the top-left corner of the containing
+area.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-xpos">
+<tt class="descname">xpos</tt><a class="headerlink" href="#transform-property-xpos" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">position</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0</td>
+</tr>
+</tbody>
+</table>
+<p>The horizontal position, relative to the left side of the
+containing area.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-ypos">
+<tt class="descname">ypos</tt><a class="headerlink" href="#transform-property-ypos" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">position</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0</td>
+</tr>
+</tbody>
+</table>
+<p>The vertical position, relative to the top of the containing area.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-anchor">
+<tt class="descname">anchor</tt><a class="headerlink" href="#transform-property-anchor" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">(position, position)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">(0, 0)</td>
+</tr>
+</tbody>
+</table>
+<p>The anchor position, relative to the top-left corner of the
+displayable.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-xanchor">
+<tt class="descname">xanchor</tt><a class="headerlink" href="#transform-property-xanchor" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">position</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0</td>
+</tr>
+</tbody>
+</table>
+<p>The horizontal anchor position, relative to the left side of the
+displayable.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-yanchor">
+<tt class="descname">yanchor</tt><a class="headerlink" href="#transform-property-yanchor" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">position</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0</td>
+</tr>
+</tbody>
+</table>
+<p>The vertical anchor position, relative to the top of the
+displayable.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-align">
+<tt class="descname">align</tt><a class="headerlink" href="#transform-property-align" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">(float, float)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">(0.0, 0.0)</td>
+</tr>
+</tbody>
+</table>
+<p>Equivalent to setting pos and anchor to the same value.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-xalign">
+<tt class="descname">xalign</tt><a class="headerlink" href="#transform-property-xalign" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>Equivalent to setting xpos and xanchor to this value.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-yalign">
+<tt class="descname">yalign</tt><a class="headerlink" href="#transform-property-yalign" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>Equivalent to setting ypos and yanchor to this value.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-xoffset">
+<tt class="descname">xoffset</tt><a class="headerlink" href="#transform-property-xoffset" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>The number of pixels the displayable is offset by in the horizontal
+direction. Positive values offset toward the right.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-yoffset">
+<tt class="descname">yoffset</tt><a class="headerlink" href="#transform-property-yoffset" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>The number of pixels the displayable is offset by in the vertical
+direction. Positive values offset toward the bottom.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-xcenter">
+<tt class="descname">xcenter</tt><a class="headerlink" href="#transform-property-xcenter" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>Equivalent to setting xpos to the value of this property, and
+xanchor to 0.5.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-ycenter">
+<tt class="descname">ycenter</tt><a class="headerlink" href="#transform-property-ycenter" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>Equivalent to setting ypos to the value of this property, and
+yanchor to 0.5.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-rotate">
+<tt class="descname">rotate</tt><a class="headerlink" href="#transform-property-rotate" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+<p>If None, no rotation occurs. Otherwise, the image will be rotated
+by this many degrees clockwise. Rotating the displayable causes it
+to be resized, according to the setting of rotate_pad, below. This
+can cause positioning to change if Add 'xanchor' to dictionary and yanchor are not
+0.5.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-rotate_pad">
+<tt class="descname">rotate_pad</tt><a class="headerlink" href="#transform-property-rotate_pad" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">True</td>
+</tr>
+</tbody>
+</table>
+<p>If True, then a rotated displayable is padded such that the width
+and height are equal to the hypotenuse of the original width and
+height. This ensures that the transform will not change size as
+its contents rotate. If False, the transform will be given the
+minimal size that contains the transformed displayable. This is
+more suited to fixed rotations.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-transform_anchor">
+<tt class="descname">transform_anchor</tt><a class="headerlink" href="#transform-property-transform_anchor" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>If true, the anchor point is located on the cropped child, and is scaled
+and rotated as the child is transformed. Effectively, this makes the
+anchor the point that the child is rotated and scaled around.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-zoom">
+<tt class="descname">zoom</tt><a class="headerlink" href="#transform-property-zoom" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">1.0</td>
+</tr>
+</tbody>
+</table>
+<p>This causes the displayable to be zoomed by the supplied
+factor.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-xzoom">
+<tt class="descname">xzoom</tt><a class="headerlink" href="#transform-property-xzoom" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">1.0</td>
+</tr>
+</tbody>
+</table>
+<p>This causes the displayable to be horizontally zoomed by the
+supplied factor. A negative value causes the image to be
+flipped horizontally.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-yzoom">
+<tt class="descname">yzoom</tt><a class="headerlink" href="#transform-property-yzoom" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">1.0</td>
+</tr>
+</tbody>
+</table>
+<p>This causes the displayable to be vertically zoomed by the supplied
+factor. A negative value causes the image to be flipped vertically.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-alpha">
+<tt class="descname">alpha</tt><a class="headerlink" href="#transform-property-alpha" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">1.0</td>
+</tr>
+</tbody>
+</table>
+<p>This controls the opacity of the displayable.</p>
+<p>The alpha transform is applied to each image comprising the child of
+the transform independently. This can lead to unexpected results when
+the children overlap, such as as seeing a character through clothing.
+The <a class="reference internal" href="displayables.html#Flatten" title="Flatten"><tt class="xref py py-func docutils literal"><span class="pre">Flatten()</span></tt></a> displayable can help with these problems.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-additive">
+<tt class="descname">additive</tt><a class="headerlink" href="#transform-property-additive" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>This controls how much additive blending Ren'Py performs. When 1.0,
+Ren'Py draws using the ADD operator. When 0.0, Ren'Py draws using
+the OVER operator.</p>
+<p>Additive blending is performed on each child of the transform independently.</p>
+<p>Fully additive blending doesn't alter the alpha channel of the destination,
+and additive images may not be visible if they're not drawn directly onto
+an opaque surface. (Complex operations, like viewport, <a class="reference internal" href="displayables.html#Flatten" title="Flatten"><tt class="xref py py-func docutils literal"><span class="pre">Flatten()</span></tt></a>, <a class="reference internal" href="displayables.html#Frame" title="Frame"><tt class="xref py py-func docutils literal"><span class="pre">Frame()</span></tt></a>,
+and certain transitions may cause problems with additive blending.)</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Additive blending is only supported by hardware-based renderers, such
+as the OpenGL and DirectX/ANGLE renderers. The software renderer will
+draw additive images incorrectly.</p>
+<p class="last">Once the graphics system has started, <tt class="docutils literal"><span class="pre">renpy.get_renderer_info()[&quot;additive&quot;]</span></tt>
+will be true if additive blending is supported.</p>
+</div>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-around">
+<tt class="descname">around</tt><a class="headerlink" href="#transform-property-around" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">(position, position)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">(0.0, 0.0)</td>
+</tr>
+</tbody>
+</table>
+<p>If not None, specifies the polar coordinate center, relative to
+the upper-left of the containing area. Setting the center using
+this allows for circular motion in position mode.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-alignaround">
+<tt class="descname">alignaround</tt><a class="headerlink" href="#transform-property-alignaround" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">(float, float)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">(0.0, 0.0)</td>
+</tr>
+</tbody>
+</table>
+<p>If not None, specifies the polar coordinate center, relative to
+the upper-left of the containing area. Setting the center using
+this allows for circular motion in align mode.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-angle">
+<tt class="descname">angle</tt><a class="headerlink" href="#transform-property-angle" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+<p>Get the angle component of the polar coordinate position. This is
+undefined when the polar coordinate center is not set.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-radius">
+<tt class="descname">radius</tt><a class="headerlink" href="#transform-property-radius" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">position</td>
+</tr>
+</tbody>
+</table>
+<p>Get the radius component of the polar coordinate position. This is
+undefined when the polar coordinate center is not set.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-crop">
+<tt class="descname">crop</tt><a class="headerlink" href="#transform-property-crop" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">None or (int, int, int, int)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+<p>If not None, causes the displayable to be cropped to the given
+box. The box is specified as a tuple of (x, y, width, height).</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-corner1">
+<tt class="descname">corner1</tt><a class="headerlink" href="#transform-property-corner1" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">None or (int, int)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+<p>If not None, gives the upper-left corner of the crop box. This
+takes priority over crop.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-corner2">
+<tt class="descname">corner2</tt><a class="headerlink" href="#transform-property-corner2" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">None or (int, int)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+<p>If not None, gives the lower right corner of the crop box. This
+takes priority over crop.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-size">
+<tt class="descname">size</tt><a class="headerlink" href="#transform-property-size" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">None or (int, int)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+<p>If not None, causes the displayable to be scaled to the given
+size.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-subpixel">
+<tt class="descname">subpixel</tt><a class="headerlink" href="#transform-property-subpixel" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>If True, causes things to be drawn on the screen using subpixel
+positioning.</p>
+</dd></dl>
+
+<dl class="transform-property">
+<dt id="transform-property-delay">
+<tt class="descname">delay</tt><a class="headerlink" href="#transform-property-delay" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default :</th><td class="field-body">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>If this transform is being used as a transition, then this is the
+duration of the transition.</p>
+</dd></dl>
+
+<p>These properties are applied in the following order:</p>
+<ol class="arabic simple">
+<li>crop, corner1, corner2</li>
+<li>size</li>
+<li>zoom, xzoom, yzoom</li>
+<li>rotate</li>
+<li>position properties</li>
+</ol>
+</div>
+<div class="section" id="circular-motion">
+<h2>Circular Motion<a class="headerlink" href="#circular-motion" title="Permalink to this headline">¶</a></h2>
+<p>When an interpolation statement contains the <tt class="docutils literal"><span class="pre">clockwise</span></tt> or
+<tt class="docutils literal"><span class="pre">counterclockwise</span></tt> keywords, the interpolation will cause circular motion.
+Ren'Py will compare the start and end locations and figure out the polar
+coordinate center. Ren'Py will then compute the number of degrees it will
+take to go from the start angle to the end angle, in the specified direction
+of rotation. If the circles clause is given, Ren'Py will ensure that the
+appropriate number of circles will be made.</p>
+<p>Ren'Py will then interpolate the angle and radius properties, as appropriate,
+to cause the circular motion to happen. If the transform is in align mode,
+setting the angle and radius will set the align property. Otherwise, the pos
+property will be set.</p>
+</div>
+<div class="section" id="external-events">
+<h2>External Events<a class="headerlink" href="#external-events" title="Permalink to this headline">¶</a></h2>
+<p>The following events can be triggered automatically:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">start</span></tt></dt>
+<dd>A pseudo-event, triggered on entering an on statement, if no event of
+higher priority has happened.</dd>
+<dt><tt class="docutils literal"><span class="pre">show</span></tt></dt>
+<dd>Triggered when the transform is shown using the show or scene
+statement, and no image with the given tag exists.</dd>
+<dt><tt class="docutils literal"><span class="pre">replace</span></tt></dt>
+<dd>Triggered when transform is shown using the show statement, replacing
+an image with the given tag.</dd>
+<dt><tt class="docutils literal"><span class="pre">hide</span></tt></dt>
+<dd><p class="first">Triggered when the transform is hidden using the hide statement or its
+python equivalent.</p>
+<p class="last">Note that this isn't triggered when the transform is eliminated via
+the scene statement or exiting the context it exists in, such as when
+exiting the game menu.</p>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">replaced</span></tt></dt>
+<dd>Triggered when the transform is replaced by another. The image will
+not actually hide until the ATL block finishes.</dd>
+<dt><tt class="docutils literal"><span class="pre">hover</span></tt>, <tt class="docutils literal"><span class="pre">idle</span></tt>, <tt class="docutils literal"><span class="pre">selected_hover</span></tt>, <tt class="docutils literal"><span class="pre">selected_idle</span></tt></dt>
+<dd>Triggered when button containing this transform, or a button contained
+by this transform, enters the named state.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="style.html" title="Styles"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="transitions.html" title="Transitions"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Text Input &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Side Images" href="side_image.html" />
+    <link rel="prev" title="NVL-Mode Tutorial" href="nvl_mode.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="side_image.html" title="Side Images"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="nvl_mode.html" title="NVL-Mode Tutorial"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一节</h4>
+  <p class="topless"><a href="nvl_mode.html"
+                        title="previous chapter">NVL-Mode Tutorial</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="side_image.html"
+                        title="next chapter">Side Images</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="text-input">
+<h1>Text Input<a class="headerlink" href="#text-input" title="Permalink to this headline">¶</a></h1>
+<p>With some limitations, Ren'Py can prompt the user to input a small
+amount of text. This prompting is done by the renpy.input function,
+which returns the entered text, allowing it to be saved in a variable
+or otherwise processed.</p>
+<p>Right now, text input is limited to languages that do not require
+input method (IME) support. Most western languages should work, but
+Chinese, Japanese, and Korean probably won't.</p>
+<p>The renpy.input function is defined as:</p>
+<dl class="function">
+<dt id="renpy.input">
+<tt class="descclassname">renpy.</tt><tt class="descname">input</tt><big>(</big><em>prompt</em>, <em>default=''</em>, <em>allow=None</em>, <em>exclude='{}'</em>, <em>length=None</em>, <em>with_none=None</em>, <em>pixel_width=None</em><big>)</big><a class="headerlink" href="#renpy.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calling this function pops up a window asking the player to enter some
+text. It returns the entered text.</p>
+<dl class="docutils">
+<dt><cite>prompt</cite></dt>
+<dd>A string giving a prompt to display to the player.</dd>
+<dt><cite>default</cite></dt>
+<dd>A string giving the initial text that will be edited by the player.</dd>
+<dt><cite>allow</cite></dt>
+<dd>If not None, a string giving a list of characters that will
+be allowed in the text.</dd>
+<dt><cite>exclude</cite></dt>
+<dd>If not None, if a character is present in this string, it is not
+allowed in the text.</dd>
+<dt><cite>length</cite></dt>
+<dd>If not None, this must be an integer giving the maximum length
+of the input string.</dd>
+<dt><cite>pixel_width</cite></dt>
+<dd>If not None, the input is limited to being this many pixels wide,
+in the font used by the input to display text.</dd>
+</dl>
+</dd></dl>
+
+<p>Code that uses renpy.input will often want to process the result
+further, using standard python string manipulation functions. For
+example, the following code will ask the player for his or her
+name and remove leading or trailing whitespace. If the name is
+empty, it will be replaced by a default name. Finally, it is
+displayed to the user.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">pov</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;[povname]&quot;</span><span class="p">)</span>
+
+<span class="k">python</span><span class="p">:</span>
+    <span class="n">povname</span> <span class="o">=</span> <span class="n">renpy</span><span class="o">.</span><span class="k">input</span><span class="p">(</span><span class="s">&quot;What is your name?&quot;</span><span class="p">)</span>
+    <span class="n">povname</span> <span class="o">=</span> <span class="n">povname</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="k">not</span> <span class="n">povname</span><span class="p">:</span>
+         <span class="n">povname</span> <span class="o">=</span> <span class="s">&quot;Pat Smith&quot;</span>
+
+<span class="n">pov</span> <span class="s">&quot;My name is [povname]!&quot;</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="side_image.html" title="Side Images"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="nvl_mode.html" title="NVL-Mode Tutorial"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

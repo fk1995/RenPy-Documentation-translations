@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python Statements &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Conditional Statements" href="conditional.html" />
+    <link rel="prev" title="In-Game Menus" href="menus.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="conditional.html" title="Conditional Statements"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="menus.html" title="In-Game Menus"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Python Statements</a><ul>
+<li><a class="reference internal" href="#python">Python</a></li>
+<li><a class="reference internal" href="#one-line-python-statement">One-line Python Statement</a></li>
+<li><a class="reference internal" href="#init-python-statement">Init Python Statement</a></li>
+<li><a class="reference internal" href="#define-statement">Define Statement</a></li>
+<li><a class="reference internal" href="#names-in-the-store">Names in the Store</a></li>
+<li><a class="reference internal" href="#other-named-stores">Other Named Stores</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="menus.html"
+                        title="previous chapter">In-Game Menus</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="conditional.html"
+                        title="next chapter">Conditional Statements</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="python-statements">
+<h1>Python Statements<a class="headerlink" href="#python-statements" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py is written in the Python programmming language, and includes
+support for including python code inside Ren'Py scripts. Python
+support can be used for many things, from setting a flag to creating
+new displayables. This chapter covers ways in which Ren'Py scripts can
+directly invoke Python code, through the various python statements.</p>
+<div class="section" id="python">
+<span id="python-statement"></span><h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>The python statement takes a block of python code, and runs that code
+when control reaches the statement. A basic python statement can be
+very simple:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">python</span><span class="p">:</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>Python statements can get more complex, when necessary:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">python</span><span class="p">:</span>
+    <span class="n">player_health</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">player_health</span> <span class="o">-</span> <span class="n">damage</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">enemy_vampire</span><span class="p">:</span>
+        <span class="n">enemy_health</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">enemy_health</span> <span class="o">+</span> <span class="n">damage</span><span class="p">,</span> <span class="n">enemy_max_health</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There are two modifiers to the python statement that change its
+behavior:</p>
+<p><tt class="docutils literal"><span class="pre">hide</span></tt></p>
+<blockquote>
+<div><p>If given the hide modifier, the python statement will run the
+code in an anonymous scope. The scope will be lost when the python
+block terminates.</p>
+<p>This allows python code to use temporary variables that can't be
+saved - but it means that the store needs to be accessed as fields
+on the store object, rather than directly.</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">in</span></tt></p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">in</span></tt> modifier takes a name. Instead of executing in the
+default store, the python code will execute in the store that
+name.</div></blockquote>
+</div>
+<div class="section" id="one-line-python-statement">
+<h2>One-line Python Statement<a class="headerlink" href="#one-line-python-statement" title="Permalink to this headline">¶</a></h2>
+<p>A common case is to have a single line of python that runs in the
+default store. For example, a python one-liner can be used to
+initialize or update a flag. To make writing python one-liners
+more convenient, there is the one-line python statement.</p>
+<p>The one-line python statement begins with the dollar-sign ($)
+character, and contains all of the code on that line. Here
+are some example of python one-liners:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Set a flag.</span>
+<span class="k">$</span> <span class="n">flag</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c"># Initialize a variable.</span>
+<span class="k">$</span> <span class="n">romance_points</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c"># Increment a variable.</span>
+<span class="k">$</span> <span class="n">romance_points</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c"># Call a function that exposes Ren&#39;Py functionality.</span>
+<span class="k">$</span> <span class="n">renpy</span><span class="o">.</span><span class="n">movie_cutscene</span><span class="p">(</span><span class="s">&quot;opening.ogv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Python one-liners always run in the default store.</p>
+</div>
+<div class="section" id="init-python-statement">
+<span id="id1"></span><h2>Init Python Statement<a class="headerlink" href="#init-python-statement" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">init</span> <span class="pre">python</span></tt> statement runs python code at initialization time,
+before the game loads. Among other things, this code can be used to define
+classes and functions, or to initialize styles, config variables, or
+persistent data.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">auto_voice_function</span><span class="p">(</span><span class="n">ident</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;voice/&quot;</span> <span class="o">+</span> <span class="n">ident</span> <span class="o">+</span> <span class="s">&quot;.ogg&quot;</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">auto_voice</span> <span class="o">=</span> <span class="n">auto_voice_function</span>
+
+    <span class="k">if</span> <span class="n">persistent</span><span class="o">.</span><span class="n">endings</span> <span class="k">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">persistent</span><span class="o">.</span><span class="n">endings</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="k">init</span> <span class="mi">1</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="c"># The bad ending is always unlocked.</span>
+    <span class="n">persistent</span><span class="o">.</span><span class="n">endings</span><span class="o">.</span><span class="k">add</span><span class="p">(</span><span class="s">&quot;bad_ending&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A priority number can be placed between <tt class="docutils literal"><span class="pre">init</span></tt> and <tt class="docutils literal"><span class="pre">python</span></tt>. When
+a priority is not given, 0 is used. Init  statements are run in priority
+order, from lowest to highest. Init statements of the same priority are run in
+unicode order by filename, and then from top to bottom within a file.</p>
+<p>To avoid conflict with Ren'Py, creators should use priorities in the
+range -999 to 999. Priorities of less than 0 are generally used for
+libraries and to set up themes. Normal init code should have a priority
+of 0 or higher.</p>
+<p>Init python statements also take the <tt class="docutils literal"><span class="pre">hide</span></tt> or <tt class="docutils literal"><span class="pre">in</span></tt> clauses.</p>
+<p>Variables that have their value set in an init python block are not
+saved, loaded, and do not participate in rollback, unless the object
+the variable refers to is changed.</p>
+</div>
+<div class="section" id="define-statement">
+<span id="id2"></span><h2>Define Statement<a class="headerlink" href="#define-statement" title="Permalink to this headline">¶</a></h2>
+<p>The define statement sets a single variable in the default store
+to a value at init time. For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;eileen&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is equivalent to:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;eileen&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>One advantage of using the define statement is that it records the
+filename and line number at which the assignment occured, and
+makes that available to the navigation feature of the launcher.</p>
+</div>
+<div class="section" id="names-in-the-store">
+<h2>Names in the Store<a class="headerlink" href="#names-in-the-store" title="Permalink to this headline">¶</a></h2>
+<p>The default place that Ren'Py stores Python variables is called the
+store. It's important to make sure that the names you use in the
+store do not conflict.</p>
+<p>The define statement assigns a value to a variable, even when it's
+used to define a character. This means that it's not possible to
+use the same name for a character and a flag.</p>
+<p>The following faulty code:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">)</span>
+
+<span class="k">label</span> <span class="n">start</span><span class="p">:</span>
+
+    <span class="k">$</span> <span class="n">e</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">e</span> <span class="s">&quot;Hello, world.&quot;</span>
+
+    <span class="k">$</span> <span class="n">e</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">e</span> <span class="s">&quot;You scored a point!&quot;</span>
+</pre></div>
+</div>
+<p>will not work, because the variable <cite>e</cite> is being used as both a
+character and a flag. Other things that are usually placed into
+the store are transitions and transforms.</p>
+<p>Names beginning with underscore (_) are reserved for Ren'Py's
+internal use. In addition, there is an <a class="reference internal" href="reserved.html#reserved-names"><em>Index of Reserved Names</em></a>.</p>
+</div>
+<div class="section" id="other-named-stores">
+<h2>Other Named Stores<a class="headerlink" href="#other-named-stores" title="Permalink to this headline">¶</a></h2>
+<p>Named stores provide a way of organizing python code into modules. By
+placing code in modules, you can minimize the chance of name
+conflicts.</p>
+<p>Named stores can be accessed by supplying the <tt class="docutils literal"><span class="pre">in</span></tt> clause to
+<tt class="docutils literal"><span class="pre">python</span></tt> or <tt class="docutils literal"><span class="pre">init</span> <span class="pre">python</span></tt>, code can run accessed in a named
+store. Each store corresponds to a python module. The default store is
+<tt class="docutils literal"><span class="pre">store</span></tt>, while a named store is accessed as <tt class="docutils literal"><span class="pre">store</span></tt>.`name`. These
+python modules can be imported using the python import statement,
+while names in the modules can be imported using the python from
+statement.</p>
+<p>For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span> <span class="k">in</span> <span class="n">mystore</span><span class="p">:</span>
+
+    <span class="n">serial_number</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">serial</span><span class="p">():</span>
+
+        <span class="k">global</span> <span class="n">serial_number</span>
+        <span class="n">serial_number</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">serial_number</span>
+
+<span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">store.mystore</span> <span class="kn">as</span> <span class="nn">mystore</span>
+
+<span class="k">label</span> <span class="n">start</span><span class="p">:</span>
+    <span class="k">$</span> <span class="n">serial</span> <span class="o">=</span> <span class="n">mystore</span><span class="o">.</span><span class="n">serial</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Named stores participate in save, load, and rollback in the same way
+that the default store does.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="conditional.html" title="Conditional Statements"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="menus.html" title="In-Game Menus"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

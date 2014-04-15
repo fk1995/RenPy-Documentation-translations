@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>语言基础</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Labels & Control Flow" href="label.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="label.html" title="Labels & Control Flow"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">首页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">语言基础</a><ul>
+<li><a class="reference internal" href="#files">文件</a><ul>
+<li><a class="reference internal" href="#base-directory">根目录</a></li>
+<li><a class="reference internal" href="#game-directory">游戏目录</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#comments">注释</a></li>
+<li><a class="reference internal" href="#logical-lines">逻辑行</a></li>
+<li><a class="reference internal" href="#indentation-and-blocks">缩进和区块</a></li>
+<li><a class="reference internal" href="#elements-of-statements">命令的组成部分</a></li>
+<li><a class="reference internal" href="#common-statement-syntax">一般命令语法</a></li>
+<li><a class="reference internal" href="#python-expression-syntax">Python表达式语法</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="previous chapter">快速入门</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="label.html"
+                        title="next chapter">标签与控制流</a></p>
+            <h4>搜索</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="language-basics">
+<h1>语言基础<a class="headerlink" href="#language-basics" title="Permalink to this headline">¶</a></h1>
+<p>在我们开始讲解Ren'Py语言之前，我们必须先介绍Ren'Py脚本的结构。首先您得了解一个文件是怎么被分成很多个区块，每个区块是怎么被分成许多行，而每一行又是怎么被分解成组成命令的各个元素的。</p>
+<div class="section" id="files">
+<h2>文件<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py游戏的脚本包括了游戏目录下面所有的.rpy文件。Ren'Py会按照unicode顺序自动搜索所有的文件，并读取其中的内容作为游戏的脚本。</p>
+<p>一般来说，把一个脚本分成好几个其实没有意义。您可以跳到或者呼叫在另一个脚本里的标签。所以具体怎么划分脚本实际上是无所谓的，有些人喜欢零碎的小文件，有些人喜欢一个完整的大文件。</p>
+<p>为了加速启动，当游戏启动时Ren'Py会将 <tt class="docutils literal"><span class="pre">.rpy</span></tt>编译成.rpyc文件。当一个<tt class="docutils literal"><span class="pre">.rpy</span></tt> 被修改以后, 在下次Ren'Py启动时<tt class="docutils literal"><span class="pre">.rpyc</span></tt>
+文件会被更新。但是当一个.rpyc存在而相应的<tt class="docutils literal"><span class="pre">.rpy</span></tt>不存在时<tt class="docutils literal"><span class="pre">.rpyc</span></tt> 文件将依然被使用。这可能会导致一个问题：<tt class="docutils literal"><span class="pre">.rpy</span></tt>被删除，但是.rpyc没有，因此看起来好像.rpy文件没有被删除一样。</p>
+<div class="section" id="base-directory">
+<h3>根目录<a class="headerlink" href="#base-directory" title="Permalink to this headline">¶</a></h3>
+<p>根目录包含了所有将作为游戏发布的内容（它也许会包含一些不会随游戏发布的内容）。一些类如ReadMe之类的文件应该放在根目录下，随游戏一起发布。</p>
+<p>游戏的根目录一般在Ren'Py的工作目录下，名字与您的游戏名称相同。比如说，如果您的Ren'Py的工作目录是renpy-6.17.3，您的游戏名称是“whyyousodiao”，该游戏的根目录就是renpy-6.17.3/whyyousodiao。</p>
+</div>
+<div class="section" id="game-directory">
+<h3>游戏目录<a class="headerlink" href="#game-directory" title="Permalink to this headline">¶</a></h3>
+<p>游戏目录的名字总是&quot;game&quot;，位于根目录下面。比如，如果您的根目录是renpy-6.17.3/whyyousodiao，那么您的游戏目录就是renpy-6.17.3/whyyousodiao/game。</p>
+<p>但是，Ren'Py将以以下顺序搜索目录：</p>
+<ul class="simple">
+<li>exe文件的名字，不包含扩展名。比如，如果游戏的exe文件是moonlight.exe，那么Ren'Py将会先在根目录下搜索叫做moonlight的文件夹。</li>
+<li>exe文件的名字，不包含扩展名，并去除以“_”结尾的前缀。比如，如果exe文件的名字是moonlight_en.exe，Ren'Py将会搜索叫做en的文件夹。</li>
+<li>.然后是叫做“game”，“data”和“launcher”的目录。</li>
+</ul>
+<p>如果是在启动器里启动游戏的话，那么只有“game”和“data”目录会被接受。</p>
+<p>游戏目录将会包含所有游戏使用的文件。Ren'Py将搜索它和它的子文件夹，来读取.rpy和.rpyc文件，然后生成脚本。它也会搜索.rpa压缩文件，作为游戏资源的一部分。如果在游戏中要读取一个文件，写出的文件路径是相对game文件夹的。（注意：修改config.serachpath可以改变这个设置）</p>
+</div>
+</div>
+<div class="section" id="comments">
+<h2>注释<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py脚本可以包含注释。注释由“#”开始，该行在#之后的文本都会被视为注释。但是，注释不能出现在字符串中间（也就是"123#456"并不是错误的）</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 这是一个注释。</span>
+<span class="k">show</span> <span class="n">black</span> <span class="c"># 这也是个注释</span>
+
+<span class="s">&quot;# 这不是个注释，因为它是字符串的一部分。&quot;</span>
+</pre></div>
+</div>
+<p>Ren'Py会无视所有注释，就好像它们不存在于脚本中一样。</p>
+</div>
+<div class="section" id="logical-lines">
+<h2>逻辑行<a class="headerlink" href="#logical-lines" title="Permalink to this headline">¶</a></h2>
+<p>脚本文件会被分解为<em class="dfn">逻辑行</em>。一个逻辑行总是从文件的某一行的行首开始。它一般在该行的行尾结束，除非：</p>
+<ul class="simple">
+<li>该行最后一个字符是反斜杠（‘\’）。</li>
+<li>该行包含一个未被闭合的括号。</li>
+<li>在一个字符串没有结束前遇到了行尾。</li>
+</ul>
+<p>当一个逻辑行结束后，下一个逻辑行从下一行的行首开始。</p>
+<p>大部分的Ren'Py语言命令都只包含一个逻辑行，但是有些命令由多个逻辑行组成。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;这是一个逻辑行&quot;</span>
+
+<span class="s">&quot;因为这是一个字符串，这一行会</span>
+ <span class="n">继续</span><span class="n">下去</span><span class="n">就算</span><span class="n">遇到</span><span class="n">行尾</span><span class="o">。</span><span class="s">&quot;</span>
+
+<span class="k">$</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&quot;因为括号没有闭合，这个逻辑行&quot;</span><span class="p">,</span>
+        <span class="s">&quot;也超过了一行。&quot;</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>空的逻辑行将会被忽略。</p>
+</div>
+<div class="section" id="indentation-and-blocks">
+<h2>缩进和区块<a class="headerlink" href="#indentation-and-blocks" title="Permalink to this headline">¶</a></h2>
+<p><em class="dfn">缩进</em>是我们给每逻辑行前面的空格起的名字，用来对齐各个逻辑行。Ren'Py脚本中，缩进必须是空格（不可以是制表符）。</p>
+<p>缩进用来把命令划分成<em class="dfn">区块</em>。一个区块一般包含好几行，通常是好几个命令。划分区块采用的规则是：</p>
+<ul class="simple">
+<li>一个区块从某一行的行首开始。</li>
+<li>.一个区块从某一个缩进量比前一行多的行开始。</li>
+<li>所有在同一个区块里的逻辑行必须由相同的缩进。</li>
+<li>当读取到一个比前一行缩进量少的行时，该区块结束。</li>
+</ul>
+<p>缩进在Ren'Py里十分重要，如果缩进不对，会导致语法和逻辑错误。同时，使用缩进来处理区块使得我们能够轻而易举地看出脚本的结构。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;这个命令，以及接下来的if命令，属于同一个区块。&quot;</span>
+
+<span class="k">if</span> <span class="bp">True</span><span class="p">:</span>
+
+    <span class="s">&quot;但是这个命令就属于新区块了。&quot;</span>
+
+    <span class="s">&quot;这行也属于新区块。&quot;</span>
+
+<span class="s">&quot;这一行又属于第一个区块了。&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="elements-of-statements">
+<h2>命令的组成部分<a class="headerlink" href="#elements-of-statements" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py的命令由一些非常基本的部分组成。</p>
+<dl class="docutils">
+<dt><em class="dfn">关键字</em></dt>
+<dd><p class="first">关键字是必须出现在脚本里的词语。它们用来声明接下来的命令的类型和接受的参数。</p>
+</dd>
+<dt><em class="dfn">名称</em></dt>
+<dd><p>一个名称以字母或者下划线开头，然后后面可以是更多的字母、数字和下划线。在Ren'Py中，从U+00a0到U+fffd的unicode字符会被认为是字母。</p>
+<p>所有以下划线开头的名称，除非特别指出，否则就是为Ren'Py内部使用而预留的。当一个名称以 __ 开头但是没有以 __ 结尾时，它仅在该文件范围内有效。</p>
+</dd>
+</dl>
+<p><em class="dfn">图像名称</em></p>
+<blockquote>
+<div><p>一个<em class="dfn">图像名称</em>由一个或多个名称组成，用空格分开。图像名称的第一个部分被称为
+<em class="dfn">图像标记</em>。之后的部分被称为<em class="dfn">图像属性</em>。</p>
+<p>比如说，看看这个图像名称吧。<tt class="docutils literal"><span class="pre">mary</span> <span class="pre">beach</span> <span class="pre">night</span> <span class="pre">happy</span></tt>。图像标记是<tt class="docutils literal"><span class="pre">mary</span></tt>，图像属性是<tt class="docutils literal"><span class="pre">mary</span></tt>，
+<tt class="docutils literal"><span class="pre">beach</span></tt>，和<tt class="docutils literal"><span class="pre">night</span></tt>。</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><em class="dfn">字符串</em></dt>
+<dd><p class="first">字符串由引号开始（`，'，&quot;之一），以相同的引号结束。</p>
+<p>反斜杠用来转义引号，特殊字符（比如%）以及{。也可以用来引入新行。</p>
+<p>在Ren'Py字符串中，连续的空格会被处理成一个空格字符，除非空格之前有个反斜杠（转义符）。</p>
+<div class="last highlight-renpy"><div class="highlight"><pre><span class="s">&#39;字符串不能包含他们的</span><span class="se">\&#39;</span><span class="s">结束引号，除非您使用转义符。&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><em class="dfn">简单表达式</em></dt>
+<dd><p class="first">简单表达式是一条Python表达式，用于在某些脚本里使用Python。简单表达式由以下开始：</p>
+<ul class="simple">
+<li>一个名称</li>
+<li>一个字符串</li>
+<li>一个数字</li>
+<li>任何在括号内的Python表达式</li>
+</ul>
+<p>然后可以跟着任意数量的：</p>
+<ul class="simple">
+<li>一个点（.），及一个名称</li>
+<li>一个括号内的Python表达式</li>
+</ul>
+<p class="last">举个栗子，<tt class="docutils literal"><span class="pre">3</span></tt>, <tt class="docutils literal"><span class="pre">(3</span> <span class="pre">+</span> <span class="pre">4)</span></tt>, <tt class="docutils literal"><span class="pre">foo.bar</span></tt>, 和 <tt class="docutils literal"><span class="pre">foo(42)</span></tt>
+都是简单表达式，但<tt class="docutils literal"><span class="pre">"3"</span> <span class="pre">+</span> <span class="pre">4</span></tt> 不是，因为上一个表达式在字符串结束的地方就结束了。</p>
+</dd>
+<dt><em class="dfn">at表</em></dt>
+<dd>一个at表是一个由简单表达式构成的列表，由逗号分隔。</dd>
+<dt><em class="dfn">Python表达式</em></dt>
+<dd>Python表达式指的是任何不含分号的python表达式。在if和while命令中作为判断条件使用。</dd>
+</dl>
+</div>
+<div class="section" id="common-statement-syntax">
+<h2>一般命令语法<a class="headerlink" href="#common-statement-syntax" title="Permalink to this headline">¶</a></h2>
+<p>大部分Ren'Py命令使用同一套语法。除了say命令以外，它们都由一个关键字开始。关键字后面是参数（如果这个命令接受参数的话）。</p>
+<p>参数后面是属性。属性可以按照任意的顺序写出，只要任何属性只出现一次。属性由它的关键字开始。对于大部分属性来说，它的值将会是上面列出的语法元素中的一种。</p>
+<p>如果命令带一个区块，那么这一行将以冒号（:）结尾。否则，该命令到行尾时就结束了。</p>
+</div>
+<div class="section" id="python-expression-syntax">
+<span id="python-basics"></span><h2>Python表达式语法<a class="headerlink" href="#python-expression-syntax" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">注意</p>
+<p class="last">目前并无必要完整阅读该部分。您可以考虑先跳过该部分，直到遇到无法看懂的例子，或者想了解到底是怎么一回事的时候，再回来仔细阅读这部分。</p>
+</div>
+<p>许多Ren'Py的特性需要使用python表达式。比如说，定义一个角色将会用到Character函数。虽然Python表达式十分强大，但对于一个简单的Ren'Py游戏来说只需要用到它的一部分。</p>
+<p>以下均是python表达式。</p>
+<dl class="docutils">
+<dt><em class="dfn">整数</em></dt>
+<dd>整数指的是不包含小数点的数字。 <tt class="docutils literal"><span class="pre">3</span></tt> 和 <tt class="docutils literal"><span class="pre">42</span></tt>
+整数。</dd>
+<dt><em class="dfn">浮点数</em></dt>
+<dd>浮点数指的是含有小数点的数字。 <tt class="docutils literal"><span class="pre">.5</span></tt>, <tt class="docutils literal"><span class="pre">7.</span></tt>, 和 <tt class="docutils literal"><span class="pre">9.0</span></tt> 浮点数。</dd>
+<dt><em class="dfn">字符串</em></dt>
+<dd>python字符串由&quot;或者'开始，以相同的引号结束。反斜杠用于转义，以及引入新行。与Ren'Py中的字符串不同的是，python字符串不能跨行。</dd>
+<dt><em class="dfn">True, False, None</em></dt>
+<dd>这是三个特别的值。<tt class="docutils literal"><span class="pre">True</span></tt>是“真”值， <tt class="docutils literal"><span class="pre">False</span></tt> 是“伪”值， <tt class="docutils literal"><span class="pre">None</span></tt> 表示“无”。</dd>
+<dt><em class="dfn">元组</em></dt>
+<dd><p class="first">元组用来表示一些元素的集合。元组是不能修改的。比如，一个二元元组（又被称为数对）可以用来表示宽和高，一个4元数组可以用来表示一个矩形。</p>
+<p>元组由左括号<tt class="docutils literal"><span class="pre">(</span></tt>开始，包含0个或者多个逗号分隔的python表达式，由右括号<tt class="docutils literal"><span class="pre">)</span></tt>结束。作为一个特例，一个一元元组必须在它唯一的元素后面有一个逗号。比如：</p>
+<div class="last highlight-renpy"><div class="highlight"><pre><span class="p">()</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;#555&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt><em class="dfn">列表</em></dt>
+<dd><p class="first">列表相当于可修改的元组。列表由左中括号<tt class="docutils literal"><span class="pre">[</span></tt>开始，包含一系列由逗号分隔的值，然后以右中括号<tt class="docutils literal"><span class="pre">]</span></tt>结束。比如：</p>
+<div class="last highlight-renpy"><div class="highlight"><pre><span class="p">[</span> <span class="p">]</span>
+<span class="p">[</span> <span class="mi">1</span> <span class="p">]</span>
+<span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]</span>
+<span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+<dt><em class="dfn">变量</em></dt>
+<dd><p class="first">Python表达式可以使用变量。变量的值由define命令或者python表达式确定。变量可以由字母或者下划线开始，后面跟着0个或多个字母，数字或者下划线（和名称的规则一致）。比如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">name</span>
+<span class="n">love_love_points</span>
+<span class="n">trebuchet2_range</span>
+</pre></div>
+</div>
+<p class="last">由下划线开始的变量是给Ren'Py内部使用的，在写脚本的时候要多加注意。</p>
+</dd>
+<dt><em class="dfn">域通道</em></dt>
+<dd><p class="first">Python模块和对象拥有域（fields）的概念，使用.和域名可以指定对象的域通道。如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">config</span><span class="o">.</span><span class="n">screen_width</span>
+</pre></div>
+</div>
+<p class="last">是一个域通道，由一个变量（config）和后面的域名组成。</p>
+</dd>
+<dt><em class="dfn">调用</em></dt>
+<dd><p class="first">Python表达式可以调用一个返回某个值的函数。它们由一个表达式开始，然后是一个左括号，一些由逗号分隔的参数，一个右括号。参数由位置参数和关键字参数组成。位置参数就是python表达式，关键字参数的格式是“关键字=值”。如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">adv</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#0f0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>我们调用了Character这个函数。它获得了一个未知参数，字符串&quot;Eileen&quot;，以及两个关键字参数：
+<tt class="docutils literal"><span class="pre">type</span></tt> 它的值是 <tt class="docutils literal"><span class="pre">adv</span></tt> 这个变量，以及 <tt class="docutils literal"><span class="pre">color</span></tt>
+，它的值是字符串&quot;#0f0&quot;.</p>
+<p class="last">构造器函数是一种会返回一个对象的函数，调用方法和普通的函数一样。</p>
+</dd>
+</dl>
+<p>当阅读本文档时，您可能会遇到下面这样的函数介绍：</p>
+<dl class="function">
+<dt id="Sample">
+<tt class="descname">Sample</tt><big>(</big><em>name</em>, <em>delay</em>, <em>position=(0</em>, <em>0)</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>这是一个<s>栗</s>例子函数，实际上并不存在，我们这里拿这个函数作为<s>栗</s>例子</p>
+</dd></dl>
+
+<p>这个函数</p>
+<ul class="simple">
+<li>名字是&quot;Sample&quot;</li>
+<li>有两个位置函数，一个叫做“name”，一个叫做“delay”，在真实的函数介绍中，这些参数的类型都会被明确地指出。</li>
+<li>有一个关键字参数，postition，默认值是(0,0)。</li>
+</ul>
+<p>因为函数以“**properties”结尾，它还可以接受<a class="reference internal" href="style_properties.html#style-properties"><em>样式属性</em></a>作为额外的关键字参数。其他特殊的参数名字有“**args”，意味着它接受任意数量的位置参数，以及“**kwargs”，意味着它接受任意的在文档中给出的关键字参数。</p>
+<p>Python比我们在这里展示的还要强大许多。如果想学习更多的Python，我们推荐学习以下Python教程：
+<a class="reference external" href="http://docs.python.org/release/2.7/tutorial/index.html">python.org</a>.
+虽然我们并不认为对于Python了解得十分透彻是使用Ren'Py的前提条件，但是作为基础的Python命令和表达式是相当有用的。</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="label.html" title="Labels & Control Flow"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">首页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

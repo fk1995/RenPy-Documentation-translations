@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Script of The Question &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="NVL-mode script for The Question" href="thequestion_nvl.html" />
+    <link rel="prev" title="Documentation and Translation Credits" href="credits.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="thequestion_nvl.html" title="NVL-mode script for The Question"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="credits.html" title="Documentation and Translation Credits"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Script of The Question</a><ul>
+<li><a class="reference internal" href="#script-rpy">script.rpy</a></li>
+<li><a class="reference internal" href="#options-rpy">options.rpy</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="credits.html"
+                        title="previous chapter">Documentation and Translation Credits</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="thequestion_nvl.html"
+                        title="next chapter">NVL-mode script for The Question</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="script-of-the-question">
+<span id="thequestion"></span><h1>Script of The Question<a class="headerlink" href="#script-of-the-question" title="Permalink to this headline">¶</a></h1>
+<p>The script is divided over two files.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#script-rpy">script.rpy</a> contains the main body of the game.</li>
+<li><a class="reference internal" href="#options-rpy">options.rpy</a> contains options which customize the display of parts
+of the game.</li>
+</ul>
+<div class="section" id="script-rpy">
+<h2>script.rpy<a class="headerlink" href="#script-rpy" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Declare images used by this game.</span>
+<span class="k">image</span> <span class="n">bg</span> <span class="n">lecturehall</span> <span class="o">=</span> <span class="s">&quot;lecturehall.jpg&quot;</span>
+<span class="k">image</span> <span class="n">bg</span> <span class="n">uni</span> <span class="o">=</span> <span class="s">&quot;uni.jpg&quot;</span>
+<span class="k">image</span> <span class="n">bg</span> <span class="n">meadow</span> <span class="o">=</span> <span class="s">&quot;meadow.jpg&quot;</span>
+<span class="k">image</span> <span class="n">bg</span> <span class="n">club</span> <span class="o">=</span> <span class="s">&quot;club.jpg&quot;</span>
+
+<span class="k">image</span> <span class="n">sylvie</span> <span class="n">normal</span> <span class="o">=</span> <span class="s">&quot;sylvie_normal.png&quot;</span>
+<span class="k">image</span> <span class="n">sylvie</span> <span class="n">giggle</span> <span class="o">=</span> <span class="s">&quot;sylvie_giggle.png&quot;</span>
+<span class="k">image</span> <span class="n">sylvie</span> <span class="n">smile</span> <span class="o">=</span> <span class="s">&quot;sylvie_smile.png&quot;</span>
+<span class="k">image</span> <span class="n">sylvie</span> <span class="n">surprised</span> <span class="o">=</span> <span class="s">&quot;sylvie_surprised.png&quot;</span>
+
+<span class="k">image</span> <span class="n">sylvie2</span> <span class="n">normal</span> <span class="o">=</span> <span class="s">&quot;sylvie2_normal.png&quot;</span>
+<span class="k">image</span> <span class="n">sylvie2</span> <span class="n">giggle</span> <span class="o">=</span> <span class="s">&quot;sylvie2_giggle.png&quot;</span>
+<span class="k">image</span> <span class="n">sylvie2</span> <span class="n">smile</span> <span class="o">=</span> <span class="s">&quot;sylvie2_smile.png&quot;</span>
+<span class="k">image</span> <span class="n">sylvie2</span> <span class="n">surprised</span> <span class="o">=</span> <span class="s">&quot;sylvie2_surprised.png&quot;</span>
+
+<span class="c"># Define characters used by this game.</span>
+<span class="k">define</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&#39;Sylvie&#39;</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#c8ffc8&quot;</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&#39;Me&#39;</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#c8c8ff&quot;</span><span class="p">)</span>
+
+
+<span class="c"># The game starts here.</span>
+<span class="k">label</span> <span class="n">start</span><span class="p">:</span>
+
+    <span class="k">$</span> <span class="n">bl_game</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">play</span> <span class="n">music</span> <span class="s">&quot;illurock.ogg&quot;</span>
+
+    <span class="k">scene</span> <span class="n">bg</span> <span class="n">lecturehall</span>
+    <span class="k">with</span> <span class="n">fade</span>
+
+    <span class="s">&quot;Well, professor Eileen&#39;s lecture was interesting.&quot;</span>
+    <span class="s">&quot;But to be honest, I couldn&#39;t concentrate on it very much.&quot;</span>
+    <span class="s">&quot;I had a lot of other thoughts on my mind.&quot;</span>
+    <span class="s">&quot;And they all ended up with a question.&quot;</span>
+    <span class="s">&quot;A question, I&#39;ve been meaning to ask someone.&quot;</span>
+
+    <span class="k">scene</span> <span class="n">bg</span> <span class="n">uni</span>
+    <span class="k">with</span> <span class="n">fade</span>
+
+    <span class="s">&quot;When we came out of the university, I saw her.&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie</span> <span class="n">normal</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+
+    <span class="s">&quot;She was a wonderful person.&quot;</span>
+    <span class="s">&quot;I&#39;ve known her ever since we were children.&quot;</span>
+    <span class="s">&quot;And she&#39;s always been a good friend.&quot;</span>
+    <span class="s">&quot;But...&quot;</span>
+    <span class="s">&quot;Recently...&quot;</span>
+    <span class="s">&quot;I think...&quot;</span>
+    <span class="s">&quot;... that I wanted more.&quot;</span>
+    <span class="s">&quot;More just talking... more than just walking home together when our classes ended.&quot;</span>
+    <span class="s">&quot;And I decided...&quot;</span>
+
+    <span class="k">menu</span><span class="p">:</span>
+
+        <span class="s">&quot;... to ask her right away.&quot;</span><span class="p">:</span>
+
+            <span class="k">jump</span> <span class="n">rightaway</span>
+
+        <span class="s">&quot;... to ask her later.&quot;</span><span class="p">:</span>
+
+            <span class="k">jump</span> <span class="n">later</span>
+
+
+<span class="k">label</span> <span class="n">rightaway</span><span class="p">:</span>
+
+    <span class="k">show</span> <span class="n">sylvie</span> <span class="n">smile</span>
+
+    <span class="n">s</span> <span class="s">&quot;Oh, hi, do we walk home together?&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Yes...&quot;</span>
+    <span class="s">&quot;I said and my voice was already shaking.&quot;</span>
+
+    <span class="k">scene</span> <span class="n">bg</span> <span class="n">meadow</span>
+    <span class="k">with</span> <span class="n">fade</span>
+
+    <span class="s">&quot;We reached the meadows just outside our hometown.&quot;</span>
+    <span class="s">&quot;Autumn was so beautiful here.&quot;</span>
+    <span class="s">&quot;When we were children, we often played here.&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Hey... ummm...&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie</span> <span class="n">smile</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+
+    <span class="s">&quot;She turned to me and smiled.&quot;</span>
+    <span class="s">&quot;I&#39;ll ask her...&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Ummm... will you...&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Will you be my artist for a visual novel?&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie</span> <span class="n">surprised</span>
+
+    <span class="s">&quot;Silence.&quot;</span>
+    <span class="s">&quot;She is shocked. And then...&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie</span> <span class="n">smile</span>
+
+    <span class="n">s</span> <span class="s">&quot;Sure, but what is a </span><span class="se">\&quot;</span><span class="s">visual novel?</span><span class="se">\&quot;</span><span class="s">&quot;</span>
+
+    <span class="k">menu</span><span class="p">:</span>
+
+        <span class="s">&quot;It&#39;s a story with pictures.&quot;</span><span class="p">:</span>
+            <span class="k">jump</span> <span class="n">vn</span>
+
+        <span class="s">&quot;It&#39;s a hentai game.&quot;</span><span class="p">:</span>
+            <span class="k">jump</span> <span class="n">hentai</span>
+
+<span class="k">label</span> <span class="n">vn</span><span class="p">:</span>
+
+    <span class="n">m</span> <span class="s">&quot;It&#39;s a story with pictures and music.&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;And you&#39;ll be able to make choices that influence the outcome of the story.&quot;</span>
+    <span class="n">s</span> <span class="s">&quot;So it&#39;s like those choose-your-adventure books?&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Exactly! I plan on making a small romantic story.&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;And I figured you could help me... since I know how you like to draw.&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie</span> <span class="n">normal</span>
+
+    <span class="n">s</span> <span class="s">&quot;Well, I can try. I hope I don&#39;t disappoint you.&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;You can&#39;t disappoint me, you know that.&quot;</span>
+
+    <span class="k">jump</span> <span class="n">marry</span>
+
+<span class="k">label</span> <span class="n">hentai</span><span class="p">:</span>
+
+    <span class="k">$</span> <span class="n">bl_game</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="n">m</span> <span class="s">&quot;Why it&#39;s a game with lots of sex.&quot;</span>
+    <span class="n">s</span> <span class="s">&quot;You mean, like a boy&#39;s love game?&quot;</span>
+    <span class="n">s</span> <span class="s">&quot;I&#39;ve always wanted to make one of those.&quot;</span>
+    <span class="n">s</span> <span class="s">&quot;I&#39;ll get right on it!&quot;</span>
+
+    <span class="k">hide</span> <span class="n">sylvie</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+
+    <span class="s">&quot;...&quot;</span>
+
+    <span class="n">m</span> <span class="s">&quot;That wasn&#39;t what I meant!&quot;</span>
+
+    <span class="k">jump</span> <span class="n">marry</span>
+
+<span class="k">label</span> <span class="n">marry</span><span class="p">:</span>
+
+    <span class="k">scene</span> <span class="n">black</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+
+    <span class="s">&quot;--- years later ---&quot;</span>
+
+    <span class="k">scene</span> <span class="n">bg</span> <span class="n">club</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+
+    <span class="s">&quot;And so, we became a visual novel creating team.&quot;</span>
+    <span class="s">&quot;We made games and had a lot of fun making them.&quot;</span>
+
+    <span class="k">if</span> <span class="n">bl_game</span><span class="p">:</span>
+        <span class="s">&quot;Well, apart from that Boy&#39;s Love game she insisted on making.&quot;</span>
+
+    <span class="s">&quot;And one day...&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie2</span> <span class="n">normal</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+
+    <span class="n">s</span> <span class="s">&quot;Hey...&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Yes?&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie2</span> <span class="n">giggle</span>
+
+    <span class="n">s</span> <span class="s">&quot;Marry me!&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;What???&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie2</span> <span class="n">surprised</span>
+
+    <span class="n">s</span> <span class="s">&quot;Well, don&#39;t you love me?&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;I do, actually.&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie2</span> <span class="n">smile</span>
+
+    <span class="n">s</span> <span class="s">&quot;See? We&#39;ve been making romantic visual novels, spending time together, helping each other....&quot;</span>
+    <span class="n">s</span> <span class="s">&quot;... and when you give love to others, love will come to you.&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Hmmm, that&#39;s a nice thought.&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie2</span> <span class="n">giggle</span>
+
+    <span class="n">s</span> <span class="s">&quot;I just made that up.&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;But it&#39;s good.&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie2</span> <span class="n">normal</span>
+
+    <span class="n">s</span> <span class="s">&quot;I know. So, will you marry me?&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Ummm, of course I will. I&#39;ve actually been meaning to ask you, but since you brought it up...&quot;</span>
+    <span class="n">s</span> <span class="s">&quot;I know, but you are so indecisive, that I thought I&#39;d take the initiative. &quot;</span>
+    <span class="n">m</span> <span class="s">&quot;I guess... It&#39;s all all about asking the right question... at the right time.&quot;</span>
+
+    <span class="k">show</span> <span class="n">sylvie2</span> <span class="n">giggle</span>
+
+    <span class="n">s</span> <span class="s">&quot;It is. But now, stop being theoretical, and give me a kiss!&quot;</span>
+
+    <span class="k">scene</span> <span class="n">black</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+
+    <span class="s">&quot;And we got married shortly after that.&quot;</span>
+    <span class="s">&quot;In fact, we made many more visual novels.&quot;</span>
+    <span class="s">&quot;And together, we lived happily ever after.&quot;</span>
+
+    <span class="s">&quot;.:. Good Ending.&quot;</span>
+
+    <span class="k">return</span>
+
+<span class="k">label</span> <span class="n">later</span><span class="p">:</span>
+
+    <span class="k">scene</span> <span class="n">black</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+
+    <span class="s">&quot;And so I decided to ask her later.&quot;</span>
+    <span class="s">&quot;But I was indecisive.&quot;</span>
+    <span class="s">&quot;I couldn&#39;t ask her that day, and I couldn&#39;t ask her later.&quot;</span>
+    <span class="s">&quot;I guess I will never know now.&quot;</span>
+
+    <span class="s">&quot;.:. Bad Ending.&quot;</span>
+
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="options-rpy">
+<h2>options.rpy<a class="headerlink" href="#options-rpy" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c">## This file contains some of the options that can be changed to customize</span>
+<span class="c">## your Ren&#39;Py game. It only contains the most common options... there</span>
+<span class="c">## is quite a bit more customization you can do.</span>
+<span class="c">##</span>
+<span class="c">## Lines beginning with two &#39;#&#39; marks are comments, and you shouldn&#39;t</span>
+<span class="c">## uncomment them. Lines beginning with a single &#39;#&#39; mark are</span>
+<span class="c">## commented-out code, and you may want to uncomment them when</span>
+<span class="c">## appropriate.</span>
+
+<span class="k">init</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="k">python</span> <span class="k">hide</span><span class="p">:</span>
+
+        <span class="c">## Should we enable the use of developer tools? This should be</span>
+        <span class="c">## set to False before the game is released, so the user can&#39;t</span>
+        <span class="c">## cheat using developer tools.</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">developer</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c">## These control the width and height of the screen.</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">screen_width</span> <span class="o">=</span> <span class="mi">800</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">screen_height</span> <span class="o">=</span> <span class="mi">600</span>
+
+        <span class="c">## This controls the title of the window, when Ren&#39;Py is</span>
+        <span class="c">## running in a window.</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">window_title</span> <span class="o">=</span> <span class="s">u&quot;The Question&quot;</span>
+
+        <span class="c">## We then want to call a theme function. themes.roundrect is</span>
+        <span class="c">## a theme that features the use of rounded rectangles. It&#39;s</span>
+        <span class="c">## the only theme we currently support.</span>
+        <span class="c">##</span>
+        <span class="c">## The theme function takes a number of parameters that can</span>
+        <span class="c">## customize the color scheme.</span>
+        <span class="n">theme</span><span class="o">.</span><span class="n">roundrect</span><span class="p">(</span>
+
+            <span class="c">## The color of an idle widget face.</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="s">&quot;#F8AD00&quot;</span><span class="p">,</span>
+
+            <span class="c">## The color of a focused widget face.</span>
+            <span class="n">widget_hover</span> <span class="o">=</span> <span class="s">&quot;#E97F00&quot;</span><span class="p">,</span>
+
+            <span class="c">## The color of the text in a widget.</span>
+            <span class="n">widget_text</span> <span class="o">=</span> <span class="s">&quot;#581A00&quot;</span><span class="p">,</span>
+
+            <span class="c">## The color of the text in a selected widget. (For</span>
+            <span class="c">## example, the current value of a preference.)</span>
+            <span class="n">widget_selected</span> <span class="o">=</span> <span class="s">&quot;#58A1FF&quot;</span><span class="p">,</span>
+
+            <span class="c">## The color of a disabled widget face.</span>
+            <span class="n">disabled</span> <span class="o">=</span> <span class="s">&quot;#404040&quot;</span><span class="p">,</span>
+
+            <span class="c">## The color of disabled widget text.</span>
+            <span class="n">disabled_text</span> <span class="o">=</span> <span class="s">&quot;#FFC89A&quot;</span><span class="p">,</span>
+
+            <span class="c">## The color of informational labels.</span>
+            <span class="k">label</span> <span class="o">=</span> <span class="s">&quot;#ffffff&quot;</span><span class="p">,</span>
+
+            <span class="c">## The color of a frame containing widgets.</span>
+            <span class="k">frame</span> <span class="o">=</span> <span class="s">&quot;#95850F&quot;</span><span class="p">,</span>
+
+            <span class="c">## If this is True, in-game menus are placed in the center</span>
+            <span class="c">## the screen. If False, they are placed inside a window</span>
+            <span class="c">## at the bottom of the screen.</span>
+            <span class="n">button_menu</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+
+            <span class="c">## The background of the main menu. This can be a color</span>
+            <span class="c">## beginning with &#39;#&#39;, or an image filename. The latter</span>
+            <span class="c">## should take up the full height and width of the screen.</span>
+            <span class="n">mm_root</span> <span class="o">=</span> <span class="s">&quot;menu.jpg&quot;</span><span class="p">,</span>
+
+            <span class="c">## The background of the game menu. This can be a color</span>
+            <span class="c">## beginning with &#39;#&#39;, or an image filename. The latter</span>
+            <span class="c">## should take up the full height and width of the screen.</span>
+            <span class="n">gm_root</span> <span class="o">=</span> <span class="s">&quot;menu2.jpg&quot;</span><span class="p">,</span>
+
+            <span class="c">## And we&#39;re done with the theme. The theme will customize</span>
+            <span class="c">## various styles, so if we want to change them, we should</span>
+            <span class="c">## do so below.</span>
+            <span class="p">)</span>
+
+
+        
+        <span class="c">## These settings let you customize the window containing the</span>
+        <span class="c">## dialogue and narration, by replacing it with an image.</span>
+
+        <span class="c">## The background of the window. In a Frame, the two numbers</span>
+        <span class="c">## are the size of the left/right and top/bottom borders,</span>
+        <span class="c">## respectively.</span>
+
+        <span class="c"># style.window.background = Frame(&quot;frame.png&quot;, 12, 12)</span>
+
+        <span class="c">## Margin is space surrounding the window, where the background</span>
+        <span class="c">## is not drawn.</span>
+
+        <span class="c"># style.window.left_margin = 6</span>
+        <span class="c"># style.window.right_margin = 6</span>
+        <span class="c"># style.window.top_margin = 6</span>
+        <span class="c"># style.window.bottom_margin = 6</span>
+
+        <span class="c">## Padding is space inside the window, where the background is</span>
+        <span class="c">## drawn.</span>
+
+        <span class="c"># style.window.left_padding = 6</span>
+        <span class="c"># style.window.right_padding = 6</span>
+        <span class="c"># style.window.top_padding = 6</span>
+        <span class="c"># style.window.bottom_padding = 6</span>
+
+        <span class="c">## This is the minimum height of the window, including the margins</span>
+        <span class="c">## and padding.</span>
+
+        <span class="c"># style.window.yminimum = 250</span>
+
+
+        
+        <span class="c">## This lets you change the placement of the main menu.</span>
+
+        <span class="c">## The way placement works is that we find an anchor point</span>
+        <span class="c">## inside a displayable, and a position (pos) point on the</span>
+        <span class="c">## screen. We then place the displayable so the two points are</span>
+        <span class="c">## at the same place.</span>
+
+        <span class="c">## An anchor/pos can be given as an integer or a floating point</span>
+        <span class="c">## number. If an integer, the number is interpreted as a number</span>
+        <span class="c">## of pixels from the upper-left corner. If a floating point,</span>
+        <span class="c">## the number is interpreted as a fraction of the size of the</span>
+        <span class="c">## displayable or screen.</span>
+
+        <span class="c"># style.mm_menu_frame.xpos = 0.5</span>
+        <span class="c"># style.mm_menu_frame.xanchor = 0.5</span>
+        <span class="c"># style.mm_menu_frame.ypos = 0.75</span>
+        <span class="c"># style.mm_menu_frame.yanchor = 0.5</span>
+
+
+        
+        <span class="c">## These let you customize the default font used for text in Ren&#39;Py.</span>
+
+        <span class="c">## The file containing the default font.</span>
+
+        <span class="c"># style.default.font = &quot;DejaVuSans.ttf&quot;</span>
+
+        <span class="c">## The default size of text.</span>
+
+        <span class="c"># style.default.size = 22</span>
+
+        <span class="c">## Note that these only change the size of some of the text. Other</span>
+        <span class="c">## buttons have their own styles.</span>
+
+
+        
+        <span class="c">## These settings let you change some of the sounds that are used by</span>
+        <span class="c">## Ren&#39;Py.</span>
+
+        <span class="c">## Set this to False if the game does not have any sound effects.</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">has_sound</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c">## Set this to False if the game does not have any music.</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">has_music</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c">## Set this to False if the game does not have voicing.</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">has_voice</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c">## Sounds that are used when button and imagemaps are clicked.</span>
+
+        <span class="c"># style.button.activate_sound = &quot;click.wav&quot;</span>
+        <span class="c"># style.imagemap.activate_sound = &quot;click.wav&quot;</span>
+
+        <span class="c">## Sounds that are used when entering and exiting the game menu.</span>
+
+        <span class="c"># config.enter_sound = &quot;click.wav&quot;</span>
+        <span class="c"># config.exit_sound = &quot;click.wav&quot;</span>
+
+        <span class="c">## A sample sound that can be played to check the sound volume.</span>
+
+        <span class="c"># config.sample_sound = &quot;click.wav&quot;</span>
+
+        <span class="c">## Music that is played while the user is at the main menu.</span>
+
+        <span class="c"># config.main_menu_music = &quot;main_menu_theme.ogg&quot;</span>
+
+
+        
+        <span class="c">## Miscellaneous customizations</span>
+
+        <span class="c">## These let you change the transitions that are used when entering</span>
+        <span class="c">## and exiting the game menu.</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">enter_transition</span> <span class="o">=</span> <span class="n">dissolve</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">exit_transition</span> <span class="o">=</span> <span class="n">dissolve</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="thequestion_nvl.html" title="NVL-mode script for The Question"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="credits.html" title="Documentation and Translation Credits"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

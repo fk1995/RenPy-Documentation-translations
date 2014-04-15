@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Modes &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Creator-Defined Displayables" href="udd.html" />
+    <link rel="prev" title="Screens and Python" href="screen_python.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="udd.html" title="Creator-Defined Displayables"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="screen_python.html" title="Screens and Python"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Modes</a><ul>
+<li><a class="reference internal" href="#default-modes">Default Modes</a></li>
+<li><a class="reference internal" href="#mode-callbacks">Mode Callbacks</a><ul>
+<li><a class="reference internal" href="#example-mode-callbacks">Example Mode Callbacks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="screen_python.html"
+                        title="previous chapter">Screens and Python</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="udd.html"
+                        title="next chapter">Creator-Defined Displayables</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="modes">
+<span id="id1"></span><h1>Modes<a class="headerlink" href="#modes" title="Permalink to this headline">¶</a></h1>
+<p>In Ren'Py, a mode is a concise way of describing the type of an
+interaction. When a mode is reported to Ren'Py, user-defined callbacks
+can be run. These calbacks can be used to react to a change in mode,
+perhaps by reconfiguring the user interface. For example, one can
+cause a transition to occur when switching from ADV-mode to NVL-mode,
+or when going to a menu, etc.</p>
+<p>The goal of the mode systems is to provide a powerful and flexible
+way of detecting and responding to these changes.</p>
+<div class="section" id="default-modes">
+<h2>Default Modes<a class="headerlink" href="#default-modes" title="Permalink to this headline">¶</a></h2>
+<p>The following are the modes corresponding to built-in interactions:</p>
+<dl class="docutils">
+<dt>start</dt>
+<dd>This is the mode that Ren'Py is in when a new context is
+created, such as at the start of a game. Ren'Py never
+automatically enters this mode, but instead, initializes the list
+of modes to include start.</dd>
+<dt>say</dt>
+<dd>The mode Ren'Py enters when an ADV-mode say executes.</dd>
+<dt>menu</dt>
+<dd>The mode Ren'Py enters when an ADV-mode menu executes.</dd>
+<dt>nvl</dt>
+<dd>The mode Ren'Py enters when an NVL-mode say executes.</dd>
+<dt>nvl_menu</dt>
+<dd>The mode Ren'Py enters when an NVL-mode menu executes.</dd>
+<dt>pause</dt>
+<dd>The mode Ren'Py enters when <a class="reference internal" href="other.html#renpy.pause" title="renpy.pause"><tt class="xref py py-func docutils literal"><span class="pre">renpy.pause()</span></tt></a> is run. This is
+also the mode Ren'Py is in when a <tt class="docutils literal"><span class="pre">pause</span></tt> statement of indefinite
+duration occurs.</dd>
+<dt>with</dt>
+<dd><p class="first">The mode Ren'Py enters when a transition introduced by the <tt class="docutils literal"><span class="pre">with</span></tt>
+statement occurs. This is also used for <tt class="docutils literal"><span class="pre">pause</span></tt> statement with
+a duration specified.</p>
+<p class="last">Note that the with mode is entered at the start of the with
+statement, which is after any preceding scene, show, or hide
+statements have been run.</p>
+</dd>
+<dt>screen</dt>
+<dd>The mode Ren'Py enters when a screen is invoked using the <tt class="docutils literal"><span class="pre">call</span>
+<span class="pre">screen</span></tt> statement.</dd>
+<dt>imagemap</dt>
+<dd>The mode Ren'Py enters when an old-style imagemap is invoked using
+<tt class="xref py py-func docutils literal"><span class="pre">renpy.imagemap()</span></tt>.</dd>
+<dt>input</dt>
+<dd>The mode Ren'Py enters when text input is requested using the
+<a class="reference internal" href="input.html#renpy.input" title="renpy.input"><tt class="xref py py-func docutils literal"><span class="pre">renpy.input()</span></tt></a> function.</dd>
+</dl>
+<p>Other modes can be entered by calling the renpy.mode function.</p>
+<dl class="function">
+<dt id="renpy.mode">
+<tt class="descclassname">renpy.</tt><tt class="descname">mode</tt><big>(</big><em>mode</em><big>)</big><a class="headerlink" href="#renpy.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Causes Ren'Py to enter the named mode, or stay in that mode if it's
+already in it.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="mode-callbacks">
+<h2>Mode Callbacks<a class="headerlink" href="#mode-callbacks" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="config.html#var-config.mode_callbacks"><tt class="xref std std-var docutils literal"><span class="pre">config.mode_callbacks</span></tt></a> variable contains a list of mode
+callbacks that are invoked whenever Ren'Py enters a mode. The mode
+callbacks are called with two parameters:</p>
+<dl class="docutils">
+<dt>mode</dt>
+<dd>A string giving the name of the mode that we are entering.</dd>
+<dt>old_modes</dt>
+<dd>A list of strings, giving the modes that the system has previously
+entered, ordered from most recent to least recent.</dd>
+</dl>
+<p>Note that when entering a mode we're already in, the first item in
+<cite>old_modes</cite> will be equal to <cite>mode</cite>.</p>
+<div class="section" id="example-mode-callbacks">
+<h3>Example Mode Callbacks<a class="headerlink" href="#example-mode-callbacks" title="Permalink to this headline">¶</a></h3>
+<p>This mode callback causes transitions to occur when switching from ADV
+to NVL mode, and vice-versa. This ships as part of Ren'Py, so there's
+no need to actually use it.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_nvl_adv_callback</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">old_modes</span><span class="p">):</span>
+
+        <span class="n">old</span> <span class="o">=</span> <span class="n">old_modes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">adv_nvl_transition</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&quot;nvl&quot;</span> <span class="k">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&quot;nvl_menu&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">old</span> <span class="o">==</span> <span class="s">&quot;say&quot;</span> <span class="k">or</span> <span class="n">old</span> <span class="o">==</span> <span class="s">&quot;menu&quot;</span><span class="p">:</span>
+                    <span class="n">nvl_show</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">adv_nvl_transition</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">nvl_adv_transition</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&quot;say&quot;</span> <span class="k">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&quot;menu&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">old</span> <span class="o">==</span> <span class="s">&quot;nvl&quot;</span> <span class="k">or</span> <span class="n">old</span> <span class="o">==</span> <span class="s">&quot;nvl_menu&quot;</span><span class="p">:</span>
+                    <span class="n">nvl_hide</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">nvl_adv_transition</span><span class="p">)</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">mode_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_nvl_adv_callback</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="udd.html" title="Creator-Defined Displayables"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="screen_python.html" title="Screens and Python"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>NVL-Mode Tutorial &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Text Input" href="input.html" />
+    <link rel="prev" title="Store Variables" href="store_variables.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="input.html" title="Text Input"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="store_variables.html" title="Store Variables"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">NVL-Mode Tutorial</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#menus">Menus</a></li>
+<li><a class="reference internal" href="#showing-and-hiding-the-nvl-mode-window">Showing and Hiding the NVL-mode Window</a></li>
+<li><a class="reference internal" href="#customizing-characters">Customizing Characters</a></li>
+<li><a class="reference internal" href="#customizing-menus">Customizing Menus</a></li>
+<li><a class="reference internal" href="#customizing-the-nvl-window">Customizing the NVL window</a></li>
+<li><a class="reference internal" href="#paged-rollback">Paged Rollback</a></li>
+<li><a class="reference internal" href="#script-of-the-question-nvl-mode-edition">Script of The Question (NVL-mode Edition)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="store_variables.html"
+                        title="previous chapter">Store Variables</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="input.html"
+                        title="next chapter">Text Input</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="nvl-mode-tutorial">
+<span id="nvl-mode"></span><h1>NVL-Mode Tutorial<a class="headerlink" href="#nvl-mode-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>There are two main styles of presentation used for visual
+novels. ADV-style games present dialogue and narration one line at a
+time, generally in a window at the bottom of the screen. NVL-style
+games present multiple lines on the screen at a time, in a window that
+takes up the entire screen.</p>
+<p>In this tutorial, we will explain how to make an NVL-mode game using
+Ren'Py. This tutorial assumes that you are already familiar with the
+basics of Ren'Py, as explained in the <a class="reference internal" href="quickstart.html"><em>Quickstart manual</em></a>.</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>NVL-mode can be added to a Ren'Py script in two steps. The first is to
+declare the characters to use NVL-mode, and the second is to add <tt class="docutils literal"><span class="pre">nvl</span>
+<span class="pre">clear</span></tt> statements at the end of each page.</p>
+<p>Characters can be declared to use NVL-mode by adding a <tt class="docutils literal"><span class="pre">kind=nvl</span></tt>
+parameter to each of the Character declarations. For example, if we
+the character declarations from the Quickstart manual are:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&#39;Sylvie&#39;</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#c8ffc8&quot;</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&#39;Me&#39;</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#c8c8ff&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Changed to use NVL-mode, those declarations become:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&#39;Sylvie&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="k">nvl</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#c8ffc8&quot;</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&#39;Me&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="k">nvl</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#c8c8ff&quot;</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">narrator</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="k">nvl</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that we have also added an NVL-mode declaration of
+<tt class="docutils literal"><span class="pre">narrator</span></tt>. The <tt class="docutils literal"><span class="pre">narrator</span></tt> character is used to speak
+lines that do not have another character name associated with it.</p>
+<p>If we ran the game like this, the first few lines would display
+normally, but after a while, lines would begin displaying below the
+bottom of the screen. To break the script into pages, include an <tt class="docutils literal"><span class="pre">nvl</span>
+<span class="pre">clear</span></tt> statement after each page.</p>
+<p>The following is an example script with pagination:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">start</span><span class="p">:</span>
+    <span class="s">&quot;I&#39;ll ask her...&quot;</span>
+
+    <span class="n">m</span> <span class="s">&quot;Um... will you...&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Will you be my artist for a visual novel?&quot;</span>
+
+    <span class="k">nvl</span> <span class="n">clear</span>
+
+    <span class="s">&quot;Silence.&quot;</span>
+    <span class="s">&quot;She is shocked, and then...&quot;</span>
+
+    <span class="n">s</span> <span class="s">&quot;Sure, but what is a </span><span class="se">\&quot;</span><span class="s">visual novel?</span><span class="se">\&quot;</span><span class="s">&quot;</span>
+
+    <span class="k">nvl</span> <span class="n">clear</span>
+</pre></div>
+</div>
+<p>While nvl-mode games generally have more text per paragraph, this
+example demonstrates a basic NVL-mode script. (Suitable for use in a
+kinetic novel that does not have transitions.)</p>
+</div>
+<div class="section" id="menus">
+<h2>Menus<a class="headerlink" href="#menus" title="Permalink to this headline">¶</a></h2>
+<p>By default, menus are displayed in ADV-mode, taking up the full
+screen. There is also an alternate NVL-mode menu presentation, which
+displays the menus immediately after the current page of NVL-mode
+text.</p>
+<p>To access this alternate menu presentation, write:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="k">menu</span> <span class="o">=</span> <span class="n">nvl_menu</span>
+</pre></div>
+</div>
+<p>The menu will disappear after the choice has been made, so it usually
+makes sense to follow menus with an &quot;nvl clear&quot; or some sort of
+indication as to the choice.</p>
+</div>
+<div class="section" id="showing-and-hiding-the-nvl-mode-window">
+<h2>Showing and Hiding the NVL-mode Window<a class="headerlink" href="#showing-and-hiding-the-nvl-mode-window" title="Permalink to this headline">¶</a></h2>
+<p>The NVL-mode window can be controlled with the standard <tt class="docutils literal"><span class="pre">window</span> <span class="pre">show</span></tt>
+and <tt class="docutils literal"><span class="pre">window</span> <span class="pre">hide</span></tt> statements. To enable this, add the following code
+to your game:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">empty_window</span> <span class="o">=</span> <span class="n">nvl_show_core</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">window_hide_transition</span> <span class="o">=</span> <span class="n">dissolve</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">window_show_transition</span> <span class="o">=</span> <span class="n">dissolve</span>
+</pre></div>
+</div>
+<p>Setting <a class="reference internal" href="config.html#var-config.empty_window"><tt class="xref std std-var docutils literal"><span class="pre">config.empty_window</span></tt></a> to <tt class="docutils literal"><span class="pre">nvl_show_core</span></tt>
+will cause the NVL-mode window to be displayed during a
+transition. (The last two lines select the default transitions to be
+used for showing and hiding the window.)</p>
+<p>An example of using the window commands to show and hide the window is:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">meadow</span><span class="p">:</span>
+
+    <span class="k">nvl</span> <span class="n">clear</span>
+
+    <span class="k">window</span> <span class="k">hide</span>
+    <span class="k">scene</span> <span class="n">bg</span> <span class="n">meadow</span>
+    <span class="k">with</span> <span class="n">fade</span>
+    <span class="k">window</span> <span class="k">show</span>
+
+    <span class="s">&quot;We reached the meadows just outside our hometown. Autumn was so</span>
+     <span class="n">beautiful</span> <span class="n">here</span><span class="o">.</span><span class="s">&quot;</span>
+    <span class="s">&quot;When we were children, we often played here.&quot;</span>
+
+    <span class="n">m</span> <span class="s">&quot;Hey... ummm...&quot;</span>
+
+    <span class="k">window</span> <span class="k">hide</span>
+    <span class="k">show</span> <span class="n">sylvie</span> <span class="n">smile</span>
+    <span class="k">with</span> <span class="n">dissolve</span>
+    <span class="k">window</span> <span class="k">show</span>
+
+    <span class="s">&quot;She turned to me and smiled.&quot;</span>
+    <span class="s">&quot;I&#39;ll ask her...&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Ummm... will you...&quot;</span>
+    <span class="n">m</span> <span class="s">&quot;Will you be my artist for a visual novel?&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="customizing-characters">
+<h2>Customizing Characters<a class="headerlink" href="#customizing-characters" title="Permalink to this headline">¶</a></h2>
+<p>NVL-mode characters can be customized to have several looks, hopefully allowing
+you to pick the one that is most appropriate to the game you are creating.</p>
+<ol class="arabic">
+<li><p class="first">The default look has a character's name to the left, and
+dialogue indented to the right of the name. The color of the name is
+controlled by the ''color'' parameter.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&#39;Sylvie&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="k">nvl</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#c8ffc8&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">A second look has the character's name embedded in with the
+text. Dialogue spoken by the character is enclosed in quotes. Note
+that here, the character's name is placed in the ''what_prefix''
+parameter, along with the open quote. (The close quote is placed in
+the ''what_suffix'' parameter.)</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="k">nvl</span><span class="p">,</span> <span class="n">what_prefix</span><span class="o">=</span><span class="s">&quot;Sylvie: </span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span>
+                     <span class="n">what_suffix</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">A third look dispenses with the character name entirely, while
+putting the dialogue in quotes.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="k">nvl</span><span class="p">,</span> <span class="n">what_prefix</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">what_suffix</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Since the third look might make it hard to distinguish who's
+speaking, we can tint the dialogue using the ''what_color''
+parameter.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="k">nvl</span><span class="p">,</span> <span class="n">what_prefix</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">what_suffix</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span>
+                     <span class="n">what_color</span><span class="o">=</span><span class="s">&quot;#c8ffc8&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Of course, a completely uncustomized NVL-mode character can be
+used, if you want to take total control of what is shown. (This is
+often used for the narrator.)</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="k">nvl</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="customizing-menus">
+<h2>Customizing Menus<a class="headerlink" href="#customizing-menus" title="Permalink to this headline">¶</a></h2>
+<p>There are a few styles that control the look of the menus. Here's some
+code showing how to customize them. See <a class="reference internal" href="style.html"><em>Styles</em></a> for more information
+about styles.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="c"># The color of a menu choice when it isn&#39;t hovered.</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">nvl_menu_choice</span><span class="o">.</span><span class="na">idle_color</span> <span class="o">=</span> <span class="s">&quot;#ccccccff&quot;</span>
+
+    <span class="c"># The color of a menu choice when it is hovered.</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">nvl_menu_choice</span><span class="o">.</span><span class="na">hover_color</span> <span class="o">=</span> <span class="s">&quot;#ffffffff&quot;</span>
+
+    <span class="c"># The color of the background of a menu choice, when it isn&#39;t</span>
+    <span class="c"># hovered.</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">nvl_menu_choice_button</span><span class="o">.</span><span class="na">idle_background</span> <span class="o">=</span> <span class="s">&quot;#00000000&quot;</span>
+
+    <span class="c"># The color of the background of a menu choice, when it is</span>
+    <span class="c"># hovered.</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">nvl_menu_choice_button</span><span class="o">.</span><span class="na">hover_background</span> <span class="o">=</span> <span class="s">&quot;#ff000044&quot;</span>
+
+    <span class="c"># How far from the left menu choices should be indented.</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">nvl_menu_choice_button</span><span class="o">.</span><span class="na">left_margin</span> <span class="o">=</span> <span class="mi">20</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="customizing-the-nvl-window">
+<h2>Customizing the NVL window<a class="headerlink" href="#customizing-the-nvl-window" title="Permalink to this headline">¶</a></h2>
+<p>There are a few styles that control the NVL window; here's some code showing
+how to customize them.  See <a class="reference internal" href="style.html"><em>Styles</em></a> for more information
+about styles.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="c"># Set the background of the NVL window; this image should be the</span>
+    <span class="c"># same size as the screen.</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">nvl_window</span><span class="o">.</span><span class="na">background</span> <span class="o">=</span> <span class="s">&quot;nvl_window.png&quot;</span>
+
+    <span class="c"># Add some additional padding around the contents of the NVL window.</span>
+    <span class="c"># This keeps the text inside the borders of our image.</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">nvl_window</span><span class="o">.</span><span class="na">xpadding</span> <span class="o">=</span> <span class="mi">55</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">nvl_window</span><span class="o">.</span><span class="na">ypadding</span> <span class="o">=</span> <span class="mi">55</span>
+
+    <span class="c"># Set the spacing between each block of text on the page.</span>
+    <span class="c"># The default is 10 pixels.</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">nvl_vbox</span><span class="o">.</span><span class="n">box_spacing</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<p>You can also completely customize the screen used to display NVL text, which
+is named <tt class="docutils literal"><span class="pre">nvl</span></tt>; see <a class="reference internal" href="screen_special.html#nvl-screen"><em>NVL</em></a>.</p>
+</div>
+<div class="section" id="paged-rollback">
+<h2>Paged Rollback<a class="headerlink" href="#paged-rollback" title="Permalink to this headline">¶</a></h2>
+<p>Paged rollback causes Ren'Py to rollback one NVL-mode page at a time,
+rather than one block of text at a time.  It can be enabled by
+including the following code in your script.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">nvl_paged_rollback</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="script-of-the-question-nvl-mode-edition">
+<h2>Script of The Question (NVL-mode Edition)<a class="headerlink" href="#script-of-the-question-nvl-mode-edition" title="Permalink to this headline">¶</a></h2>
+<p>You can view the full script of the NVL-mode edition of ''The Question''
+<a class="reference internal" href="thequestion_nvl.html#thequestion-nvl"><em>here</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="input.html" title="Text Input"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="store_variables.html" title="Store Variables"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

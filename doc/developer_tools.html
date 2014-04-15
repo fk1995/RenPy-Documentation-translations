@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer Tools &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Statement Equivalents" href="statement_equivalents.html" />
+    <link rel="prev" title="Customizing the Keymap" href="keymap.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="statement_equivalents.html" title="Statement Equivalents"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="keymap.html" title="Customizing the Keymap"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developer Tools</a><ul>
+<li><a class="reference internal" href="#shift-o-console">Shift+O Console</a></li>
+<li><a class="reference internal" href="#shift-e-editor-support">Shift+E Editor Support</a></li>
+<li><a class="reference internal" href="#shift-d-developer-menu">Shift+D Developer Menu</a></li>
+<li><a class="reference internal" href="#shift-r-reloading">Shift+R Reloading</a></li>
+<li><a class="reference internal" href="#shift-i-style-inspecting">Shift+I Style Inspecting</a></li>
+<li><a class="reference internal" href="#shift-y-style-dumping">Shift+Y Style Dumping</a></li>
+<li><a class="reference internal" href="#fast-skipping">&gt; Fast Skipping</a></li>
+<li><a class="reference internal" href="#warping-to-a-line">Warping to a Line</a></li>
+<li><a class="reference internal" href="#debug-functions">Debug Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="keymap.html"
+                        title="previous chapter">Customizing the Keymap</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="statement_equivalents.html"
+                        title="next chapter">Statement Equivalents</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="developer-tools">
+<h1>Developer Tools<a class="headerlink" href="#developer-tools" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py includes a number of features to make a developer's life easier. Many of
+them need the variable <a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> to be set to True to operate.</p>
+<div class="section" id="shift-o-console">
+<h2>Shift+O Console<a class="headerlink" href="#shift-o-console" title="Permalink to this headline">¶</a></h2>
+<p>The debug console makes it possible to interactively run Ren'Py script and
+Python statements, and immediately see the results. The console is available in
+developer mode or when <tt class="xref std std-var docutils literal"><span class="pre">config.console</span></tt> is True, and can be accessed by
+pressing &quot;shift+O&quot;.</p>
+<p>The console can be used to:</p>
+<ul class="simple">
+<li>Jump to a label.</li>
+<li>Interactively try out Ren'Py script statements.</li>
+<li>Evaluate a python expression or statement to see the result.</li>
+<li>Trace python expressions as the game progresses.</li>
+</ul>
+</div>
+<div class="section" id="shift-e-editor-support">
+<h2>Shift+E Editor Support<a class="headerlink" href="#shift-e-editor-support" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="xref std std-var docutils literal"><span class="pre">config.editor</span></tt> variable allows a developer to specify an editor
+command that is run when the launch_editor keypress (by default, &quot;shift-E&quot;)
+occurs.</p>
+<p>please see <a class="reference internal" href="editor.html#text-editor-integration"><em>Text Editor Integration</em></a></p>
+</div>
+<div class="section" id="shift-d-developer-menu">
+<h2>Shift+D Developer Menu<a class="headerlink" href="#shift-d-developer-menu" title="Permalink to this headline">¶</a></h2>
+<p>When <a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> is true, hitting &quot;shift+D&quot; will display a developer
+menu that provides easy access to some of the features given below.</p>
+</div>
+<div class="section" id="shift-r-reloading">
+<h2>Shift+R Reloading<a class="headerlink" href="#shift-r-reloading" title="Permalink to this headline">¶</a></h2>
+<p>When <a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> is true, hitting &quot;shift+R&quot; will save the current
+game, reload the game script, and reload the game. This will often place you at
+the last unchanged statement encountered before &quot;shift+R&quot; was pressed.</p>
+<p>This allows the developer to make script changes with an external editor, and
+not have to exit and restart Ren'Py to see the effect of the changes.</p>
+<p>Note that game state, which includes variable values and scene lists, is
+preserved across the reload. This means that if one of those statements is
+changed, it is necessary to rollback and re-execute the statement to see its
+new effect.</p>
+</div>
+<div class="section" id="shift-i-style-inspecting">
+<h2>Shift+I Style Inspecting<a class="headerlink" href="#shift-i-style-inspecting" title="Permalink to this headline">¶</a></h2>
+<p>When <a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> is true, pressing &quot;shift+I&quot; will cause style
+inspection to occur. This will display a list of displayables underneath the
+mouse. For each displayable, it will display the type, the style used, and the
+size it is being rendered at.</p>
+</div>
+<div class="section" id="shift-y-style-dumping">
+<h2>Shift+Y Style Dumping<a class="headerlink" href="#shift-y-style-dumping" title="Permalink to this headline">¶</a></h2>
+<p>When <a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> is True, pressing the dump_styles key (by default,
+&quot;shift-Y&quot;), will write a description of every style Ren'Py knows about to the
+file &quot;styles.txt&quot;. This description includes every property that is part of the
+style, the value of that property, and the style the property is inherited
+from.</p>
+</div>
+<div class="section" id="fast-skipping">
+<h2>&gt; Fast Skipping<a class="headerlink" href="#fast-skipping" title="Permalink to this headline">¶</a></h2>
+<p>When <a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> or <tt class="xref std std-var docutils literal"><span class="pre">config.fast_skipping`</span></tt> is True, pressing
+the fast_skip key (by default, &quot;&gt;&quot;) causes the the game to immediately skip to
+the next important interaction.  For this purpose, an important interaction is
+one that is not caused by a say statement, transition, or pause command.
+Usually, this means skipping to the next menu, but it will also stop when
+user-defined forms of interaction occur.</p>
+</div>
+<div class="section" id="warping-to-a-line">
+<span id="id1"></span><h2>Warping to a Line<a class="headerlink" href="#warping-to-a-line" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py supports warping to a line in the script, without the developer to play
+through the entire game to get there. While this warping technique has a number
+of warnings associated with it, it still may be useful in providing a live
+preview.</p>
+<p>To invoke warping, run Ren'Py with the <tt class="docutils literal"><span class="pre">--warp</span></tt> command-line argument followed
+by a filename:line combination, to specify where you would like to warp to. For
+example</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">run_game</span> <span class="o">--</span><span class="n">warp</span> <span class="n">script</span><span class="o">.</span><span class="n">rpy</span><span class="p">:</span><span class="mi">458</span>
+</pre></div>
+</div>
+<p>When warping is invoked, Ren'Py does a number of things. It first finds all of
+the scene statements in the program. It then tries to find a path from the
+scene statements to every reachable statement in the game. It then picks the
+reachable statement closest to, but before or at, the given line. It works
+backwards from that statement to a scene statement, recording the path it took.
+Ren'Py then executes the scene statement and any show or hide statements found
+along that path. Finally, it transfers control to the found statement.</p>
+<p>There are a number of fairly major caveats to the warp feature. The first is
+that it only examines a single path, which means that while the path may be
+representative of some route of execution, it's possible that there may be a
+bug along some other route. In general, the path doesn't consider game logic,
+so it's also possible to have a path that isn't actually reachable. (This is
+only really a problem on control-heavy games, espcially those that use a lot of
+python code.</p>
+<p>The biggest problem, though, is that no python code is executed before the
+statement that is warped to. This means that all variables will be
+uninitalized, which can lead to crashes when they are used. To overcome this,
+one can define a label <tt class="docutils literal"><span class="pre">after_warp</span></tt>, which is called after a warp but before
+the warped-to statement executes. The code reached by this label can set up
+variables in the program, and then return to the preview.</p>
+<p>The warp feature requires <a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> to be True to operate.</p>
+<p>When using renpy.sh or renpy.py from the SDK to run Ren'Py, you will also need
+to give the <tt class="docutils literal"><span class="pre">--game</span></tt> option. For example</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="o">./</span><span class="n">renpy</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">game</span> <span class="o">./</span><span class="n">the_question</span><span class="o">/</span><span class="n">game</span><span class="o">/</span> <span class="o">--</span><span class="n">warp</span> <span class="n">script</span><span class="o">.</span><span class="n">rpy</span><span class="p">:</span><span class="mi">98</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="debug-functions">
+<h2>Debug Functions<a class="headerlink" href="#debug-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renpy.get_filename_line">
+<tt class="descclassname">renpy.</tt><tt class="descname">get_filename_line</tt><big>(</big><big>)</big><a class="headerlink" href="#renpy.get_filename_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a pair giving the filename and line number of the current
+statement.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.log">
+<tt class="descclassname">renpy.</tt><tt class="descname">log</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#renpy.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <a class="reference internal" href="config.html#var-config.log"><tt class="xref std std-var docutils literal"><span class="pre">config.log</span></tt></a> is not set, this does nothing. Otherwise, it opens
+the logfile (if not already open), formats the message to 70
+columns, and prints it to the logfile.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.watch">
+<tt class="descclassname">renpy.</tt><tt class="descname">watch</tt><big>(</big><em>expression</em>, <em>style='default'</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#renpy.watch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This watches the given python expression, by displaying it in the
+upper-left corner of the screen (although position properties
+can change that). The expression should always be
+defined, never throwing an exception.</p>
+<p>A watch will not persist through a save or restart.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="statement_equivalents.html" title="Statement Equivalents"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="keymap.html" title="Customizing the Keymap"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

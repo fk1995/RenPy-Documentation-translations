@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Incompatible Changes &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Distributor Notes" href="distributor.html" />
+    <link rel="prev" title="Full Changelog" href="changelog.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="distributor.html" title="Distributor Notes"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="changelog.html" title="Full Changelog"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Incompatible Changes</a><ul>
+<li><a class="reference internal" href="#incompatible-6-16">6.16</a></li>
+<li><a class="reference internal" href="#incompatible-6-14">6.14</a></li>
+<li><a class="reference internal" href="#incompatible-6-13">6.13.8</a></li>
+<li><a class="reference internal" href="#id4">6.13</a></li>
+<li><a class="reference internal" href="#incompatible-6-12-1">6.12.1</a></li>
+<li><a class="reference internal" href="#incompatible-6-12-0">6.12.0</a></li>
+<li><a class="reference internal" href="#incompatible-6-11-1">6.11.1</a></li>
+<li><a class="reference internal" href="#incompatible-6-11-0">6.11.0</a></li>
+<li><a class="reference internal" href="#incompatible-6-10-1">6.10.0</a></li>
+<li><a class="reference internal" href="#incompatible-6-9-2">6.9.2</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="changelog.html"
+                        title="previous chapter">Full Changelog</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="distributor.html"
+                        title="next chapter">Distributor Notes</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="incompatible-changes">
+<h1>Incompatible Changes<a class="headerlink" href="#incompatible-changes" title="Permalink to this headline">¶</a></h1>
+<p>This is a list of changes that may require intervention in the form of
+changes to scripts or your development environment. Our intent is that
+all other changes should not affect existing scripts.</p>
+<p>Note that setting <a class="reference internal" href="config.html#var-config.script_version"><tt class="xref std std-var docutils literal"><span class="pre">config.script_version</span></tt></a> will cause many of
+these changes to be reverted, at the cost of losing access to recent
+features.</p>
+<div class="section" id="incompatible-6-16">
+<span id="id1"></span><h2>6.16<a class="headerlink" href="#incompatible-6-16" title="Permalink to this headline">¶</a></h2>
+<p>The meaning of the <cite>loop</cite> parameter to <a class="reference internal" href="rooms.html#MusicRoom" title="MusicRoom"><tt class="xref py py-func docutils literal"><span class="pre">MusicRoom()</span></tt></a> has changed. To
+get the old behavior, set both <cite>loop</cite> and <cite>single_track</cite> to true.</p>
+</div>
+<div class="section" id="incompatible-6-14">
+<span id="id2"></span><h2>6.14<a class="headerlink" href="#incompatible-6-14" title="Permalink to this headline">¶</a></h2>
+<p>Previously, Ren'Py moved archived files into the archived/
+directory. It would search this directory automatically when running a
+game or building archives. One-click builds make this unnecessary,
+and files in archived/ should be moved back into the game directory.</p>
+<p><a class="reference internal" href="transitions.html#MoveTransition" title="MoveTransition"><tt class="xref py py-func docutils literal"><span class="pre">MoveTransition()</span></tt></a> has changed its interface. The old version of
+MoveTransition can be accessed as OldMoveTransition, if you don't want
+to rewrite your code. (The changes only matter if you use factories with
+MoveTransition.)</p>
+<p><a class="reference internal" href="trans_trans_python.html#Transform" title="Transform"><tt class="xref py py-func docutils literal"><span class="pre">Transform()</span></tt></a> has changed its behavior with regards to
+asymmetrically scaled and rotated images. It's unlikely the old
+behavior was ever used.</p>
+</div>
+<div class="section" id="incompatible-6-13">
+<span id="id3"></span><h2>6.13.8<a class="headerlink" href="#incompatible-6-13" title="Permalink to this headline">¶</a></h2>
+<p>Old-style string interpolation has been re-enabled by default. If you
+wrote code (between 6.13 and 6.13.7) that uses % in say or menu statements, you should either
+write %% instead, or include the code:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">old_substitutions</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>6.13<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>The changes to text behavior can affect games in development in many
+ways. The biggest change is the introduction of new-style
+(square-bracket) text substitutions, and the elimination of old-style
+(percent-based) substitutions. These changes can be reverted with the
+code:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">old_substitutions</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">new_substitutions</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>New- and old-style substitutions can coexist in the same game, by
+setting both variables to True.</p>
+<p>Ren'Py has also changed the default line-wrapping behavior. While
+the new behavior should never increase the number of lines in a
+paragraph, it may change which words fall on each line. To restore
+the old behavior, add the code:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">layout</span> <span class="o">=</span> <span class="s">&quot;greedy&quot;</span>
+    <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">language</span> <span class="o">=</span> <span class="s">&quot;western&quot;</span>
+</pre></div>
+</div>
+<p>A bug with negative line_spacing was fixed. This fix can cause blocks of
+text to shrink in height. To revert to the old behavior, use:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">broken_line_spacing</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>Finally, the new text code may lead to artifacts when displaying slow
+text, especially in conjunction with a negative line spacing. Consider
+adjusting <a class="reference internal" href="style_properties.html#style-property-line_overlap_split"><tt class="xref std std-propref docutils literal"><span class="pre">line_overlap_split</span></tt></a> to fix this.</p>
+</div>
+<div class="section" id="incompatible-6-12-1">
+<span id="id5"></span><h2>6.12.1<a class="headerlink" href="#incompatible-6-12-1" title="Permalink to this headline">¶</a></h2>
+<p>Image names have changed from being static names to being
+attribute-based. This can lead to image names that were previously
+distinct becoming ambiguous. To disable attribute-based image names,
+set <tt class="xref std std-var docutils literal"><span class="pre">config.image_attributes</span></tt> to False.</p>
+<p>Showing an image without providing a transform or ATL block will now
+continue the previous transform that the image was using. This means
+that a moving image may continue moving once it has changed. To revert
+to the old behavior, set <a class="reference internal" href="config.html#var-config.keep_running_transform"><tt class="xref std std-var docutils literal"><span class="pre">config.keep_running_transform</span></tt></a> to False.</p>
+<p>The <cite>image</cite> argument to <a class="reference internal" href="dialogue.html#Character" title="Character"><tt class="xref py py-func docutils literal"><span class="pre">Character()</span></tt></a> has changed meaning. While
+the old meaning was unsupported in the screens-based environment, it
+can be restored for compatibility purposes by setting
+<tt class="xref std std-var docutils literal"><span class="pre">config.new_character_image_argument</span></tt> to False.</p>
+</div>
+<div class="section" id="incompatible-6-12-0">
+<span id="id6"></span><h2>6.12.0<a class="headerlink" href="#incompatible-6-12-0" title="Permalink to this headline">¶</a></h2>
+<p>The definition of the <cite>items</cite> parameter of the <a class="reference internal" href="screen_special.html#choice-screen"><em>Choice</em></a> and
+<tt class="docutils literal"><span class="pre">nvl_choice</span></tt> screens has changed. The <tt class="docutils literal"><span class="pre">nvl_choice</span></tt> screen is
+deprecated in favor of the <a class="reference internal" href="screen_special.html#nvl-screen"><em>NVL</em></a> screen.</p>
+<p>Screens may be invoked at any time, in order to allow for image
+prediction, unless they have a predict property of False. When the
+predict property is not False, screens should not cause side effects
+to occur upon their initial display.</p>
+<p>For performance reason, Ren'Py now ignores the position properties of
+ImageReferences. This means that the position properties of
+style.image_placement are now ignored. To revert to the old behavior,
+set <tt class="xref std std-var docutils literal"><span class="pre">config.imagereference_respects_position</span></tt> to True.</p>
+</div>
+<div class="section" id="incompatible-6-11-1">
+<span id="id7"></span><h2>6.11.1<a class="headerlink" href="#incompatible-6-11-1" title="Permalink to this headline">¶</a></h2>
+<p>MoveTransition has been modified to respect the xoffset and yoffset
+parameters of the displayables it is moving. The factory functions
+that are used for movement now take <cite>xoffset</cite> and <cite>yoffset</cite>
+parameters.  While the built-in movement factories take these
+parameters without problem, user-defined factories may need to
+be upgraded to use or ignore these additional parameters.</p>
+</div>
+<div class="section" id="incompatible-6-11-0">
+<span id="id8"></span><h2>6.11.0<a class="headerlink" href="#incompatible-6-11-0" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">The transform specified by the <a class="reference internal" href="config.html#var-config.default_transform"><tt class="xref std std-var docutils literal"><span class="pre">config.default_transform</span></tt></a>
+variable is used to initialize the transform properties of images
+shown using the show and hide statements. The default value of this
+transform sets <a class="reference internal" href="style_properties.html#style-property-xpos"><tt class="xref std std-propref docutils literal"><span class="pre">xpos</span></tt></a> and <a class="reference internal" href="style_properties.html#style-property-xanchor"><tt class="xref std std-propref docutils literal"><span class="pre">xanchor</span></tt></a> to 0.5, and
+<a class="reference internal" href="style_properties.html#style-property-ypos"><tt class="xref std std-propref docutils literal"><span class="pre">ypos</span></tt></a> and <a class="reference internal" href="style_properties.html#style-property-yanchor"><tt class="xref std std-propref docutils literal"><span class="pre">yanchor</span></tt></a> to 1.0.</p>
+<p>This represents a change in the default value of these style
+properties, which were previously uninitialized and hence defaulted
+to 0.</p>
+<p>By including the <a class="reference internal" href="transforms.html#var-reset"><tt class="xref std std-var docutils literal"><span class="pre">reset</span></tt></a> transform in ATL transforms, these
+properties can be reset back to 0. Alternatively, one can stop using
+the default transform, and revert to the old behavior, using the
+code:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">image_placement</span><span class="o">.</span><span class="na">xpos</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">image_placement</span><span class="o">.</span><span class="na">ypos</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">image_placement</span><span class="o">.</span><span class="na">xanchor</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">style</span><span class="o">.</span><span class="n">image_placement</span><span class="o">.</span><span class="na">yanchor</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">default_transform</span> <span class="o">=</span> <span class="bp">None</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">If a transform does not define one of the position properties
+<a class="reference internal" href="style_properties.html#style-property-xpos"><tt class="xref std std-propref docutils literal"><span class="pre">xpos</span></tt></a>, <a class="reference internal" href="style_properties.html#style-property-ypos"><tt class="xref std std-propref docutils literal"><span class="pre">ypos</span></tt></a>, <a class="reference internal" href="style_properties.html#style-property-xanchor"><tt class="xref std std-propref docutils literal"><span class="pre">xanchor</span></tt></a>, or
+<a class="reference internal" href="style_properties.html#style-property-yanchor"><tt class="xref std std-propref docutils literal"><span class="pre">yanchor</span></tt></a>, that property will be taken from the transform's
+child, if the defines that property.</p>
+<p>This makes it possible to have one transform control a displayable's
+vertical motion, and the other control the horizontal. But this is
+incompatible with previous behavior, and so can be disabled with the
+<a class="reference internal" href="config.html#var-config.transform_uses_child_position"><tt class="xref std std-var docutils literal"><span class="pre">config.transform_uses_child_position</span></tt></a> variable.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">transform_uses_child_position</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="incompatible-6-10-1">
+<span id="id9"></span><h2>6.10.0<a class="headerlink" href="#incompatible-6-10-1" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">The default positions (left, right, center, truecenter,
+offscreenleft, and offscreenright) are now defined as ATL
+transforms. This means that showing an image at such a position will
+cause the position to be remembered. If you do not want this
+behavior, you need to redefine these positions, by adding the code:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">left</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="na">xalign</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">center</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">truecenter</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">right</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="na">xalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">offscreenleft</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="na">xpos</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="na">xanchor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">offscreenright</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="na">xpos</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="na">xanchor</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="incompatible-6-9-2">
+<span id="id10"></span><h2>6.9.2<a class="headerlink" href="#incompatible-6-9-2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>To migrate your game from Ren'Py 6.9.2 or later, copy the directory
+containing your game into your projects directory. You can choose a
+projects directory by clicking &quot;Options&quot;, &quot;Projects Directory&quot; in the
+Launcher. Please see the
+<a class="reference external" href="http://www.renpy.org/wiki/renpy/releases/6.9.2">Ren'Py 6.9.2 release notes</a>
+for information about migrating from older releases.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="distributor.html" title="Distributor Notes"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="changelog.html" title="Full Changelog"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

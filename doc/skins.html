@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Skins &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Full Changelog" href="changelog.html" />
+    <link rel="prev" title="Text Editor Integration" href="editor.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="changelog.html" title="Full Changelog"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="editor.html" title="Text Editor Integration"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一节</h4>
+  <p class="topless"><a href="editor.html"
+                        title="previous chapter">Text Editor Integration</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="changelog.html"
+                        title="next chapter">Full Changelog</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="skins">
+<span id="id1"></span><h1>Skins<a class="headerlink" href="#skins" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py supports skinning the launcher - changing what the launcher
+looks like. To do this, follow the following steps:</p>
+<p>Skins are specific to the Ren'Py version in use, and can't be
+expected to be forward or backwards compatible.</p>
+<ol class="arabic">
+<li><p class="first">Open the launcher in the launcher. This can be done from the
+preferences screen.</p>
+</li>
+<li><p class="first">Create the skin.rpy script file.</p>
+</li>
+<li><p class="first">Copy the following code into skin.rpy:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="c"># The color of non-interactive text.</span>
+    <span class="n">TEXT</span> <span class="o">=</span> <span class="s">&quot;#545454&quot;</span>
+
+    <span class="c"># Colors for buttons in various states.</span>
+    <span class="n">IDLE</span> <span class="o">=</span> <span class="s">&quot;#42637b&quot;</span>
+    <span class="n">HOVER</span> <span class="o">=</span> <span class="s">&quot;#d86b45&quot;</span>
+    <span class="n">DISABLED</span> <span class="o">=</span> <span class="s">&quot;#808080&quot;</span>
+
+    <span class="c"># Colors for reversed text buttons (selected list entries).</span>
+    <span class="n">REVERSE_IDLE</span> <span class="o">=</span> <span class="s">&quot;#78a5c5&quot;</span>
+    <span class="n">REVERSE_HOVER</span> <span class="o">=</span> <span class="s">&quot;#d86b45&quot;</span>
+    <span class="n">REVERSE_TEXT</span> <span class="o">=</span> <span class="s">&quot;#ffffff&quot;</span>
+
+    <span class="c"># Colors for the scrollbar thumb.</span>
+    <span class="n">SCROLLBAR_IDLE</span> <span class="o">=</span> <span class="s">&quot;#dfdfdf&quot;</span>
+    <span class="n">SCROLLBAR_HOVER</span> <span class="o">=</span> <span class="s">&quot;#d86b45&quot;</span>
+
+    <span class="c"># An image used as a separator pattern.</span>
+    <span class="n">PATTERN</span> <span class="o">=</span> <span class="s">&quot;images/pattern.png&quot;</span>
+
+    <span class="c"># A displayable used for the background of everything.</span>
+    <span class="n">BACKGROUND</span> <span class="o">=</span> <span class="s">&quot;images/background.png&quot;</span>
+
+    <span class="c"># A displayable used for the background of windows</span>
+    <span class="c"># containing commands, preferences, and navigation info.</span>
+    <span class="n">WINDOW</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="s">&quot;images/window.png&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tile</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="c"># A displayable used for the background of the projects list.</span>
+    <span class="n">PROJECTS_WINDOW</span> <span class="o">=</span> <span class="n">Null</span><span class="p">()</span>
+
+    <span class="c"># A displayable used the background of information boxes.</span>
+    <span class="n">INFO_WINDOW</span> <span class="o">=</span> <span class="s">&quot;#f9f9f9&quot;</span>
+
+    <span class="c"># Colors for the titles of information boxes.</span>
+    <span class="n">ERROR_COLOR</span> <span class="o">=</span> <span class="s">&quot;#d15353&quot;</span>
+    <span class="n">INFO_COLOR</span> <span class="o">=</span> <span class="s">&quot;#545454&quot;</span>
+    <span class="n">INTERACTION_COLOR</span> <span class="o">=</span> <span class="s">&quot;#d19753&quot;</span>
+    <span class="n">QUESTION_COLOR</span> <span class="o">=</span> <span class="s">&quot;#d19753&quot;</span>
+
+    <span class="c"># The color of input text.</span>
+    <span class="n">INPUT_COLOR</span> <span class="o">=</span> <span class="s">&quot;#d86b45&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<ol class="arabic simple" start="4">
+<li>Modify skin.rpy to skin the launcher. Place the image files you use
+into the launcher's game directory.</li>
+</ol>
+<p>An incorrect skin.rpy file could prevent the launcher from
+starting. To fix it, you'll need to remove skin.rpy and skin.rpyc from
+the launcher's game directory, start the launcher, and then put them
+back.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="changelog.html" title="Full Changelog"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="editor.html" title="Text Editor Integration"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

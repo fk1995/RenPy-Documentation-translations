@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Transforms and Transitions in Python &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Screens and Python" href="screen_python.html" />
+    <link rel="prev" title="Persistent Data" href="persistent.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="screen_python.html" title="Screens and Python"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="persistent.html" title="Persistent Data"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Transforms and Transitions in Python</a><ul>
+<li><a class="reference internal" href="#transforms">Transforms</a></li>
+<li><a class="reference internal" href="#transitions">Transitions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="persistent.html"
+                        title="previous chapter">Persistent Data</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="screen_python.html"
+                        title="next chapter">Screens and Python</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="transforms-and-transitions-in-python">
+<h1>Transforms and Transitions in Python<a class="headerlink" href="#transforms-and-transitions-in-python" title="Permalink to this headline">¶</a></h1>
+<p>Python can be used to create new transforms and transitions for use by
+Ren'Py scripts.</p>
+<div class="section" id="transforms">
+<h2>Transforms<a class="headerlink" href="#transforms" title="Permalink to this headline">¶</a></h2>
+<p>A transform is a python callable that, when called with a displayable,
+returns another displayable.</p>
+<p>For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+     <span class="c"># This is a transform that uses the right and</span>
+     <span class="c"># left transforms.</span>
+     <span class="k">def</span> <span class="nf">right_or_left</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+         <span class="k">if</span> <span class="n">switch</span><span class="p">:</span>
+             <span class="k">return</span> <span class="n">right</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+         <span class="k">else</span><span class="p">:</span>
+             <span class="k">return</span> <span class="n">left</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The python equivalent of an ATL transform is a Transform object.</p>
+<dl class="class">
+<dt id="Transform">
+<em class="property">class </em><tt class="descname">Transform</tt><big>(</big><em>child=None</em>, <em>function=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>A transform applies operations such as cropping, rotation, scaling, and
+alpha-blending to its child. A transform object has fields corresponding
+to the <a class="reference internal" href="atl.html#transform-properties"><em>transform properties</em></a>, which it applies
+to its child.</p>
+<dl class="docutils">
+<dt><cite>child</cite></dt>
+<dd>The child the transform applies to.</dd>
+<dt><cite>function</cite></dt>
+<dd><p class="first">If not none, this is a function that is called when the transform
+is rendered. The function is called with three arguments:</p>
+<ul class="simple">
+<li>The transform object.</li>
+<li>The shown timebase, in seconds.</li>
+<li>The animation timebase, in seconds.</li>
+</ul>
+<p class="last">The function should return a delay, in seconds, after which it will
+be called again, or None to never be called again.</p>
+</dd>
+</dl>
+<p>Additional arguments are taken as values to set transform properties to.</p>
+<dl class="attribute">
+<dt id="Transform.hide_request">
+<tt class="descname">hide_request</tt><a class="headerlink" href="#Transform.hide_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is set to true when the function is called, to indicate that the
+transform is being hidden.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Transform.hide_response">
+<tt class="descname">hide_response</tt><a class="headerlink" href="#Transform.hide_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>If hide request is true, this can be set to false to prevent the
+transform from being hidden.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Transform.set_child">
+<tt class="descname">set_child</tt><big>(</big><em>child</em><big>)</big><a class="headerlink" href="#Transform.set_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this method with a new <cite>child</cite> to change the child of
+this transform.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Transform.update">
+<tt class="descname">update</tt><big>(</big><big>)</big><a class="headerlink" href="#Transform.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should be called when a transform property field is
+updated outside of the callback method, to ensure that the
+change takes effect.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="transitions">
+<h2>Transitions<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
+<p>A transition is a python callable that, when called with two keyword
+arguments, returns a displayable that performs the transition effect.
+The two keyword arguments are:</p>
+<dl class="docutils">
+<dt><cite>old_widget</cite></dt>
+<dd>A displayable representing the old screen.</dd>
+<dt><cite>new_widget</cite></dt>
+<dd>A displayable representing the new screen.</dd>
+</dl>
+<p>The returned displayable should have a <tt class="docutils literal"><span class="pre">delay</span></tt> field, which gives
+the number of seconds the transition should run for.</p>
+<p>For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">dissolve_or_pixellate</span><span class="p">(</span><span class="n">old_widget</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">new_widget</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">persistent</span><span class="o">.</span><span class="n">want_pixellate</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pixellate</span><span class="p">(</span><span class="n">old_widget</span><span class="o">=</span><span class="n">old_widget</span><span class="p">,</span> <span class="n">new_widget</span><span class="o">=</span><span class="n">new_widget</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">dissolve</span><span class="p">(</span><span class="n">old_widget</span><span class="o">=</span><span class="n">old_widget</span><span class="p">,</span> <span class="n">new_widget</span><span class="o">=</span><span class="n">new_widget</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="screen_python.html" title="Screens and Python"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="persistent.html" title="Persistent Data"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

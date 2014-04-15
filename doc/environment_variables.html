@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Environment Variables &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Text Editor Integration" href="editor.html" />
+    <link rel="prev" title="Dealing with Problems" href="problems.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="editor.html" title="Text Editor Integration"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="problems.html" title="Dealing with Problems"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一节</h4>
+  <p class="topless"><a href="problems.html"
+                        title="previous chapter">Dealing with Problems</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="editor.html"
+                        title="next chapter">Text Editor Integration</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="environment-variables">
+<h1>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h1>
+<p>The following environment variables control the behavior of Ren'Py:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">RENPY_DISABLE_JOYSTICK</span></tt></dt>
+<dd>If set, joystick detection is disabled. Use this if a faulty joystick is
+causing Ren'Py to advance when not desired.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_DISABLE_FULLSCREEN</span></tt></dt>
+<dd>If set, Ren'Py will refuse to go into fullscreen mode.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_DISABLE_SOUND</span></tt></dt>
+<dd>This prevents sound playback from occuring. If this variable contains
+&quot;pss&quot;, sound playback will be disabled.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_EDIT_PY</span></tt></dt>
+<dd>The path to an .edit.py file telling Ren'Py how to invoke a text editor.
+See <a class="reference internal" href="editor.html#text-editor-integration"><em>Text Editor Integration</em></a> for more information.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_GL_ENVIRON</span></tt></dt>
+<dd>Sets the OpenGL texture environment.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_GL_RTT</span></tt></dt>
+<dd>Sets the OpenGL render-to-texture method.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_GL_VSYNC</span></tt></dt>
+<dd>This determines if Ren'Py will attempt to synchronize with the display's
+vertical refresh. (This prevents tearing, at the cost of potentially
+lowering framerate.) Set this to &quot;0&quot; to disable synchronization, or
+&quot;1&quot; to sync to every vertical refresh.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_LANGUAGE</span></tt></dt>
+<dd>If set, gives the translation language Ren'Py will use.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_LESS_MEMORY</span></tt></dt>
+<dd>This causes Ren'Py to reduce its memory usage, in exchange for reductions
+in speed.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_LESS_UPDATES</span></tt></dt>
+<dd>This causes Ren'Py to reduce the number of screen updates that occur.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_LESS_MOUSE</span></tt></dt>
+<dd>This causes Ren'Py to disable the mouse at all times.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_SCREENSHOT_PATTERN</span></tt></dt>
+<dd>A pattern used to create screenshot filenames. It should contain a single
+%d substitution in it. For example, setting this to &quot;screenshot%04d.jpg&quot; will
+cause Ren'Py to write out jpeg screenshots rather than the usual pngs.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_SIMPLE_EXCEPTIONS</span></tt></dt>
+<dd>When set, this disables Ren'Py's graphical exception handling.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_SOUND_BUFSIZE</span></tt></dt>
+<dd>This controls the sound buffer size. Values larger than the default (2048)
+can prevent sound from skipping, at the cost of a larger delay from when a
+sound is invoked to when it is played.</dd>
+<dt><tt class="docutils literal"><span class="pre">RENPY_VARIANT</span></tt></dt>
+<dd>This should be set to a space-separated list of screen variants that
+Ren'Py is expected to use.</dd>
+</dl>
+<p>As Ren'Py uses SDL, its behavior can also be controlled by the SDL environment
+variables.</p>
+<p>At startup, Ren'Py will look in the Ren'Py directory (the one containing
+renpy.exe or renpy.py) for the file &quot;environment.txt&quot;. If it exists, it will be
+evaluated as a python file, and the values defined in that file will be used as
+the default values of environment variables.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="editor.html" title="Text Editor Integration"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="problems.html" title="Dealing with Problems"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

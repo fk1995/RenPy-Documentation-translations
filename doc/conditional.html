@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Conditional Statements &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Audio" href="audio.html" />
+    <link rel="prev" title="Python Statements" href="python.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="audio.html" title="Audio"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="python.html" title="Python Statements"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Conditional Statements</a><ul>
+<li><a class="reference internal" href="#if-statement">If Statement</a></li>
+<li><a class="reference internal" href="#while-statement">While Statement</a></li>
+<li><a class="reference internal" href="#pass-statement">Pass Statement</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="python.html"
+                        title="previous chapter">Python Statements</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="audio.html"
+                        title="next chapter">Audio</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="conditional-statements">
+<h1>Conditional Statements<a class="headerlink" href="#conditional-statements" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py includes several statements that can alter control flow based on
+expression values. (This is in addition to the <a class="reference internal" href="label.html#jump-statement"><em>jump</em></a>,
+<a class="reference internal" href="label.html#call-statement"><em>call</em></a> and <a class="reference internal" href="label.html#return-statement"><em>return</em></a> statements,
+which transfer control unconditionally.</p>
+<p>Note that is pages discusses statements that can be used inside Ren'Py
+script. Python code embedded in a Ren'Py game uses the Python while, if,
+and for statements, but can't embed Ren'Py script code.</p>
+<div class="section" id="if-statement">
+<span id="id1"></span><h2>If Statement<a class="headerlink" href="#if-statement" title="Permalink to this headline">¶</a></h2>
+<p>The if statement conditionally executes a block of code if a python
+expression is true. It consists of an <tt class="docutils literal"><span class="pre">if</span></tt> clause, zero or more <tt class="docutils literal"><span class="pre">elif</span></tt>
+clauses, and an optional``else`` clause.</p>
+<p>Each clause should be on its own logical line, followed by a block of
+statements. The <tt class="docutils literal"><span class="pre">if</span></tt> and <tt class="docutils literal"><span class="pre">elif</span></tt> clauses are followed by an expression,
+while all clauses end with a colon. (:)</p>
+<p>Examples are:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+    <span class="n">e</span> <span class="s">&quot;You&#39;re set the flag!&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">if</span> <span class="n">points</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="k">jump</span> <span class="n">best_ending</span>
+<span class="k">elif</span> <span class="n">points</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="k">jump</span> <span class="n">good_ending</span>
+<span class="k">elif</span> <span class="n">points</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+    <span class="k">jump</span> <span class="n">bad_ending</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">jump</span> <span class="n">worst_ending</span>
+</pre></div>
+</div>
+<p>The expressions in the if statement are evaluated in order, from
+first to last. When an expression evaluates to true, the block
+corresponding to that statement is executed. When control reaches the
+end of the block, it proceeds to the statement following the if
+statement.</p>
+<p>If all expressions evaluate to false, the block associated with
+the <tt class="docutils literal"><span class="pre">else</span></tt> clause is executed, if the <tt class="docutils literal"><span class="pre">else</span></tt> clause is present.</p>
+</div>
+<div class="section" id="while-statement">
+<span id="id2"></span><h2>While Statement<a class="headerlink" href="#while-statement" title="Permalink to this headline">¶</a></h2>
+<p>The while statement executes a block of code while an
+expression evaluates true. For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">$</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="k">while</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+    <span class="s">&quot;T-minus [count].&quot;</span>
+
+    <span class="k">$</span> <span class="n">count</span> <span class="o">-=</span> <span class="mi">1</span>
+
+<span class="s">&quot;Liftoff!&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+
+    <span class="s">&quot;This is the song that never terminates.&quot;</span>
+    <span class="s">&quot;It goes on and on, my compatriots.&quot;</span>
+</pre></div>
+</div>
+<p>The expression is evaluated when while statement is first reached, and
+then each time control reaches the end of the block. When the expression
+return a false value, the statement after the while statement is executed.</p>
+<p>Ren'Py does not have continue, break, or for statements. Continue and break
+statements can be replaced by jumps to labels placed before or after the
+while loop, respectively. The first example of a while loop, above, shows
+how a while loop can replace a for statement.</p>
+</div>
+<div class="section" id="pass-statement">
+<span id="id3"></span><h2>Pass Statement<a class="headerlink" href="#pass-statement" title="Permalink to this headline">¶</a></h2>
+<p>The pass statement can be used when a block is required, but no
+statement is suitable. It does nothing.</p>
+<p>For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">if</span> <span class="n">points</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="s">&quot;You&#39;re doing great!&quot;</span>
+<span class="k">elif</span> <span class="n">points</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="s">&quot;Things aren&#39;t looking so good.&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># event.step() is a function that returns true while there are</span>
+<span class="c"># still events that need to be executed.</span>
+
+<span class="k">while</span> <span class="k">event</span><span class="o">.</span><span class="n">step</span><span class="p">():</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="audio.html" title="Audio"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="python.html" title="Python Statements"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

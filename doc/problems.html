@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dealing with Problems &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Environment Variables" href="environment_variables.html" />
+    <link rel="prev" title="Android" href="android.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="environment_variables.html" title="Environment Variables"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="android.html" title="Android"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dealing with Problems</a><ul>
+<li><a class="reference internal" href="#dealing-with-display-problems">Dealing With Display Problems</a></li>
+<li><a class="reference internal" href="#windows-encoding-problems">Windows Encoding Problems</a></li>
+<li><a class="reference internal" href="#os-x-10-9-mavericks">OS X 10.9 Mavericks</a></li>
+<li><a class="reference internal" href="#bit-linux-problems">64-Bit Linux Problems</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="android.html"
+                        title="previous chapter">Android</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="environment_variables.html"
+                        title="next chapter">Environment Variables</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dealing-with-problems">
+<h1>Dealing with Problems<a class="headerlink" href="#dealing-with-problems" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">orphan:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="dealing-with-display-problems">
+<h2>Dealing With Display Problems<a class="headerlink" href="#dealing-with-display-problems" title="Permalink to this headline">¶</a></h2>
+<p>As of version 6.13, Ren'Py will take advantage of graphics
+acceleration hardware, if it's present and functional. Using hardware
+acceleration brings with it several advantages, such as allowing
+vertical-blank synchronization and scaling games to full-screen size
+while preserving aspect ratio.</p>
+<p>By default, Ren'Py selects a renderer to use in the following order:</p>
+<ol class="arabic simple">
+<li>OpenGL 2.0 or greater.</li>
+<li>DirectX 9, provided that all libraries are available.</li>
+<li>OpenGL 1.x.</li>
+<li>Software.</li>
+</ol>
+<p>A small fraction of systems may experience problems when running
+hardware accelerated Ren'Py games.  These problems are often due to
+buggy graphics drivers, and so your first step to fixing them should
+be to check for an update to your graphics card drivers.</p>
+<p>If upgrading your video drivers does not fix the problem, you should
+consider switching video renderers, using the following steps.</p>
+<ol class="arabic simple">
+<li>Hold down shift while starting Ren'Py, or press shift+G once Ren'Py has started.</li>
+<li>From the &quot;Graphics Acceleration&quot; menu that appears, choose the renderer to use.</li>
+<li>Choose &quot;Quit&quot;, then restart Ren'Py.</li>
+</ol>
+<p>We suggest trying OpenGL, DirectX, and Software, in that order.</p>
+</div>
+<div class="section" id="windows-encoding-problems">
+<h2>Windows Encoding Problems<a class="headerlink" href="#windows-encoding-problems" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py will fail to start on Windows if it's placed in a directory with a
+full path that isn't representable in the current system language. For example,
+if Ren'Py is in the directory:</p>
+<blockquote>
+<div>C:ビジュアルノベルrenpy-6.16.0-sdk</div></blockquote>
+<p>and the system is set to use the English language, Ren'Py will be unable to
+start. To fix this problem, start the control panel, select &quot;Region and Language
+Options&quot;, &quot;Advanced&quot;, and change the Language for non-Unicode programs.</p>
+</div>
+<div class="section" id="os-x-10-9-mavericks">
+<h2>OS X 10.9 Mavericks<a class="headerlink" href="#os-x-10-9-mavericks" title="Permalink to this headline">¶</a></h2>
+<p>A bug in OS X 10.9 Mavericks prevents Ren'Py from starting when launched
+on a non-primary display. Until Apple fixes this bug, please launch Ren'Py from
+the the primary display.</p>
+</div>
+<div class="section" id="bit-linux-problems">
+<h2>64-Bit Linux Problems<a class="headerlink" href="#bit-linux-problems" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py 6.14.x and 6.15.0-3 were compiled incorrectly, and will often
+fail to operate on 64-bit Linux computers. The best way to work around
+this is to download Ren'Py 6.15.4 or later, and use it to run the game:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">renpy</span><span class="o">-</span><span class="mf">6.15</span><span class="o">.</span><span class="mi">4</span><span class="o">/</span><span class="n">renpy</span><span class="o">.</span><span class="n">sh</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">game</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">problems</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="environment_variables.html" title="Environment Variables"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="android.html" title="Android"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

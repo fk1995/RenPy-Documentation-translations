@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Styles &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Style Properties" href="style_properties.html" />
+    <link rel="prev" title="Animation and Transformation Language" href="atl.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="style_properties.html" title="Style Properties"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="atl.html" title="Animation and Transformation Language"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Styles</a><ul>
+<li><a class="reference internal" href="#using-styles-and-style-inheritance">Using Styles and Style Inheritance</a></li>
+<li><a class="reference internal" href="#style-inspector">Style Inspector</a></li>
+<li><a class="reference internal" href="#defining-styles-style-statement">Defining Styles: Style Statement</a></li>
+<li><a class="reference internal" href="#defining-styles-python">Defining Styles: Python</a><ul>
+<li><a class="reference internal" href="#style-preferences">Style Preferences</a></li>
+<li><a class="reference internal" href="#other-style-functions">Other Style Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="atl.html"
+                        title="previous chapter">Animation and Transformation Language</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="style_properties.html"
+                        title="next chapter">Style Properties</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="styles">
+<span id="id1"></span><h1>Styles<a class="headerlink" href="#styles" title="Permalink to this headline">¶</a></h1>
+<p>Styles allow the look of displayables to be customized. This is done by
+changing the value of style properties for displayables. For example,
+changing the <a class="reference internal" href="style_properties.html#style-property-background"><tt class="xref std std-propref docutils literal"><span class="pre">background</span></tt></a> property allows the background of a window
+or button to be customized.</p>
+<p>Style properties consist of two parts, a prefix that
+specifies when the property is used, and the property itself. For example, a
+button's <tt class="docutils literal"><span class="pre">hover_background</span></tt> property is used when a button is focused,
+while its <tt class="docutils literal"><span class="pre">idle_background</span></tt> property is used when the button is unfocused.
+(Setting the <tt class="docutils literal"><span class="pre">background</span></tt> property sets the <tt class="docutils literal"><span class="pre">idle_background</span></tt> and
+<tt class="docutils literal"><span class="pre">hover_background</span></tt>, among others.)</p>
+<p>While Ren'Py has over 100 style properties, only a few properties are
+used in this section. Along with <tt class="docutils literal"><span class="pre">background</span></tt>, we use <tt class="docutils literal"><span class="pre">color</span></tt>, <tt class="docutils literal"><span class="pre">font</span></tt>,
+<tt class="docutils literal"><span class="pre">outlines</span></tt> and <tt class="docutils literal"><span class="pre">size</span></tt> as style properties. For a full list of style
+properties, please read the <a class="reference internal" href="style_properties.html#style-properties"><em>style properties</em></a>
+documentation.</p>
+<div class="section" id="using-styles-and-style-inheritance">
+<h2>Using Styles and Style Inheritance<a class="headerlink" href="#using-styles-and-style-inheritance" title="Permalink to this headline">¶</a></h2>
+<p>Each displayable has a style built-into it. When the displayable is created,
+either directly or using the screen system, style properties can be supplied
+to it, and these styles are used to update the look of the displayable. In
+the following example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">big</span> <span class="n">hello</span> <span class="n">world</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello, World&quot;</span><span class="p">,</span> <span class="na">size</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the <a class="reference internal" href="style_properties.html#style-property-size"><tt class="xref std std-propref docutils literal"><span class="pre">size</span></tt></a> property is supplied to a Text displayable, allowing us to
+change its text size. This will customize the look of the text displayable by
+displaying the text 40 pixels high.</p>
+<p>Similarly, when using Screen Language, each user interface statement takes
+relevant style properties:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">big_hello_world</span><span class="p">:</span>
+    <span class="k">text</span> <span class="s">&quot;Hello, World&quot;</span> <span class="na">size</span> <span class="mi">40</span>
+</pre></div>
+</div>
+<p>Ren'Py supports style inheritance, with each style having a single
+parent. If a style property is not defined in a style, the value of the
+property is inherited from the closest parent, grandparent, or other
+ancestor.</p>
+<p>Each displayable takes a property named <tt class="docutils literal"><span class="pre">style</span></tt>, which gives the parent
+of the displayable's style:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">big</span> <span class="n">hello</span> <span class="n">world</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="k">style</span><span class="o">=</span><span class="s">&quot;big&quot;</span><span class="p">)</span>
+
+<span class="k">screen</span> <span class="n">hello_world</span><span class="p">:</span>
+    <span class="k">text</span> <span class="s">&quot;Hello, World&quot;</span> <span class="k">style</span> <span class="s">&quot;big&quot;</span>
+</pre></div>
+</div>
+<p>When no <tt class="docutils literal"><span class="pre">style</span></tt> property is given, a parent is chosen based on the kind of
+displayable be that has been supplied. The parent chosen can be influenced
+by the <a class="reference internal" href="screens.html#style-group"><em>style_group</em></a> property of user interface statements
+in the screen language.</p>
+<p>When a style is defined without a parent being specified, a default
+parent is chosen for the style. If the style contains an underscore (_)
+in its name, the parent is named by removing everything up to and
+including the first underscore. For example, a style named <tt class="docutils literal"><span class="pre">my_button</span></tt>
+will inherity from <tt class="docutils literal"><span class="pre">button</span></tt>. This inheritance can be changed using the
+style statement or by calling a method on a style object.  When a style that
+does not exist is used, and the style has an underscore in its name, Ren'Py will create
+it using the default parent.</p>
+<p>Style names beginning with an underscore are reserved for Ren'Py use.</p>
+<p>As Ren'Py builds styles on startup, named styles should not be changed
+outside of init code.</p>
+</div>
+<div class="section" id="style-inspector">
+<h2>Style Inspector<a class="headerlink" href="#style-inspector" title="Permalink to this headline">¶</a></h2>
+<p>When <a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> is true, the style inspector can be used to
+see which styles are being used by a displayable.</p>
+<p>To activate the style inspector, place the mouse over a displayable, and
+press shift+I. Ren'Py will display a list of displayables that include
+the mouse position, in the order they are drawn to the screen. (That is,
+the last displayable is the one on top of the others.)</p>
+<p>Click the name of a style to display the styles the displayable inherits
+from, and the properties each style contributes the to the final displayable.</p>
+</div>
+<div class="section" id="defining-styles-style-statement">
+<h2>Defining Styles: Style Statement<a class="headerlink" href="#defining-styles-style-statement" title="Permalink to this headline">¶</a></h2>
+<p>The preferred way to define styles is through the style statement:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">style</span> <span class="n">my_text</span> <span class="k">is</span> <span class="k">text</span><span class="p">:</span>
+    <span class="na">size</span> <span class="mi">40</span>
+    <span class="na">font</span> <span class="s">&quot;gentium.ttf&quot;</span>
+</pre></div>
+</div>
+<p>If a style does not exist, the style statement creates it. Otherwise,
+the existing style is modified by the style statement.</p>
+<p>A style statement begins with the keyword <tt class="docutils literal"><span class="pre">style</span></tt> and the name of the
+style to define. This is followed on the first line by zero or more
+clauses, and an optional colon.</p>
+<p>If the colon is present, a block must follow. Each line of the block should
+contain one ore more clauses. Otherwise, the statement is complete.</p>
+<p>The style statement accepts the following clauses:</p>
+<dl class="docutils">
+<dt><cite>style-property</cite> <cite>simple-expression</cite></dt>
+<dd>Assigns the value of the simple expression to the given style
+property.</dd>
+<dt><tt class="docutils literal"><span class="pre">is</span></tt> <cite>parent</cite></dt>
+<dd>Sets the parent of this style. The parent must be a word giving the
+name of a style.</dd>
+<dt><tt class="docutils literal"><span class="pre">clear</span></tt></dt>
+<dd>Removes all properties of this style that were assigned before
+this style statement was run. This does not prevent the style
+from inheriting property values from its parents.</dd>
+<dt><tt class="docutils literal"><span class="pre">take</span></tt> <cite>style-name</cite></dt>
+<dd>Removes all properties of this style that were assigned before
+this style statement was run, and replaces them with the properties
+of the named style. This does not change the parent of this style.</dd>
+<dt><tt class="docutils literal"><span class="pre">variant</span></tt> <cite>simple-expression</cite></dt>
+<dd>Evaluates the simple expression, to yield a string or list of strings,
+which are interpreted as <a class="reference internal" href="screens.html#screen-variants"><em>screen variants</em></a>. If at
+least one of the variants given is active, the style statement is run,
+otherwise it is ignored.</dd>
+</dl>
+<p>Examples of style statements are:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Creates a new style, inheriting from default.</span>
+<span class="k">style</span> <span class="n">big_red</span><span class="p">:</span>
+    <span class="na">size</span> <span class="mi">40</span>
+
+<span class="c"># Updates the style.</span>
+<span class="k">style</span> <span class="n">big_red</span> <span class="na">color</span> <span class="s">&quot;#f00&quot;</span>
+
+<span class="c"># Takes the properties of label_text from big_red, but only if we&#39;re</span>
+<span class="c"># on a touch system.</span>
+
+<span class="k">style</span> <span class="n">label_text</span><span class="p">:</span>
+    <span class="n">variant</span> <span class="s">&quot;touch&quot;</span>
+    <span class="n">take</span> <span class="n">big_red</span>
+</pre></div>
+</div>
+<p>Style statements are always run at init-time. If a style statement is not
+in an init block, it is automatically placed init an init 0 block.</p>
+</div>
+<div class="section" id="defining-styles-python">
+<h2>Defining Styles: Python<a class="headerlink" href="#defining-styles-python" title="Permalink to this headline">¶</a></h2>
+<p>Named styles exists as fields on the global <tt class="docutils literal"><span class="pre">style</span></tt> object. To create a new
+style, create an instance of the Style class, and assign it to a field on the
+<tt class="docutils literal"><span class="pre">style</span></tt> object.:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+     <span class="k">style</span><span class="o">.</span><span class="n">big_red</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Style properties can be set by assigning to field-like properties of the
+Styles.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+     <span class="k">style</span><span class="o">.</span><span class="n">big_red</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="s">&quot;#f00&quot;</span>
+     <span class="k">style</span><span class="o">.</span><span class="n">big_red</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="mi">42</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="Style">
+<em class="property">class </em><tt class="descname">Style</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#Style" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new style object. Style properties can be assigned to
+the fields of this object.</p>
+<dl class="docutils">
+<dt><cite>parent</cite></dt>
+<dd>The styles parent. This can be another style object, or a
+string.</dd>
+</dl>
+<dl class="method">
+<dt id="Style.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#Style.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>This removes all style properties from this object. Values will be
+inherited from this object's parent.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Style.set_parent">
+<tt class="descname">set_parent</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#Style.set_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the parent of this style object to <cite>parent</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Style.take">
+<tt class="descname">take</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#Style.take" title="Permalink to this definition">¶</a></dt>
+<dd><p>This takes all style properties from <cite>other</cite>. <cite>other</cite> must be a
+style object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<blockquote>
+<div><p>Indexed Styles</p>
+<p>Indexed styles are lightweight styles that can be used to customize the look
+of a displayable based on the data supplied to that displayable. An index
+style is created by indexing a style object with a string or integer. If an
+indexed style does not exist, indexing creates it.:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="k">style</span><span class="o">.</span><span class="k">button</span><span class="p">[</span><span class="s">&#39;Foo&#39;</span><span class="p">]</span><span class="o">.</span><span class="na">background</span> <span class="o">=</span> <span class="s">&quot;#f00&quot;</span>
+    <span class="k">style</span><span class="o">.</span><span class="k">button</span><span class="p">[</span><span class="s">&#39;Bar&#39;</span><span class="p">]</span><span class="o">.</span><span class="na">background</span> <span class="o">=</span> <span class="s">&quot;#00f&quot;</span>
+</pre></div>
+</div>
+<p>An index style is used by supplying the indexed style to a displayable.:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">indexed_style_test</span><span class="p">:</span>
+    <span class="k">vbox</span><span class="p">:</span>
+        <span class="k">textbutton</span> <span class="s">&quot;Foo&quot;</span> <span class="k">style</span> <span class="k">style</span><span class="o">.</span><span class="k">button</span><span class="p">[</span><span class="s">&quot;Foo&quot;</span><span class="p">]</span>
+        <span class="k">textbutton</span> <span class="s">&quot;Bar&quot;</span> <span class="k">style</span> <span class="k">style</span><span class="o">.</span><span class="k">button</span><span class="p">[</span><span class="s">&quot;Bar&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="style-preferences">
+<span id="id2"></span><h3>Style Preferences<a class="headerlink" href="#style-preferences" title="Permalink to this headline">¶</a></h3>
+<p>It's often desirable to allow the user to customize aspects of the user
+interface that are best expressed as styles. For example, a creator may want
+to give players of his game the ability to adjust the look, color, and size
+of the text. Style preferences allow for this customization.</p>
+<p>A style preference is a preference that controls one or more style properties.
+A style preference has a name and one or more alternatives. At any given
+time, one of the alternatives is the selected alternative for the style
+preference. The selected alternative is saved in the persistent data, and
+defaults to the first alternative registered for a style property.</p>
+<p>An alternative has one or more associations of style, property, and value
+associated with it, and represents a promise that when the alternative
+becomes the selected alternative for the style preference, the property on
+the style will be assigned the given value. This occurs when Ren'Py first
+initializes, and then whenever a new alternative is selected.</p>
+<p>One should ensure that every alternative for a given style preference updates
+the same set of styles and properties. Otherwise, some styles may not be
+assigned values, and the result will not be deterministic.</p>
+<p>The style preference functions are:</p>
+<dl class="function">
+<dt id="StylePreference">
+<tt class="descname">StylePreference</tt><big>(</big><em>preference</em>, <em>alternative</em><big>)</big><a class="headerlink" href="#StylePreference" title="Permalink to this definition">¶</a></dt>
+<dd><p>An action that causes <cite>alternative</cite> to become the selected alternative for the given style preference.</p>
+<dl class="docutils">
+<dt><cite>preference</cite></dt>
+<dd>A string giving the name of the style preference.</dd>
+<dt><cite>alternative</cite></dt>
+<dd>A string giving the name of the alternative.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.get_style_preference">
+<tt class="descclassname">renpy.</tt><tt class="descname">get_style_preference</tt><big>(</big><em>preference</em><big>)</big><a class="headerlink" href="#renpy.get_style_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string giving the name of the selected alternative for the named style preference.</p>
+<dl class="docutils">
+<dt><cite>preference</cite></dt>
+<dd>A string giving the name of the style preference.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.register_style_preference">
+<tt class="descclassname">renpy.</tt><tt class="descname">register_style_preference</tt><big>(</big><em>preference</em>, <em>alternative</em>, <em>style</em>, <em>property</em>, <em>value</em><big>)</big><a class="headerlink" href="#renpy.register_style_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers information about an alternative for a style preference.</p>
+<dl class="docutils">
+<dt><cite>preference</cite></dt>
+<dd>A string, the name of the style preference.</dd>
+<dt><cite>alternative</cite></dt>
+<dd>A string, the name of the alternative.</dd>
+<dt><cite>style</cite></dt>
+<dd>The style that will be updated. This may be a style object or a string giving the style name.</dd>
+<dt><cite>property</cite></dt>
+<dd>A string giving the name of the style property that will be update.</dd>
+<dt><cite>value</cite></dt>
+<dd>The value that will be assigned to the style property.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.set_style_preference">
+<tt class="descclassname">renpy.</tt><tt class="descname">set_style_preference</tt><big>(</big><em>preference</em>, <em>alternative</em><big>)</big><a class="headerlink" href="#renpy.set_style_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the selected alternative for the style preference.</p>
+<dl class="docutils">
+<dt><cite>preference</cite></dt>
+<dd>A string giving the name of the style preference.</dd>
+<dt><cite>alternative</cite></dt>
+<dd>A string giving the name of the alternative.</dd>
+</dl>
+</dd></dl>
+
+<p>Here's an example of registering a style property that allows the user to
+choose between large, simple text and smaller outlined text.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="n">renpy</span><span class="o">.</span><span class="n">register_style_preference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;decorated&quot;</span><span class="p">,</span> <span class="k">style</span><span class="o">.</span><span class="n">say_dialogue</span><span class="p">,</span> <span class="s">&quot;outlines&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;#000&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">])</span>
+    <span class="n">renpy</span><span class="o">.</span><span class="n">register_style_preference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;decorated&quot;</span><span class="p">,</span> <span class="k">style</span><span class="o">.</span><span class="n">say_dialogue</span><span class="p">,</span> <span class="s">&quot;size&quot;</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span>
+
+    <span class="n">renpy</span><span class="o">.</span><span class="n">register_style_preference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;large&quot;</span><span class="p">,</span> <span class="k">style</span><span class="o">.</span><span class="n">say_dialogue</span><span class="p">,</span> <span class="s">&quot;outlines&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">])</span>
+    <span class="n">renpy</span><span class="o">.</span><span class="n">register_style_preference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;large&quot;</span><span class="p">,</span> <span class="k">style</span><span class="o">.</span><span class="n">say_dialogue</span><span class="p">,</span> <span class="s">&quot;size&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following code will allow the user to select these alternatives using
+buttons:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">textbutton</span> <span class="s">&quot;Decorated&quot;</span> <span class="na">action</span> <span class="n">StylePreference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;decorated&quot;</span><span class="p">)</span>
+<span class="k">textbutton</span> <span class="s">&quot;Large&quot;</span> <span class="na">action</span> <span class="n">StylePreference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;large&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-style-functions">
+<h3>Other Style Functions<a class="headerlink" href="#other-style-functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="style.rebuild">
+<tt class="descclassname">style.</tt><tt class="descname">rebuild</tt><big>(</big><big>)</big><a class="headerlink" href="#style.rebuild" title="Permalink to this definition">¶</a></dt>
+<dd><p>This causes named styles to be rebuilt, allowing styles to be
+changed outside of init code.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Named styles are not saved as part of the per-game data. This
+means that changes to them will not be persisted through a save
+and load cycle.</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="style_properties.html" title="Style Properties"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="atl.html" title="Animation and Transformation Language"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

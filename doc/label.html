@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>标签和控制流</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Dialogue and Narration" href="dialogue.html" />
+    <link rel="prev" title="Language Basics" href="language_basics.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="dialogue.html" title="Dialogue and Narration"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="language_basics.html" title="Language Basics"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">首页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">标签和控制流</a><ul>
+<li><a class="reference internal" href="#label-statement">Label命令</a></li>
+<li><a class="reference internal" href="#jump-statement">Jump命令</a></li>
+<li><a class="reference internal" href="#call-statement">Call命令</a></li>
+<li><a class="reference internal" href="#return-statement">Return命令</a></li>
+<li><a class="reference internal" href="#special-labels">特殊标签</a></li>
+<li><a class="reference internal" href="#labels-control-flow-functions">标签和控制流相关函数</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="language_basics.html"
+                        title="previous chapter">语言基础</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="dialogue.html"
+                        title="next chapter">对白与叙述</a></p>
+            <h4>搜索</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="labels-control-flow">
+<h1>标签与控制流<a class="headerlink" href="#labels-control-flow" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="label-statement">
+<h2>Label命令<a class="headerlink" href="#label-statement" title="Permalink to this headline">¶</a></h2>
+<p>Label命令允许您给脚本的某个位置起一个名称。它们是专门用来配合jump或者call命令使用的。在脚本中您可以使用这两个命令，而除此之外config对象也会用到标签。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">sample1</span><span class="p">:</span>
+    <span class="s">&quot;这儿是&#39;sample1&#39;标签。&quot;</span>
+
+<span class="k">label</span> <span class="n">sample2</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s">&quot;default&quot;</span><span class="p">):</span>
+    <span class="s">&quot;这儿是 &#39;sample2&#39;标签。&quot;</span>
+    <span class="s">&quot;a = [a]&quot;</span>
+</pre></div>
+</div>
+<p>label命令可以带一个区块。如果这样，遇到这个标签的时候脚本执行器会自动跳转到该区块内部，直到该区块结束。然后，脚本执行器将会执行该label命令的后一条语句。</p>
+<p>label命令可以带一些参数，这些参数将会被按照PEP 3102标准处理，但是有两个例外：</p>
+<ul class="simple">
+<li>参数的默认值将会在该标签被调用的时候计算。</li>
+<li>变量将会采用动态作用域，而不是静态作用域。</li>
+</ul>
+</div>
+<div class="section" id="jump-statement">
+<span id="id1"></span><h2>Jump命令<a class="headerlink" href="#jump-statement" title="Permalink to this headline">¶</a></h2>
+<p>jump命令用于将脚本执行器跳转到指定的标签。</p>
+<p>如果提供<tt class="docutils literal"><span class="pre">expression</span></tt>关键字参数，该参数将被求值，然后获得的结果（必须是字符串）就是跳转目标标签的名称。如果没有提供<tt class="docutils literal"><span class="pre">expression</span></tt>参数，则必须提供跳转目标标签名称。</p>
+<p>与call命令不同的是，jump命令不会将它之后的命令压入call栈，因此您一旦使用了jump命令就没有回头路了。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">loop_start</span><span class="p">:</span>
+
+    <span class="n">e</span> <span class="s">&quot;哦不，看起来我们好像误入3 Days的世界了。&quot;</span>
+
+    <span class="k">jump</span> <span class="n">loop_start</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="call-statement">
+<span id="id2"></span><h2>Call命令<a class="headerlink" href="#call-statement" title="Permalink to this headline">¶</a></h2>
+<p>call命令可以将脚本执行器跳转到一个指定的标签。它也会将下个命令压入call栈里，因此您就可以在此标签结束后返回到call命令执行的地方继续下去。这个过程我们叫做“调用”。</p>
+<p>如果提供<tt class="docutils literal"><span class="pre">expression</span></tt>关键字参数，该参数将被求值，然后获得的结果（必须是字符串）就是跳转目标标签的名称。如果没有提供
+<tt class="docutils literal"><span class="pre">expression</span></tt>参数，则必须提供跳转目标标签名称。</p>
+<p>如果提供可选的from从句，它会起到在该call命令后立即插入一个标签，该标签的名字就是from从句的参数值。这样，您就不用担心修改脚本后读取存档可能导致的跳转混乱了。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;First, we will call a subroutine.&quot;</span>
+
+<span class="k">call</span> <span class="n">subroutine</span>
+
+<span class="k">call</span> <span class="n">subroutine</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">call</span> <span class="k">expression</span> <span class="s">&quot;subroutine&quot;</span> <span class="k">pass</span> <span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c"># ...</span>
+
+<span class="k">label</span> <span class="n">subroutine</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+    <span class="n">e</span> <span class="s">&quot;我已经到过这里[count] 次了。&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;接下来，我们将从subroutine这个标签处返回。&quot;</span>
+
+    <span class="k">return</span>
+</pre></div>
+</div>
+<p>call命令可以带参数，具体处理标准请参考PEP
+3102。</p>
+<p>当使用call expression命令时，如果想传入参数，请在标签名称和参数值之间使用<tt class="docutils literal"><span class="pre">pass</span></tt>关键字。否则，参数列表将被当做表达式的一部分处理，而不是call命令的一部分。</p>
+</div>
+<div class="section" id="return-statement">
+<span id="id3"></span><h2>Return命令<a class="headerlink" href="#return-statement" title="Permalink to this headline">¶</a></h2>
+<p>return命令将会弹出call栈顶部的命令，然后将脚本处理器跳转到那里。如果遇到return命令时，call栈是空的，那么Ren'Py将会重启，进入主菜单界面。</p>
+<p>若提供一个简单表达式作为return命令的参数，则该参数将被存在_return变量中，该变量在各个作用域中均有效。</p>
+</div>
+<div class="section" id="special-labels">
+<h2>特殊标签<a class="headerlink" href="#special-labels" title="Permalink to this headline">¶</a></h2>
+<p>以下是Ren'Py使用的特殊标签</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">start</span></tt></dt>
+<dd>默认情况下，游戏开始时Ren'Py会跳转到这个标签。</dd>
+<dt><tt class="docutils literal"><span class="pre">quit</span></tt></dt>
+<dd>如果该标签存在，当玩家退出游戏时，该标签会自动被调用。需要注意的是，如果在该标签内不会自动结束游戏的话（比如显示一些对话），若玩家继续试图退出游戏，将会再一次调用该标签。</dd>
+<dt><tt class="docutils literal"><span class="pre">after_load</span></tt></dt>
+<dd>如果该标签存在，将会在游戏读取后被自动调用。它可以用于游戏升级后的数据修复。</dd>
+<dt><tt class="docutils literal"><span class="pre">splashscreen</span></tt></dt>
+<dd>如果该标签存在，将会在游戏开始运行时被自动调用。此调用发生在主菜单界面出现前。</dd>
+<dt><tt class="docutils literal"><span class="pre">before_main_menu</span></tt></dt>
+<dd>如果该标签存在，将会在进入主菜单前被自动调用。偶尔需要配置主菜单界面的话（比如在背景上播放视频），您可以考虑使用该标签。</dd>
+<dt><tt class="docutils literal"><span class="pre">main_menu</span></tt></dt>
+<dd><p class="first">如果该标签存在，游戏在进入主菜单界面时会调用该标签（而不是呼叫main_menu这个视屏）。如果在进入该标签后遇到了return命令，Ren'Py会从<tt class="docutils literal"><span class="pre">start</span></tt>标签处开始游戏。比如说，以下代码会使您的游戏不显示主菜单界面，立刻开始。</p>
+<div class="last highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">main_menu</span><span class="p">:</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">after_warp</span></tt></dt>
+<dd>如果该标签存在，将会在跳转到特定行之后、目标行命令被执行之前被调用。请参阅<a class="reference internal" href="developer_tools.html#warping-to-a-line"><em>跳转到特定行</em></a></dd>
+</dl>
+</div>
+<div class="section" id="labels-control-flow-functions">
+<h2>标签和控制流相关函数<a class="headerlink" href="#labels-control-flow-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="renpy.call_in_new_context">
+<tt class="descclassname">renpy.</tt><tt class="descname">call_in_new_context</tt><big>(</big><em>label</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#renpy.call_in_new_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>该代码将创建一个新的语境，然后执行此标签的内容。在新的语境中，回滚是无效的。</p>
+<p>使用此函数可以在一个交互中开始第二个交互。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.get_all_labels">
+<tt class="descclassname">renpy.</tt><tt class="descname">get_all_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#renpy.get_all_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>返回所有在程序中定义的标签，包括内部库定义的标签。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.has_label">
+<tt class="descclassname">renpy.</tt><tt class="descname">has_label</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#renpy.has_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>若此name参数的值是一个标签的名称，返回True，否则返回False。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.invoke_in_new_context">
+<tt class="descclassname">renpy.</tt><tt class="descname">invoke_in_new_context</tt><big>(</big><em>callable</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#renpy.invoke_in_new_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>此函数将创建一个新的语境，并调用指定的函数。当函数返回或是抛出异常的时候，Ren'Py将移除新创建的语境，然后恢复当前的语境（调用指定函数前的语境）。</p>
+<p>额外的位置参数和关键字参数都会被传给此可调用对象。</p>
+<p>值得一提的是，以此法创建的语境将无法运行renpy代码，因此一些改变脚本执行位置的异常（比如由renpy.jump导致的异常）将会被交给高一级的语境来处理。</p>
+<p>如果您希望从函数内部运行renpy代码的话，您应该使用renpy.call_in_new_context来调用它。</p>
+<p>使用此函数可以在一个交互中开始第二个交互。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.jump_out_of_context">
+<tt class="descclassname">renpy.</tt><tt class="descname">jump_out_of_context</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#renpy.jump_out_of_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>这个函数将导致脚本执行器离开当前的语境，然后在高一级的语境中跳转到指定的标签。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.seen_label">
+<tt class="descclassname">renpy.</tt><tt class="descname">seen_label</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#renpy.seen_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>若指定标签已经被执行过至少一次，返回True，否则返回False。这个函数可以用来解锁场景回想的鉴赏。</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="dialogue.html" title="Dialogue and Narration"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="language_basics.html" title="Language Basics"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

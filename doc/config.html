@@ -1,0 +1,1448 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuration Variables &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Store Variables" href="store_variables.html" />
+    <link rel="prev" title="Special Screen Names" href="screen_special.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="store_variables.html" title="Store Variables"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="screen_special.html" title="Special Screen Names"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuration Variables</a><ul>
+<li><a class="reference internal" href="#commonly-used">Commonly Used</a></li>
+<li><a class="reference internal" href="#transitions">Transitions</a></li>
+<li><a class="reference internal" href="#preference-defaults">Preference Defaults</a></li>
+<li><a class="reference internal" href="#occasionally-used">Occasionally Used</a></li>
+<li><a class="reference internal" href="#rarely-or-internally-used">Rarely or Internally Used</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="screen_special.html"
+                        title="previous chapter">Special Screen Names</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="store_variables.html"
+                        title="next chapter">Store Variables</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuration-variables">
+<h1>Configuration Variables<a class="headerlink" href="#configuration-variables" title="Permalink to this headline">¶</a></h1>
+<p>Configuration variables control the behavior of Ren'Py's implementation,
+allowing Ren'Py itself to be customized in a myriad of ways. These range from
+the common (such as changing the screen size) to the obscure (adding new
+kinds of archive files).</p>
+<p>Ren'Py's implementation makes the assumption that, once the GUI system has
+initialized, configuration variables will not change. Changing configuration
+variables outside of init blocks can lead to undefined behavior.
+Configuration variables are not part of the save data.</p>
+<p>Configuration variables are often changed in init python blocks:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="c"># Use a widescreen resolution.</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">screen_width</span> <span class="o">=</span> <span class="mi">1024</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">screen_height</span> <span class="o">=</span> <span class="mi">600</span>
+</pre></div>
+</div>
+<div class="section" id="commonly-used">
+<h2>Commonly Used<a class="headerlink" href="#commonly-used" title="Permalink to this headline">¶</a></h2>
+<dl class="var">
+<dt id="var-config.developer">
+<tt class="descname">config.developer</tt> = False<a class="headerlink" href="#var-config.developer" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set to True, developer mode is enabled. Developer mode gives
+access to the shift+D developer menu, shift+R reloading, and
+various other features that are not intended for end users.</p>
+<p>The default game template sets this to True. We suggest setting it
+to False before releasing a game.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.help">
+<tt class="descname">config.help</tt> = &quot;README.html&quot;<a class="headerlink" href="#var-config.help" title="Permalink to this definition">¶</a></dt>
+<dd><p>This controls the functionality of the help system invoked by the
+help button on the main and game menus, or by pressing f1 or
+command-?.</p>
+<p>If None, the help system is disabled and does not show up on
+menus.  If a string corresponding to a label found in the script,
+that label is invoked in a new context. This allows you to define
+an in-game help-screen.  Otherwise, this is interpreted as a
+filename relative to the base directory, that is opened in a web
+browser.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.name">
+<tt class="descname">config.name</tt> = &quot;&quot;<a class="headerlink" href="#var-config.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should be a string giving the name of the game. This is included
+as part of tracebacks and other log files, helping to identify the
+version of the game being used.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.save_directory">
+<tt class="descname">config.save_directory</tt> = &quot;...&quot;<a class="headerlink" href="#var-config.save_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is used to generate the directory in which games and
+persistent information are saved. The name generated depends on
+the platform:</p>
+<dl class="docutils">
+<dt>Windows</dt>
+<dd>%APPDATA%/RenPy/<cite>save_directory</cite></dd>
+<dt>Mac OS X</dt>
+<dd>~/Library/RenPy/<cite>save_directory</cite></dd>
+<dt>Linux/Other</dt>
+<dd>~/.renpy/<cite>save_directory</cite></dd>
+</dl>
+<p>Setting this to None creates a &quot;saves&quot; directory underneath the
+game directory. This is not recommended, as it prevents the game
+from being shared between multiple users on a system. It can also
+lead to problems when a game is installed as Administrator, but run
+as a user.</p>
+<p>This must be set in a python early block, so that persistent
+information can be loaded before init code is run.</p>
+<p>The user may change the directory. Code that needs to know the save
+directory should read <a class="reference internal" href="#var-config.savedir"><tt class="xref std std-var docutils literal"><span class="pre">config.savedir</span></tt></a> instead of this
+variable.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.screen_height">
+<tt class="descname">config.screen_height</tt> = 600<a class="headerlink" href="#var-config.screen_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>The height of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.screen_width">
+<tt class="descname">config.screen_width</tt> = 800<a class="headerlink" href="#var-config.screen_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>The width of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.translations">
+<tt class="descname">config.translations</tt> = dict(...)<a class="headerlink" href="#var-config.translations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a map used to translate text in the game menu into your
+language. See Localizing Ren'Py for how to use it, and here for a
+list of available translations.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.window_icon">
+<tt class="descname">config.window_icon</tt> = None<a class="headerlink" href="#var-config.window_icon" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this is expected to be the filename of an image
+giving an icon that is used for the window on Linux and Mac OS
+X. This should be a large image, with 8-bit alpha.</p>
+<p>This should generally be a PNG format file.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.windows_icon">
+<tt class="descname">config.windows_icon</tt> = None<a class="headerlink" href="#var-config.windows_icon" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this is expected to be the filename of an image
+giving an icon that is used for the window on Windows. This should
+be a 32x32 image with 1-bit alpha. (Opaque images work the best.)</p>
+<p>This should be a PNG format file.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.window_title">
+<tt class="descname">config.window_title</tt> = &quot;A Ren'Py Game&quot;<a class="headerlink" href="#var-config.window_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>The static portion of the title of the window containing the
+Ren'Py game. <a class="reference internal" href="store_variables.html#var-_window_subtitle"><tt class="xref std std-var docutils literal"><span class="pre">_window_subtitle</span></tt></a> is appended to this to get
+the full title of the window.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.version">
+<tt class="descname">config.version</tt> = &quot;&quot;<a class="headerlink" href="#var-config.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should be a string giving the version of the game. This is included
+as part of tracebacks and other log files, helping to identify the
+version of the game being used.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="transitions">
+<h2>Transitions<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
+<p>These control transitions between various screens.</p>
+<dl class="var">
+<dt id="var-config.adv_nvl_transition">
+<tt class="descname">config.adv_nvl_transition</tt> = None<a class="headerlink" href="#var-config.adv_nvl_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>A transition that is used when showing NVL-mode text directly
+after ADV-mode text.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.after_load_transition">
+<tt class="descname">config.after_load_transition</tt> = None<a class="headerlink" href="#var-config.after_load_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>A transition that is used after loading, when entering the loaded
+game.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.end_game_transition">
+<tt class="descname">config.end_game_transition</tt> = None<a class="headerlink" href="#var-config.end_game_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transition that is used to display the main menu after the
+game ends normally, either by invoking return with no place to
+return to, or by calling <a class="reference internal" href="other.html#renpy.full_restart" title="renpy.full_restart"><tt class="xref py py-func docutils literal"><span class="pre">renpy.full_restart()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.end_splash_transition">
+<tt class="descname">config.end_splash_transition</tt> = None<a class="headerlink" href="#var-config.end_splash_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transition that is used to display the main menu after the end
+of the splashscreen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.enter_replay_transition">
+<tt class="descname">config.enter_replay_transition</tt> = None<a class="headerlink" href="#var-config.enter_replay_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, a transition that is used when entering a replay.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.enter_transition">
+<tt class="descname">config.enter_transition</tt> = None<a class="headerlink" href="#var-config.enter_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this variable should give a transition that will be
+used when entering the game menu.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.enter_yesno_transition">
+<tt class="descname">config.enter_yesno_transition</tt> = None<a class="headerlink" href="#var-config.enter_yesno_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, a transition that is used when entering the yes/no
+prompt screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.exit_replay_transition">
+<tt class="descname">config.exit_replay_transition</tt> = None<a class="headerlink" href="#var-config.exit_replay_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, a transition that is used when exiting a replay.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.exit_transition">
+<tt class="descname">config.exit_transition</tt> = None<a class="headerlink" href="#var-config.exit_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this variable should give a transition that will be
+performed when exiting the game menu.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.exit_yesno_transition">
+<tt class="descname">config.exit_yesno_transition</tt> = None<a class="headerlink" href="#var-config.exit_yesno_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, a transition that is used when exiting the yes/no
+prompt screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.game_main_transition">
+<tt class="descname">config.game_main_transition</tt> = None<a class="headerlink" href="#var-config.game_main_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transition that is used to display the main menu after leaving
+the game menu. This is used when the load and preferences screens
+are invoked from the main menu, and it's also used when the user
+picks &quot;Main Menu&quot; from the game menu.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.main_game_transition">
+<tt class="descname">config.main_game_transition</tt> = None<a class="headerlink" href="#var-config.main_game_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transition used when entering the game menu from the main
+menu, as is done when clicking &quot;Load Game&quot; or &quot;Preferences&quot;.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.nvl_adv_transition">
+<tt class="descname">config.nvl_adv_transition</tt> = None<a class="headerlink" href="#var-config.nvl_adv_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>A transition that is used when showing ADV-mode text directly
+after NVL-mode text.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.say_attribute_transition">
+<tt class="descname">config.say_attribute_transition</tt> = None<a class="headerlink" href="#var-config.say_attribute_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, a transition to use when the image is changed by a
+say statement with image attributes.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.window_hide_transition">
+<tt class="descname">config.window_hide_transition</tt> = None<a class="headerlink" href="#var-config.window_hide_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transition used by the window hide statement when no
+transition has been explicitly specified.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.window_show_transition">
+<tt class="descname">config.window_show_transition</tt> = None<a class="headerlink" href="#var-config.window_show_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transition used by the window show statement when no
+transition has been explicitly specified.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="preference-defaults">
+<h2>Preference Defaults<a class="headerlink" href="#preference-defaults" title="Permalink to this headline">¶</a></h2>
+<p>These are defaults for the various preferences. The defaults only take
+effect the first time Ren'Py is run, or when persistent data has been
+cleared.</p>
+<dl class="var">
+<dt id="var-config.default_afm_time">
+<tt class="descname">config.default_afm_time</tt> = None<a class="headerlink" href="#var-config.default_afm_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this sets the default auto-forward-mode timeout. If
+not None, then this is the time in seconds we should delay when
+showing 250 characters. 0 is special-cased to be infinite time,
+disabling auto-forward mode.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.default_afm_enable">
+<tt class="descname">config.default_afm_enable</tt> = None<a class="headerlink" href="#var-config.default_afm_enable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls the default state of the afm_enable preference. If False,
+auto-forward-mode is disabled by default. If True, it is enabled by
+default. If None, the afm_enable preferences is ignored. (Auto-forward
+will occur when the auto-forward speed is non-zero.)</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.default_fullscreen">
+<tt class="descname">config.default_fullscreen</tt> = None<a class="headerlink" href="#var-config.default_fullscreen" title="Permalink to this definition">¶</a></dt>
+<dd><p>This sets the default value of the fullscreen preference. This
+should be True or False. If None, this is ignored, allowing other
+code to set the default value. (It's usually set to False in
+options.rpy.)</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.default_language">
+<tt class="descname">config.default_language</tt> = None<a class="headerlink" href="#var-config.default_language" title="Permalink to this definition">¶</a></dt>
+<dd><p>This sets the default value of the language preference. This is only
+used the first time the game starts.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.default_show_empty_window">
+<tt class="descname">config.default_show_empty_window</tt> = True<a class="headerlink" href="#var-config.default_show_empty_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>This determines if Ren'Py will show an empty window during
+non-say statements. If True, Ren'Py respects the &quot;window show&quot;, &quot;window hide&quot;,
+and &quot;window auto&quot; statements. If False, Ren'Py will not show an empty
+window.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.default_text_cps">
+<tt class="descname">config.default_text_cps</tt> = None<a class="headerlink" href="#var-config.default_text_cps" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this sets the default number of characters per second
+to show. 0 is special cased to mean an infinite number of
+characters per second. (It's usually set to 0 in options.rpy.)</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.default_voice_sustain">
+<tt class="descname">config.default_voice_sustain</tt> = False<a class="headerlink" href="#var-config.default_voice_sustain" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default value of the voice sustain preference. If this is
+True, the voice will continue past the next interaction. If
+false, voice will stop when the next interaction begins.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.default_wait_for_voice">
+<tt class="descname">config.default_wait_for_voice</tt> = True<a class="headerlink" href="#var-config.default_wait_for_voice" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default value of the wait for voice preference. This
+determines if Ren'Py should wait for voice to finish before
+auto-forward takes place.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="occasionally-used">
+<h2>Occasionally Used<a class="headerlink" href="#occasionally-used" title="Permalink to this headline">¶</a></h2>
+<dl class="var">
+<dt id="var-config.auto_load">
+<tt class="descname">config.auto_load</tt> = None<a class="headerlink" href="#var-config.auto_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, the name of a save file to automatically load when
+Ren'Py starts up. This is intended for developer use, rather than
+for end users. Setting this to &quot;1&quot; will automatically load the
+game in save slot 1.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.auto_voice">
+<tt class="descname">config.auto_voice</tt> = None<a class="headerlink" href="#var-config.auto_voice" title="Permalink to this definition">¶</a></dt>
+<dd><p>This may be a string, a function, or None. If None, auto-voice is
+disabled.</p>
+<p>If a string, this is formatted with the <tt class="docutils literal"><span class="pre">id</span></tt> variable bound to the
+identifier of the current line of dialogue. If this gives an existing
+file, that file is played as voice audio.</p>
+<p>If a function, the function is called with a single argument, the
+identifier of the current line of dialogue. The function is expected to
+return a string. If this gives an existing file, that file is played as
+voice audio.</p>
+<p>See <a class="reference internal" href="voice.html#automatic-voice"><em>Automatic Voice</em></a> for more details.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.automatic_images">
+<tt class="descname">config.automatic_images</tt> = None<a class="headerlink" href="#var-config.automatic_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this causes Ren'Py to automatically define
+images.</p>
+<p>When not set to None, this should be set to a list of
+separators. (For example, <tt class="docutils literal"><span class="pre">[</span> <span class="pre">'</span> <span class="pre">',</span> <span class="pre">'_',</span> <span class="pre">'/'</span> <span class="pre">]</span></tt>.)</p>
+<p>Ren'Py will scan through the list of files on disk and in
+archives. When it finds a file ending with .png or .jpg, it will
+strip the extension, then break the name at separators, to creatge
+an image name. If the name consists of at least two components,
+and no image with that name already is defined, Ren'Py will define
+that image to refer to a filename.</p>
+<p>With the example list of separators, if your game directory
+contains:</p>
+<ul class="simple">
+<li>eileen_happy.png, Ren'Py will define the image &quot;eileen happy&quot;.</li>
+<li>lucy/mad.png, Ren'Py will define the image &quot;lucy mad&quot;.</li>
+<li>mary.png, Ren'Py will do nothing. (As the image does not have two components.)</li>
+</ul>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.automatic_images_strip">
+<tt class="descname">config.automatic_images_strip</tt> = []<a class="headerlink" href="#var-config.automatic_images_strip" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of strings giving prefixes that are stripped out when
+defining automatic images. This can be used to remove directory
+names, when directories contain images.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.debug">
+<tt class="descname">config.debug</tt> = False<a class="headerlink" href="#var-config.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables debugging functionality (mostly by turning some missing
+files into errors.) This should always be turned off in a release.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.debug_image_cache">
+<tt class="descname">config.debug_image_cache</tt> = False<a class="headerlink" href="#var-config.debug_image_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, Ren'Py will print the contents of the <a class="reference internal" href="displayables.html#images"><em>image cache</em></a>
+to standard output (wherever that goes) whenever the contents of the
+image cache change.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.debug_sound">
+<tt class="descname">config.debug_sound</tt> = False<a class="headerlink" href="#var-config.debug_sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables debugging of sound functionality. This disables the
+supression of errors when generating sound. However, if a sound
+card is missing or flawed, then such errors are normal, and
+enabling this may prevent Ren'Py from functioning normally. This
+should always be False in a released game.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.debug_text_overflow">
+<tt class="descname">config.debug_text_overflow</tt> = False<a class="headerlink" href="#var-config.debug_text_overflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>When true, Ren'Py will log text overflows to text_overflow.txt. A text
+overflow occurs when a <a class="reference internal" href="text.html#Text" title="Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a> displayable renders to a size
+larger than that allocated to it. By setting this to True and setting
+the <a class="reference internal" href="style_properties.html#style-property-xmaximum"><tt class="xref std std-propref docutils literal"><span class="pre">xmaximum</span></tt></a> and <a class="reference internal" href="style_properties.html#style-property-ymaximum"><tt class="xref std std-propref docutils literal"><span class="pre">ymaximum</span></tt></a> style properties of the dialogue
+window to the window size, this can be used to report cases where the
+dialogue is too large for its window.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.default_transform">
+<tt class="descname">config.default_transform</tt> = ...<a class="headerlink" href="#var-config.default_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>When a displayable is shown using the show or scene statements,
+the transform properties are taken from this transform and used to
+initialize the values of the displayable's transform.</p>
+<p>The default default transform is <a class="reference internal" href="transforms.html#var-center"><tt class="xref std std-var docutils literal"><span class="pre">center</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.empty_window">
+<tt class="descname">config.empty_window</tt> = ...<a class="headerlink" href="#var-config.empty_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is called when _window is True, and no window has been shown
+on the screen. (That is, no call to <a class="reference internal" href="other.html#renpy.shown_window" title="renpy.shown_window"><tt class="xref py py-func docutils literal"><span class="pre">renpy.shown_window()</span></tt></a> has
+occurred.) It's expected to show an empty window on the screen, and
+return without causing an interaction.</p>
+<p>The default implementation of this uses the narrator character to
+display a blank line without interacting.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.enter_sound">
+<tt class="descname">config.enter_sound</tt> = None<a class="headerlink" href="#var-config.enter_sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this is a sound file that is played when entering the
+game menu.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.exit_sound">
+<tt class="descname">config.exit_sound</tt> = None<a class="headerlink" href="#var-config.exit_sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this is a sound file that is played when exiting the
+game menu.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.fix_rollback_without_choice">
+<tt class="descname">config.fix_rollback_without_choice</tt> = False<a class="headerlink" href="#var-config.fix_rollback_without_choice" title="Permalink to this definition">¶</a></dt>
+<dd><p>This option determines how the built in menus or imagemaps behave
+during fixed rollback. The default value is False, which means that
+menu only the previously selected option remains clickable. If set
+to True, the selected option is marked but no options are clickable.
+The user can progress forward through the rollback buffer by
+clicking.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.font_replacement_map">
+<tt class="descname">config.font_replacement_map</tt> = { }<a class="headerlink" href="#var-config.font_replacement_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a map from (font, bold, italics) to (font, bold, italics),
+used to replace a font with one that's specialized as having bold
+and/or italics. For example, if you wanted to have everything
+using an italic version of &quot;Vera.ttf&quot; use &quot;VeraIt.ttf&quot; instead,
+you could write:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">font_replacement_map</span><span class="p">[</span><span class="s">&quot;Vera.ttf&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;VeraIt.ttf&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Please note that these mappings only apply to specific variants of
+a font. In this case, requests for a bold italic version of vera
+will get a bold italic version of vera, rather than a bold version
+of the italic vera.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.framerate">
+<tt class="descname">config.framerate</tt> = 100<a class="headerlink" href="#var-config.framerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this is the upper limit on the number of frames
+Ren'Py will attempt to display per second. This is only respected
+by the software renderer. The GL renderer will synchronize to
+vertical blank instead.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.game_menu">
+<tt class="descname">config.game_menu</tt> = [ ... ]<a class="headerlink" href="#var-config.game_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is used to customize the choices on the game menu. Please
+read Main and Game Menus for more details on the contents of this
+variable.</p>
+<p>This is not used when the game menu is defined using screens.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.game_menu_music">
+<tt class="descname">config.game_menu_music</tt> = None<a class="headerlink" href="#var-config.game_menu_music" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, a music file to play when at the game menu.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.gl_test_image">
+<tt class="descname">config.gl_test_image</tt> = &quot;black&quot;<a class="headerlink" href="#var-config.gl_test_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the image that is used when running the OpenGL
+performance test. This image will be shown for 5 frames or .25
+seconds, on startup. It will then be automatically hidden.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.has_autosave">
+<tt class="descname">config.has_autosave</tt> = True<a class="headerlink" href="#var-config.has_autosave" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, the game will autosave. If false, no autosaving will
+occur.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.image_cache_size">
+<tt class="descname">config.image_cache_size</tt> = 8<a class="headerlink" href="#var-config.image_cache_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is used to set the size of the <a class="reference internal" href="displayables.html#images"><em>image cache</em></a>, as a
+multiple of the screen size. This number is multiplied by the size of
+the screen, in pixels, to get the size of the image cache in pixels.</p>
+<p>If set too large, this can waste memory. If set too small, images
+can be repeatedly loaded, hurting performance.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.key_repeat">
+<tt class="descname">config.key_repeat</tt> = (.3, .03)<a class="headerlink" href="#var-config.key_repeat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls the rate of keyboard repeat. When key repeat is enabled, this
+should be a tuple. The first item in the tuple is the delay before the
+first repeat, and the second item is the delay between repeats. Both
+are in seconds. If None, keyboard repeat is disabled.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.language">
+<tt class="descname">config.language</tt> = None<a class="headerlink" href="#var-config.language" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this should be a string giving the default language
+that the game is translated into by the translation framework.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.main_menu">
+<tt class="descname">config.main_menu</tt> = [ ... ]<a class="headerlink" href="#var-config.main_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default main menu, when not using screens. For more details,
+see Main and Game Menus.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.main_menu_music">
+<tt class="descname">config.main_menu_music</tt> = None<a class="headerlink" href="#var-config.main_menu_music" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, a music file to play when at the main menu.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.menu_clear_layers">
+<tt class="descname">config.menu_clear_layers</tt> = []<a class="headerlink" href="#var-config.menu_clear_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of layer names (as strings) that are cleared when entering
+the game menu.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.menu_window_subtitle">
+<tt class="descname">config.menu_window_subtitle</tt> = &quot;&quot;<a class="headerlink" href="#var-config.menu_window_subtitle" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="store_variables.html#var-_window_subtitle"><tt class="xref std std-var docutils literal"><span class="pre">_window_subtitle</span></tt></a> variable is set to this value when entering
+the main or game menus.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.missing_background">
+<tt class="descname">config.missing_background</tt> = &quot;black&quot;<a class="headerlink" href="#var-config.missing_background" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the background that is used when <a class="reference internal" href="#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> is True
+and an undefined image is used in a <a class="reference internal" href="displaying_images.html#scene-statement"><em>scene statement</em></a>. This should be an image name (a string), not a
+displayable.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.mode_callbacks">
+<tt class="descname">config.mode_callbacks</tt> = [ ... ]<a class="headerlink" href="#var-config.mode_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of callbacks called when entering a mode. For more documentation,
+see the section on <a class="reference internal" href="modes.html#modes"><em>Modes</em></a>.</p>
+<p>The default value includes a callback that implements <a class="reference internal" href="#var-config.adv_nvl_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.adv_nvl_transition</span></tt></a>
+and <a class="reference internal" href="#var-config.nvl_adv_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.nvl_adv_transition</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.mouse">
+<tt class="descname">config.mouse</tt> = None<a class="headerlink" href="#var-config.mouse" title="Permalink to this definition">¶</a></dt>
+<dd><p>This variable controls the use of user-defined mouse cursors. If
+None, the system mouse is used, which is usually a black-and-white
+mouse cursor.</p>
+<p>Otherwise, this should be a dictionary giving the
+mouse animations for various mouse types. Keys used by the default
+library include &quot;default&quot;, &quot;say&quot;, &quot;with&quot;, &quot;menu&quot;, &quot;prompt&quot;,
+&quot;imagemap&quot;, &quot;pause&quot;, &quot;mainmenu&quot;, and &quot;gamemenu&quot;. The &quot;default&quot; key
+should always be present, as it is used when a more specific key
+is absent.</p>
+<p>Each value in the dictionary should be a list of (<cite>image</cite>,
+<cite>xoffset</cite>, <cite>offset</cite>) tuples, representing frames.</p>
+<dl class="docutils">
+<dt><cite>image</cite></dt>
+<dd>The mouse cursor image.</dd>
+<dt><cite>xoffset</cite></dt>
+<dd>The offset of the hotspot pixel from the left side of the
+cursor.</dd>
+<dt><cite>yoffset</cite></dt>
+<dd>The offset of the hotspot pixel from the top of the cursor.</dd>
+</dl>
+<p>The frames are played back at 20hz, and the animation loops after
+all frames have been shown.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.narrator_menu">
+<tt class="descname">config.narrator_menu</tt> = False<a class="headerlink" href="#var-config.narrator_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>(This is set to True by the default screens.rpy file.) If true,
+then narration inside a menu is displayed using the narrator
+character. Otherwise, narration is displayed as captions
+within the menu itself.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.overlay_functions">
+<tt class="descname">config.overlay_functions</tt> = [ ]<a class="headerlink" href="#var-config.overlay_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of functions. When called, each function is expected to
+use ui functions to add displayables to the overlay layer.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.python_callbacks">
+<tt class="descname">config.python_callbacks</tt> = [ ]<a class="headerlink" href="#var-config.python_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of functions. The functions in this list are called, without
+any arguments, whenever a python block is run outside of the init
+phase.</p>
+<p>One possible use of this would be to have a function limit a variable
+to within a range each time it is adjusted.</p>
+<p>The functions may be called during internal Ren'Py code, before the
+start of the game proper, and potentially before the variables the
+function depends on are intialized. The functions are required to deal
+with this, perhaps by using <tt class="docutils literal"><span class="pre">hasattr(store,</span> <span class="pre">'varname')</span></tt> to check if
+a variable is defined.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.quit_action">
+<tt class="descname">config.quit_action</tt> = ...<a class="headerlink" href="#var-config.quit_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>The action that is called when the user clicks the quit button on
+a window. The default action prompts the user to see if he wants
+to quit the game.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.save_json_callbacks">
+<tt class="descname">config.save_json_callbacks</tt> = [ ]<a class="headerlink" href="#var-config.save_json_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of callback functions that are used to create the json object
+that is stored with each save and maked accessible through <a class="reference internal" href="screen_actions.html#FileJson" title="FileJson"><tt class="xref py py-func docutils literal"><span class="pre">FileJson()</span></tt></a>
+and <a class="reference internal" href="save_load_rollback.html#renpy.slot_json" title="renpy.slot_json"><tt class="xref py py-func docutils literal"><span class="pre">renpy.slot_json()</span></tt></a>.</p>
+<p>Each callback is called with a python dictionary that will eventually be
+saved. Callbacks should modify that dictionary by adding json-compatible
+python types, such as numbers, strings, lists, and dicts. The dictionary
+at the end of the last callback is then saved as part of the save slot.</p>
+<p>The dictionary passed to the callbacks may have already have keys
+beginning with an underscore (_). These keys are used by Ren'Py,
+and should not be changed.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.thumbnail_height">
+<tt class="descname">config.thumbnail_height</tt> = 75<a class="headerlink" href="#var-config.thumbnail_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>The height of the thumbnails that are taken when the game is
+saved. These thumbnails are shown when the game is loaded. Please
+note that the thumbnail is shown at the size it was taken at,
+rather than the value of this setting when the thumbnail is shown
+to the user.</p>
+<p>When using a load_save layout, a different default may be used.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.thumbnail_width">
+<tt class="descname">config.thumbnail_width</tt> = 100<a class="headerlink" href="#var-config.thumbnail_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>The width of the thumbnails that are taken when the game is
+saved. These thumbnails are shown when the game is loaded. Please
+note that the thumbnail is shown at the size it was taken at,
+rather than the value of this setting when the thumbnail is shown
+to the user.</p>
+<p>When using a load_save layout, a different default may be used.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.window_auto_hide">
+<tt class="descname">config.window_auto_hide</tt> = [ 'scene' ]<a class="headerlink" href="#var-config.window_auto_hide" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of statements that cause <tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt> to hide the empty
+dialogue window.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.window_auto_show">
+<tt class="descname">config.window_auto_show</tt> = [ 'say' ]<a class="headerlink" href="#var-config.window_auto_show" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of statements that cause <tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt> to show the empty
+dialogue window.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.window_overlay_functions">
+<tt class="descname">config.window_overlay_functions</tt> = []<a class="headerlink" href="#var-config.window_overlay_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of overlay functions that are only called when the window
+is shown.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="rarely-or-internally-used">
+<h2>Rarely or Internally Used<a class="headerlink" href="#rarely-or-internally-used" title="Permalink to this headline">¶</a></h2>
+<dl class="var">
+<dt id="var-config.afm_bonus">
+<tt class="descname">config.afm_bonus</tt> = 25<a class="headerlink" href="#var-config.afm_bonus" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of bonus characters added to every string when
+auto-forward mode is in effect.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.afm_callback">
+<tt class="descname">config.afm_callback</tt> = None<a class="headerlink" href="#var-config.afm_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, a python function that is called to determine if it
+is safe to auto-forward. The intent is that this can be used by a
+voice system to disable auto-forwarding when a voice is playing.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.afm_characters">
+<tt class="descname">config.afm_characters</tt> = 250<a class="headerlink" href="#var-config.afm_characters" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of characters in a string it takes to cause the amount
+of time specified in the auto forward mode preference to be
+delayed before auto-forward mode takes effect.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.all_character_callbacks">
+<tt class="descname">config.all_character_callbacks</tt> = [ ]<a class="headerlink" href="#var-config.all_character_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of callbacks that are called by all characters. This list
+is prepended to the list of character-specific callbacks.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.allow_skipping">
+<tt class="descname">config.allow_skipping</tt> = True<a class="headerlink" href="#var-config.allow_skipping" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set to False, the user is not able to skip over the text of the
+game.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.archives">
+<tt class="descname">config.archives</tt> = [ ]<a class="headerlink" href="#var-config.archives" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of archive files that will be searched for images and other
+data. The entries in this should consist of strings giving the
+base names of archive files, without the .rpa extension.</p>
+<p>The archives are searched in the order they are found in this list.
+A file is taken from the first archive it is found in.</p>
+<p>At startup, Ren'Py will automatically populate this variable with
+the names of all archives found in the game directory, sorted in
+reverse ascii order. For example, if Ren'Py finds the files
+data.rpa, patch01.rpa, and patch02.rpa, this variable will be
+populated with <tt class="docutils literal"><span class="pre">['patch02',</span> <span class="pre">'patch01',</span> <span class="pre">'data']</span></tt>.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.auto_choice_delay">
+<tt class="descname">config.auto_choice_delay</tt> = None<a class="headerlink" href="#var-config.auto_choice_delay" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this variable gives a number of seconds that Ren'Py
+will pause at an in-game menu before picking a random choice from
+that menu. We'd expect this variable to always be set to None in
+released games, but setting it to a number will allow for
+automated demonstrations of games without much human interaction.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.autosave_frequency">
+<tt class="descname">config.autosave_frequency</tt> = 200<a class="headerlink" href="#var-config.autosave_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Roughly, the number of interactions that will occur before an
+autosave occurs. To disable autosaving, set <a class="reference internal" href="#var-config.has_autosave"><tt class="xref std std-var docutils literal"><span class="pre">config.has_autosave</span></tt></a> to
+False, don't change this variable.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.character_callback">
+<tt class="descname">config.character_callback</tt> = None<a class="headerlink" href="#var-config.character_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default value of the callback parameter of Character.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.clear_layers">
+<tt class="descname">config.clear_layers</tt> = []<a class="headerlink" href="#var-config.clear_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of names of layers to clear when entering the main and game
+menus.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.context_clear_layers">
+<tt class="descname">config.context_clear_layers</tt> = [ 'screens' ]<a class="headerlink" href="#var-config.context_clear_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of layers that are cleared when entering a new context.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.fade_music">
+<tt class="descname">config.fade_music</tt> = 0.0<a class="headerlink" href="#var-config.fade_music" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the amount of time in seconds to spend fading the old
+track out before a new music track starts. This should probably be
+fairly short, so the wrong music doesn't play for too long.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.fast_skipping">
+<tt class="descname">config.fast_skipping</tt> = False<a class="headerlink" href="#var-config.fast_skipping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set this to True to allow fast skipping outside of developer mode.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.file_open_callback">
+<tt class="descname">config.file_open_callback</tt> = None<a class="headerlink" href="#var-config.file_open_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this is a function that is called with the file name
+when a file needs to be opened. It should return a file-like
+object, or None to load the file using the usual Ren'Py
+mechanisms. Your file-like object must implement at least the
+read, seek, tell, and close methods.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.focus_crossrange_penalty">
+<tt class="descname">config.focus_crossrange_penalty</tt> = 1024<a class="headerlink" href="#var-config.focus_crossrange_penalty" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the amount of penalty to apply to moves perpendicular to
+the selected direction of motion, when moving focus with the
+keyboard.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.gl_enable">
+<tt class="descname">config.gl_enable</tt> = True<a class="headerlink" href="#var-config.gl_enable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set this to False to disable OpenGL acceleration. OpenGL acceleration
+will automatically be disabled if it's determined that the system
+cannot support it, so it usually isn't necessary to set this.</p>
+<p>OpenGL can also be disabled by holding down shift at startup.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.gl_resize">
+<tt class="descname">config.gl_resize</tt> = True<a class="headerlink" href="#var-config.gl_resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the user is allowed to resize an OpenGL-drawn window.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.hard_rollback_limit">
+<tt class="descname">config.hard_rollback_limit</tt> = 100<a class="headerlink" href="#var-config.hard_rollback_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the number of steps that Ren'Py will let the user
+interactively rollback. Set this to 0 to disable rollback
+entirely, although we don't recommend that, as rollback is useful
+to let the user see text he skipped by mistake.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.hide">
+<tt class="descname">config.hide</tt> = renpy.hide<a class="headerlink" href="#var-config.hide" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that is called when the <a class="reference internal" href="displaying_images.html#hide-statement"><em>hide statement</em></a>
+is executed. This should take the same arguments as renpy.hide.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.imagemap_auto_function">
+<tt class="descname">config.imagemap_auto_function</tt> = ...<a class="headerlink" href="#var-config.imagemap_auto_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that expands the <cite>auto</cite> property of a screen language
+<a class="reference internal" href="screens.html#sl-imagebutton"><em>imagebutton</em></a> or <a class="reference internal" href="screens.html#sl-imagemap"><em>imagemap</em></a>
+statement into a displayable. It takes the value of the auto property,
+and the desired image, one of: &quot;insensitive&quot;, &quot;idle&quot;, &quot;hover&quot;,
+&quot;selected_idle&quot;, &quot;selected_hover&quot;, or &quot;ground&quot;. It should return a
+displayable or None.</p>
+<p>The default implementation formats the <cite>auto</cite> property with
+the desired image, and then checks if the computed filename exists.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.imagemap_cache">
+<tt class="descname">config.imagemap_cache</tt> = True<a class="headerlink" href="#var-config.imagemap_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, imagemap hotspots will be cached to PNG files,
+reducing time and memory usage, but increasing the size of
+the game on disk. Set this to false to disable this behavior.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.implicit_with_none">
+<tt class="descname">config.implicit_with_none</tt> = True<a class="headerlink" href="#var-config.implicit_with_none" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, then by default the equivalent of a <a class="reference internal" href="displaying_images.html#with-none"><em>with None</em></a>
+statement will be performed after interactions caused by dialogue, menus
+input, and imagemaps. This ensures that old screens will not show
+up in transitions.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.interact_callbacks">
+<tt class="descname">config.interact_callbacks</tt> = ...<a class="headerlink" href="#var-config.interact_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of functions that are called (without any arguments) when
+an interaction is started or restarted.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.joystick">
+<tt class="descname">config.joystick</tt> = True<a class="headerlink" href="#var-config.joystick" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, joystick support is enabled.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.keep_running_transform">
+<tt class="descname">config.keep_running_transform</tt> = True<a class="headerlink" href="#var-config.keep_running_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, showing an image without supplying a transform or ATL
+block will cause the image to continue the previous transform
+an image with that tag was using, if any. If false, the transform
+is stopped.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.keymap">
+<tt class="descname">config.keymap</tt> = dict(...)<a class="headerlink" href="#var-config.keymap" title="Permalink to this definition">¶</a></dt>
+<dd><p>This variable contains a keymap giving the keys and mouse buttons
+assigned to each possible operation. Please see the section on
+Keymaps for more information.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.label_callback">
+<tt class="descname">config.label_callback</tt> = None<a class="headerlink" href="#var-config.label_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this is a function that is called whenever a label is
+reached. It is called with two parameters. The first is the name
+of the label. The second is true if the label was reached through
+jumping, calling, or creating a new context, and false
+otherwise.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.label_overrides">
+<tt class="descname">config.label_overrides</tt> = { }<a class="headerlink" href="#var-config.label_overrides" title="Permalink to this definition">¶</a></dt>
+<dd><p>This variable gives a way of causing jumps and calls of labels in
+Ren'Py code to be redirected to other labels. For example, if you
+add a mapping from &quot;start&quot; to &quot;mystart&quot;, all jumps and calls to
+&quot;start&quot; will go to &quot;mystart&quot; instead.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.layer_clipping">
+<tt class="descname">config.layer_clipping</tt> = { }<a class="headerlink" href="#var-config.layer_clipping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls layer clipping. This is a map from layer names to (x, y,
+height, width) tuples, where x and y are the coordinates of the
+upper-left corner of the layer, with height and width giving the
+layer size.</p>
+<p>If a layer is not mentioned in config.layer_clipping, then it is
+assumed to take up the full screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.layers">
+<tt class="descname">config.layers</tt> = [ 'master', 'transient', 'screens', 'overlay' ]<a class="headerlink" href="#var-config.layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This variable gives a list of all of the layers that Ren'Py knows
+about, in the order that they will be displayed to the
+screen. (The lowest layer is the first entry in the list.) Ren'Py
+uses the layers &quot;master&quot;, &quot;transient&quot;, &quot;screens&quot;, and &quot;overlay&quot;
+internally, so they should always be in this list.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.lint_hooks">
+<tt class="descname">config.lint_hooks</tt> = ...<a class="headerlink" href="#var-config.lint_hooks" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a list of functions that are called, with no arguments,
+when lint is run. The functions are expected to check the script
+data for errors, and print any they find to standard output (using
+the python print statement is fine in this case).</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.load_before_transition">
+<tt class="descname">config.load_before_transition</tt> = True<a class="headerlink" href="#var-config.load_before_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, the start of an interaction will be delayed until all
+images used by that interaction have loaded. (Yeah, it's a lousy
+name.)</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.longpress_duration">
+<tt class="descname">config.longpress_duration</tt> = 0.5<a class="headerlink" href="#var-config.longpress_duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The amount of time the player must press the screen for for a longpress
+to be recognized on a touch device.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.longpress_radius">
+<tt class="descname">config.longpress_radius</tt> = 15<a class="headerlink" href="#var-config.longpress_radius" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of pixels the touch must remain within for a press to be
+recognized as a longpress.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.longpress_vibrate">
+<tt class="descname">config.longpress_vibrate</tt> = .1<a class="headerlink" href="#var-config.longpress_vibrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The amount of time the device will vibrate for after a longpress.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.log">
+<tt class="descname">config.log</tt> = None<a class="headerlink" href="#var-config.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this is expected to be a filename. Much of the text
+shown to the user by <a class="reference internal" href="dialogue.html#say-statement"><em>say</em></a> or <a class="reference internal" href="menus.html#menu-statement"><em>menu</em></a> statements will be logged to this file.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.missing_image_callback">
+<tt class="descname">config.missing_image_callback</tt> = None<a class="headerlink" href="#var-config.missing_image_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this function is called when an attempt to load an
+image fails. It may return None, or it may return an image
+manipulator. If an image manipulator is returned, that image
+manipulator is loaded in the place of the missing image.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.mouse_hide_time">
+<tt class="descname">config.mouse_hide_time</tt> = 30<a class="headerlink" href="#var-config.mouse_hide_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The mouse is hidden after this number of seconds has elapsed
+without any mouse input. This should be set to longer than the
+expected time it will take to read a single screen, so mouse users
+will not experience the mouse appearing then disappearing between
+clicks.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.new_substitutions">
+<tt class="descname">config.new_substitutions</tt> = True<a class="headerlink" href="#var-config.new_substitutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, Ren'Py will apply new-style (square-bracket)
+substitutions to all text displayed.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.old_substitutions">
+<tt class="descname">config.old_substitutions</tt> = False<a class="headerlink" href="#var-config.old_substitutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, Ren'Py will apply old-style (percent) substitutions to
+text displayed by the <a class="reference internal" href="dialogue.html#say-statement"><em>say</em></a> and <a class="reference internal" href="menus.html#menu-statement"><em>menu</em></a> statements.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.overlay_during_with">
+<tt class="descname">config.overlay_during_with</tt> = True<a class="headerlink" href="#var-config.overlay_during_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if we want overlays to be shown during <a class="reference internal" href="displaying_images.html#with-statement"><em>with statements</em></a>, or False if we'd prefer that they be hidden during
+the with statements.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.overlay_layers">
+<tt class="descname">config.overlay_layers</tt> = [ 'overlay' ]<a class="headerlink" href="#var-config.overlay_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a list of all of the overlay layers. Overlay layers are
+cleared before the overlay functions are called. &quot;overlay&quot; should
+always be in this list.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.periodic_callback">
+<tt class="descname">config.periodic_callback</tt> = None<a class="headerlink" href="#var-config.periodic_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this should be a function. The function is called,
+with no arguments, at around 20hz.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.predict_statements">
+<tt class="descname">config.predict_statements</tt> = 10<a class="headerlink" href="#var-config.predict_statements" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the number of statements, including the current one, to
+consider when doing predictive image loading. A breadth-first
+search from the current statement is performed until this number
+of statements is considered, and any image referenced in those
+statements is potentially predictively loaded. Setting this to 0
+will disable predictive loading of images.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.profile">
+<tt class="descname">config.profile</tt> = False<a class="headerlink" href="#var-config.profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set to True, some profiling information will be output to
+stdout.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.rollback_enabled">
+<tt class="descname">config.rollback_enabled</tt> = True<a class="headerlink" href="#var-config.rollback_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should the user be allowed to rollback the game? If set to False,
+the user cannot interactively rollback.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.rollback_length">
+<tt class="descname">config.rollback_length</tt> = 128<a class="headerlink" href="#var-config.rollback_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>When there are more than this many statements in the rollback log,
+Ren'Py will consider trimming the log.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.say_allow_dismiss">
+<tt class="descname">config.say_allow_dismiss</tt> = None<a class="headerlink" href="#var-config.say_allow_dismiss" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this should be a function. The function is called
+with no arguments when the user attempts to dismiss a <a class="reference internal" href="dialogue.html#say-statement"><em>say
+statement</em></a>. If this function returns true, the
+dismissal is allowed, otherwise it is ignored.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.say_menu_text_filter">
+<tt class="descname">config.say_menu_text_filter</tt> = None<a class="headerlink" href="#var-config.say_menu_text_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, then this is a function that is given the text found
+in strings in the <a class="reference internal" href="dialogue.html#say-statement"><em>say</em></a> and <a class="reference internal" href="menus.html#menu-statement"><em>menu</em></a> statements. It is expected to return new
+(or the same) strings to replace them.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.say_sustain_callbacks">
+<tt class="descname">config.say_sustain_callbacks</tt> = ...<a class="headerlink" href="#var-config.say_sustain_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of functions that are called, without arguments, before the
+second and later interactions caused by a line of dialogue with
+pauses in it. Used to sustain voice through pauses.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.save_dump">
+<tt class="descname">config.save_dump</tt> = False<a class="headerlink" href="#var-config.save_dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set to true, Ren'Py will create the file save_dump.txt whenever it
+saves a game. This file contains information about the objects contained
+in the save file. Each line consists of a relative size estimate, the path
+to the object, information about if the object is an alias, and a
+representation of the object.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.save_physical_size">
+<tt class="descname">config.save_physical_size</tt> = True<a class="headerlink" href="#var-config.save_physical_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, the physical size of the window will be saved in the
+preferences, and restored when the game resumes.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.savedir">
+<tt class="descname">config.savedir</tt> = ...<a class="headerlink" href="#var-config.savedir" title="Permalink to this definition">¶</a></dt>
+<dd><p>The complete path to the directory in which the game is
+saved. This should only be set in a python early block. See also
+config.save_directory, which generates the default value for this
+if it is not set during a python early block.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.scene">
+<tt class="descname">config.scene</tt> = renpy.scene<a class="headerlink" href="#var-config.scene" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that's used in place of renpy.scene by the <a class="reference internal" href="displaying_images.html#scene-statement"><em>scene
+statement</em></a>. Note that this is used to clear the screen,
+and config.show is used to show a new image. This should have the same
+signature as renpy.scene.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.screenshot_callback">
+<tt class="descname">config.screenshot_callback</tt> = ...<a class="headerlink" href="#var-config.screenshot_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that is called when a screenshot is taken. The function
+is called with a single parameter, the full filename the screenshot
+was saved as.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.screenshot_crop">
+<tt class="descname">config.screenshot_crop</tt> = None<a class="headerlink" href="#var-config.screenshot_crop" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this should be a (<cite>x</cite>, <cite>y</cite>, <cite>height</cite>, <cite>width</cite>)
+tuple. Screenshots are cropped to this rectangle before being
+saved.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.screenshot_pattern">
+<tt class="descname">config.screenshot_pattern</tt> = &quot;screenshot%04d.png&quot;<a class="headerlink" href="#var-config.screenshot_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>The pattern used to create screenshot files. This pattern is applied (using
+python's %-formatting rules) to the natural numbers to generate a sequence
+of filenames. The filenames may be absolute, or relative to
+config.renpy_base. The first filename that does not exist is used as the
+name of the screenshot.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.script_version">
+<tt class="descname">config.script_version</tt> = None<a class="headerlink" href="#var-config.script_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this is interpreted as a script version. The library
+will use this script version to enable some compatibility
+features, if necessary. If None, we assume this is a
+latest-version script.</p>
+<p>This is normally set in a file added by the Ren'Py launcher when
+distributions are built.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.searchpath">
+<tt class="descname">config.searchpath</tt> = [ 'common', 'game' ]<a class="headerlink" href="#var-config.searchpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of directories that are searched for images, music,
+archives, and other media, but not scripts. This is initialized to
+a list containing &quot;common&quot; and the name of the game directory.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.show">
+<tt class="descname">config.show</tt> = renpy.show<a class="headerlink" href="#var-config.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that is used in place of renpy.show by the <a class="reference internal" href="displaying_images.html#show-statement"><em>show</em></a> and <a class="reference internal" href="displaying_images.html#scene-statement"><em>scene</em></a> statements. This
+should have the same signature as renpy.show.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.skip_delay">
+<tt class="descname">config.skip_delay</tt> = 75<a class="headerlink" href="#var-config.skip_delay" title="Permalink to this definition">¶</a></dt>
+<dd><p>The amount of time that dialogue will be shown for, when skipping
+statements using ctrl, in milliseconds. (Although it's nowhere
+near that precise in practice.)</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.skip_indicator">
+<tt class="descname">config.skip_indicator</tt> = True<a class="headerlink" href="#var-config.skip_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, the library will display a skip indicator when skipping
+through the script.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.sound">
+<tt class="descname">config.sound</tt> = True<a class="headerlink" href="#var-config.sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, sound works. If False, the sound/mixer subsystem is
+completely disabled.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.sound_sample_rate">
+<tt class="descname">config.sound_sample_rate</tt> = 44100<a class="headerlink" href="#var-config.sound_sample_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sample rate that the sound card will be run at. If all of your
+wav files are of a lower rate, changing this to that rate may make
+things more efficent.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.start_callbacks">
+<tt class="descname">config.start_callbacks</tt> = [ ... ]<a class="headerlink" href="#var-config.start_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of callbacks functions that are called with no arguments
+after the init phase, but before the game (including the
+splashscreen) starts. This is intended to be used by frameworks
+to initialize variables that will be saved.</p>
+<p>The default value of this variable includes callbacks that Ren'Py
+uses internally to implement features such as nvl-mode. New
+callbacks can be appended to this list, but the existing callbacks
+should not be removed.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.start_interact_callbacks">
+<tt class="descname">config.start_interact_callbacks</tt> = ...<a class="headerlink" href="#var-config.start_interact_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of functions that are called (without any arguments) when
+an interaction is started. These callbacks are not called when an
+interaction is restarted.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.top_layers">
+<tt class="descname">config.top_layers</tt> = [ ]<a class="headerlink" href="#var-config.top_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a list of names of layers that are displayed above all
+other layers, and do not participate in a transition that is
+applied to all layers. If a layer name is listed here, it should
+not be listed in config.layers.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.transient_layers">
+<tt class="descname">config.transient_layers</tt> = [ 'transient' ]<a class="headerlink" href="#var-config.transient_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This variable gives a list of all of the transient
+layers. Transient layers are layers that are cleared after each
+interaction. &quot;transient&quot; should always be in this list.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.transform_uses_child_position">
+<tt class="descname">config.transform_uses_child_position</tt> = True<a class="headerlink" href="#var-config.transform_uses_child_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, transforms will inherit <a class="reference internal" href="style_properties.html#position-style-properties"><em>position properties</em></a> from their child. If not, they won't.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.variants">
+<tt class="descname">config.variants</tt> = [ ... ]<a class="headerlink" href="#var-config.variants" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of screen variants that are searched when choosing a screen to
+display to the user. This should always end with None, to ensure
+that the default screens are chosen. See <a class="reference internal" href="screens.html#screen-variants"><em>Screen Variants</em></a>.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.voice_filename_format">
+<tt class="descname">config.voice_filename_format</tt> = &quot;{filename}&quot;<a class="headerlink" href="#var-config.voice_filename_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string that is formatted with the string argument to the voice
+statement to produce the filename that is played to the user. For
+example, if this is &quot;{filename}.ogg&quot;, the <tt class="docutils literal"><span class="pre">voice</span> <span class="pre">&quot;test&quot;</span></tt> statement
+will play test.ogg.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.with_callback">
+<tt class="descname">config.with_callback</tt> = None<a class="headerlink" href="#var-config.with_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, this should be a function that is called when a <a class="reference internal" href="displaying_images.html#with-statement"><em>with
+statement</em></a> occurs. This function can be responsible for
+putting up transient things on the screen during the transition. The
+function is called with a single argument, which is the transition that
+is occurring. It is expected to return a transition, which may or may not
+be the transition supplied as its argument.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="store_variables.html" title="Store Variables"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="screen_special.html" title="Special Screen Names"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Text Editor Integration &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Skins" href="skins.html" />
+    <link rel="prev" title="Environment Variables" href="environment_variables.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="skins.html" title="Skins"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="environment_variables.html" title="Environment Variables"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Text Editor Integration</a><ul>
+<li><a class="reference internal" href="#writing-an-edit-py-file">Writing an .edit.py File</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="environment_variables.html"
+                        title="previous chapter">Environment Variables</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="skins.html"
+                        title="next chapter">Skins</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="text-editor-integration">
+<span id="id1"></span><h1>Text Editor Integration<a class="headerlink" href="#text-editor-integration" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py uses a text editor to allow the user to edit game scripts from the
+launcher, and to report errors to the user. By default, Ren'Py uses jEdit
+as the text editor when launched from the launcher and the system default
+editor otherwise. This can be customized by the user as necessary.</p>
+<p>The editor is customized by creating an Editor class in a .edit.py file. This
+class contains methods that are called to manage text editing.</p>
+<p>When run directly, Ren'Py first looks at the RENPY_EDIT_PY environment
+variable to find an .edit.py file to use. If it can find one, it uses the
+Editor class defined in that file. If not, it uses a built-in editor class
+that launches the editor in a system-specific manner.</p>
+<p>When the Ren'Py Launcher is run, it scans subdirectories of the projects
+directory and Ren'Py directory to find files of the form <cite>name</cite>.edit.py. (For
+example, it would find launcher/jEdit.edit.py and myeditor/MyEditor.edit.py.)
+The latest editor with a given <cite>name</cite> is presented to the creator as part of
+the launcher options. The launcher also sets RENPY_EDIT_PY to the selected
+file, so that games launched from the launcher will use the selected editor.</p>
+<div class="section" id="writing-an-edit-py-file">
+<h2>Writing an .edit.py File<a class="headerlink" href="#writing-an-edit-py-file" title="Permalink to this headline">¶</a></h2>
+<p>An edit.py file is a Python (not Ren'Py) file that must define a single
+class, named Editor. Ren'Py will call methods on this class to cause
+editing to occur.</p>
+<p>Use of the editor is done as part of an editor transaction, which groups
+related operations together. For example, if an editor transaction asks
+for a new window, all of the files in that transaction should be opened
+in the same new window. An editor transaction starts with a call to the
+begin method, may contain one or more calls to operation methods, and ends
+with a call to the end method.</p>
+<p>The edit.py file should import renpy.editor, and the Editor class should
+inherit from renpy.editor.Editor. As additional keyword arguments may be
+added to methods, each method you define should ignore unknown keyword
+arguments. Since you're expected to define your own
+Editor subclass, we present the methods with the <cite>self</cite> parameter.</p>
+<dl class="class">
+<dt id="Editor">
+<em class="property">class </em><tt class="descname">Editor</tt><a class="headerlink" href="#Editor" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Editor.begin">
+<tt class="descname">begin</tt><big>(</big><em>self</em>, <em>new_window=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#Editor.begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts an editor transaction.</p>
+<p>If <cite>new_window</cite> is true, the editor should attempt to open a new window.
+Otherwise, it should attempt to perform the transaction in an existing editor
+window.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Editor.end">
+<tt class="descname">end</tt><big>(</big><em>self</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#Editor.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ends a transaction.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Editor.open">
+<tt class="descname">open</tt><big>(</big><em>self</em>, <em>filename</em>, <em>line=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#Editor.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a <cite>filename</cite> in the editor.</p>
+<p>If <cite>line</cite> is not None, attempts to position the editing cursor at <cite>line</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="skins.html" title="Skins"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="environment_variables.html" title="Environment Variables"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

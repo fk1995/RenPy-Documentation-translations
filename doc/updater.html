@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Web Updater &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Android" href="android.html" />
+    <link rel="prev" title="Building Distributions" href="build.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="android.html" title="Android"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="build.html" title="Building Distributions"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Web Updater</a><ul>
+<li><a class="reference internal" href="#server-requirements">Server Requirements</a></li>
+<li><a class="reference internal" href="#building-an-update">Building an Update</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#screen">Screen</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="build.html"
+                        title="previous chapter">Building Distributions</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="android.html"
+                        title="next chapter">Android</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="web-updater">
+<h1>Web Updater<a class="headerlink" href="#web-updater" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py includes an updater that can automatically download and install
+updates to a Ren'Py game hosted at a website. This can be useful in
+keeping a large game up to date.</p>
+<p>The Ren'Py updater works by automatically performing the following
+steps:</p>
+<ol class="arabic simple">
+<li>Downloading an index file that controls what is updated.</li>
+<li>Asking the user if he or she wants to proceed with the update.</li>
+<li>Producing an archive file from the files on disk.</li>
+<li>Downloading a zsync control file from the server.</li>
+<li>Using the zsync tool to update the archive file to the version on
+the server. Zsync automatically computes the differences between
+the two files, and attempts to only download the portions that
+have changed.</li>
+<li>Unpacking the archive, replacing the files on disk.</li>
+<li>Deleting files that have been removed between the old and new
+versions.</li>
+<li>Restarting the game.</li>
+</ol>
+<p>The Ren'Py updater shows an updater screen during this process,
+prompting the user to proceed and allowing the user to cancel
+when appropriate.</p>
+<div class="section" id="server-requirements">
+<h2>Server Requirements<a class="headerlink" href="#server-requirements" title="Permalink to this headline">¶</a></h2>
+<p>The updater requires that you provide your own hosting. You should be
+able to download the update files by going to the appropriate URL
+directly, and your server must support HTTP range queries.</p>
+<p>(This means paying for web hosting, as &quot;sharing&quot; sites tend not to
+support the required features.)</p>
+</div>
+<div class="section" id="building-an-update">
+<h2>Building an Update<a class="headerlink" href="#building-an-update" title="Permalink to this headline">¶</a></h2>
+<p>Updates are built automatically when distributions are built. To build
+an update, set build.include_update to True in options.rpy. This will
+unlock the &quot;Build Updates&quot; option in the &quot;Build Distributions&quot; section
+of the launcher. Check this option, and Ren'Py will create the update
+files.</p>
+<p>The update files consist of:</p>
+<dl class="docutils">
+<dt>updates.json</dt>
+<dd>An index of available updates and their versions.</dd>
+<dt><em>package</em>.sums</dt>
+<dd>Contains checksums for each block in the package.</dd>
+<dt><em>package</em>.update.gz</dt>
+<dd>Contains the update data for the given package.</dd>
+<dt><em>package</em>.update.json</dt>
+<dd>Contains a list of the files in each package, which the updater
+uses when downloading DLC.</dd>
+<dt><em>package</em>.zsync</dt>
+<dd>This is a control file that's used by zsync to manage the download.</dd>
+</dl>
+<p>You must upload all these files to a single directory on your web
+server.</p>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>To cause an update to occur, invoke either updater.update or the
+updater.Update action.</p>
+<dl class="function">
+<dt id="updater.Update">
+<tt class="descclassname">updater.</tt><tt class="descname">Update</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#updater.Update" title="Permalink to this definition">¶</a></dt>
+<dd><p>An action that calls <a class="reference internal" href="#updater.update" title="updater.update"><tt class="xref py py-func docutils literal"><span class="pre">updater.update()</span></tt></a>. All arguments are
+stored and passed to that function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="updater.can_update">
+<tt class="descclassname">updater.</tt><tt class="descname">can_update</tt><big>(</big><em>base=None</em><big>)</big><a class="headerlink" href="#updater.can_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if it's possible that an update can succeed. Returns false
+if updating is totally impossible. (For example, if the update directory
+was deleted.)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="updater.get_installed_packages">
+<tt class="descclassname">updater.</tt><tt class="descname">get_installed_packages</tt><big>(</big><em>base=None</em><big>)</big><a class="headerlink" href="#updater.get_installed_packages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of installed DLC package names.</p>
+<dl class="docutils">
+<dt><cite>base</cite></dt>
+<dd>The base directory to update. Defaults to the current project's
+base directory.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="updater.update">
+<tt class="descclassname">updater.</tt><tt class="descname">update</tt><big>(</big><em>url</em>, <em>base=None</em>, <em>force=False</em>, <em>public_key=None</em>, <em>simulate=None</em>, <em>add=</em><span class="optional">[</span><span class="optional">]</span>, <em>restart=True</em><big>)</big><a class="headerlink" href="#updater.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates this Ren'Py game to the latest version.</p>
+<dl class="docutils">
+<dt><cite>url</cite></dt>
+<dd>The URL to the updates.json file.</dd>
+<dt><cite>base</cite></dt>
+<dd>The base directory that will be updated. Defaults to the base
+of the current game. (This can usually be ignored.)</dd>
+<dt><cite>force</cite></dt>
+<dd>Force the update to occur even if the version numbers are
+the same. (Used for testing.)</dd>
+<dt><cite>public_key</cite></dt>
+<dd>The path to a PEM file containing a public key that the
+update signature is checked against. (This can usually be ignored.)</dd>
+<dt><cite>simulate</cite></dt>
+<dd><p class="first">This is used to test update guis without actually performing
+an update. This can be:</p>
+<ul class="last simple">
+<li>None to perform an update.</li>
+<li>&quot;available&quot; to test the case where an update is available.</li>
+<li>&quot;not_available&quot; to test the case where no update is available.</li>
+<li>&quot;error&quot; to test an update error.</li>
+</ul>
+</dd>
+<dt><cite>add</cite></dt>
+<dd>A list of packages to add during this update. This is only necessary
+for dlc.</dd>
+<dt><cite>restart</cite></dt>
+<dd>Restart the game after the update.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="screen">
+<h2>Screen<a class="headerlink" href="#screen" title="Permalink to this headline">¶</a></h2>
+<p>To customize the look of the updater, you may override the <tt class="docutils literal"><span class="pre">updater</span></tt>
+screen. The default screen is defined in common/00updater.rpy.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="android.html" title="Android"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="build.html" title="Building Distributions"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

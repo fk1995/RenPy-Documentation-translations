@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sprites &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Customizing the Keymap" href="keymap.html" />
+    <link rel="prev" title="Drag and Drop" href="drag_drop.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="keymap.html" title="Customizing the Keymap"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="drag_drop.html" title="Drag and Drop"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sprites</a><ul>
+<li><a class="reference internal" href="#sprite-classes">Sprite Classes</a></li>
+<li><a class="reference internal" href="#sprite-examples">Sprite Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="drag_drop.html"
+                        title="previous chapter">Drag and Drop</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="keymap.html"
+                        title="next chapter">Customizing the Keymap</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sprites">
+<span id="id1"></span><h1>Sprites<a class="headerlink" href="#sprites" title="Permalink to this headline">¶</a></h1>
+<p>To support the display of a large number of images at once, Ren'Py supports
+a sprite system. This system allows one to create sprites, where each sprite
+contains a displayable. The sprites can then have their location on the
+screen and vertical ordering changed.</p>
+<p>If one ignores performance, the sprite system is conceptually similar
+to a <a class="reference internal" href="displayables.html#Fixed" title="Fixed"><tt class="xref py py-func docutils literal"><span class="pre">Fixed()</span></tt></a> wrapping <a class="reference internal" href="trans_trans_python.html#Transform" title="Transform"><tt class="xref py py-func docutils literal"><span class="pre">Transform()</span></tt></a>s. Sprites are much
+faster than transforms, but also less flexible. The big performance
+improvement of sprites is that each Displayable is rendered only once
+per frame, even if that Displayable is used by many sprites. The limitation
+is that Sprites only allow one to change their xoffset and yoffset, rather
+than the many properties that a Transform has.</p>
+<p>To use the sprite system, create a SpriteManager object, and then call
+its create method to create new particles. As necessary, update the
+xoffset, yoffset, and zorder fields of each sprite to move it around
+the screen. By supplying <cite>update</cite> and <cite>event</cite> arguments to
+SpriteManager, you can have the sprites change over time, and react to
+user input.</p>
+<div class="section" id="sprite-classes">
+<h2>Sprite Classes<a class="headerlink" href="#sprite-classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Sprite">
+<em class="property">class </em><tt class="descname">Sprite</tt><a class="headerlink" href="#Sprite" title="Permalink to this definition">¶</a></dt>
+<dd><p>This represents a sprite that is managed by the SpriteManager. It contains
+fields that control the placement of the sprite on the screen. Sprites
+should not be created directly. Instead, they should be created by
+calling <a class="reference internal" href="#SpriteManager.create" title="SpriteManager.create"><tt class="xref py py-meth docutils literal"><span class="pre">SpriteManager.create()</span></tt></a>.</p>
+<p>The fields of a sprite object are:</p>
+<dl class="docutils">
+<dt><cite>x</cite>, <cite>y</cite></dt>
+<dd>The x and y coordinates of the upper-left corner of the sprite,
+relative to the SpriteManager.</dd>
+<dt><cite>zorder</cite></dt>
+<dd>An integer that's used to control the order of this sprite in the
+relative to the other sprites in the SpriteManager. The larger the
+number is, the closer to the viewer the sprite is.</dd>
+<dt><cite>events</cite></dt>
+<dd>If True, then events are passed to child. If False, the default,
+the children igore events (and hence don't spend time processing
+them).</dd>
+</dl>
+<p>The methods of a Sprite object are:</p>
+<dl class="method">
+<dt id="Sprite.destroy">
+<tt class="descname">destroy</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#Sprite.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroys this sprite, preventing it from being displayed and
+removing it from the SpriteManager.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Sprite.set_child">
+<tt class="descname">set_child</tt><big>(</big><em>d</em><big>)</big><a class="headerlink" href="#Sprite.set_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the Displayable associated with this sprite to <cite>d</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="SpriteManager">
+<em class="property">class </em><tt class="descname">SpriteManager</tt><big>(</big><em>update=None</em>, <em>event=None</em>, <em>predict=None</em>, <em>ignore_time=False</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#SpriteManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>This displayable manages a collection of sprites, and displays
+them at the fastest speed possible.</p>
+<dl class="docutils">
+<dt><cite>update</cite></dt>
+<dd>If not None, a function that is called each time a sprite
+is rendered by this sprite manager. It is called with one
+argument, the time in seconds since this sprite manager
+was first displayed.  It is expected to return the number
+of seconds until the function is called again, and the
+SpriteManager is rendered again.</dd>
+<dt><cite>event</cite></dt>
+<dd>If not None, a function that is called when an event occurs.
+It takes as arguments:
+* A pygame event object.
+* The x coordinate of the event.
+* The y coordinate of the event.
+* The time since the sprite manager was first shown.
+If it returns a non-None value, the interaction ends, and
+that value is returned.</dd>
+<dt><cite>predict</cite></dt>
+<dd>If not None, a function that returns a list of
+displayables. These displayables are predicted when the
+sprite manager is.</dd>
+<dt><cite>ignore_time</cite></dt>
+<dd>If True, then time is ignored when rendering displayables. This
+should be used when the sprite manager is used with a relatively
+small pool of images, and those images do not change over time.
+This should only be used with a small number of displayables, as
+it will keep all displayables used in memory for the life of the
+SpriteManager.</dd>
+</dl>
+<p>After being rendered once (before the <cite>update</cite> function is called),
+SpriteManagers have the following fields:</p>
+<p><cite>width</cite>, <cite>height</cite></p>
+<blockquote>
+<div>The width and height of this SpriteManager, in pixels.</div></blockquote>
+<p>SpriteManagers have the following methods:</p>
+<dl class="method">
+<dt id="SpriteManager.create">
+<tt class="descname">create</tt><big>(</big><em>d</em><big>)</big><a class="headerlink" href="#SpriteManager.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new Sprite for the displayable <cite>d</cite>, and adds it to this
+SpriteManager.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SpriteManager.redraw">
+<tt class="descname">redraw</tt><big>(</big><em>delay=0</em><big>)</big><a class="headerlink" href="#SpriteManager.redraw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Causes this SpriteManager to be redrawn in <cite>delay</cite> seconds.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="SnowBlossom">
+<tt class="descname">SnowBlossom</tt><big>(</big><em>d</em>, <em>count=10</em>, <em>border=50</em>, <em>xspeed=(20</em>, <em>50)</em>, <em>yspeed=(100</em>, <em>200)</em>, <em>start=0</em>, <em>fast=False</em>, <em>horizontal=False</em><big>)</big><a class="headerlink" href="#SnowBlossom" title="Permalink to this definition">¶</a></dt>
+<dd><p>The snowblossom effect moves multiple instances of a sprite up,
+down, left or right on the screen. When a sprite leaves the screen, it
+is returned to the start.</p>
+<dl class="docutils">
+<dt><cite>d</cite></dt>
+<dd>The displayable to use for the sprites.</dd>
+<dt><cite>border</cite></dt>
+<dd>The size of the border of the screen. The sprite is considered to be
+on the screen until it clears the border, ensuring that sprites do
+not disappear abruptly.</dd>
+<dt><cite>xspeed</cite>, <cite>yspeed</cite></dt>
+<dd>The speed at which the sprites move, in the horizontal and vertical
+directions, respectively. These can be a single number or a tuple of
+two numbers. In the latter case, each particle is assigned a random
+speed between the two numbers. The speeds can be positive or negative,
+as long as the second number in a tuple is larger than the first.</dd>
+<dt><cite>start</cite></dt>
+<dd>The delay, in seconds, before each particle is added. This can be
+allows the particles to start at the top of the screen, while not
+looking like a &quot;wave&quot; effect.</dd>
+<dt><cite>fast</cite></dt>
+<dd>If true, particles start in the center of the screen, rather than
+only at the edges.</dd>
+<dt><cite>horizontal</cite></dt>
+<dd>If true, particles appear on the left or right side of the screen,
+rather than the top or bottom.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="sprite-examples">
+<h2>Sprite Examples<a class="headerlink" href="#sprite-examples" title="Permalink to this headline">¶</a></h2>
+<p>The SnowBlossom class is an easy-to use way of placing falling things
+on the screen.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">snow</span> <span class="o">=</span> <span class="n">SnowBlossom</span><span class="p">(</span><span class="s">&quot;snow.png&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This example shows how a SpriteManager can be used to create complex
+behaviors. In this case, it shows 400 particles, and has them avoid
+the mouse.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">math</span>
+
+    <span class="k">def</span> <span class="nf">repulsor_update</span><span class="p">(</span><span class="n">st</span><span class="p">):</span>
+
+        <span class="c"># If we don&#39;t know where the mouse is, give up.</span>
+        <span class="k">if</span> <span class="n">repulsor_pos</span> <span class="k">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">.</span><span class="mo">01</span>
+
+        <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">repulsor_pos</span>
+
+        <span class="c"># For each sprite...</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">repulsor_sprites</span><span class="p">:</span>
+
+            <span class="c"># Compute the vector between it and the mouse.</span>
+            <span class="n">vx</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">px</span>
+            <span class="n">vy</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">py</span>
+
+            <span class="c"># Get the vector length, normalize the vector.</span>
+            <span class="n">vl</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">vl</span> <span class="o">&gt;=</span> <span class="mi">150</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c"># Compute the distance to move.</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">150</span> <span class="o">-</span> <span class="n">vl</span><span class="p">)</span> <span class="o">/</span> <span class="mi">150</span>
+
+            <span class="c"># Move</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">distance</span> <span class="o">*</span> <span class="n">vx</span> <span class="o">/</span> <span class="n">vl</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">distance</span> <span class="o">*</span> <span class="n">vy</span> <span class="o">/</span> <span class="n">vl</span>
+
+            <span class="c"># Ensure we stay on the screen.</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+
+            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">repulsor</span><span class="o">.</span><span class="na">width</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">repulsor</span><span class="o">.</span><span class="na">width</span> <span class="o">-</span> <span class="mi">2</span>
+
+            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
+
+            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">repulsor</span><span class="o">.</span><span class="na">height</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">repulsor</span><span class="o">.</span><span class="na">height</span> <span class="o">-</span> <span class="mi">2</span>
+
+        <span class="k">return</span> <span class="o">.</span><span class="mo">01</span>
+
+    <span class="c"># On an event, record the mouse position.</span>
+    <span class="k">def</span> <span class="nf">repulsor_event</span><span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">st</span><span class="p">):</span>
+        <span class="n">store</span><span class="o">.</span><span class="n">repulsor_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+
+<span class="k">label</span> <span class="n">repulsor_demo</span><span class="p">:</span>
+
+    <span class="k">python</span><span class="p">:</span>
+        <span class="c"># Create a sprite manager.</span>
+        <span class="n">repulsor</span> <span class="o">=</span> <span class="n">SpriteManager</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="n">repulsor_update</span><span class="p">,</span> <span class="k">event</span><span class="o">=</span><span class="n">repulsor_event</span><span class="p">)</span>
+        <span class="n">repulsor_sprites</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
+        <span class="n">repulsor_pos</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c"># Ensure we only have one smile displayable.</span>
+        <span class="n">smile</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s">&quot;smile.png&quot;</span><span class="p">)</span>
+
+        <span class="c"># Add 400 sprites.</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="na">range</span><span class="p">(</span><span class="mi">400</span><span class="p">):</span>
+            <span class="n">repulsor_sprites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">repulsor</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">smile</span><span class="p">))</span>
+
+        <span class="c"># Position the 400 sprites.</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">repulsor_sprites</span><span class="p">:</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">renpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">798</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">renpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">598</span><span class="p">)</span>
+
+        <span class="k">del</span> <span class="n">smile</span>
+        <span class="k">del</span> <span class="n">i</span>
+
+    <span class="c"># Add the repulsor to the screen.</span>
+    <span class="k">show</span> <span class="k">expression</span> <span class="n">repulsor</span> <span class="k">as</span> <span class="n">repulsor</span>
+
+    <span class="s">&quot;...&quot;</span>
+
+    <span class="k">hide</span> <span class="n">repulsor</span>
+
+    <span class="c"># Clean up.</span>
+    <span class="k">python</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">repulsor</span>
+        <span class="k">del</span> <span class="n">repulsor_sprites</span>
+        <span class="k">del</span> <span class="n">repulsor_pos</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="keymap.html" title="Customizing the Keymap"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="drag_drop.html" title="Drag and Drop"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

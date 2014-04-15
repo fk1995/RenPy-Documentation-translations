@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Transforms &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Transitions" href="transitions.html" />
+    <link rel="prev" title="Displayables" href="displayables.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="transitions.html" title="Transitions"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="displayables.html" title="Displayables"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Transforms</a><ul>
+<li><a class="reference internal" href="#default-transforms">Default Transforms</a></li>
+<li><a class="reference internal" href="#creator-defined-transforms">Creator-Defined Transforms</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="displayables.html"
+                        title="previous chapter">Displayables</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="transitions.html"
+                        title="next chapter">Transitions</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="transforms">
+<span id="id1"></span><h1>Transforms<a class="headerlink" href="#transforms" title="Permalink to this headline">¶</a></h1>
+<p>A transform can be applied to a displayable to yield another
+displayable. The built-in transforms are used to control where an
+object is placed on the screen, while user-defined transforms
+can cause more complex effects, like motion, zoom, and rotation.</p>
+<p>Transforms can be applied by giving the at clause to the scene and
+show statements. The following code applies the &quot;right&quot; transform to
+the eileen happy displayable.:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">right</span>
+</pre></div>
+</div>
+<p>Multiple transforms can be applied by separating them with commas. These
+transforms are applied from left-to-right, with the rightmost
+transform taking precendece in the case of conflicts.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">halfsize</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+</div>
+<p>A displayable always has a transform associated with it. If no
+transform is given, the prior transform is used. When the transform is
+changed, undefined values are taken from the prior transform, or from
+<tt class="docutils literal"><span class="pre">default</span></tt> if there is no prior transform.</p>
+<div class="section" id="default-transforms">
+<h2>Default Transforms<a class="headerlink" href="#default-transforms" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py ships with a number of transforms defined by default. These
+transforms position things on the screen. Here's a depiction of where
+each default transform will position an image.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="o">+-----------------------------------------------------------+</span>
+<span class="o">|</span><span class="n">topleft</span><span class="p">,</span> <span class="n">reset</span>               <span class="n">top</span>                   <span class="n">topright</span><span class="o">|</span>
+<span class="o">|</span>                                                           <span class="o">|</span>
+<span class="o">|</span>                                                           <span class="o">|</span>
+<span class="o">|</span>                                                           <span class="o">|</span>
+<span class="o">|</span>                                                           <span class="o">|</span>
+<span class="o">|</span>                          <span class="n">truecenter</span>                       <span class="o">|</span>
+<span class="o">|</span>                                                           <span class="o">|</span>
+<span class="o">|</span>                                                           <span class="o">|</span>
+<span class="o">|</span>                                                           <span class="o">|</span>
+<span class="o">|</span>                                                           <span class="o">|</span>
+<span class="o">|</span><span class="n">left</span>                   <span class="n">center</span><span class="p">,</span> <span class="na">default</span>                <span class="n">right</span><span class="o">|</span>
+<span class="o">+-----------------------------------------------------------+</span>
+</pre></div>
+</div>
+<p>The offscreenleft and offscreenright transforms position images off the
+screen. These transforms can be used to move things off the screen
+(remember to hide them afterwards, to ensure that they do not consume
+resources).</p>
+<p>The transforms are:</p>
+<dl class="var">
+<dt id="var-center">
+<tt class="descname">center</tt><a class="headerlink" href="#var-center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Centers horizontally, and aligns to the bottom of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-default">
+<tt class="descname">default</tt><a class="headerlink" href="#var-default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Centers horizontally, and aligns to the bottom of the screen. This
+can be redefined to change the default placement of images shown
+with the show or scene statements.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-left">
+<tt class="descname">left</tt><a class="headerlink" href="#var-left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aligns to the bottom-left corner of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-offscreenleft">
+<tt class="descname">offscreenleft</tt><a class="headerlink" href="#var-offscreenleft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Places the displayable off the left side of the screen,
+aligned to the bottom of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-offscreenright">
+<tt class="descname">offscreenright</tt><a class="headerlink" href="#var-offscreenright" title="Permalink to this definition">¶</a></dt>
+<dd><p>Places the displayable off the left side of the screen,
+aligned to the bottom of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-reset">
+<tt class="descname">reset</tt><a class="headerlink" href="#var-reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the transform. Places the displayable in the top-left
+corner of the scren, and also eliminates any zoom, rotation, or
+other effects.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-right">
+<tt class="descname">right</tt><a class="headerlink" href="#var-right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aligns to the bottom-right corner of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-top">
+<tt class="descname">top</tt><a class="headerlink" href="#var-top" title="Permalink to this definition">¶</a></dt>
+<dd><p>Centers horizontally, and aligns to the top of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-topleft">
+<tt class="descname">topleft</tt><a class="headerlink" href="#var-topleft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aligns to the top-left corner of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-topright">
+<tt class="descname">topright</tt><a class="headerlink" href="#var-topright" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aligns to the top-right corner of the screen.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-truecenter">
+<tt class="descname">truecenter</tt><a class="headerlink" href="#var-truecenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Centers both horizontally and vertically.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="creator-defined-transforms">
+<h2>Creator-Defined Transforms<a class="headerlink" href="#creator-defined-transforms" title="Permalink to this headline">¶</a></h2>
+<p>A creator can define a transform using the
+<a class="reference internal" href="atl.html#atl"><em>animation and transformation language</em></a>, or the
+<a class="reference internal" href="trans_trans_python.html#Transform" title="Transform"><tt class="xref py py-class docutils literal"><span class="pre">Transform</span></tt></a> function.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="transitions.html" title="Transitions"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="displayables.html" title="Displayables"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

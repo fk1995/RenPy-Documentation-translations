@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building Distributions &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Web Updater" href="updater.html" />
+    <link rel="prev" title="Other Functions" href="other.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="updater.html" title="Web Updater"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="other.html" title="Other Functions"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Building Distributions</a><ul>
+<li><a class="reference internal" href="#basic-configuration">Basic Configuration</a></li>
+<li><a class="reference internal" href="#special-files">Special Files</a></li>
+<li><a class="reference internal" href="#classifying-and-ignoring-files">Classifying and Ignoring Files</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#packages">Packages</a></li>
+<li><a class="reference internal" href="#archives">Archives</a></li>
+<li><a class="reference internal" href="#build-functions">Build Functions</a></li>
+<li><a class="reference internal" href="#advanced-configuration">Advanced Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="other.html"
+                        title="previous chapter">Other Functions</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="updater.html"
+                        title="next chapter">Web Updater</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="building-distributions">
+<h1>Building Distributions<a class="headerlink" href="#building-distributions" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py includes support for building game distributions. Upon choosing
+&quot;Build Distributions&quot; in the launcher, Ren'Py will scan itself and the
+project to determine the files to include in the distribution, will
+create any archives that are necessary, and will build package and
+update files.</p>
+<p>With no configuration, Ren'Py will build the following four kinds of
+packages:</p>
+<p>All Desktop Platofrms</p>
+<blockquote>
+<div>A zip file targeting Windows x86, Macintosh x86, Linux x86, and
+Linux x86_64.</div></blockquote>
+<p>Linux x86/x86_64</p>
+<blockquote>
+<div>A tar.bz2 file targeting Linux x86 and Linux x86_64.</div></blockquote>
+<p>Macintosh x86</p>
+<blockquote>
+<div>A zip file containing a Macintosh application targeting Macintosh
+OS X on Intel processors. Game data will be included inside the
+application, which appears to the user as a single file.</div></blockquote>
+<p>Windows x86</p>
+<blockquote>
+<div>A zip file targeting Windows x86.</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>The zip and tar.bz2 files that Ren'Py produces contain permissions
+information that must be present for Ren'Py to run on Linux and
+Macintosh.</p>
+<p class="last">Unpacking and re-packing a zip file on Windows and then running it
+on Linux or Macintosh is not supported.</p>
+</div>
+<div class="section" id="basic-configuration">
+<h2>Basic Configuration<a class="headerlink" href="#basic-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The build process can be configured by setting variables and calling
+function that live in the build namespace. This must be done from
+inside an init python block.</p>
+<p>There are a few basic variables and functions that many games will
+use.</p>
+<dl class="var">
+<dt id="var-build.directory_name">
+<tt class="descname">build.directory_name</tt> = &quot;...&quot;<a class="headerlink" href="#var-build.directory_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is used to create the names of directories in the archive
+files. For example, if this is set to &quot;mygame-1.0&quot;, the Linux
+version of the project will unpack to &quot;mygame-1.0-linux&quot;.</p>
+<p>This is also used to determine the name of the directory in
+which the package files are placed. For example, if you set
+build.directory_name to mygame-1.0, the archive files will
+be placed in mygame-1.0-dists in the directory above the base
+directory.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-build.executable_name">
+<tt class="descname">build.executable_name</tt> = &quot;...&quot;<a class="headerlink" href="#var-build.executable_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This variable controls the name of the executables that the user
+clicks on to start the game.</p>
+<p>For example, if this is set to &quot;mygame&quot;, the user will be able
+to run mygame.exe on Windows, mygame.app on Macintosh, and
+mygame.sh on Linux.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="special-files">
+<h2>Special Files<a class="headerlink" href="#special-files" title="Permalink to this headline">¶</a></h2>
+<p>There are two files that can be included in your game's base directory
+to customize the build.</p>
+<dl class="docutils">
+<dt>icon.ico</dt>
+<dd>The icon that is used on Windows.</dd>
+<dt>icon.icns</dt>
+<dd>The icon that is used on Macintosh.</dd>
+</dl>
+<p>These icon files much be in specific formats. You'll need to use a
+program or web service (such as <a class="reference external" href="http://iconverticons.com/">http://iconverticons.com/</a> ) to convert
+them.</p>
+</div>
+<div class="section" id="classifying-and-ignoring-files">
+<h2>Classifying and Ignoring Files<a class="headerlink" href="#classifying-and-ignoring-files" title="Permalink to this headline">¶</a></h2>
+<p>The build process works by first classifying files in the Ren'Py
+distribution and your game into file lists. These file lists are then
+added to package files.</p>
+<p>The classification is done by the build.classify function. It takes a
+patterns and a space-separated list of filenames. Patterns are matched
+from first to last, with the first match taking precedence (even if a
+more-specific pattern follows.) Patterns are matched with and without
+a leading /. Patterns may include the following special characters:</p>
+<dl class="docutils">
+<dt>/</dt>
+<dd>The directory separator.</dd>
+<dt>*</dt>
+<dd>Matches all characters except for the directory separator.</dd>
+<dt>**</dt>
+<dd>Matches all characters.</dd>
+</dl>
+<p>For example:</p>
+<dl class="docutils">
+<dt>**.txt</dt>
+<dd>Matches all txt files.</dd>
+<dt>game/*.txt</dt>
+<dd>Matches txt files in the game directory.</dd>
+</dl>
+<p>There are seven file lists that files can be classified into by
+default. (Ren'Py places its own files into the first six of these.)</p>
+<dl class="docutils">
+<dt>all</dt>
+<dd>These files will be included in all packages, and in Android
+builds.</dd>
+<dt>linux</dt>
+<dd>These files will be included in packages targeting Linux.</dd>
+<dt>mac</dt>
+<dd>These files will be included in packages targeting Macintosh.</dd>
+<dt>windows</dt>
+<dd>These files will be included in packages targeting Windows.</dd>
+<dt>renpy</dt>
+<dd>These files will be included in packages that require the Ren'Py
+engine files. (Linux, Macintosh, and Windows.)</dd>
+<dt>android</dt>
+<dd>These files will be included in Android builds.</dd>
+<dt>archive</dt>
+<dd>These files will be included in the archive.rpa archive.</dd>
+</dl>
+<p>Files that are not otherwise classified are placed in the &quot;all&quot; file
+list.</p>
+<p>To exclude files from distribution, classify them as None or the
+empty string.</p>
+<p>For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Include README.txt</span>
+<span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;README.txt&quot;</span><span class="p">,</span> <span class="s">&quot;all&quot;</span><span class="p">)</span>
+
+<span class="c"># But exclude all other txt files.</span>
+<span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;**.txt&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+<span class="c"># Add png and jpg files in the game directory into an archive.</span>
+<span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.png&quot;</span><span class="p">,</span> <span class="s">&quot;archive&quot;</span><span class="p">)</span>
+<span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.jpg&quot;</span><span class="p">,</span> <span class="s">&quot;archive&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>Calling the build.documentation function with patterns marks files
+matching those patterns as documentation. Documentation files are
+included twice in a Macintosh application - both inside and outside
+of the application itself.</p>
+<p>For example, to mark all txt and html files in the base directory as
+documentation, call:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">build</span><span class="o">.</span><span class="n">documentation</span><span class="p">(</span><span class="s">&quot;*.txt&quot;</span><span class="p">)</span>
+<span class="n">build</span><span class="o">.</span><span class="n">documentation</span><span class="p">(</span><span class="s">&quot;*.html&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="packages">
+<h2>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h2>
+<p>It's also possible to add new types of packages to the Ren'Py build
+process. This is done by calling the build.package function with a
+package name, type, and a string containing the file lists to
+include.</p>
+<p>Say we wanted to build a normal version of our game, and one
+containing bonus material. We could classify the bonus files in to a
+&quot;bonus&quot; file list, and then declare an all-premium package with:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">build</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="s">&quot;all-premium&quot;</span><span class="p">,</span> <span class="s">&quot;zip&quot;</span><span class="p">,</span> <span class="s">&quot;windows mac linux all bonus&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="archives">
+<h2>Archives<a class="headerlink" href="#archives" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py supports combining files into a simple archive format. While
+not very secure, this protects files from casual copying.</p>
+<p>By default, all files classified into the &quot;archive&quot; file list will be
+placed in an archive.rpa archive, which is included in the all file
+list.</p>
+<p>By calling build.archive, it's possible to declare a new archives and
+the file lists they will be included in. (It's rare to use anything
+but the all file list, however.) To use an archive, classify files
+into a list with its name.</p>
+<p>For example, the following code will archive images in images.rpa, and
+game scripts into scripts.rpa:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Declare two archives.</span>
+<span class="n">build</span><span class="o">.</span><span class="n">archive</span><span class="p">(</span><span class="s">&quot;scripts&quot;</span><span class="p">,</span> <span class="s">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">build</span><span class="o">.</span><span class="n">archive</span><span class="p">(</span><span class="s">&quot;images&quot;</span><span class="p">,</span> <span class="s">&quot;all&quot;</span><span class="p">)</span>
+
+<span class="c"># Put script files into the scripts archive.</span>
+<span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.rpy&quot;</span><span class="p">,</span> <span class="s">&quot;scripts&quot;</span><span class="p">)</span>
+<span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.rpyc&quot;</span><span class="p">,</span> <span class="s">&quot;scripts&quot;</span><span class="p">)</span>
+
+<span class="c"># Put images into the images archive.</span>
+<span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.jpg&quot;</span><span class="p">,</span> <span class="s">&quot;images&quot;</span><span class="p">)</span>
+<span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.png&quot;</span><span class="p">,</span> <span class="s">&quot;images&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If an archive file is empty, it will not be built.</p>
+<p>Please think twice about archiving your game. Keeping files open will
+help others run your game on future platforms - platforms that may not
+exist until after you're gone.</p>
+</div>
+<div class="section" id="build-functions">
+<h2>Build Functions<a class="headerlink" href="#build-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="build.archive">
+<tt class="descclassname">build.</tt><tt class="descname">archive</tt><big>(</big><em>name</em>, <em>file_list='all'</em><big>)</big><a class="headerlink" href="#build.archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares the existence of an archive. If one or more files are
+classified with <cite>name</cite>, <cite>name</cite>.rpa is build as an archive. The
+archive is included in the named file lists.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="build.classify">
+<tt class="descclassname">build.</tt><tt class="descname">classify</tt><big>(</big><em>pattern</em>, <em>file_list</em><big>)</big><a class="headerlink" href="#build.classify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classifies files that match <cite>pattern</cite> into <cite>file_list</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="build.clear">
+<tt class="descclassname">build.</tt><tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#build.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the list of patterns used to classify files.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="build.documentation">
+<tt class="descclassname">build.</tt><tt class="descname">documentation</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#build.documentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares a pattern that matches documentation. In a mac app build,
+files matching the documentation pattern are stored twice - once
+inside the app package, and again outside of it.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="build.executable">
+<tt class="descclassname">build.</tt><tt class="descname">executable</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#build.executable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a pattern marking files as executable on platforms that support it.
+(Linux and Macintosh)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="build.package">
+<tt class="descclassname">build.</tt><tt class="descname">package</tt><big>(</big><em>name</em>, <em>format</em>, <em>file_lists</em>, <em>description=None</em>, <em>update=True</em>, <em>dlc=False</em>, <em>hidden=False</em><big>)</big><a class="headerlink" href="#build.package" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares a package that can be built by the packaging
+tool.</p>
+<dl class="docutils">
+<dt><cite>name</cite></dt>
+<dd>The name of the package.</dd>
+<dt><cite>format</cite></dt>
+<dd><p class="first">The format of the package. A string containing a space separated
+list of:</p>
+<dl class="docutils">
+<dt>zip</dt>
+<dd>A zip file.</dd>
+<dt>app-zip</dt>
+<dd>A zip file containing a macintosh application.</dd>
+<dt>tar.bz2</dt>
+<dd>A tar.bz2 file.</dd>
+</dl>
+<p class="last">The empty string will not build any package formats (this
+makes dlc possible).</p>
+</dd>
+<dt><cite>file_lists</cite></dt>
+<dd>A list containing the file lists that will be contained
+within the package.</dd>
+<dt><cite>description</cite></dt>
+<dd>An optional description of the package to be built.</dd>
+<dt><cite>update</cite></dt>
+<dd>If true and updates are being built, an update will be
+built for this package.</dd>
+<dt><cite>dlc</cite></dt>
+<dd>If true, any zip or tar.bz2 file will be built in
+standalone DLC mode, without an update directory.</dd>
+<dt><cite>hidden</cite></dt>
+<dd>If true, this will be hidden from the list of packages in
+the launcher.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="advanced-configuration">
+<h2>Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The following variables provide further control of the build process:</p>
+<dl class="var">
+<dt id="var-build.exclude_empty_directories">
+<tt class="descname">build.exclude_empty_directories</tt> = True<a class="headerlink" href="#var-build.exclude_empty_directories" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, empty directories (including directories left empty by
+file archiving) will be removed from generated packages. If false,
+empty directories will be included.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-build.destination">
+<tt class="descname">build.destination</tt> = &quot;{directory_name}-dists&quot;<a class="headerlink" href="#var-build.destination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the path to the directory the archive files will be placed in. This
+may be an absolute or a relative path. A relative path is considered to
+be relative to the projects directory.</p>
+<p>The following values are substituted in using python's str.format function.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">{directory_name}</span></tt></dt>
+<dd>The value of build.directory_name.</dd>
+<dt><tt class="docutils literal"><span class="pre">{executable_name}</span></tt></dt>
+<dd>The value of build.executable_name.</dd>
+<dt><tt class="docutils literal"><span class="pre">{version}</span></tt></dt>
+<dd>The value of build.version.</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="updater.html" title="Web Updater"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="other.html" title="Other Functions"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

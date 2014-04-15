@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>In-Game Menus &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Python Statements" href="python.html" />
+    <link rel="prev" title="Displaying Images" href="displaying_images.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="python.html" title="Python Statements"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="displaying_images.html" title="Displaying Images"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一节</h4>
+  <p class="topless"><a href="displaying_images.html"
+                        title="previous chapter">Displaying Images</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="python.html"
+                        title="next chapter">Python Statements</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="in-game-menus">
+<span id="menu-statement"></span><span id="menus"></span><h1>In-Game Menus<a class="headerlink" href="#in-game-menus" title="Permalink to this headline">¶</a></h1>
+<p>In many visual novels, the player is asked to make choices that
+control the outcome of the story. The Ren'Py language contains a menus
+statement that makes it easy to present choices to the user.</p>
+<p>Here's an example of a menu statement:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">menu</span><span class="p">:</span>
+     <span class="s">&quot;What should I do?&quot;</span>
+
+     <span class="s">&quot;Drink coffee.&quot;</span><span class="p">:</span>
+         <span class="s">&quot;I drink the coffee, and it&#39;s good to the last drop.&quot;</span>
+
+     <span class="s">&quot;Drink tea.&quot;</span><span class="p">:</span>
+         <span class="k">$</span> <span class="n">drank_tea</span> <span class="o">=</span> <span class="bp">True</span>
+
+         <span class="s">&quot;I drink the tea, trying not to make a political statement as I do.&quot;</span>
+
+     <span class="s">&quot;Genuflect.&quot;</span><span class="p">:</span>
+         <span class="k">jump</span> <span class="n">genuflect_ending</span>
+
+<span class="k">label</span> <span class="n">after_menu</span><span class="p">:</span>
+
+     <span class="s">&quot;After having my drink, I got on with my morning.&quot;</span>
+</pre></div>
+</div>
+<p>The menu statement begins with the keyword menu. This may be followed
+by a label name, in which case it's equivalent to preceding the menu
+with that label. For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">menu</span> <span class="n">drink_menu</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>The menu statement is followed by an indented block. This block may
+contain a <a class="reference internal" href="dialogue.html#say-statement"><em>say statement</em></a>, and must contain at
+least one menu choice. If the say statement is present, it is
+displayed on the screen at the same time as the menu.</p>
+<p><strong>Menu Choices.</strong>
+A menu choice is an option the user can select from the in-game
+menu. A menu choice begins with a string. The string may be followed
+by an if-clause, which makes the choice conditional. The menu choice
+ends with a colon, and must be followed by a block of Ren'Py
+statements.</p>
+<p>When the choice is selected, the block of code is run. If execution
+reaches the end of this block of code, it continues with the statement
+after the end of the menu statement.</p>
+<p>An if-clause consists of the keyword <tt class="docutils literal"><span class="pre">if</span></tt>, followed by a python
+expression. The menu choice is only displayed if the expression is
+true. In the following menu:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">menu</span><span class="p">:</span>
+    <span class="s">&quot;Go left.&quot;</span><span class="p">:</span>
+        <span class="o">...</span>
+    <span class="s">&quot;Go right.&quot;</span><span class="p">:</span>
+        <span class="o">...</span>
+    <span class="s">&quot;Fly above.&quot;</span> <span class="k">if</span> <span class="n">drank_tea</span><span class="p">:</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>The third choice will only be presented if the drank_tea variable is
+true.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="python.html" title="Python Statements"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="displaying_images.html" title="Displaying Images"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Image Gallery, Music Room, and Replay Actions &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Drag and Drop" href="drag_drop.html" />
+    <link rel="prev" title="Side Images" href="side_image.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="drag_drop.html" title="Drag and Drop"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="side_image.html" title="Side Images"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Image Gallery, Music Room, and Replay Actions</a><ul>
+<li><a class="reference internal" href="#image-gallery">Image Gallery</a></li>
+<li><a class="reference internal" href="#music-room">Music Room</a></li>
+<li><a class="reference internal" href="#replay">Replay</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="side_image.html"
+                        title="previous chapter">Side Images</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="drag_drop.html"
+                        title="next chapter">Drag and Drop</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="image-gallery-music-room-and-replay-actions">
+<h1>Image Gallery, Music Room, and Replay Actions<a class="headerlink" href="#image-gallery-music-room-and-replay-actions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="image-gallery">
+<span id="id1"></span><h2>Image Gallery<a class="headerlink" href="#image-gallery" title="Permalink to this headline">¶</a></h2>
+<p>A image gallery is a screen that allows the player to unlock images,
+and then view those images. The screen has one or more buttons associated
+with it, and each button has one or more associated images. Buttons and
+images also have conditions that determine if they have unlocked.</p>
+<p>Image galleries are managed by instances of the Gallery class. A
+single instance of the gallery class may be shared between multiple
+image gallery screens.</p>
+<p>A gallery has one or more buttons associated with it, a button has one
+or more images associated with it, and each image has one or more displayables
+associated with it. Conditions can be assigned to buttons and images. A button
+is unlocked when all of the conditions associated with it are satisfied and
+at least one image associated with that button is unlocked. An image is unlocked
+when all associated conditions are satisfied.</p>
+<p>Creating an image gallery consists of the following four steps.</p>
+<ol class="arabic">
+<li><p class="first">Create an instance of Gallery.</p>
+</li>
+<li><p class="first">Add buttons and images to that gallery, along with conditions that
+determine if the buttons and images they belong to are unlocked. This
+is also a multi-step process.</p>
+<ol class="arabic simple">
+<li>Declare a new button by calling <a class="reference internal" href="#Gallery.button" title="Gallery.button"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.button()</span></tt></a>.</li>
+<li>Optionally, add one or more unlock conditions to the button by
+calling <a class="reference internal" href="#Gallery.unlock" title="Gallery.unlock"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.unlock()</span></tt></a> or <a class="reference internal" href="#Gallery.condition" title="Gallery.condition"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.condition()</span></tt></a>.</li>
+<li>Declare an image by calling <a class="reference internal" href="#Gallery.image" title="Gallery.image"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.image()</span></tt></a> with one or
+displayables as arguments. Or call the convenience method
+<a class="reference internal" href="#Gallery.unlock_image" title="Gallery.unlock_image"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.unlock_image()</span></tt></a> instead.</li>
+<li>Optionally, call <a class="reference internal" href="#Gallery.transform" title="Gallery.transform"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.transform()</span></tt></a> to associate
+transforms with the displayables.</li>
+<li>Optionally, add one or more unlock conditions to the image by
+calling <a class="reference internal" href="#Gallery.unlock" title="Gallery.unlock"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.unlock()</span></tt></a>, <a class="reference internal" href="#Gallery.condition" title="Gallery.condition"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.condition()</span></tt></a>,
+or <a class="reference internal" href="#Gallery.allprior" title="Gallery.allprior"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.allprior()</span></tt></a>.</li>
+</ol>
+<p>Additional images can be added to a button by repeating steps 3-5,
+while additional buttons can be added to the gallery by repeating
+all five steps.</p>
+</li>
+<li><p class="first">Create an image gallery screen. The screen should display a background,
+and should contain navigation that allows the user to show other
+image galleries, or to return to the main or extras menu.</p>
+</li>
+<li><p class="first">Add code to display the image gallery screen to the main or extras menu.</p>
+</li>
+</ol>
+<p>Here's an example of the first three steps:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="c"># Step 1. Create the gallery object.</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">Gallery</span><span class="p">()</span>
+
+    <span class="c"># Step 2. Add buttons and images to the gallery.</span>
+
+    <span class="c"># A button that contains an image that automatically unlocks.</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;dawn&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;dawn1&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock</span><span class="p">(</span><span class="s">&quot;dawn1&quot;</span><span class="p">)</span>
+
+    <span class="c"># This button has multiple images assocated with it. We use unlock_image</span>
+    <span class="c"># so we don&#39;t have to call both .image and .unlock. We also apply a</span>
+    <span class="c"># transform to the first image.</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;dark&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;bigbeach1&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">transform</span><span class="p">(</span><span class="n">slowpan</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach1 mary&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach2&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach3&quot;</span><span class="p">)</span>
+
+    <span class="c"># This button has a condition associated with it, allowing code</span>
+    <span class="c"># to choose which images unlock.</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;end1&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s">&quot;persistent.unlock_1&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;transfer&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;moonpic&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;girlpic&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;nogirlpic&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;bad_ending&quot;</span><span class="p">)</span>
+
+    <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;end2&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s">&quot;persistent.unlock_2&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;library&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;beach1 nomoon&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;bad_ending&quot;</span><span class="p">)</span>
+
+    <span class="c"># The last image in this button has an condition associated with it,</span>
+    <span class="c"># so it will only unlock if the user gets both endings.</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;end3&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s">&quot;persistent.unlock_3&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;littlemary2&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;littlemary&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;good_ending&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s">&quot;persistent.unlock_3 and persistent.unlock_4&quot;</span><span class="p">)</span>
+
+    <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;end4&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s">&quot;persistent.unlock_4&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;hospital1&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;hospital2&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;hospital3&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;heaven&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;white&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;good_ending&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s">&quot;persistent.unlock_3 and persistent.unlock_4&quot;</span><span class="p">)</span>
+
+    <span class="c"># The final two buttons contain images that show multiple pictures</span>
+    <span class="c"># at the same time. This can be used to compose character art onto</span>
+    <span class="c"># a background.</span>
+    <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;dawn mary&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;dawn1&quot;</span><span class="p">,</span> <span class="s">&quot;mary dawn wistful&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;dawn1&quot;</span><span class="p">,</span> <span class="s">&quot;mary dawn smiling&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;dawn1&quot;</span><span class="p">,</span> <span class="s">&quot;mary dawn vhappy&quot;</span><span class="p">)</span>
+
+    <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;dark mary&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach2&quot;</span><span class="p">,</span> <span class="s">&quot;mary dark wistful&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach2&quot;</span><span class="p">,</span> <span class="s">&quot;mary dark smiling&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach2&quot;</span><span class="p">,</span> <span class="s">&quot;mary dark vhappy&quot;</span><span class="p">)</span>
+
+    <span class="c"># The transition used when switching images.</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">transition</span> <span class="o">=</span> <span class="n">dissolve</span>
+
+<span class="c"># Step 3. The gallery screen we use.</span>
+<span class="k">screen</span> <span class="n">gallery</span><span class="p">:</span>
+
+    <span class="c"># Ensure this replaces the main menu.</span>
+    <span class="n">tag</span> <span class="k">menu</span>
+
+    <span class="c"># The background.</span>
+    <span class="k">add</span> <span class="s">&quot;beach2&quot;</span>
+
+    <span class="c"># A grid of buttons.</span>
+    <span class="k">grid</span> <span class="mi">3</span> <span class="mi">3</span><span class="p">:</span>
+
+        <span class="na">xfill</span> <span class="bp">True</span>
+        <span class="na">yfill</span> <span class="bp">True</span>
+
+        <span class="c"># Call make_button to show a particular button.</span>
+        <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;dark&quot;</span><span class="p">,</span> <span class="s">&quot;gal-dark.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;dawn&quot;</span><span class="p">,</span> <span class="s">&quot;gal-dawn.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;end1&quot;</span><span class="p">,</span> <span class="s">&quot;gal-end1.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;end2&quot;</span><span class="p">,</span> <span class="s">&quot;gal-end2.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;end3&quot;</span><span class="p">,</span> <span class="s">&quot;gal-end3.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;end4&quot;</span><span class="p">,</span> <span class="s">&quot;gal-end4.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;dark mary&quot;</span><span class="p">,</span> <span class="s">&quot;gal-dark_mary.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;dawn mary&quot;</span><span class="p">,</span> <span class="s">&quot;gal-dawn_mary.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="c"># The screen is responsible for returning to the main menu. It could also</span>
+        <span class="c"># navigate to other gallery screens.</span>
+        <span class="k">textbutton</span> <span class="s">&quot;Return&quot;</span> <span class="na">action</span> <span class="n">Return</span><span class="p">()</span> <span class="na">xalign</span> <span class="mf">0.5</span> <span class="na">yalign</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+<p>Step 4 will vary based on how your game is structured, but one way of
+accomplishing it is to add the following line:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">textbutton</span> <span class="s">&quot;Gallery&quot;</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;gallery&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>to the main menu screen.</p>
+<dl class="class">
+<dt id="Gallery">
+<em class="property">class </em><tt class="descname">Gallery</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#Gallery" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class supports the creation of an image gallery by handling the
+locking of images, providing an action that can show one or more images,
+and a providing method that creates buttons that use that action.</p>
+<dl class="attribute">
+<dt id="Gallery.transition">
+<tt class="descname">transition</tt><a class="headerlink" href="#Gallery.transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transition that is used when changing images.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Gallery.locked_button">
+<tt class="descname">locked_button</tt><a class="headerlink" href="#Gallery.locked_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default displayable used by make_button for a locked button.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Gallery.hover_border">
+<tt class="descname">hover_border</tt><a class="headerlink" href="#Gallery.hover_border" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default hover border used by make_button.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Gallery.idle_border">
+<tt class="descname">idle_border</tt><a class="headerlink" href="#Gallery.idle_border" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default idle border used by make_button.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Gallery.navigation">
+<tt class="descname">navigation</tt><a class="headerlink" href="#Gallery.navigation" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, the gallery will display navigation and slideshow
+buttons on top of the images.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Gallery.span_buttons">
+<tt class="descname">span_buttons</tt><a class="headerlink" href="#Gallery.span_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, the gallery will advance between buttons.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Gallery.locked">
+<tt class="descname">locked</tt><a class="headerlink" href="#Gallery.locked" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, the gallery will advance through locked images.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Gallery.slideshow_delay">
+<tt class="descname">slideshow_delay</tt><a class="headerlink" href="#Gallery.slideshow_delay" title="Permalink to this definition">¶</a></dt>
+<dd><p>The time it will take for the gallery to advance between images
+in slideshow mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.Action">
+<tt class="descname">Action</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#Gallery.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>An action that displays the images associated with the given button
+name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.Next">
+<tt class="descname">Next</tt><big>(</big><em>unlocked=False</em><big>)</big><a class="headerlink" href="#Gallery.Next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Advances to the next image in the gallery.</p>
+<dl class="docutils">
+<dt><cite>unlocked</cite></dt>
+<dd>If true, only considers unlocked images.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.Previous">
+<tt class="descname">Previous</tt><big>(</big><em>unlocked=False</em><big>)</big><a class="headerlink" href="#Gallery.Previous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Goes to the previous image in the gallery.</p>
+<dl class="docutils">
+<dt><cite>unlocked</cite></dt>
+<dd>If true, only considers unlocked images.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.Return">
+<tt class="descname">Return</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#Gallery.Return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops displaying gallery images.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.ToggleSlideshow">
+<tt class="descname">ToggleSlideshow</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#Gallery.ToggleSlideshow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggles slideshow mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.allprior">
+<tt class="descname">allprior</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#Gallery.allprior" title="Permalink to this definition">¶</a></dt>
+<dd><p>A condition that is true if all prior images associated with the
+current button have been unlocked.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.button">
+<tt class="descname">button</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#Gallery.button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new button, named <cite>name</cite>.</p>
+<dl class="docutils">
+<dt><cite>name</cite></dt>
+<dd>The name of the button being created.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.condition">
+<tt class="descname">condition</tt><big>(</big><em>expression</em><big>)</big><a class="headerlink" href="#Gallery.condition" title="Permalink to this definition">¶</a></dt>
+<dd><p>A condition that is satisfied when an expression evaluates to true.</p>
+<dl class="docutils">
+<dt><cite>expression</cite></dt>
+<dd>A string giving a python expression.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.display">
+<tt class="descname">display</tt><big>(</big><em>*displayables</em><big>)</big><a class="headerlink" href="#Gallery.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new image to the current button, where an image consists
+of one or more displayables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.get_fraction">
+<tt class="descname">get_fraction</tt><big>(</big><em>name</em>, <em>format='{seen}/{total}'</em><big>)</big><a class="headerlink" href="#Gallery.get_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a text string giving the number of unlocked images and total number of images in the button
+named <cite>name</cite>.</p>
+<dl class="docutils">
+<dt><cite>format</cite></dt>
+<dd><p class="first">A python format string that's used to format the numbers. This has three values that
+can be substituted in:</p>
+<dl class="last docutils">
+<dt>{seen}</dt>
+<dd>The number of images that have been seen.</dd>
+<dt>{total}</dt>
+<dd>The total number of images in the button.</dd>
+<dt>{locked}</dt>
+<dd>The number of images that are still locked.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.image">
+<tt class="descname">image</tt><big>(</big><em>*displayables</em><big>)</big><a class="headerlink" href="#Gallery.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new image to the current button, where an image consists
+of one or more displayables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.make_button">
+<tt class="descname">make_button</tt><big>(</big><em>name</em>, <em>unlocked</em>, <em>locked=None</em>, <em>hover_border=None</em>, <em>idle_border=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Gallery.make_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a button that displays the images associated with the given
+button name.</p>
+<dl class="docutils">
+<dt><cite>name</cite></dt>
+<dd>The name of the button that will be created.</dd>
+<dt><cite>unlocked</cite></dt>
+<dd>A displayable that is displayed for this button when it is
+unlocked.</dd>
+<dt><cite>locked</cite></dt>
+<dd>A displayable that is displayed for this button when it is
+locked. If None, the locked_button field of the gallery
+object is used instead.</dd>
+<dt><cite>hover_border</cite></dt>
+<dd>A displayable that is used to overlay this button when
+it is unlocked and has focus. If None, the hover_border
+field of the gallery object is used.</dd>
+<dt><cite>idle_border</cite></dt>
+<dd>A displayable that is used to overlay this button when
+it is unlocked but unfocused. If None, the idle_border
+field of the gallery object is used.</dd>
+</dl>
+<p>Additional keyword arguments become style properties of the
+created button object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.transform">
+<tt class="descname">transform</tt><big>(</big><em>*transforms</em><big>)</big><a class="headerlink" href="#Gallery.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies transforms to the last image registered. This should be
+called with the same number of transforms as the image has
+displayables. The transforms are applied to the corresponding
+displayables.</p>
+<p>If a transform is None, the default transform is used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.unlock">
+<tt class="descname">unlock</tt><big>(</big><em>*images</em><big>)</big><a class="headerlink" href="#Gallery.unlock" title="Permalink to this definition">¶</a></dt>
+<dd><p>A condition that takes one or more image names as argument, and
+is satisfied when all the named images have been seen by the
+player. The image names should be given as strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Gallery.unlock_image">
+<tt class="descname">unlock_image</tt><big>(</big><em>*images</em><big>)</big><a class="headerlink" href="#Gallery.unlock_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenience method that is equivalent to calling image and unlock
+with the same parameters. This will cause an image to be displayed
+if it has been seen before.</p>
+<p>The images should be specified as strings giving image names.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="music-room">
+<span id="id2"></span><h2>Music Room<a class="headerlink" href="#music-room" title="Permalink to this headline">¶</a></h2>
+<p>A music room is a screen that allows the user to select and play music
+tracks from the game. These tracks may start off locked when the user
+first begins playing a particular game, and will be unlocked as the
+user listens to the music while playing the game.</p>
+<p>A music room is managed by an instance of the MusicRoom class. There
+can be more than one MusicRoom instance in a game, allowing a game to
+have multiple music rooms. Creating a music room consists of the
+following four steps:</p>
+<ol class="arabic">
+<li><p class="first">Create an instance of MusicRoom. The MusicRoom constructor takes
+parameters to control the channel on which music is played back,
+and how long it takes to fade music out and back in.</p>
+</li>
+<li><p class="first">Add music files to the instance.</p>
+</li>
+<li><p class="first">Create a screen that uses the MusicRoom instance to create actions
+for buttons, imagebuttons, or hotspots. These actions can pick a
+track, the next or previous track, or stop and start the music.</p>
+<p>Note that the actions used are members of a MusicRoom instance,
+so if the MusicRoom instance is named <tt class="docutils literal"><span class="pre">mr</span></tt>, then
+<tt class="docutils literal"><span class="pre">mr.Play(&quot;track1.ogg&quot;)</span></tt> is how you'd use the play action.</p>
+</li>
+<li><p class="first">Add the music room screen to the main menu, or an extras menu.</p>
+</li>
+</ol>
+<p>Here's an example of the first three steps:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+
+    <span class="c"># Step 1. Create a MusicRoom instance.</span>
+    <span class="n">mr</span> <span class="o">=</span> <span class="n">MusicRoom</span><span class="p">(</span><span class="n">fadeout</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="c"># Step 2. Add music files.</span>
+    <span class="n">mr</span><span class="o">.</span><span class="k">add</span><span class="p">(</span><span class="s">&quot;track1.ogg&quot;</span><span class="p">,</span> <span class="n">always_unlocked</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">mr</span><span class="o">.</span><span class="k">add</span><span class="p">(</span><span class="s">&quot;track2.ogg&quot;</span><span class="p">)</span>
+    <span class="n">mr</span><span class="o">.</span><span class="k">add</span><span class="p">(</span><span class="s">&quot;track3.ogg&quot;</span><span class="p">)</span>
+
+
+<span class="c"># Step 3. Create the music room screen.</span>
+<span class="k">screen</span> <span class="n">music_room</span><span class="p">:</span>
+
+    <span class="n">tag</span> <span class="k">menu</span>
+
+    <span class="k">frame</span><span class="p">:</span>
+        <span class="k">has</span> <span class="k">vbox</span>
+
+        <span class="c"># The buttons that play each track.</span>
+        <span class="k">textbutton</span> <span class="s">&quot;Track 1&quot;</span> <span class="na">action</span> <span class="n">mr</span><span class="o">.</span><span class="n">Play</span><span class="p">(</span><span class="s">&quot;track1.ogg&quot;</span><span class="p">)</span>
+        <span class="k">textbutton</span> <span class="s">&quot;Track 2&quot;</span> <span class="na">action</span> <span class="n">mr</span><span class="o">.</span><span class="n">Play</span><span class="p">(</span><span class="s">&quot;track2.ogg&quot;</span><span class="p">)</span>
+        <span class="k">textbutton</span> <span class="s">&quot;Track 3&quot;</span> <span class="na">action</span> <span class="n">mr</span><span class="o">.</span><span class="n">Play</span><span class="p">(</span><span class="s">&quot;track3.ogg&quot;</span><span class="p">)</span>
+
+        <span class="k">null</span> <span class="na">height</span> <span class="mi">20</span>
+
+        <span class="c"># Buttons that let us advance tracks.</span>
+        <span class="k">textbutton</span> <span class="s">&quot;Next&quot;</span> <span class="na">action</span> <span class="n">mr</span><span class="o">.</span><span class="n">Next</span><span class="p">()</span>
+        <span class="k">textbutton</span> <span class="s">&quot;Previous&quot;</span> <span class="na">action</span> <span class="n">mr</span><span class="o">.</span><span class="n">Previous</span><span class="p">()</span>
+
+        <span class="k">null</span> <span class="na">height</span> <span class="mi">20</span>
+
+        <span class="c"># The button that lets the user exit the music room.</span>
+        <span class="k">textbutton</span> <span class="s">&quot;Main Menu&quot;</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;main_menu&quot;</span><span class="p">)</span>
+
+    <span class="c"># Start the music playing on entry to the music room.</span>
+    <span class="k">on</span> <span class="s">&quot;replace&quot;</span> <span class="na">action</span> <span class="n">mr</span><span class="o">.</span><span class="n">Play</span><span class="p">()</span>
+
+    <span class="c"># Restore the main menu music upon leaving.</span>
+    <span class="k">on</span> <span class="s">&quot;replaced&quot;</span> <span class="na">action</span> <span class="n">Play</span><span class="p">(</span><span class="s">&quot;music&quot;</span><span class="p">,</span> <span class="s">&quot;track1.ogg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Step 4 will vary based on how your game is structured, but one way of
+accomplishing it is to add the following line:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">textbutton</span> <span class="s">&quot;Music Room&quot;</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;music_room&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>to the main menu screen.</p>
+<p>Using the <tt class="xref py py-func docutils literal"><span class="pre">Preferences()</span></tt> function, especially
+<tt class="docutils literal"><span class="pre">Preferences(&quot;music</span> <span class="pre">volume&quot;)</span></tt>, it's possible to include a volume
+slider on the music screen.</p>
+<dl class="class">
+<dt id="MusicRoom">
+<em class="property">class </em><tt class="descname">MusicRoom</tt><big>(</big><em>channel='music'</em>, <em>fadeout=0.0</em>, <em>fadein=0.0</em>, <em>loop=True</em>, <em>single_track=False</em>, <em>shuffle=False</em>, <em>stop_action=None</em><big>)</big><a class="headerlink" href="#MusicRoom" title="Permalink to this definition">¶</a></dt>
+<dd><p>A music room that contains a series of songs that can be unlocked
+by the user, and actions that can play entries from the list in
+order.</p>
+<dl class="docutils">
+<dt><cite>channel</cite></dt>
+<dd>The channel that this music room will operate on.</dd>
+<dt><cite>fadeout</cite></dt>
+<dd>The number of seconds it takes to fade out the old
+music when changing tracks.</dd>
+<dt><cite>fadein</cite></dt>
+<dd>The number of seconds it takes to fade in the new
+music when changing tracks.</dd>
+<dt><cite>loop</cite></dt>
+<dd>Determines if playback will loop or stop when it reaches
+the end of the playlist.</dd>
+<dt><cite>single_track</cite></dt>
+<dd>If true, only a single track will play. If loop is true,
+that track will loop. Otherwise, playback will stop when the
+track finishes.</dd>
+<dt><cite>shuffle</cite></dt>
+<dd>If true, the tracks are shuffled, and played in the shuffled
+order. If false, the tracks are played in the order they're
+added to the MusicRoom.</dd>
+<dt><cite>stop_action</cite></dt>
+<dd>An action to run when the music has stopped.</dd>
+</dl>
+<p>Single_track and shuffle conflict with each other. Only one should
+be true at a time. (Actions that set single_track and shuffle
+enforce this.)</p>
+<dl class="method">
+<dt id="MusicRoom.Next">
+<tt class="descname">Next</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#MusicRoom.Next" title="Permalink to this definition">¶</a></dt>
+<dd><p>An action that causes the music room to play the next unlocked file
+in the playlist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.Play">
+<tt class="descname">Play</tt><big>(</big><em>filename=None</em><big>)</big><a class="headerlink" href="#MusicRoom.Play" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action causes the music room to start playing. If <cite>filename</cite> is given, that
+file begins playing. Otherwise, the currently playing file starts
+over (if it's unlocked), or the first file starts playing.</p>
+<p>If <cite>filename</cite> is given, buttons with this action will be insensitive
+while <cite>filename</cite> is locked, and will be selected when <cite>filename</cite>
+is playing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.Previous">
+<tt class="descname">Previous</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#MusicRoom.Previous" title="Permalink to this definition">¶</a></dt>
+<dd><p>An action that causes the music room to play the previous unlocked
+file in the playlist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.RandomPlay">
+<tt class="descname">RandomPlay</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#MusicRoom.RandomPlay" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action causes the music room to start playing a randomly selected unlocked
+music track.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.SetLoop">
+<tt class="descname">SetLoop</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#MusicRoom.SetLoop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action sets the value of the loop property.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.SetShuffle">
+<tt class="descname">SetShuffle</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#MusicRoom.SetShuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action sets the value of the shuffle property.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.SetSingleTrack">
+<tt class="descname">SetSingleTrack</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#MusicRoom.SetSingleTrack" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action sets the value of the single_track property.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.Stop">
+<tt class="descname">Stop</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#MusicRoom.Stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action stops the music.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.ToggleLoop">
+<tt class="descname">ToggleLoop</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#MusicRoom.ToggleLoop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action toggles the value of the loop property.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.TogglePlay">
+<tt class="descname">TogglePlay</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#MusicRoom.TogglePlay" title="Permalink to this definition">¶</a></dt>
+<dd><p>If no music is currently playing, this action starts playing the first
+unlocked track. Otherwise, stops the currently playing music.</p>
+<p>This button is selected when any music is playing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.ToggleShuffle">
+<tt class="descname">ToggleShuffle</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#MusicRoom.ToggleShuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action toggles the value of the shuffle property.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.ToggleSingleTrack">
+<tt class="descname">ToggleSingleTrack</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#MusicRoom.ToggleSingleTrack" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action toggles the value of the single_track property.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.add">
+<tt class="descname">add</tt><big>(</big><em>filename</em>, <em>always_unlocked=False</em>, <em>action=None</em><big>)</big><a class="headerlink" href="#MusicRoom.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the music file <cite>filename</cite> to this music room. The music room
+will play unlocked files in the order that they are added to the
+room.</p>
+<dl class="docutils">
+<dt><cite>always_unlocked</cite></dt>
+<dd>If true, the music file will be always unlocked. This allows
+the file to show up in the music room before it has been
+played in the game.</dd>
+<dt><cite>action</cite></dt>
+<dd><p class="first">This is a action or the list of actions. these are called when this
+file is played.</p>
+<p class="last">For example, These actions is used to change a screen or background, description
+by the playing file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MusicRoom.is_unlocked">
+<tt class="descname">is_unlocked</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#MusicRoom.is_unlocked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the filename has been unlocked (or is always
+unlocked), and false if it is still locked.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="replay">
+<span id="id3"></span><h2>Replay<a class="headerlink" href="#replay" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py also includes the ability to replay a scene from inside a the
+main or game menu. This can be used to create a &quot;scene gallery&quot;, or
+memory gallery that allows the player to repeat important scenes.
+After the scene finishes, Ren'Py returns to the menu screen that
+launched the replay.</p>
+<p>Scene replay is also possible using the <a class="reference internal" href="screen_actions.html#Start" title="Start"><tt class="xref py py-func docutils literal"><span class="pre">Start()</span></tt></a> action. The
+difference between the two modes are:</p>
+<ul class="simple">
+<li>A replay can be launched from any screen while Start can only be
+used in the main menu or screens shown by the main menu.</li>
+<li>When a replay finishes, control returns to the point where the
+replay was invoked. That point can be inside the main menu, game
+menu. If a game is in progress when replay is called, game state is
+preserved.</li>
+<li>Saving is disabled while in replay mode.</li>
+<li>While in replay mode, a call to <a class="reference internal" href="#renpy.end_replay" title="renpy.end_replay"><tt class="xref py py-func docutils literal"><span class="pre">renpy.end_replay()</span></tt></a> will end
+the replay. In normal mode, end_replay does nothing.</li>
+</ul>
+<p>To take advantage of the replay mode, a scene should begin with a
+label, and end with a call to renpy.end_replay. The scene should make
+no assumption as to the state of the layers or variables, which can be
+very different in normal and replay mode. (In replay code, the label
+is invoked with a black screen.)</p>
+<p>For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre>
+
+     <span class="s">&quot;And finally, I met the wizard himself.&quot;</span>
+
+<span class="k">label</span> <span class="n">meaning_of_life</span><span class="p">:</span>
+
+     <span class="k">scene</span>
+
+    <span class="s">&quot;Mage&quot;</span> <span class="s">&quot;What is the meaning of life, you say?&quot;</span>
+
+    <span class="s">&quot;Mage&quot;</span> <span class="s">&quot;I&#39;ve thought about it long and hard. A long time, I&#39;ve</span>
+            <span class="n">spent</span> <span class="n">pondering</span> <span class="n">that</span> <span class="n">very</span> <span class="n">thing</span><span class="o">.</span><span class="s">&quot;</span>
+
+    <span class="s">&quot;Mage&quot;</span> <span class="s">&quot;And I&#39;ll say - the answer - the meaning of life</span>
+            <span class="n">itself</span><span class="o">...</span><span class="s">&quot;</span>
+
+    <span class="s">&quot;Mage&quot;</span> <span class="s">&quot;Is forty-three.&quot;</span>
+
+    <span class="k">$</span> <span class="n">renpy</span><span class="o">.</span><span class="n">end_replay</span><span class="p">()</span>
+
+    <span class="s">&quot;Mage&quot;</span> <span class="s">&quot;Something like that, anyway.&quot;</span>
+</pre></div>
+</div>
+<p>With the scene define like that, the replay can be invoked with the
+Replay action:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">textbutton</span> <span class="s">&quot;The meaning of life&quot;</span> <span class="na">action</span> <span class="n">Replay</span><span class="p">(</span><span class="s">&quot;meaning_of_life&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There is one store variable used by replay mode:</p>
+<dl class="var">
+<dt id="var-_in_replay">
+<tt class="descname">_in_replay</tt><a class="headerlink" href="#var-_in_replay" title="Permalink to this definition">¶</a></dt>
+<dd><p>When in replay mode, this is sent to the label at which replay
+mode was started. Outside of replay mode, this is None.</p>
+</dd></dl>
+
+<p>In addition, <a class="reference internal" href="config.html#var-config.enter_replay_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.enter_replay_transition</span></tt></a> and
+<a class="reference internal" href="config.html#var-config.exit_replay_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.exit_replay_transition</span></tt></a> are used when entering and exiting
+replay mode, respectively.</p>
+<p>The following variables and actions are used in replay mode:</p>
+<dl class="function">
+<dt id="EndReplay">
+<tt class="descname">EndReplay</tt><big>(</big><big>)</big><a class="headerlink" href="#EndReplay" title="Permalink to this definition">¶</a></dt>
+<dd><p>An action that ends the current memory.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Replay">
+<tt class="descname">Replay</tt><big>(</big><em>label</em>, <em>scope={}</em>, <em>locked=None</em><big>)</big><a class="headerlink" href="#Replay" title="Permalink to this definition">¶</a></dt>
+<dd><p>An action that starts <cite>label</cite> as a replay.</p>
+<dl class="docutils">
+<dt><cite>scope</cite></dt>
+<dd>A dictionary mapping variable name to value. These variables are set
+when entering the replay.</dd>
+<dt><cite>locked</cite></dt>
+<dd>If true, this replay is locked. If false, it is unlocked. If None, the
+replay is locked if the label has not been seen in any playthrough.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.call_replay">
+<tt class="descclassname">renpy.</tt><tt class="descname">call_replay</tt><big>(</big><em>label</em>, <em>scope={}</em><big>)</big><a class="headerlink" href="#renpy.call_replay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls a label as a memory.</p>
+<p>Keyword arguments are used to set the initial values of variables in the
+memory context.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.end_replay">
+<tt class="descclassname">renpy.</tt><tt class="descname">end_replay</tt><big>(</big><big>)</big><a class="headerlink" href="#renpy.end_replay" title="Permalink to this definition">¶</a></dt>
+<dd><p>If we're in a replay, ends the replay immediately. Otherwise, does
+nothing.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="drag_drop.html" title="Drag and Drop"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="side_image.html" title="Side Images"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

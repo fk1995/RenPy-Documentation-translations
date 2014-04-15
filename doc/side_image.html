@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Side Images &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Image Gallery, Music Room, and Replay Actions" href="rooms.html" />
+    <link rel="prev" title="Text Input" href="input.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="rooms.html" title="Image Gallery, Music Room, and Replay Actions"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="input.html" title="Text Input"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Side Images</a><ul>
+<li><a class="reference internal" href="#invisible-characters">Invisible Characters</a></li>
+<li><a class="reference internal" href="#variations">Variations</a></li>
+<li><a class="reference internal" href="#leaving-room-customization">Leaving Room / Customization</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="input.html"
+                        title="previous chapter">Text Input</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="rooms.html"
+                        title="next chapter">Image Gallery, Music Room, and Replay Actions</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="side-images">
+<span id="id1"></span><h1>Side Images<a class="headerlink" href="#side-images" title="Permalink to this headline">¶</a></h1>
+<p>Many visual novels include a picture of the character that is speaking as
+part of their interface. Ren'Py calls this image a side image, and has
+support for automatically selecting and displaying a side image as part
+of the dialogue.</p>
+<p>The side image support assumes that a <a class="reference internal" href="dialogue.html#Character" title="Character"><tt class="xref py py-func docutils literal"><span class="pre">Character()</span></tt></a> is declared with
+a linked image tag:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span> <span class="k">image</span><span class="o">=</span><span class="s">&quot;eileen&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When a character with a linked image tag speaks, Ren'Py creates a pool of
+image attributes. The linked image tag is added to this pool, as are the
+current image attributes that are associated with that tag.</p>
+<p>To determine the side image associated with a tag, Ren'Py tries to find
+an image with the tag &quot;side&quot;, and the largest number of attributes from
+the pool. If no image can be found, or more than one image has the same
+number of attributes, an <a class="reference internal" href="displayables.html#Null" title="Null"><tt class="xref py py-class docutils literal"><span class="pre">Null</span></tt></a> is shown instead.</p>
+<p>For example, say we have the following script:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span> <span class="k">image</span><span class="o">=</span><span class="s">&quot;eileen&quot;</span><span class="p">)</span>
+
+<span class="k">image</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="o">=</span> <span class="s">&quot;eileen_happy.png&quot;</span>
+<span class="k">image</span> <span class="n">eileen</span> <span class="n">concerned</span> <span class="o">=</span> <span class="s">&quot;eileen_concerned.png&quot;</span>
+
+<span class="k">image</span> <span class="k">side</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="o">=</span> <span class="s">&quot;side_eileen_happy.png&quot;</span>
+<span class="k">image</span> <span class="k">side</span> <span class="n">eileen</span> <span class="o">=</span> <span class="s">&quot;side_eileen.png&quot;</span>
+
+<span class="k">label</span> <span class="n">start</span><span class="p">:</span>
+
+    <span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span>
+
+    <span class="n">e</span> <span class="s">&quot;Let&#39;s call this line Point A.&quot;</span>
+
+    <span class="n">e</span> <span class="n">concerned</span> <span class="s">&quot;And this one is point B.&quot;</span>
+</pre></div>
+</div>
+<p>At point A, the character <tt class="docutils literal"><span class="pre">e</span></tt> is speaking, which is linked to the image
+tag &quot;eileen&quot;. The &quot;eileen happy&quot; image is showing, so the pool of attributes
+is &quot;eileen&quot; and &quot;happy&quot;. We look for an image with the &quot;side&quot; tag, and as
+many of those attributes as possible - and we match &quot;side eileen happy&quot;,
+which is the side image Ren'Py will display.</p>
+<p>At point B, the &quot;eileen concerned&quot; image is showing. The pool of attributes
+is now &quot;eileen&quot; and &quot;concerned&quot;. The only matching image is &quot;side eileen&quot;,
+so that's what Ren'Py selects. If there was a &quot;side concerned&quot; image, there
+would be ambiguity, and Ren'Py wouldn't display an image.</p>
+<div class="section" id="invisible-characters">
+<h2>Invisible Characters<a class="headerlink" href="#invisible-characters" title="Permalink to this headline">¶</a></h2>
+<p>Another use of the side image is to show an image of the player character,
+when that character has dialogue. The way to do this is to link an image to
+the character, and then use the say with attributes construct to select
+the side image to show.</p>
+<p>For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Player&quot;</span><span class="p">,</span> <span class="k">image</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">)</span>
+
+<span class="k">image</span> <span class="k">side</span> <span class="n">player</span> <span class="n">happy</span> <span class="o">=</span> <span class="s">&quot;side_player_happy.png&quot;</span>
+<span class="k">image</span> <span class="k">side</span> <span class="n">player</span> <span class="n">concerned</span> <span class="o">=</span> <span class="s">&quot;side_player_concerned.png&quot;</span>
+
+<span class="k">label</span> <span class="n">start</span><span class="p">:</span>
+
+    <span class="n">p</span> <span class="n">happy</span> <span class="s">&quot;This is shown with the &#39;side player happy&#39; image.&quot;</span>
+
+    <span class="n">p</span> <span class="s">&quot;This is also shown with &#39;side player happy&#39;.&quot;</span>
+
+    <span class="n">p</span> <span class="n">concerned</span> <span class="s">&quot;This is shown with &#39;side player concerned&#39;.&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="variations">
+<h2>Variations<a class="headerlink" href="#variations" title="Permalink to this headline">¶</a></h2>
+<p>There are two variants of side image support that can be selected - either alone
+or together - using config variables:</p>
+<dl class="var">
+<dt id="var-config.side_image_tag">
+<tt class="descname">config.side_image_tag</tt> = None<a class="headerlink" href="#var-config.side_image_tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this is given, then the side image will track the given image tag,
+rather than the image associated with currently speaking character. For example,</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span> <span class="k">image</span><span class="o">=</span><span class="s">&quot;eileen&quot;</span><span class="p">)</span>
+
+<span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+     <span class="n">config</span><span class="o">.</span><span class="n">side_image_tag</span> <span class="o">=</span> <span class="s">&quot;eileen&quot;</span>
+</pre></div>
+</div>
+<p>Will make the side image track the &quot;eileen&quot; image tag, which is associated
+with the <tt class="docutils literal"><span class="pre">e</span></tt> character.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="var-config.side_image_only_not_showing">
+<tt class="descname">config.side_image_only_not_showing</tt> = False<a class="headerlink" href="#var-config.side_image_only_not_showing" title="Permalink to this definition">¶</a></dt>
+<dd><p>When set to true, the side image will only show if an image with that tag
+is not already being shown on the screen.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="leaving-room-customization">
+<h2>Leaving Room / Customization<a class="headerlink" href="#leaving-room-customization" title="Permalink to this headline">¶</a></h2>
+<p>By default, the entire width of the screen is taken up by the text. If one
+tries to display a side image, it will be displayed on top of the text. To
+fix this, one should include margin or padding on the appropriate side of
+the text window, using code like:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+     <span class="k">style</span><span class="o">.</span><span class="k">window</span><span class="o">.</span><span class="n">padding_left</span> <span class="o">=</span> <span class="mi">150</span>
+</pre></div>
+</div>
+<p>The position of the side image can be changed by customizing the <tt class="docutils literal"><span class="pre">say</span></tt>
+or <tt class="docutils literal"><span class="pre">nvl</span></tt> screens. Both include the line:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">add</span> <span class="n">SideImage</span><span class="p">()</span> <span class="na">xalign</span> <span class="mf">0.0</span> <span class="na">yalign</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>By changing the xalign and yalign properties, you can control the positioning
+of the side image on the screen.</p>
+<p>Finally, the <a class="reference internal" href="screen_actions.html#SideImage" title="SideImage"><tt class="xref py py-func docutils literal"><span class="pre">SideImage()</span></tt></a> function returns, as a displayable, the
+current side image. This can be used as part of more advanced screen
+customization.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="rooms.html" title="Image Gallery, Music Room, and Replay Actions"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="input.html" title="Text Input"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

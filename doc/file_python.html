@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>File Access &mdash; Ren&#39;Py Documentation</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
+    <link rel="next" title="Other Functions" href="other.html" />
+    <link rel="prev" title="Character Callbacks" href="character_callbacks.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="other.html" title="Other Functions"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="character_callbacks.html" title="Character Callbacks"
+             accesskey="P">上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">File Access</a><ul>
+<li><a class="reference internal" href="#rarely-used">Rarely Used</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一节</h4>
+  <p class="topless"><a href="character_callbacks.html"
+                        title="previous chapter">Character Callbacks</a></p>
+  <h4>下一节</h4>
+  <p class="topless"><a href="other.html"
+                        title="next chapter">Other Functions</a></p>
+            <h4>Search</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="file-access">
+<h1>File Access<a class="headerlink" href="#file-access" title="Permalink to this headline">¶</a></h1>
+<p>These Python functions allow you to access asset files, which may be found
+in the game directory, RPA archives, or as Android assets.</p>
+<dl class="function">
+<dt id="renpy.file">
+<tt class="descclassname">renpy.</tt><tt class="descname">file</tt><big>(</big><em>fn</em><big>)</big><a class="headerlink" href="#renpy.file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a read-only file-like object that accesses the file named <cite>fn</cite>. The file is
+accessed using Ren'Py's standard search method, and may reside in an RPA archive.
+or as an Android asset.</p>
+<p>The object supports a wide subset of the fields and methods found on python's
+standard file object, opened in binary mode. (Basically, all of the methods that
+are sensible for a read-only file.)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.list_files">
+<tt class="descclassname">renpy.</tt><tt class="descname">list_files</tt><big>(</big><em>common=False</em><big>)</big><a class="headerlink" href="#renpy.list_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the files in the game directory and archive files. Returns
+a list of files, with / as the directory separator.</p>
+<dl class="docutils">
+<dt><cite>common</cite></dt>
+<dd>If true, files in the common directory are included in the
+listing.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.loadable">
+<tt class="descclassname">renpy.</tt><tt class="descname">loadable</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#renpy.loadable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the given filename is loadable, meaning that it
+can be loaded from the disk or from inside an archive. Returns
+False if this is not the case.</p>
+</dd></dl>
+
+<div class="section" id="rarely-used">
+<h2>Rarely Used<a class="headerlink" href="#rarely-used" title="Permalink to this headline">¶</a></h2>
+<p>These functions are used more rarely.</p>
+<dl class="function">
+<dt id="renpy.exists">
+<tt class="descclassname">renpy.</tt><tt class="descname">exists</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#renpy.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the given filename can be found in the
+searchpath. This only works if a physical file exists on disk. It
+won't find the file if it's inside of an archive.</p>
+<p>You almost certainly want to use <a class="reference internal" href="#renpy.loadable" title="renpy.loadable"><tt class="xref py py-func docutils literal"><span class="pre">renpy.loadable()</span></tt></a> in preference
+to this function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.fsdecode">
+<tt class="descclassname">renpy.</tt><tt class="descname">fsdecode</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#renpy.fsdecode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts s from filesystem encoding to unicode.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.fsencode">
+<tt class="descclassname">renpy.</tt><tt class="descname">fsencode</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#renpy.fsencode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts s from unicode to the filesystem encoding.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="renpy.image_size">
+<tt class="descclassname">renpy.</tt><tt class="descname">image_size</tt><big>(</big><em>im</em><big>)</big><a class="headerlink" href="#renpy.image_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an image manipulator, loads it and returns a (<tt class="docutils literal"><span class="pre">width</span></tt>,
+<tt class="docutils literal"><span class="pre">height</span></tt>) tuple giving its size.</p>
+<p>This reads the image in from disk and decompresses it, without
+using the image cache. This can be slow.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="other.html" title="Other Functions"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="character_callbacks.html" title="Character Callbacks"
+             >上一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">主页</a> |
+        <li><a href="index.html">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>

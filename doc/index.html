@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>欢迎来到Ren&#39;Py的世界！</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.18.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Ren&#39;Py Documentation" href="#" />
+    <link rel="next" title="Quickstart" href="quickstart.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart"
+             accesskey="N">下一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">Ren'Py 主页</a> |
+        <li><a href="#">文档</a></li> 
+      </ul>
+    </div>
+  <div class="container">
+  <div class="span4">
+    
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">欢迎来到Ren'Py的世界！</a><ul>
+<li><a class="reference internal" href="#getting-started">快速入门</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-ren-py-language">Ren'Py语言</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#text-displayables-transforms-and-transitions">文本，可显示对象，变换和特效</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#customizing-ren-py">打造你的Ren'Py</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-functionality">其他功能</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#python-and-ren-py">Python和Ren'Py<s>不得不说的基情</s></a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-updating-and-other-platforms">打包，更新，以及其他平台</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#end-user-documentation">用户端文档</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#engine-developer-documentation">引擎开发者文档</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#changes-license-and-documentation-credits">引擎日志，许可证，以及致谢</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices">附录</a></li>
+<li><a class="reference internal" href="#example-scripts">脚本例子</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>下个页面</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="next chapter">快速入门</a></p>
+            <h4>搜索</h4>
+            
+            <div id="cse-search-form" style="width: 100%;"></div>
+
+      <div class="copydata">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    <br>
+      </div>
+        </div>
+      </div>
+  
+  </div>
+  
+    
+    <div class="document span20 last">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-ren-py-s-documentation">
+<h1>欢迎来到Ren'Py的世界！<a class="headerlink" href="#welcome-to-ren-py-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>我们正在重写Ren'Py的文档。这里的文档将会是最新的，但是它仍十分的不完整。若想获取更多关于Ren'Py的信息，请访问Ren'Py的主页：</p>
+<blockquote>
+<div><a class="reference external" href="http://www.renpy.org/">http://www.renpy.org/</a></div></blockquote>
+<p>有些关于Ren'Py的信息只出现在我们古老的wiki里：</p>
+<blockquote>
+<div><a class="reference external" href="http://www.renpy.org/wiki/">http://www.renpy.org/wiki/</a></div></blockquote>
+<p>以下是日文的文档:</p>
+<blockquote>
+<div><a class="reference external" href="http://ja.renpy.org/doc/html/">http://ja.renpy.org/doc/html/</a></div></blockquote>
+<div class="section" id="getting-started">
+<h2>新手入门<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速入门</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#the-ren-py-launcher">Ren'Py启动器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#a-simple-game">一个简单的游戏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#init">初始化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#characters">角色</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#images">图像</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#transitions">特效</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#positions">位置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#music-and-sound">音乐与音效</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#pause-statement">Pause命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#ending-the-game">结束游戏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#menus-labels-and-jumps">选项，标签和跳转</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#python-and-if-statements">Python和If命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#releasing-your-game">发布游戏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#script-of-the-question">The Question的脚本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#where-do-we-go-from-here">然后学什么？</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="the-ren-py-language">
+<h2>Ren'Py语言<a class="headerlink" href="#the-ren-py-language" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="language_basics.html">语言基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="label.html">标签与控制流</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dialogue.html">对话与叙述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="displaying_images.html">显示图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menus.html">游戏内选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditional.html">条件语句</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">声音</a></li>
+<li class="toctree-l1"><a class="reference internal" href="movie.html">视频</a></li>
+<li class="toctree-l1"><a class="reference internal" href="voice.html">语音</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="text-displayables-transforms-and-transitions">
+<h2>文本，可显示对象，变换和特效<a class="headerlink" href="#text-displayables-transforms-and-transitions" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="text.html">文本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">翻译</a></li>
+<li class="toctree-l1"><a class="reference internal" href="displayables.html">可显示对象</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transitions.html">特效</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atl.html">动画变换语言（ATL）</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="customizing-ren-py">
+<h2>打造你的Ren'Py<a class="headerlink" href="#customizing-ren-py" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="style.html">样式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_properties.html">样式属性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screens.html">视屏和视屏语言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen_actions.html">视屏相关动作，值和函数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen_special.html">有特殊含义的视屏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">配置变量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store_variables.html">内置变量</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="other-functionality">
+<h2>其他功能<a class="headerlink" href="#other-functionality" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nvl_mode.html">小说模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input.html">文本输入</a></li>
+<li class="toctree-l1"><a class="reference internal" href="side_image.html">对话框头像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rooms.html">鉴赏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drag_drop.html">可拖动对象</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprites.html">精灵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keymap.html">自定义键盘映射</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_tools.html">开发者工具</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="python-and-ren-py">
+<h2>Python和Ren'Py<s>不得不说的基情</s><a class="headerlink" href="#python-and-ren-py" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="statement_equivalents.html">等价命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="save_load_rollback.html">保存，读取和回滚</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent.html">永久性数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trans_trans_python.html">在Python使用变换和特效</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen_python.html">视屏和Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modes.html">系统状态</a></li>
+<li class="toctree-l1"><a class="reference internal" href="udd.html">自定义可显示对象</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cds.html">自定义命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="character_callbacks.html">角色回调函数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_python.html">文件操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other.html">其他函数</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="building-updating-and-other-platforms">
+<h2>打包，更新，以及其他平台<a class="headerlink" href="#building-updating-and-other-platforms" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build.html">打包发布</a></li>
+<li class="toctree-l1"><a class="reference internal" href="updater.html">Web更新器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="android.html">安卓</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="end-user-documentation">
+<h2>用户端文档<a class="headerlink" href="#end-user-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="problems.html">常见问题的处理方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environment_variables.html">环境变量</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="engine-developer-documentation">
+<h2>引擎开发者文档<a class="headerlink" href="#engine-developer-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="editor.html">文本编辑器的整合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="skins.html">皮肤</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="changes-license-and-documentation-credits">
+<h2>引擎日志，许可证，以及致谢<a class="headerlink" href="#changes-license-and-documentation-credits" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">完整的引擎更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="incompatible.html">兼容性问题</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributor.html">发布者小注</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">文档以及翻译致谢</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices">
+<h2>附录<a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="std-style-property-index.html">样式属性索引</a></li>
+<li><a class="reference external" href="std-transform-property-index.html">变换属性索引</a></li>
+<li><a class="reference external" href="std-var-index.html">变量和定义索引</a></li>
+<li><a class="reference external" href="py-function-class-index.html">函数和类索引</a></li>
+<li><a class="reference external" href="reserved.html">保留字索引</a></li>
+<li><a class="reference external" href="genindex.html">一般索引</a></li>
+</ul>
+</div>
+<div class="section" id="example-scripts">
+<h2>脚本例子<a class="headerlink" href="#example-scripts" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="thequestion.html">The Question的脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thequestion_nvl.html">小说模式The Question的脚本</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >索引</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart"
+             >下一页</a> |</li>
+
+        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <a href="http://www.renpy.org/">Ren'Py 主页</a> |
+        <li><a href="#">文档</a></li> 
+      </ul>
+    </div>
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript"> 
+	  google.load('search', '1', {language : 'en' });
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    var options = new google.search.DrawOptions();
+	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+	    customSearchControl.draw('cse-search-form', options);
+	  }, true);
+	</script>
+
+  </body>
+</html>
