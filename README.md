@@ -13,11 +13,11 @@ RenPy-Documentation-translations
 校对：暂缺
 
 
-目前进度：5/71
+目前进度：6/71
 
 已完成的文件：
 
-quickstart
+
 
 dialogue
 
@@ -26,3 +26,7 @@ display_image
 language_basic
 
 label
+
+index
+
+quickstart
