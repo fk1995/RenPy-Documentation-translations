@@ -82,28 +82,25 @@
             
   <div class="section" id="skins">
 <span id="id1"></span><h1>Skins<a class="headerlink" href="#skins" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py supports skinning the launcher - changing what the launcher
-looks like. To do this, follow the following steps:</p>
-<p>Skins are specific to the Ren'Py version in use, and can't be
-expected to be forward or backwards compatible.</p>
+<p>Ren'Py 支持给启动器（launcher）更换皮肤——就是改变启动器的外表。 为了达到目的，请按照如下步骤操作：</p>
+<p>皮肤仅限于当前 Ren'Py 版本, 而且不能向前或者向后兼容。</p>
 <ol class="arabic">
-<li><p class="first">Open the launcher in the launcher. This can be done from the
-preferences screen.</p>
+<li><p class="first">在启动器中打开启动器工程。 您可以通过进入设置界面（preferences screen）来完成它。</p>
 </li>
-<li><p class="first">Create the skin.rpy script file.</p>
+<li><p class="first">创建 skin.rpy 脚本文件。</p>
 </li>
-<li><p class="first">Copy the following code into skin.rpy:</p>
+<li><p class="first">拷贝如下代码到 skin.rpy 之中：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
 
-    <span class="c"># The color of non-interactive text.</span>
+    <span class="c"># 非交互式文字的颜色</span>
     <span class="n">TEXT</span> <span class="o">=</span> <span class="s">&quot;#545454&quot;</span>
 
-    <span class="c"># Colors for buttons in various states.</span>
+    <span class="c"># 按钮不同状态的颜色</span>
     <span class="n">IDLE</span> <span class="o">=</span> <span class="s">&quot;#42637b&quot;</span>
     <span class="n">HOVER</span> <span class="o">=</span> <span class="s">&quot;#d86b45&quot;</span>
     <span class="n">DISABLED</span> <span class="o">=</span> <span class="s">&quot;#808080&quot;</span>
 
-    <span class="c"># Colors for reversed text buttons (selected list entries).</span>
+    <span class="c"># 相反的文字按钮（reversed text buttons）的颜色 （选择列表条目）。</span>
     <span class="n">REVERSE_IDLE</span> <span class="o">=</span> <span class="s">&quot;#78a5c5&quot;</span>
     <span class="n">REVERSE_HOVER</span> <span class="o">=</span> <span class="s">&quot;#d86b45&quot;</span>
     <span class="n">REVERSE_TEXT</span> <span class="o">=</span> <span class="s">&quot;#ffffff&quot;</span>
@@ -112,42 +109,38 @@ preferences screen.</p>
     <span class="n">SCROLLBAR_IDLE</span> <span class="o">=</span> <span class="s">&quot;#dfdfdf&quot;</span>
     <span class="n">SCROLLBAR_HOVER</span> <span class="o">=</span> <span class="s">&quot;#d86b45&quot;</span>
 
-    <span class="c"># An image used as a separator pattern.</span>
+    <span class="c"># 一个用作分隔图案的图片.</span>
     <span class="n">PATTERN</span> <span class="o">=</span> <span class="s">&quot;images/pattern.png&quot;</span>
 
-    <span class="c"># A displayable used for the background of everything.</span>
+    <span class="c"># 一个可以当做背景的可显示对象（displayable）</span>
     <span class="n">BACKGROUND</span> <span class="o">=</span> <span class="s">&quot;images/background.png&quot;</span>
 
-    <span class="c"># A displayable used for the background of windows</span>
-    <span class="c"># containing commands, preferences, and navigation info.</span>
+    <span class="c"># 一个用作窗口背景的可显示对象</span>
+    <span class="c"># 包含命令（commands），参数选择（preferences）和导航信息（navigation info）。</span>
     <span class="n">WINDOW</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="s">&quot;images/window.png&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tile</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-    <span class="c"># A displayable used for the background of the projects list.</span>
+    <span class="c"># 一个用作工程列表（projects list）背景的可显示对象。</span>
     <span class="n">PROJECTS_WINDOW</span> <span class="o">=</span> <span class="n">Null</span><span class="p">()</span>
 
-    <span class="c"># A displayable used the background of information boxes.</span>
+    <span class="c"># 一个用作信息框（information boxes）背景的可显示对象</span>
     <span class="n">INFO_WINDOW</span> <span class="o">=</span> <span class="s">&quot;#f9f9f9&quot;</span>
 
-    <span class="c"># Colors for the titles of information boxes.</span>
+    <span class="c"># 信息框的标题颜色</span>
     <span class="n">ERROR_COLOR</span> <span class="o">=</span> <span class="s">&quot;#d15353&quot;</span>
     <span class="n">INFO_COLOR</span> <span class="o">=</span> <span class="s">&quot;#545454&quot;</span>
     <span class="n">INTERACTION_COLOR</span> <span class="o">=</span> <span class="s">&quot;#d19753&quot;</span>
     <span class="n">QUESTION_COLOR</span> <span class="o">=</span> <span class="s">&quot;#d19753&quot;</span>
 
-    <span class="c"># The color of input text.</span>
+    <span class="c"># 输入文字的颜色</span>
     <span class="n">INPUT_COLOR</span> <span class="o">=</span> <span class="s">&quot;#d86b45&quot;</span>
 </pre></div>
 </div>
 </li>
 </ol>
 <ol class="arabic simple" start="4">
-<li>Modify skin.rpy to skin the launcher. Place the image files you use
-into the launcher's game directory.</li>
+<li>编辑 skin.rpy 来为启动器换皮肤。 把你所用到的所有图片文件放到启动器的游戏目录。</li>
 </ol>
-<p>An incorrect skin.rpy file could prevent the launcher from
-starting. To fix it, you'll need to remove skin.rpy and skin.rpyc from
-the launcher's game directory, start the launcher, and then put them
-back.</p>
+<p>一个不正确的 skin.rpy 能导致启动器不能正常启动。 为了修复这个错误，你需要从启动器的游戏目录移除  skin.rpy 和 skin.rpyc , 打开启动器，然后再把它们放回去。</p>
 </div>
 
 

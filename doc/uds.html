@@ -89,19 +89,11 @@
           <div class="body">
             
   <div class="section" id="creator-defined-statements">
-<h1>Creator-Defined Statements<a class="headerlink" href="#creator-defined-statements" title="Permalink to this headline">¶</a></h1>
-<p>Creator-defined statements allow you to add your own statements to Ren'Py. This
-makes it possible to add things that are not supported by the current syntax of
-Ren'Py. creator-defined statements are currently limited to a single line, and may
-not contain blocks.</p>
-<p>Creator-defined statements must be defined in a python early block. What's more,
-the filename containing the user-defined statement must be be loaded earlier
-than any file that uses it. Since Ren'Py loads files in unicode sort order, it
-generally makes sense to prefix the name of any file containing a user-defined
-statement with 00. A user-defined statement cannot be used in the file in which
-it is defined.</p>
+<h1>用户自定义命令<a class="headerlink" href="#creator-defined-statements" title="Permalink to this headline">¶</a></h1>
+<p>用户自定义命令（Creator-defined statements）允许您对 Ren'Py 添加自己的命令。 这能让给 Ren'Py 添加目前语法所不支持的东西成为可能。用户自定义命令目前只支持一行, 而且不能包含一个区块（block）。</p>
+<p>用户自定义命令必须定义在一个python上下文区块（python early block）内。另外，包含这些用户自定义命令的文件必须在任何使用它的文件载入前被载入。 由于 Ren'Py 按照Unicode编码的排序载入文件, 在每个包含用户自定义命令的文件名加上前缀00是很有意义的。一个用户自定义命令不能被当前定义它的这个文件所使用。</p>
 <div class="section" id="lint-utility-functions">
-<h2>Lint Utility Functions<a class="headerlink" href="#lint-utility-functions" title="Permalink to this headline">¶</a></h2>
+<h2>Lint Utility Functions这个真特么不会翻啊<a class="headerlink" href="#lint-utility-functions" title="Permalink to this headline">¶</a></h2>
 <p>These functions are useful in writing lint functions.</p>
 <p>The creates a new statement &quot;line&quot; that allows lines of text to be specified
 without quotes.</p>

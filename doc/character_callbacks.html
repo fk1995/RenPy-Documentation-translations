@@ -1,12 +1,12 @@
-
 <!DOCTYPE html>
 
 <html>
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Character Callbacks &mdash; Ren&#39;Py Documentation</title>
-    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
+
+    <title>角色回调 &mdash; Ren&#39;Py 文档</title>
+    <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection" />
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
     <!--[if lt IE 8]>
@@ -16,171 +16,191 @@
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '6.18.0',
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT: '',
+        VERSION: '6.18.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
+        HAS_SOURCE: true
+    };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
     <link rel="next" title="File Access" href="file_python.html" />
-    <link rel="prev" title="Creator-Defined Statements" href="cds.html" /> 
-  </head>
-  <body>
+    <link rel="prev" title="Creator-Defined Statements" href="cds.html" />
+</head>
+
+<body>
     <div class="related">
-      <h3>导航</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">索引</a></li>
-        <li class="right" >
-          <a href="file_python.html" title="File Access"
-             accesskey="N">下一页</a> |</li>
-        <li class="right" >
-          <a href="cds.html" title="Creator-Defined Statements"
-             accesskey="P">上一页</a> |</li>
+        <h3>导航</h3>
+        <ul>
+            <li class="right" style="margin-right: 10px">
+                <a href="genindex.html" title="General Index" accesskey="I">索引</a>
+            </li>
+            <li class="right">
+                <a href="file_python.html" title="File Access" accesskey="N">下一页</a> |</li>
+            <li class="right">
+                <a href="cds.html" title="Creator-Defined Statements" accesskey="P">上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
-        <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
-      </ul>
+            <li>
+                <img src="_static/logo.png" width=19 height=21 align=center>
+                <li> <a href="http://www.renpy.org/">主页</a> |
+                    <li><a href="index.html">文档</a>
+                    </li>
+        </ul>
     </div>
-  <div class="container">
-  <div class="span4">
-    
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">目录</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Character Callbacks</a><ul>
-<li><a class="reference internal" href="#example">Example</a></li>
-</ul>
-</li>
-</ul>
+    <div class="container">
+        <div class="span4">
 
-  <h4>上一节</h4>
-  <p class="topless"><a href="cds.html"
-                        title="previous chapter">Creator-Defined Statements</a></p>
-  <h4>下一节</h4>
-  <p class="topless"><a href="file_python.html"
-                        title="next chapter">File Access</a></p>
-            <h4>Search</h4>
-            
-            <div id="cse-search-form" style="width: 100%;"></div>
+            <div class="sphinxsidebar">
+                <div class="sphinxsidebarwrapper">
+                    <h3><a href="index.html">目录</a>
+                    </h3>
+                    <ul>
+                        <li><a class="reference internal" href="#">角色回调</a>
+                            <ul>
+                                <li><a class="reference internal" href="#example">示例</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
 
-      <div class="copydata">
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
-    <br>
-      </div>
+                    <h4>上一节</h4>
+                    <p class="topless"><a href="cds.html" title="previous chapter">Creator-Defined Statements</a>
+                    </p>
+                    <h4>下一节</h4>
+                    <p class="topless"><a href="file_python.html" title="next chapter">File Access</a>
+                    </p>
+                    <h4>搜索</h4>
+
+                    <div id="cse-search-form" style="width: 100%;"></div>
+
+                    <div class="copydata">
+                        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+                        <br>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </div>
-  
-  </div>
-  
-    
-    <div class="document span20 last">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
-  <div class="section" id="character-callbacks">
-<span id="id1"></span><h1>Character Callbacks<a class="headerlink" href="#character-callbacks" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py includes the ability to execute callbacks when various events
-occur during dialogue. This is done by giving the <cite>callback</cite> argument
-to <a class="reference internal" href="dialogue.html#Character" title="Character"><tt class="xref py py-func docutils literal"><span class="pre">Character()</span></tt></a>, or setting the <a class="reference internal" href="config.html#var-config.character_callback"><tt class="xref std std-var docutils literal"><span class="pre">config.character_callback</span></tt></a> or
-<a class="reference internal" href="config.html#var-config.all_character_callbacks"><tt class="xref std std-var docutils literal"><span class="pre">config.all_character_callbacks</span></tt></a> variables.</p>
-<p>The character callback is called with a single positional argument, the event
-that occured. Possible events are:</p>
-<dl class="docutils">
-<dt>&quot;begin&quot;</dt>
-<dd>Called at the start of a say statement.</dd>
-<dt>&quot;show&quot;</dt>
-<dd>Called before showing each segment of dialogue. Dialogue may be separated
-into multiple segments by the {w} or {p} text tags, but always consists of
-at least one segment.</dd>
-<dt>&quot;show_done&quot;</dt>
-<dd>Called after showing each segment of dialogue.</dd>
-<dt>&quot;slow_done&quot;</dt>
-<dd>Called after slow text finishes showing. Note that this event may occur
-after &quot;end&quot;, in cases where dialogue does not cause an interaction
-to occur.</dd>
-<dt>&quot;end&quot;</dt>
-<dd>Called at the end of a say statement.</dd>
-</dl>
-<p>The callback is called with at least one keyword argument:</p>
-<dl class="docutils">
-<dt><cite>interact</cite></dt>
-<dd>This is true if the dialogue causes an interaction to occur.</dd>
-</dl>
-<p>Other values of the positional argument and additional keyword arguments may
-be supplied in the future. The callback should coded to ignore arguments it
-does not understand.</p>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<p>This example plays beeps in place of a character voice, when slow
-text is enabled:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">beepy_voice</span><span class="p">(</span><span class="k">event</span><span class="p">,</span> <span class="n">interact</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+
+        <div class="document span20 last">
+            <div class="documentwrapper">
+                <div class="bodywrapper">
+                    <div class="body">
+
+                        <div class="section" id="character-callbacks">
+                            <span id="id1"></span>
+                            <h1>角色回调<a class="headerlink" href="#character-callbacks" title="Permalink to this headline">¶</a>
+                            </h1>
+                            <p>对话期间，若有不同的事件被触发，Ren'Py能够执行回调。这通过为
+                                <a class="reference internal" href="dialogue.html#Character" title="Character">
+                                    <tt class="xref py py-func docutils literal">
+                                        <span class="pre">Character()</span>
+                                    </tt>
+                                </a>
+                                添加
+                                <cite>callback</cite>参数实现，也可以通过设置
+                                <a class="reference internal" href="config.html#var-config.character_callback">
+                                    <tt class="xref std std-var docutils literal">
+                                        <span class="pre">config.character_callback</span>
+                                    </tt>
+                                </a>或
+                                <a class="reference internal" href="config.html#var-config.all_character_callbacks">
+                                    <tt class="xref std std-var docutils literal">
+                                        <span class="pre">config.all_character_callbacks</span>
+                                    </tt>
+                                </a>变量实现。</p>
+                            <p>一些事件会触发角色回调，同时传递一个单独的位置参数。可能的事件有：</p>
+                            <dl class="docutils">
+                                <dt>&quot;begin&quot;</dt>
+                                <dd>在一句话开始时触发。</dd>
+                                <dt>&quot;show&quot;</dt>
+                                <dd>在每段对话显示前触发。对话可能被 {w} 或 {p} 文本标签分割成多个段，但至少由一个段组成。</dd>
+                                <dt>&quot;show_done&quot;</dt>
+                                <dd>在每段对话显示后触发。</dd>
+                                <dt>&quot;slow_done&quot;</dt>
+                                <dd>在slow text显示完成后触发。注意：若对话没有产生交互，此事件可能在“end”事件之后触发。</dd>
+                                <dt>&quot;end&quot;</dt>
+                                <dd>在一句话结束之后触发。</dd>
+                            </dl>
+                            <p>此回调触发时至少传递一个按键参数：</p>
+                            <dl class="docutils">
+                                <dt>
+                                    <cite>interact</cite>
+                                </dt>
+                                <dd>若对话引发一个交互，值为 true 。</dd>
+                            </dl>
+                            <p>未来也许会提供其他位置参数和额外按键参数的支持。因而，该回调应该写成会忽视不可识别参数的形式。</p>
+                            <div class="section" id="example">
+                                <h2>示例<a class="headerlink" href="#example" title="Permalink to this headline">¶</a>
+                                </h2>
+                                <p>这一示例展示了slow text开启时，用喵叫声代替角色语音的方法。</p>
+                                <div class="highlight-renpy">
+                                    <div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">nyan_voice</span><span class="p">(</span><span class="k">event</span><span class="p">,</span> <span class="n">interact</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="k">not</span> <span class="n">interact</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="k">event</span> <span class="o">==</span> <span class="s">&quot;show_done&quot;</span><span class="p">:</span>
-            <span class="n">renpy</span><span class="o">.</span><span class="na">sound</span><span class="o">.</span><span class="k">play</span><span class="p">(</span><span class="s">&quot;beeps.ogg&quot;</span><span class="p">)</span>
+            <span class="n">renpy</span><span class="o">.</span><span class="na">sound</span><span class="o">.</span><span class="k">play</span><span class="p">(</span><span class="s">&quot;nyan.ogg&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="k">event</span> <span class="o">==</span> <span class="s">&quot;slow_done&quot;</span><span class="p">:</span>
             <span class="n">renpy</span><span class="o">.</span><span class="na">sound</span><span class="o">.</span><span class="k">stop</span><span class="p">()</span>
 
-<span class="k">define</span> <span class="n">pike</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Christopher Pike&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">beepy_voice</span><span class="p">)</span>
+<span class="k">define</span> <span class="n">pike</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Skydark&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">nyan_voice</span><span class="p">)</span>
 
 <span class="k">label</span> <span class="n">start</span><span class="p">:</span>
 
-    <span class="n">pike</span> <span class="s">&quot;So, hanging out on Talos IV, minding my own business, when...&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
+    <span class="n">pike</span> <span class="s">&quot;嘛～嘛～我也觉得我是萌妹子～～&quot;</span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-          </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     </div>
     <div class="related">
-      <h3>导航</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >索引</a></li>
-        <li class="right" >
-          <a href="file_python.html" title="File Access"
-             >下一页</a> |</li>
-        <li class="right" >
-          <a href="cds.html" title="Creator-Defined Statements"
-             >上一页</a> |</li>
+        <h3>导航</h3>
+        <ul>
+            <li class="right" style="margin-right: 10px">
+                <a href="genindex.html" title="General Index">索引</a>
+            </li>
+            <li class="right">
+                <a href="file_python.html" title="File Access">下一页</a> |</li>
+            <li class="right">
+                <a href="cds.html" title="Creator-Defined Statements">上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
-        <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
-      </ul>
+            <li>
+                <img src="_static/logo.png" width=19 height=21 align=center>
+                <li> <a href="http://www.renpy.org/">主页</a> |
+                    <li><a href="index.html">文档</a>
+                    </li>
+        </ul>
     </div>
 
 
-	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-	<script type="text/javascript"> 
-	  google.load('search', '1', {language : 'en' });
-	  google.setOnLoadCallback(function() {
-	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
-	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-	    var options = new google.search.DrawOptions();
-	    options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
-	    customSearchControl.draw('cse-search-form', options);
-	  }, true);
-	</script>
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+    google.load('search', '1', {
+        language: 'en'
+    });
+    google.setOnLoadCallback(function() {
+        var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
+        customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+        var options = new google.search.DrawOptions();
+        options.enableSearchboxOnly("http://www.google.com/cse?cx=012476843541036121001:gx3sqkoaxkm");
+        customSearchControl.draw('cse-search-form', options);
+    }, true);
+    </script>
 
-  </body>
+</body>
+
 </html>

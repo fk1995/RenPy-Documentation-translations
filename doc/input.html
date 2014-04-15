@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Text Input &mdash; Ren&#39;Py Documentation</title>
+    <title>文本输入 &mdash; Ren&#39;Py 文档</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -81,56 +81,41 @@
           <div class="body">
             
   <div class="section" id="text-input">
-<h1>Text Input<a class="headerlink" href="#text-input" title="Permalink to this headline">¶</a></h1>
-<p>With some limitations, Ren'Py can prompt the user to input a small
-amount of text. This prompting is done by the renpy.input function,
-which returns the entered text, allowing it to be saved in a variable
-or otherwise processed.</p>
-<p>Right now, text input is limited to languages that do not require
-input method (IME) support. Most western languages should work, but
-Chinese, Japanese, and Korean probably won't.</p>
-<p>The renpy.input function is defined as:</p>
+<h1>文本输入<a class="headerlink" href="#text-input" title="Permalink to this headline">¶</a></h1>
+<p>有限地，Ren'Py能够提示用户输入少量的文本。请通过 renpy.input 函数使用输入提示，它将返回键入的文本，可将其存入变量或用于其他用途。</p>
+<p>目前，文本输入仅限于不需要输入法（IME）支持的语言，例如大多数西方语言。但未来可能会支持中文、日文、韩文的输入。</p>
+<p>renpy.input 函数的定义如下：</p>
 <dl class="function">
 <dt id="renpy.input">
 <tt class="descclassname">renpy.</tt><tt class="descname">input</tt><big>(</big><em>prompt</em>, <em>default=''</em>, <em>allow=None</em>, <em>exclude='{}'</em>, <em>length=None</em>, <em>with_none=None</em>, <em>pixel_width=None</em><big>)</big><a class="headerlink" href="#renpy.input" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calling this function pops up a window asking the player to enter some
-text. It returns the entered text.</p>
+<dd><p>调用此函数时会弹出一个对话框，要求玩家输入一些文本。它将返回输入的文本。</p>
 <dl class="docutils">
 <dt><cite>prompt</cite></dt>
-<dd>A string giving a prompt to display to the player.</dd>
+<dd>显示给用户的提示文字。</dd>
 <dt><cite>default</cite></dt>
-<dd>A string giving the initial text that will be edited by the player.</dd>
+<dd>文字框内的默认文本。</dd>
 <dt><cite>allow</cite></dt>
-<dd>If not None, a string giving a list of characters that will
-be allowed in the text.</dd>
+<dd>若不为 None ，请传递一个字符列表，用户只能输入该列表内的字符。</dd>
 <dt><cite>exclude</cite></dt>
-<dd>If not None, if a character is present in this string, it is not
-allowed in the text.</dd>
+<dd>若不为 None ，请传递一个字符串，用户不能输入该字符串内的字符。</dd>
 <dt><cite>length</cite></dt>
-<dd>If not None, this must be an integer giving the maximum length
-of the input string.</dd>
+<dd>若不为 None ，必须传递一个整数，用于规定允许输入的最大文本长度。</dd>
 <dt><cite>pixel_width</cite></dt>
-<dd>If not None, the input is limited to being this many pixels wide,
-in the font used by the input to display text.</dd>
+<dd>若不为 None ，所输入的文本总像素宽度将不能超过该值，这取决于用于显示这些文本的字体。</dd>
 </dl>
 </dd></dl>
 
-<p>Code that uses renpy.input will often want to process the result
-further, using standard python string manipulation functions. For
-example, the following code will ask the player for his or her
-name and remove leading or trailing whitespace. If the name is
-empty, it will be replaced by a default name. Finally, it is
-displayed to the user.</p>
+<p>当你使用了renpy.input后，经常还需要使用标准Python字符串操作函数来进一步处理得到的文本。例如，下面的代码将请求玩家的姓名，并消除头部与尾部的空白。如果姓名为空，它将被默认姓名代替。最终被显示给玩家。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">pov</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;[povname]&quot;</span><span class="p">)</span>
 
 <span class="k">python</span><span class="p">:</span>
-    <span class="n">povname</span> <span class="o">=</span> <span class="n">renpy</span><span class="o">.</span><span class="k">input</span><span class="p">(</span><span class="s">&quot;What is your name?&quot;</span><span class="p">)</span>
+    <span class="n">povname</span> <span class="o">=</span> <span class="n">renpy</span><span class="o">.</span><span class="k">input</span><span class="p">(</span><span class="s">&quot;该怎么称呼您呢～主人？&quot;</span><span class="p">)</span>
     <span class="n">povname</span> <span class="o">=</span> <span class="n">povname</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="k">not</span> <span class="n">povname</span><span class="p">:</span>
-         <span class="n">povname</span> <span class="o">=</span> <span class="s">&quot;Pat Smith&quot;</span>
+         <span class="n">povname</span> <span class="o">=</span> <span class="s">&quot;NatsuNyan&quot;</span>
 
-<span class="n">pov</span> <span class="s">&quot;My name is [povname]!&quot;</span>
+<span class="n">pov</span> <span class="s">&quot;我是名叫[povname]的loli！&quot;</span>
 </pre></div>
 </div>
 </div>
