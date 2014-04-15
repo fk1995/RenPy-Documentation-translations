@@ -8,6 +8,9 @@ RenPy-Documentation-translations
 
 翻译：fk1995,Orion,今夜不谈风月,Icemaple
 
+润色：暂缺
+
+校对：暂缺
 
 
 目前进度：5/71
