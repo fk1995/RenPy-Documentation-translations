@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>文本输入 &mdash; Ren&#39;Py 文档</title>
+    <title>文本输入</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,10 +57,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>上一节</h4>
   <p class="topless"><a href="nvl_mode.html"
-                        title="previous chapter">NVL-Mode Tutorial</a></p>
+                        title="previous chapter">小说模式</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="side_image.html"
-                        title="next chapter">Side Images</a></p>
+                        title="next chapter">对话框头像</a></p>
             <h4>Search</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
@@ -82,7 +82,7 @@
             
   <div class="section" id="text-input">
 <h1>文本输入<a class="headerlink" href="#text-input" title="Permalink to this headline">¶</a></h1>
-<p>有限地，Ren'Py能够提示用户输入少量的文本。请通过 renpy.input 函数使用输入提示，它将返回键入的文本，可将其存入变量或用于其他用途。</p>
+<p>Ren'Py能够有限制地提示用户输入少量的文本。您可以通过 renpy.input 函数使用输入提示，它将返回键入的文本，然后您可将其存入变量或用于其他用途。</p>
 <p>目前，文本输入仅限于不需要输入法（IME）支持的语言，例如大多数西方语言。但未来可能会支持中文、日文、韩文的输入。</p>
 <p>renpy.input 函数的定义如下：</p>
 <dl class="function">
@@ -105,7 +105,7 @@
 </dl>
 </dd></dl>
 
-<p>当你使用了renpy.input后，经常还需要使用标准Python字符串操作函数来进一步处理得到的文本。例如，下面的代码将请求玩家的姓名，并消除头部与尾部的空白。如果姓名为空，它将被默认姓名代替。最终被显示给玩家。</p>
+<p>当使用了renpy.input后，您通常还需要使用标准Python字符串操作函数来进一步处理得到的文本。例如，下面的代码将请求玩家的姓名，并消除头部与尾部的空白。如果姓名为空，它将被默认姓名代替。最终，该姓名将会被显示出来。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">pov</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;[povname]&quot;</span><span class="p">)</span>
 
 <span class="k">python</span><span class="p">:</span>

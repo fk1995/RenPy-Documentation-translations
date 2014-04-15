@@ -17,16 +17,22 @@ RenPy-Documentation-translations
 
 已完成的文件：
 
-
+character_callbacks
 
 dialogue
 
 display_image
 
+index
+
+input
+
 language_basic
 
 label
 
-index
+skins
 
 quickstart
+
+uds

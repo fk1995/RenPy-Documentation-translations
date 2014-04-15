@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>角色回调 &mdash; Ren&#39;Py 文档</title>
+    <title>角色回调</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection" />
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -68,10 +68,10 @@
                     </ul>
 
                     <h4>上一节</h4>
-                    <p class="topless"><a href="cds.html" title="previous chapter">Creator-Defined Statements</a>
+                    <p class="topless"><a href="cds.html" title="previous chapter">自定义命令</a>
                     </p>
                     <h4>下一节</h4>
-                    <p class="topless"><a href="file_python.html" title="next chapter">File Access</a>
+                    <p class="topless"><a href="file_python.html" title="next chapter">文件操作</a>
                     </p>
                     <h4>搜索</h4>
 
@@ -96,13 +96,13 @@
                             <span id="id1"></span>
                             <h1>角色回调<a class="headerlink" href="#character-callbacks" title="Permalink to this headline">¶</a>
                             </h1>
-                            <p>对话期间，若有不同的事件被触发，Ren'Py能够执行回调。这通过为
+                            <p>在角色说话时，若有相关的事件被触发，Ren'Py将会调用角色回调函数。您可以为
                                 <a class="reference internal" href="dialogue.html#Character" title="Character">
                                     <tt class="xref py py-func docutils literal">
                                         <span class="pre">Character()</span>
                                     </tt>
                                 </a>
-                                添加
+                                函数添加
                                 <cite>callback</cite>参数实现，也可以通过设置
                                 <a class="reference internal" href="config.html#var-config.character_callback">
                                     <tt class="xref std std-var docutils literal">
@@ -114,10 +114,10 @@
                                         <span class="pre">config.all_character_callbacks</span>
                                     </tt>
                                 </a>变量实现。</p>
-                            <p>一些事件会触发角色回调，同时传递一个单独的位置参数。可能的事件有：</p>
+                            <p>一些事件会触发角色回调函数，同时向其传递一个单独的位置参数。可能的事件有：</p>
                             <dl class="docutils">
                                 <dt>&quot;begin&quot;</dt>
-                                <dd>在一句话开始时触发。</dd>
+                                <dd>在对话开始时触发。</dd>
                                 <dt>&quot;show&quot;</dt>
                                 <dd>在每段对话显示前触发。对话可能被 {w} 或 {p} 文本标签分割成多个段，但至少由一个段组成。</dd>
                                 <dt>&quot;show_done&quot;</dt>
@@ -127,14 +127,14 @@
                                 <dt>&quot;end&quot;</dt>
                                 <dd>在一句话结束之后触发。</dd>
                             </dl>
-                            <p>此回调触发时至少传递一个按键参数：</p>
+                            <p>此回调触发时至少传递一个关键字参数：</p>
                             <dl class="docutils">
                                 <dt>
                                     <cite>interact</cite>
                                 </dt>
-                                <dd>若对话引发一个交互，值为 true 。</dd>
+                                <dd>若值为 True ，对话将导致一个交互的发生。</dd>
                             </dl>
-                            <p>未来也许会提供其他位置参数和额外按键参数的支持。因而，该回调应该写成会忽视不可识别参数的形式。</p>
+                            <p>未来也许会提供其他位置参数和关键字参数的支持。因而，该回调函数应该写成会忽视不可识别参数的形式。</p>
                             <div class="section" id="example">
                                 <h2>示例<a class="headerlink" href="#example" title="Permalink to this headline">¶</a>
                                 </h2>
@@ -154,7 +154,7 @@
 
 <span class="k">label</span> <span class="n">start</span><span class="p">:</span>
 
-    <span class="n">pike</span> <span class="s">&quot;嘛～嘛～我也觉得我是萌妹子～～&quot;</span>
+    <span class="n">pike</span> <span class="s">&quot;喵喵～我也觉得我是萌妹子～～&quot;</span>
 </pre>
                                     </div>
                                 </div>
