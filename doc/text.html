@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Text &mdash; Ren&#39;Py Documentation</title>
+    <title>文本 &mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,29 +57,29 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Text</a><ul>
-<li><a class="reference internal" href="#escape-characters">Escape Characters</a></li>
-<li><a class="reference internal" href="#interpolating-data">Interpolating Data</a></li>
-<li><a class="reference internal" href="#styling-and-text-tags">Styling and Text Tags</a><ul>
-<li><a class="reference internal" href="#general-text-tags">General Text Tags</a></li>
-<li><a class="reference internal" href="#dialogue-text-tags">Dialogue Text Tags</a></li>
-<li><a class="reference internal" href="#user-defined-text-tags">User-Defined Text Tags</a></li>
+<li><a class="reference internal" href="#">文本</a><ul>
+<li><a class="reference internal" href="#escape-characters">转义字符</a></li>
+<li><a class="reference internal" href="#interpolating-data">在文本中插入数据</a></li>
+<li><a class="reference internal" href="#styling-and-text-tags">样式与文本标签</a><ul>
+<li><a class="reference internal" href="#general-text-tags">一般文本标签</a></li>
+<li><a class="reference internal" href="#dialogue-text-tags">对话文本标签</a></li>
+<li><a class="reference internal" href="#user-defined-text-tags">用户自定义文本标签</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#non-english-languages">Non-English Languages</a><ul>
-<li><a class="reference internal" href="#vertical-text">Vertical Text</a></li>
+<li><a class="reference internal" href="#non-english-languages">非英文的语言</a><ul>
+<li><a class="reference internal" href="#vertical-text">竖行文本</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ruby-text">Ruby Text</a></li>
-<li><a class="reference internal" href="#fonts">Fonts</a><ul>
-<li><a class="reference internal" href="#font-replacement">Font Replacement</a></li>
-<li><a class="reference internal" href="#image-based-fonts">Image-Based Fonts</a></li>
-<li><a class="reference internal" href="#font-groups">Font Groups</a></li>
+<li><a class="reference internal" href="#ruby-text">Ruby文本</a></li>
+<li><a class="reference internal" href="#fonts">字体</a><ul>
+<li><a class="reference internal" href="#font-replacement">字体替换</a></li>
+<li><a class="reference internal" href="#image-based-fonts">BMFont（图像字体集）</a></li>
+<li><a class="reference internal" href="#font-groups">字体组</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#text-displayable">Text Displayable</a></li>
-<li><a class="reference internal" href="#slow-text-concerns">Slow Text Concerns</a><ul>
-<li><a class="reference internal" href="#text-overflow-logging">Text Overflow Logging</a></li>
+<li><a class="reference internal" href="#text-displayable">Text 可显示对象</a></li>
+<li><a class="reference internal" href="#slow-text-concerns">关于慢速文本的注意事项</a><ul>
+<li><a class="reference internal" href="#text-overflow-logging">文字溢出记录</a></li>
 </ul>
 </li>
 </ul>
@@ -88,10 +88,10 @@
 
   <h4>上一节</h4>
   <p class="topless"><a href="voice.html"
-                        title="previous chapter">Voice</a></p>
+                        title="previous chapter">语音</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="translation.html"
-                        title="next chapter">Translation</a></p>
+                        title="next chapter">翻译</a></p>
             <h4>Search</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
@@ -112,152 +112,111 @@
           <div class="body">
             
   <div class="section" id="text">
-<span id="id1"></span><h1>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py contains several ways of displaying text. The <a class="reference internal" href="dialogue.html#say-statement"><em>say</em></a>
-and <a class="reference internal" href="menus.html#menu-statement"><em>menu</em></a> are primarily concerned with the
-display of text to the user. The user interface often contains text,
-displayed using the <a class="reference internal" href="screens.html#sl-text"><em>text</em></a>, <a class="reference internal" href="screens.html#sl-textbutton"><em>textbutton</em></a>,
-and <a class="reference internal" href="screens.html#sl-label"><em>label</em></a> screen language statements. These
-functions, along with others, create <a class="reference internal" href="#Text" title="Text"><tt class="xref py py-func docutils literal"><span class="pre">Text()</span></tt></a> displayables, and
-show them on the screen.</p>
-<p>The Text displayable is responsible for managing the process of
-showing the text to the user. The text displayable performs actions in
-the following order:</p>
+<span id="id1"></span><h1>文本<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py 拥有多种不同的显示文本的方式。  但是我们通常主要使用<a class="reference internal" href="dialogue.html#say-statement"><em>say</em></a>
+和 <a class="reference internal" href="menus.html#menu-statement"><em>menu</em></a> 来向玩家显示文字。在用户界面里常常可以看见通过 <a class="reference internal" href="screens.html#sl-text"><em>text</em></a>, <a class="reference internal" href="screens.html#sl-textbutton"><em>textbutton</em></a>,
+以及 <a class="reference internal" href="screens.html#sl-label"><em>label</em></a> 这些视屏语言命令来显示的文字。 这些函数，当然还有其它的函数，可以生成<a class="reference internal" href="#Text" title="Text"><tt class="xref py py-func docutils literal"><span class="pre">Text()</span></tt></a>类的可显示对象（下文将其称为Text可显示对象），并将它们打印在屏幕上。</p>
+<p>Text可显示对象负责管理向玩家显示文字的过程。它按照以下顺序来处理文本：</p>
 <ol class="arabic simple">
-<li>Translating text.</li>
-<li>Interpolating data into the text.</li>
-<li>Styling the text using styles and text tags.</li>
-<li>Laying out the styled text.</li>
-<li>Drawing the text to the screen.</li>
+<li>翻译文字。</li>
+<li>将数据插入文字中</li>
+<li>按照预设定的样式与文本标签设定文字的显示样式。</li>
+<li>将处理后的文字移动到指定的位置。</li>
+<li>在屏幕上描绘出文字。</li>
 </ol>
-<p>This chapter discusses the process of text display in Ren'Py.</p>
+<p>在这一章里面，我们主要讲述的是 Ren'Py 中显示文字的过程。</p>
 <div class="section" id="escape-characters">
-<h2>Escape Characters<a class="headerlink" href="#escape-characters" title="Permalink to this headline">¶</a></h2>
-<p>There are three special characters that can control the way Ren'Py
-displays text. A creator needs to be aware of these characters to
-ensure that their writing is not accidentally misinterpreted by the engine.</p>
+<h2>转义字符<a class="headerlink" href="#escape-characters" title="Permalink to this headline">¶</a></h2>
+<p>在Ren'Py中有三个特殊的字符，它们可以被用来控制 Ren'Py 显示文字的方式。游戏制作者应该了解这些字符，从而确保在脚本中不会出现可能误导引擎的情况。</p>
 <dl class="docutils">
 <dt>(backslash)</dt>
-<dd><p class="first">The backslash character is used to introduce when writing a Ren'Py
-or Python string. Some common escape codes are:</p>
+<dd><p class="first">在 Ren'Py
+或 Python 语句中常使用反斜杠（“\”）字符用于转义。这里一些常用的表达：（以下均为半角字符）</p>
 <dl class="last docutils">
-<dt>\&quot; (backslash-doublequote)</dt>
-<dd>Includes a doublequote in a double-quoted string.</dd>
-<dt>\' (backslash-quote)</dt>
-<dd>Includes a single quote in a single-quoted string.</dd>
-<dt>\ (backslash-space)</dt>
-<dd>Includes an additional space in a Ren'Py string. By default,
-Ren'Py script text collapses adjacent whitespace into a single
-space character.</dd>
-<dt>\n (backslash-n)</dt>
-<dd>Includes a newline character in the text.</dd>
-<dt>\\ (backslash-backslash)</dt>
-<dd>Includes a backslash character in the text.</dd>
+<dt>\&quot; (反斜杠-双引号)</dt>
+<dd>在一串已经被双引号引起来的字符串中使用一个双引号。</dd>
+<dt>\' (反斜杠-单引号)</dt>
+<dd>在一串被单引号引起来的字符串中使用一个单引号</dd>
+<dt>\ (反斜杠-空格)</dt>
+<dd>在一个 Ren'Py 字符串中增加一个额外的空格。默认情况下， Ren'Py 会自动将多余的空格折叠为一个。</dd>
+<dt>\n (反斜杠-字母n)</dt>
+<dd>在文字中包含一个换行符。</dd>
+<dt>\\ (反斜杠-反斜杠)</dt>
+<dd>在文字中包含一个反斜杠。</dd>
 </dl>
 </dd>
-<dt>[ (left bracket)</dt>
-<dd>The left bracket is used to introduce interpolation of a value
-into the text. To include a single left bracket in your text,
-double it - write <tt class="docutils literal"><span class="pre">[[</span></tt>.</dd>
-<dt>{ (left brace)</dt>
-<dd>The left brace is used to introduce a text tag. To include a left
-brace in your text, double it - write <tt class="docutils literal"><span class="pre">{{</span></tt>.</dd>
+<dt>[ (左中括号)</dt>
+<dd>左中括号常用于在文字中插入一个值。如果您想在文字中显示一个左中括号的话，请双写它，就像这样： <tt class="docutils literal"><span class="pre">[[</span></tt>。</dd>
+<dt>{ (左大括号)</dt>
+<dd>左大括号被用于向系统声明一个文本标签。如果您想在文字中显示一个左大括号的话，请像双写左中括号那样双写它： <tt class="docutils literal"><span class="pre">{{</span></tt>。</dd>
 </dl>
 </div>
 <div class="section" id="interpolating-data">
-<h2>Interpolating Data<a class="headerlink" href="#interpolating-data" title="Permalink to this headline">¶</a></h2>
-<p>Ren'Py supports interpolating data into the text string before it is
-displayed. For example, if the player's name is stored in the
-<tt class="docutils literal"><span class="pre">playername</span></tt> variable, one could write a line of dialogue like:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;Welcome to the Nekomimi Institute, [playername]!&quot;</span>
+<h2>在文字中插入数据<a class="headerlink" href="#interpolating-data" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py 支持往文字中插入一些数据，前提是这些文字还没有被绘制在屏幕上。举例来说，如果玩家的名字被储存在
+<tt class="docutils literal"><span class="pre">playername</span></tt> 变量中，这时如果要使用对话的话，就应该写成这样：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;欢迎来到<s>喵喵咪咪</s>喵咪学园, [playername]!&quot;</span>
 </pre></div>
 </div>
-<p>Ren'Py will interpolate variables found in the global store. When
-using a text widget in a screen, Ren'Py will also interpolate screen
-local variables. (This can be overridden by supplying an explicit
-scope argument to the Text displayable.)</p>
-<p>Ren'Py isn't limited to interpolating simple variables. It can also
-interpolate fields and components of tuples. So it's possible to have
-code like:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;My first name is [player.names[0]].&quot;</span>
+<p>Ren'Py 会自动在已储存的全局变量中寻找将要插入文字的变量。(您可以通过向Text可显示对象提供一个显式的参数范围来修改其读取范围。)</p>
+<p>Ren'Py 并未限制用户只能在文字中插入简单变量。您也可以在文字中插入域或是元组或列表中的一个元素。
+ 所以您会看见类似下面这样的代码：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;我的名字是 [player.names[0]].&quot;</span>
 </pre></div>
 </div>
-<p>It's possible to apply formatting codes when displaying numbers. This
-code will display a floating point number to two decimal places:</p>
+<p>Ren'Py 可以格式化输出数字。接下来的代码将会向您展示怎样输出一个保留了两位小数的浮点数：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">$</span> <span class="n">percent</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="n">points</span> <span class="o">/</span> <span class="n">max_points</span>
-<span class="n">g</span> <span class="s">&quot;I like you [percent:.2] percent!&quot;</span>
+<span class="n">g</span> <span class="s">&quot;我喜欢你的百分之 [percent:.2] ！&quot;</span>
 </pre></div>
 </div>
-<p>Ren'Py's string interpolation is taken from the <span class="target" id="index-0"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3101"><strong>PEP 3101</strong></a> string
-formatting syntax. Ren'Py uses [ to introduce string formatting
-because { was taken by text tags.</p>
-<p>Along with the !s and !r conversion flags supported by Python, Ren'Py
-supports !q and !t conversion flag. The !q conversion flag ensures that
-text tags are properly quoted, so that displaying a string will not
-introduce unwanted formatting constructs. For example:</p>
+<p>Ren'Py 这种向文字里插值的方法是取自 <span class="target" id="index-0"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3101"><strong>PEP 3101</strong></a> 格式化字符串。 Ren'Py 使用 [ 来声明格式化字符串输出是因为 { 这个符号已经被文本标签占用了。</p>
+<p>除了支持!s 和 !r这样的转换标志（意义见PEP 3101），Ren'Py 支持!q 和 !t这样的转换标志。!q 这个转换标志用于确保文本标签已经正确地被引号所引起来了，这样，在显示一个字符串时，系统将不会再声明一个不需要的格式化结构。例子见下：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;Don&#39;t pull a fast one on me, [playername!q].&quot;</span>
 </pre></div>
 </div>
-<p>The !t flag will translate the interpolated string:</p>
+<p> !t 标志会翻译即将插入文字的变量：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">if</span> <span class="n">points</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
-    <span class="k">$</span> <span class="n">mood</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;happy&quot;</span><span class="p">)</span>
+    <span class="k">$</span> <span class="n">mood</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;高兴&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="k">$</span> <span class="n">mood</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;annoyed&quot;</span><span class="p">)</span>
+    <span class="k">$</span> <span class="n">mood</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;讨厌&quot;</span><span class="p">)</span>
 
-<span class="n">g</span> <span class="s">&quot;I&#39;m [mood!t] to see you.&quot;</span>
+<span class="n">g</span> <span class="s">&quot;我很 [mood!t] 见到你。&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="styling-and-text-tags">
-<h2>Styling and Text Tags<a class="headerlink" href="#styling-and-text-tags" title="Permalink to this headline">¶</a></h2>
-<p>In Ren'Py, text gains style information in two ways. The first is from
-the style that is applied to the entire block of text. Please see the
-section about the <a class="reference internal" href="style.html#styles"><em>style system</em></a> for more details,
-especially the section on <a class="reference internal" href="style_properties.html#text-style-properties"><em>text style properties</em></a>.</p>
-<p>The second way is through text tags. Text tags are suitable for
-styling a portion of text block, or a small fraction of the text
-blocks in the program. If you find yourself applying the same text
-tags to every line of text, consider using a style instead.</p>
-<p>There are two text tags. Some text tags are self-closing, while others
-require a closing tag. When multiple closing tags are used, they
-should be closed last open, first closed order - Ren'Py will reject
-incorrect nesting. For example:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># This line is correct.</span>
-<span class="s">&quot;Plain {b}Bold {i}Bold-Italic{/i} Bold{/b} Plain&quot;</span>
+<h2>样式与文本标签<a class="headerlink" href="#styling-and-text-tags" title="Permalink to this headline">¶</a></h2>
+<p>在 Ren'Py里面, 有两种方式可以指定文字的显示样式。第一种方式是使用进入这个文字区块时所指定的样式。关于这种方式，请参阅 <a class="reference internal" href="style.html#styles"><em>样式系统</em></a> 这一章以了解相关的更多细节，尤其是 <a class="reference internal" href="style_properties.html#text-style-properties"><em>文本样式属性</em></a> 这一章节。</p>
+<p>第二种方式就是通过格式标签来调整。格式标签可以用于文字区块中的某一部分文字，或是主程序中的一小部分文字。
+  如果您发现自己在剧本中的每一行中都使用了同样的格式标签，请考虑下增加更多的文字样式。</p>
+<p>接下来的例子中分别有两种格式标签。在他们中有些是直接被两个大括号括起来，而另一些则多了一个结束标记（反斜杠）。当你在一个句子中使用了多个格式标签时，最后一个使用的不含结束标记的标签应该和第一个含结束标记的标签是一样的—— Ren'Py 将会对错误的嵌套关系报错。举个<s>栗</s>例子：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 这一行是正确的写法。</span>
+<span class="s">&quot;普通 {b}加粗 {i}又粗又斜{/i} 粗体{/b} 普通&quot;</span>
 
-<span class="c"># This line is incorrect, and will cause an error or incorrect</span>
-<span class="c"># behavior.</span>
-<span class="s">&quot;Plain {b}Bold {i}Bold-Italic{/b} Italic{/i} Plain&quot;</span>
+<span class="c"># 这行是错误的，系统会对这行报错。</span>
+<span class="s">&quot;普通 {b}加粗 {i}又粗又斜{/b} 粗体{/i} 普通&quot;</span>
 </pre></div>
 </div>
-<p>Some text tags take an argument. In that case, the tag name is
-followed by an equals sign (=), and the argument. The argument may
-not contain the right-brace (}) character. The meaning of the
-argument varies based on the text tag.</p>
+<p>有些格式标签需要参数。在这种情况下，您应该在标签名之后加上一个等号 (=) ，等号后接所需的参数。有些参数可能不包含右大括号。这意味着这个参数是基于格式标签而变化的。 </p>
 <div class="section" id="general-text-tags">
-<h3>General Text Tags<a class="headerlink" href="#general-text-tags" title="Permalink to this headline">¶</a></h3>
-<p>Tags that apply to all text are:</p>
+<h3>一般的格式标签<a class="headerlink" href="#general-text-tags" title="Permalink to this headline">¶</a></h3>
+<p>可以对所有文字使用的标签有以下几个：</p>
 <dl class="text-tag">
 <dt id="text-tag-a">
 <tt class="descname">a</tt><a class="headerlink" href="#text-tag-a" title="Permalink to this definition">¶</a></dt>
-<dd><p>The anchor tag creates a hyperlink between itself and its closing
-tag. While the behavior of the hyperlink is controlled by the
-<a class="reference internal" href="style_properties.html#style-property-hyperlink_functions"><tt class="xref std std-propref docutils literal"><span class="pre">hyperlink_functions</span></tt></a> style property, the default handler
-has the following behavior.</p>
+<dd><p> a 标签会以自身与其闭合标签之间的文字为对象，创建一个超链接。当点击超链接的动作由
+<a class="reference internal" href="style_properties.html#style-property-hyperlink_functions"><tt class="xref std std-propref docutils literal"><span class="pre">hyperlink_functions</span></tt></a> 这个样式属性控制时，默认的样式处理器会按照以下顺序处理超链接：</p>
 <ul class="simple">
-<li>Hyperlinks are rendered using the <tt class="docutils literal"><span class="pre">style.hyperlink_text</span></tt> style.</li>
-<li>If the argument begins with the text <tt class="docutils literal"><span class="pre">&quot;http://&quot;</span></tt>, clicking on
-it opens the url in a web browser. Otherwise, the argument is
-interpreted as a label, which is called in a new context. This
-allows hyperlinks to be used to define terms.</li>
-<li>Apart from the change in style, there is no specific behavior
-when a hyperlink is hovered.</li>
+<li>超链接对象会以这样的样式 <tt class="docutils literal"><span class="pre">style.hyperlink_text</span></tt> 被打印出来。</li>
+<li>如果在 a 标签中的参数是以 <tt class="docutils literal"><span class="pre">&quot;http://&quot;</span></tt>开头的文字，点击超链接之后系统将会在浏览器中打开这个链接。
+或者，如果这个参数是一个标签的话，脚本处理器将会在一个新环境中调用这个标签。这样也意味着超链接可以被用于定义一些需要解释的术语。 </li>
+<li>如果玩家将光标悬停在超链接之上时，除了样式改变之外，并不会有别的特殊事件发生。</li>
 </ul>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">test</span><span class="p">:</span>
 
-    <span class="n">e</span> <span class="s">&quot;Why don&#39;t you visit {a=http://renpy.org}Ren&#39;Py&#39;s home page{/a}?&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;胡不访问 {a=http://renpy.org}Ren&#39;Py 之主页？{/a}?&quot;</span>
 
-    <span class="n">e</span> <span class="s">&quot;The {a=define_trebuchet}trebuchet{/a} is at the gates.&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;此 {a=define_trebuchet}trebuchet{/a} 乃下方门也。&quot;</span>
 
     <span class="k">return</span>
 
@@ -275,9 +234,8 @@ when a hyperlink is hovered.</li>
 <dl class="text-tag">
 <dt id="text-tag-b">
 <tt class="descname">b</tt><a class="headerlink" href="#text-tag-b" title="Permalink to this definition">¶</a></dt>
-<dd><p>The bold tag renders the text between itself and its closing tag
-in a bold font.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;An example of {b}bold test{/b}.&quot;</span>
+<dd><p> b 标签会将标签自身与其闭合标签之间的文字变为粗体显示。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;一个粗体文字的 {b}测试{/b}。&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -285,10 +243,9 @@ in a bold font.</p>
 <dl class="text-tag">
 <dt id="text-tag-color">
 <tt class="descname">color</tt><a class="headerlink" href="#text-tag-color" title="Permalink to this definition">¶</a></dt>
-<dd><p>The color text tag renders the text between itself and its closing
-tag in the specified color. The color should be in #rgb, #rgba,
-#rrggbb, or #rrggbbaa format.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;{color=#f00}Red{/color}, {color=#00ff00}Green{color}, {color=#0000ffff}Blue{/color}&quot;</span>
+<dd><p> color 标签会将标签自身与其闭合标签之间的文字用指定的颜色显示。所显示的颜色必须用 #rgb, #rgba,
+#rrggbb, 或 #rrggbbaa 格式来表示。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;{color=#f00}红色{/color}, {color=#00ff00}绿色{color}, {color=#0000ffff}蓝色{/color}&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -296,12 +253,8 @@ tag in the specified color. The color should be in #rgb, #rgba,
 <dl class="text-tag">
 <dt id="text-tag-cps">
 <tt class="descname">cps</tt><a class="headerlink" href="#text-tag-cps" title="Permalink to this definition">¶</a></dt>
-<dd><p>The characters per second tag sets the speed of text display, for
-text between the tag and its closing tag. If the argument begins
-with an asterisk, it's taken as a multiplier to the current text
-speed. Otherwise, the argument gives the speed to show the text
-at, in characters per second.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;{cps=20}Fixed Speed{/cps} {cps=*2}Double Speed{/cps}</span>
+<dd><p>cps（The characters per second ）标签可以设定在它自身与其闭合标签之间的文字的显示速度。如果参数是以星号为始的，那么标签内文字显示的速度就是当前显示速度乘以星号后的数字。其余情况下系统会将参数为设置为所选文字的显示速度，单位为字/秒。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;{cps=20}固定速度{/cps} {cps=*3}红色有角三倍速！{/cps}</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -309,10 +262,8 @@ at, in characters per second.</p>
 <dl class="text-tag">
 <dt id="text-tag-font">
 <tt class="descname">font</tt><a class="headerlink" href="#text-tag-font" title="Permalink to this definition">¶</a></dt>
-<dd><p>The font tag renders the text between itself and its closing tag
-in the specified font. The argument is the filename of the font to
-use.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;Try out the {font=mikachan.ttf}mikachan font{/font}.&quot;</span>
+<dd><p> font 标签会将标签自身与其闭合标签之间的文字用指定字体显示。标签后的参数就是指定所用的文字。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;试试用 {font=natsunonekochan.ttf}natsunonekochan 字体{/font}来显示文字。&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -320,9 +271,8 @@ use.</p>
 <dl class="text-tag">
 <dt id="text-tag-i">
 <tt class="descname">i</tt><a class="headerlink" href="#text-tag-i" title="Permalink to this definition">¶</a></dt>
-<dd><p>The italics tag renders the text between itself and its closing tag
-in italics.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;Visit the {i}leaning tower of Pisa{/i}.&quot;</span>
+<dd><p>斜体标签会将自身与其闭合标签之间的文字用斜体显示。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;吃我 {i}比萨斜塔{/i}啦！&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -330,12 +280,8 @@ in italics.</p>
 <dl class="text-tag">
 <dt id="text-tag-k">
 <tt class="descname">k</tt><a class="headerlink" href="#text-tag-k" title="Permalink to this definition">¶</a></dt>
-<dd><p>The kerning tag is a tag that adjust the kerning of characters
-between itself and its closing tag. It takes as an argument a
-floating point number giving the number of pixels of kerning to add
-to each kerning pair. (The number may be negative to decrease
-kerning.)</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;{k=-.5}Negative{/k} Normal {k=.5}Positive{/k}&quot;</span>
+<dd><p>字距调整标签可以调整自身与其闭合标签之间的文字的字间距。它接收一个浮点小数作为参数，并将这个小数转化为像素值添加到选中文字的显示字间距中 (这个命令可以是负数，此时意味着减少字间距)。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;{k=-.5}减少{/k} 普通 {k=.5}增加{/k}&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -343,10 +289,7 @@ kerning.)</p>
 <dl class="text-tag">
 <dt id="text-tag-image">
 <tt class="descname">image</tt><a class="headerlink" href="#text-tag-image" title="Permalink to this definition">¶</a></dt>
-<dd><p>The image tag is a self-closing tag that inserts an image into the
-text. The image should be the height of a single line of text. The
-argument should be either the image filename, or the name of an
-image defined with the image statement.</p>
+<dd><p> image 标签是一个不需要闭合标签的文本标签，它的作用是在文字之间添加一张图像，图像的高度应该和本行文字的高度相同。image 标签的参数应该是图像文件的文件名或是一个已经使用 image 命令定义好的图像文件的别名。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;Good to see you! {image=heart.png}&quot;</span>
 </pre></div>
 </div>
@@ -355,9 +298,8 @@ image defined with the image statement.</p>
 <dl class="text-tag">
 <dt id="text-tag-s">
 <tt class="descname">s</tt><a class="headerlink" href="#text-tag-s" title="Permalink to this definition">¶</a></dt>
-<dd><p>The strikethrough tag draws a line through text between itself and
-its closing tag.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;It&#39;s good {s}to see you{/s}.&quot;</span>
+<dd><p>删除线标签会给标签自身与其闭合标签之间的文字画上删除线。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;其实你是我的 {s}老婆{/s} 亲妹妹。&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -365,28 +307,22 @@ its closing tag.</p>
 <dl class="text-tag">
 <dt id="text-tag-rb">
 <tt class="descname">rb</tt><a class="headerlink" href="#text-tag-rb" title="Permalink to this definition">¶</a></dt>
-<dd><p>The ruby bottom tag marks text between itself and its closing tag
-as ruby bottom text. See the section on <a class="reference internal" href="#ruby-text"><em>Ruby Text</em></a>
-for more information.</p>
+<dd><p>底部注释标签会将标签自身与其闭合标签之间的文字用作其他文字的底部注释。请参见 <a class="reference internal" href="#ruby-text"><em>Ruby文本</em></a>
+这一章以获得更多信息。</p>
 </dd></dl>
 
 <dl class="text-tag">
 <dt id="text-tag-rt">
 <tt class="descname">rt</tt><a class="headerlink" href="#text-tag-rt" title="Permalink to this definition">¶</a></dt>
-<dd><p>The ruby top tag marks text between itself and its closing tag as
-ruby top text. See the section on <a class="reference internal" href="#ruby-text"><em>Ruby Text</em></a> for
-more information.</p>
+<dd><p>顶部注释标签会将标签自身与其闭合标签之间的文字用作其他文字的顶部注释。请参见 <a class="reference internal" href="#ruby-text"><em>Ruby文本</em></a> 
+这一章以获得更多信息。</p>
 </dd></dl>
 
 <dl class="text-tag">
 <dt id="text-tag-size">
 <tt class="descname">size</tt><a class="headerlink" href="#text-tag-size" title="Permalink to this definition">¶</a></dt>
-<dd><p>The size tag changes the size of text between itself and its
-closing tag. The argument should be an integer, optionally preceded
-by + or -. If the argument is just an integer, the size is set to
-that many pixels high. Otherwise, the size is increased or
-decreased by that amount.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;{size=+10}Bigger{/size} {size=-10}Smaller{/size} {size=24}24 px{/size}.&quot;</span>
+<dd><p>size 标签会改变标签自身与其闭合标签之间的文字的大小。它接收一个整数型变量作为参数，参数可以随意用+号或者-号更改其数值大小。如果参数只是一个值的话，文字大小就会被设定为这个值，否则文字大小将会被设定为当前文字大小加上或减去这个值。.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;{size=+10}比24更大些{/size} {size=-10}比24更小些{/size} {size=24}24 px的文字{/size}.&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -394,10 +330,8 @@ decreased by that amount.</p>
 <dl class="text-tag">
 <dt id="text-tag-space">
 <tt class="descname">space</tt><a class="headerlink" href="#text-tag-space" title="Permalink to this definition">¶</a></dt>
-<dd><p>The space tag is a self-closing tag that inserts horizontal space
-into a line of text. As an argument, it takes an integer giving the
-number of pixels of space to add.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;Before the space.{space=30}After the space.&quot;</span>
+<dd><p> space 标签是一个不需要闭合标签的文本标签，它的作用是为当前行文本添加水平显示的空格。它接收一个整数型变量作为参数，用于表示所需打印的空格个数。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;空格之前。{space=30}空格之后。&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -405,9 +339,8 @@ number of pixels of space to add.</p>
 <dl class="text-tag">
 <dt id="text-tag-u">
 <tt class="descname">u</tt><a class="headerlink" href="#text-tag-u" title="Permalink to this definition">¶</a></dt>
-<dd><p>The underline tag underlines the text between itself and its
-closing tag.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;It&#39;s good to {u}see{/u} you.&quot;</span>
+<dd><p>下划线标签会给标签自身与其闭合标签之间的文字画上下划线。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;很高兴 {u}看见{/u} 你。&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -415,10 +348,8 @@ closing tag.</p>
 <dl class="text-tag">
 <dt id="text-tag-vspace">
 <tt class="descname">vspace</tt><a class="headerlink" href="#text-tag-vspace" title="Permalink to this definition">¶</a></dt>
-<dd><p>The vspace tag is a self-closing tag that inserts vertical space
-between lines of text. As an argument, it takes an integer giving
-the number of pixels of space to add.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;Line 1{vspace=30}Line 2&quot;</span>
+<dd><p>vspace 标签是一个不需要闭合标签的文本标签，它的作用是为当前行文本添加垂直显示的空格。它接收一个整数型变量作为参数，用于表示所需打印的空格个数。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;行一。{vspace=30}行二。&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -426,8 +357,7 @@ the number of pixels of space to add.</p>
 <dl class="text-tag">
 <dt id="text-tag-#">
 <tt class="descname">#</tt><a class="headerlink" href="#text-tag-#" title="Permalink to this definition">¶</a></dt>
-<dd><p>Text tags beginning with # are ignored, but can be included to distinguish
-strings for the purpose of translation.</p>
+<dd><p>以#为始的文字都是被忽略的。但是你可以用它来写注释，方便日后代码的维护和修改。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;New{#playlist}&quot;</span>
 </pre></div>
 </div>
@@ -435,14 +365,12 @@ strings for the purpose of translation.</p>
 
 </div>
 <div class="section" id="dialogue-text-tags">
-<h3>Dialogue Text Tags<a class="headerlink" href="#dialogue-text-tags" title="Permalink to this headline">¶</a></h3>
-<p>Text tags that only apply to dialogue are:</p>
+<h3>对话文本标签<a class="headerlink" href="#dialogue-text-tags" title="Permalink to this headline">¶</a></h3>
+<p>只能在对话里用到的文本标签如下：</p>
 <dl class="text-tag">
 <dt id="text-tag-fast">
 <tt class="descname">fast</tt><a class="headerlink" href="#text-tag-fast" title="Permalink to this definition">¶</a></dt>
-<dd><p>If the fast tag is displayed in a line of text, then all text
-before it is displayed instantly, even in slow text mode. The
-fast tag is a self-closing tag.</p>
+<dd><p>如果 fast 标签出现在文字行中，那么在此标签之后的所有文字都会立刻显示在屏幕上，即便是当前处于处于慢速阅读模式。fast 标签是一个不需要闭合标签的文本标签。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;Looks like they&#39;re{nw}&quot;</span>
 <span class="k">show</span> <span class="n">trebuchet</span>
 <span class="n">g</span> <span class="s">&quot;Looks like they&#39;re{fast} playing with their trebuchet again.&quot;</span>
@@ -453,9 +381,7 @@ fast tag is a self-closing tag.</p>
 <dl class="text-tag">
 <dt id="text-tag-nw">
 <tt class="descname">nw</tt><a class="headerlink" href="#text-tag-nw" title="Permalink to this definition">¶</a></dt>
-<dd><p>The no-wait tag is a self-closing tag that causes the current line
-of dialogue to automatically dismiss itself once the end of line
-has been displayed.</p>
+<dd><p>no-wait 标签是一个不需要闭合标签的文本标签。它会使当前行显示完后立刻跳到下一行。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">g</span> <span class="s">&quot;Looks like they&#39;re{nw}&quot;</span>
 <span class="k">show</span> <span class="n">trebuchet</span>
 <span class="n">g</span> <span class="s">&quot;Looks like they&#39;re{fast} playing with their trebuchet again.&quot;</span>
@@ -466,11 +392,7 @@ has been displayed.</p>
 <dl class="text-tag">
 <dt id="text-tag-p">
 <tt class="descname">p</tt><a class="headerlink" href="#text-tag-p" title="Permalink to this definition">¶</a></dt>
-<dd><p>The paragraph pause tag is a self-closing tag that terminates the
-current paragraph, and waits for the user to click to continue. If
-it is given an argument, the argument is interpreted as a number,
-and the wait automatically ends after that many seconds have
-passed.</p>
+<dd><p>段落暂停（paragraph pause）标签是一个不需要闭合标签的文本标签。它会在显示完当前段落文字后，等待用户点击以继续显示下一个段落的文本。如果给予了这个标签一个可选的参数，那么这个参数会被解释为一个数字，并在等待数字所表示的时间后自动跳到下一段落。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;Line 1{p}Line 2{p=1.0}Line 3&quot;</span>
 </pre></div>
 </div>
@@ -479,10 +401,7 @@ passed.</p>
 <dl class="text-tag">
 <dt id="text-tag-w">
 <tt class="descname">w</tt><a class="headerlink" href="#text-tag-w" title="Permalink to this definition">¶</a></dt>
-<dd><p>The wait tag is a self-closing tag that waits for the user to
-click to continue. If it is given an argument, the argument is
-interpreted as a number, and the wait automatically ends after
-that many seconds have passed.</p>
+<dd><p>wait 标签是一个不需要闭合标签的文本标签。它的作用是等待玩家点击之后再继续操作，如果给予了这个标签一个可选的参数，那么这个参数会被解释为一个数字，并在等待数字所表示的时间后自动执行下一个语句。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;Line 1{w} Line 1{w=1.0} Line 1&quot;</span>
 </pre></div>
 </div>
@@ -490,12 +409,8 @@ that many seconds have passed.</p>
 
 </div>
 <div class="section" id="user-defined-text-tags">
-<h3>User-Defined Text Tags<a class="headerlink" href="#user-defined-text-tags" title="Permalink to this headline">¶</a></h3>
-<p>Ren'Py also supports user-defined text tags. A user-defined text tag
-is a text tag where the tag name is empty. In this case, the argument
-is taken to be the name of a style. The text between this tag and the
-closing tag has the following properties set to those defined in the
-style:</p>
+<h3>用户自定义的文本标签<a class="headerlink" href="#user-defined-text-tags" title="Permalink to this headline">¶</a></h3>
+<p>Ren'Py 通常也支持用户自定义文本标签。用户所定义的文本标签其实是一个空的文本标签，在这时，命令解释器会将所接收到的参数作为用户自定义的样式名称。在这个标签自身和其闭合标签之间的文字将会作为以下样式属性的值：</p>
 <ul class="simple">
 <li>antialias</li>
 <li>font</li>
@@ -511,89 +426,63 @@ style:</p>
 </div>
 </div>
 <div class="section" id="non-english-languages">
-<h2>Non-English Languages<a class="headerlink" href="#non-english-languages" title="Permalink to this headline">¶</a></h2>
-<p>The default font for Ren'Py contains characters for English and many
-other languages. For size reasons, it doesn't contain the characters
-required to render other languages, including Chinese, Japanese, and
-Korean. In order to support these language, a project must first
-change the default font, using code like:</p>
+<h2>非英文的语言<a class="headerlink" href="#non-english-languages" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py 的默认字体中包含了英文字符与其他很多语言的字符。但是考虑到大小原因，它没有包含有以下语言的字符：中文、日文、韩文。如果一个项目想要支持这几种语言，那么首先应该改变默认字符的设定，设定一个支持这三种语言的字体。您可以使用类似下面这样的写法：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
-    <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">font</span> <span class="o">=</span> <span class="s">&quot;mikachan.ttf&quot;</span>
+    <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">font</span> <span class="o">=</span> <span class="s">&quot;taigacon.ttf&quot;</span>
 </pre></div>
 </div>
-<p>Ren'Py should then support most world languages without further
-configuration. However, Korean can be written with or without spacing
-between words. Ren'Py has a special mode to support Korean with
-spaces, which can be enabled with the code:</p>
+<p>Ren'Py 在可以不通过复杂的设定就能支持世界上绝大多数的语言。然而，韩文是个特例。在韩文中，词与词之前可以空格也可以不空格。 Ren'Py 对于韩文有一套特殊的处理方法，您可以通过下面的设定来开启对于韩文分词的支持：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">language</span> <span class="o">=</span> <span class="s">&quot;korean-with-spaces&quot;</span>
 </pre></div>
 </div>
-<p>Japanese has multiple rules for line breaking. We recommend starting with
-&quot;japanese-normal&quot;, and moving to &quot;japanese-loose&quot; or &quot;japanese-strict&quot; for
-more or less break opportunities, respectively.:</p>
+<p>在日文中，有很多种换行的规则。我们推荐以
+&quot;japanese-normal&quot;为首的方式， 接下来是 &quot;japanese-loose&quot; 或 &quot;japanese-strict&quot; 分别以增加/减少自动换行的次数。写法如下：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">language</span> <span class="o">=</span> <span class="s">&quot;japanese-normal&quot;</span>
 </pre></div>
 </div>
-<p>Ideographic languages provide a large number of opportunities
-for line breaking. To enable a faster but less-accurate line-breaking
-algorithm, use the code:</p>
+<p>象形文字有着更多的自动换行次数。如果要开启一个快速但是低精确率的自动换行算法，请使用以下的写法：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">layout</span> <span class="o">=</span> <span class="s">&quot;greedy&quot;</span>
 </pre></div>
 </div>
-<p>The faster line-breaking algorithm is not be necessary unless the
-game is displaying huge amounts of text, such as in NVL-mode.</p>
-<p>The line breaking algorithms can be further configured using the
-<tt class="xref py py-func docutils literal"><span class="pre">renpy.language_tailor()</span></tt> function.</p>
+<p>快速自动换行算法对于普通游戏来说并没有多大的意义，除非一个游戏的文本量很大（比如说在 NVL 模式下）。</p>
+<p>自动换行可以在 <tt class="xref py py-func docutils literal"><span class="pre">renpy.language_tailor()</span></tt> 函数中做更进一步的设定。</p>
 <div class="section" id="vertical-text">
-<h3>Vertical Text<a class="headerlink" href="#vertical-text" title="Permalink to this headline">¶</a></h3>
-<p>When the <a class="reference internal" href="style_properties.html#style-property-vertical"><tt class="xref std std-propref docutils literal"><span class="pre">vertical</span></tt></a> style property is set, Ren'Py will produce
-vertically oriented text. The text is written top-to-bottom,
-right-to-left.</p>
-<p>There are two text tags that interact with vertical text.</p>
+<h3>竖行文本<a class="headerlink" href="#vertical-text" title="Permalink to this headline">¶</a></h3>
+<p>当 <a class="reference internal" href="style_properties.html#style-property-vertical"><tt class="xref std std-propref docutils literal"><span class="pre">vertical</span></tt></a> 样式属性被启用时， Ren'Py 将会以竖行文本方式打印文本。这样的文字打印顺序是从上到下，从右到左。</p>
+<p>有两个文本标签可以用于竖行文本。</p>
 <dl class="text-tag">
 <dt id="text-tag-horiz">
 <tt class="descname">horiz</tt><a class="headerlink" href="#text-tag-horiz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Includes horizontally-oriented text inside vertical text.</p>
+<dd><p>在竖行文本中显示水平文字。</p>
 </dd></dl>
 
 <dl class="text-tag">
 <dt id="text-tag-vert">
 <tt class="descname">vert</tt><a class="headerlink" href="#text-tag-vert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Includes vertically-oriented text inside horizontal text. (This will
-not rotate the text to the vertical orientation.)</p>
+<dd><p>在水平文字中显示竖行文本。（这不会将文本旋转到垂直方向）</p>
 </dd></dl>
 
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If the font does not contain vertical text spacing information, Ren'Py
-will attempt to synthesize this information from horizontal text
-information. The spacing may not remain constant between Ren'Py
-releases.</p>
+<p class="last">如果字体文件里没有竖行空格的字符， Ren'Py 将会尝试从水平文本的字体中合成竖行空格。这样的空格在不同发行版本的 Ren'Py 中可能不会正常工作。</p>
 </div>
 </div>
 </div>
 <div class="section" id="ruby-text">
-<span id="id2"></span><h2>Ruby Text<a class="headerlink" href="#ruby-text" title="Permalink to this headline">¶</a></h2>
-<p>Ruby text (also known as furigana or interlinear annotations) is a way
-of placing small text above a character or word. There are several
-steps required for your game to support Ruby text.</p>
-<p>First, you must set up styles for the ruby text. The following style
-changes are required:</p>
+<span id="id2"></span><h2>Ruby 文本<a class="headerlink" href="#ruby-text" title="Permalink to this headline">¶</a></h2>
+<p>Ruby 文本（多见于假名注音或行间的注释）是一些放于文字或词组上的小字的称呼。 想要在您的游戏中支持Ruby 文本，您需要做以下工作：</p>
+<p>首先，你需要设定Ruby 文本的样式。下面是需要更改的样式设置：</p>
 <ol class="arabic simple">
-<li>The <a class="reference internal" href="style_properties.html#style-property-line_leading"><tt class="xref std std-propref docutils literal"><span class="pre">line_leading</span></tt></a> property must be used to leave enough
-vertical space for the ruby text.</li>
-<li>A new named style must be created. The properties of this style,
-such as <a class="reference internal" href="style_properties.html#style-property-size"><tt class="xref std std-propref docutils literal"><span class="pre">size</span></tt></a> should be set in a fashion appropriate
-for ruby text.</li>
-<li>The yoffset of the new style should be set, in order to move the
-ruby text above the baseline.</li>
-<li>The <a class="reference internal" href="style_properties.html#style-property-ruby_style"><tt class="xref std std-propref docutils literal"><span class="pre">ruby_style</span></tt></a> field of the text's style should be set
-to the newly-created style.</li>
+<li> <a class="reference internal" href="style_properties.html#style-property-line_leading"><tt class="xref std std-propref docutils literal"><span class="pre">line_leading</span></tt></a> 这一设定是用于给Ruby 文本在竖直方向留下足够大的空间，以确保Ruby 文本能正常显示。</li>
+<li>必须新建一个未命名的样式。这个样式的属性，比如 <a class="reference internal" href="style_properties.html#style-property-size"><tt class="xref std std-propref docutils literal"><span class="pre">size</span></tt></a> 应该为Ruby 文本留下足够大的空间。</li>
+<li>新样式的 yoffset 属性应该被设置到合适的值，目的是为了让Ruby 文本显示在基准线之上。（译注：这样能使正文在原来的基准上偏移你所设定的值，所以一般在使用Ruby 文本时， yoffset 都会被设定为负值以向下偏移）</li>
+<li> <a class="reference internal" href="style_properties.html#style-property-ruby_style"><tt class="xref std std-propref docutils literal"><span class="pre">ruby_style</span></tt></a> 这个与文字样式有关的域应该被设定为新创建的样式。</li>
 </ol>
-<p>For example:</p>
+<p>举个例子：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
     <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">line_leading</span> <span class="o">=</span> <span class="mi">12</span>
 
@@ -604,114 +493,84 @@ to the newly-created style.</li>
     <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">ruby_style</span> <span class="o">=</span> <span class="k">style</span><span class="o">.</span><span class="na">ruby_style</span>
 </pre></div>
 </div>
-<p>Once Ren'Py has been configured, ruby text can be included using the
-rt and rb text tags. The rt tag is used to mark one or more characters
-to be displayed as ruby text. If the ruby text is preceded by text
-enclosed in the rb tag, the ruby text is centered over that
-text. Otherwise, it is centered over the preceding character.</p>
-<p>For example:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;Ruby can be used for furigana (東{rt}とう{/rt} 京{rt}きょう{/rt}).&quot;</span>
+<p>在 Ren'Py 设定好后，Ruby 文本就可以用 rt 和 rb 这两个文字标签来标记显示了。rt 这个文字标签用于标记将要显示为旁注的文字。如果文字被 rb 标签所包含，那么Ruby 文本就会显示在所包含的文字上部中央。 </p>
+<p>例子如下：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;Ruby 文本可以用来注音，比如 (東{rt}とう{/rt} 京{rt}きょう{/rt}).&quot;</span>
 
-<span class="n">e</span> <span class="s">&quot;It&#39;s also used for translations ({rb}東京{/rb}{rt}Tokyo{/rt}).&quot;</span>
+<span class="n">e</span> <span class="s">&quot;它也可以用来翻译 ({rb}東京{/rb}{rt}Tokyo{/rt}).&quot;</span>
 </pre></div>
 </div>
-<p>It's the creator's responsibility to ensure that ruby text does not
-leave the boundaries of the text. It may be necessary to add leading
-or spaces to the left and right of the text to prevent these errors
-from occurring.</p>
+<p>制作者有责任确认将要显示的Ruby 文本不会超出文字的界限。通常我们都会在文字的最左或是最右方增加行距或是一些空格，来避免这种情况的出现。</p>
 </div>
 <div class="section" id="fonts">
-<h2>Fonts<a class="headerlink" href="#fonts" title="Permalink to this headline">¶</a></h2>
-<p>Ren'Py supports Truetype and Image-Based fonts.</p>
-<p>A Truetype font is specified by giving the name of the font file. The
-file must be present in the game directory, or one of the archive
-files.</p>
-<p>Ren'Py also supports Truetype collections that define more than one
-font. When accessing a collection, use the 0-based font index,
-followed by an at-sign and the file name. For example, &quot;<a class="reference external" href="mailto:0&#37;&#52;&#48;font&#46;ttc">0<span>&#64;</span>font<span>&#46;</span>ttc</a>&quot; is
-the first font in a collection, &quot;<a class="reference external" href="mailto:1&#37;&#52;&#48;font&#46;ttc">1<span>&#64;</span>font<span>&#46;</span>ttc</a>&quot; the second, and so on.</p>
+<h2>字体<a class="headerlink" href="#fonts" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py 同时支持 Truetype 和图像字体集。</p>
+<p>使用一个 Truetype 字体的话只需要声明这个字体文件的名称即可。字体文件或字体文件的压缩包必须放置在 game 文件夹的根目录下。</p>
+<p>Ren'Py 也支持 TTC字体文件（Truetype collections，将多个字体合并为一个文件,为选择的字体仅使用一些字体的不同字形创建替换间距保存）。当使用TTC文件时，使用一个数字来代表所使用的字符集中的字体索引，其次是一个 @ 符号，最后加上字体文件名。举个例子， &quot;<a class="reference external" href="mailto:0&#37;&#52;&#48;font&#46;ttc">0<span>&#64;</span>font<span>&#46;</span>ttc</a>&quot; 是使用这个TTC文件的第一个字体， &quot;<a class="reference external" href="mailto:1&#37;&#52;&#48;font&#46;ttc">1<span>&#64;</span>font<span>&#46;</span>ttc</a>&quot;则是使用第二个，其余同理。</p>
 <div class="section" id="font-replacement">
-<h3>Font Replacement<a class="headerlink" href="#font-replacement" title="Permalink to this headline">¶</a></h3>
-<p>The <a class="reference internal" href="config.html#var-config.font_replacement_map"><tt class="xref std std-var docutils literal"><span class="pre">config.font_replacement_map</span></tt></a> variable is used to map
-fonts. The combination of font filename, boldness, and italics is
-mapped to a similar combination. This allows a font with proper
-italics to be used instead of the automatically-generated italics.</p>
-<p>Once such mapping would be to replace the italic version of the Deja
-Vu Sans font with the official oblique version. (You'll need to
-download the oblique font from the web.):</p>
+<h3>字体替换<a class="headerlink" href="#font-replacement" title="Permalink to this headline">¶</a></h3>
+<p> <a class="reference internal" href="config.html#var-config.font_replacement_map"><tt class="xref std std-var docutils literal"><span class="pre">config.font_replacement_map</span></tt></a> 这个变量用于映射字体文件。 字体文件名、是否为粗体、是否为斜体这些组合都会被映射到一个类似的组合上。在实际应用中，你可以用它来设定显示一些适合你文本宽度的斜体文字，而不是那些自动拉伸的斜体字。</p>
+<p>一旦执行了下面这样的映射，斜体的 Deja
+Vu Sans 就会被映射到官方自带的斜体字体上。 (您需要从网络上下载斜体。):</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
     <span class="n">config</span><span class="o">.</span><span class="n">font_replacement_map</span><span class="p">[</span><span class="s">&quot;DejaVuSans.ttf&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;DejaVuSans-Oblique.ttf&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This mapping can improve the look of italic text.</p>
+<p>这样的映射可以使斜体文字看上去更美观。</p>
 </div>
 <div class="section" id="image-based-fonts">
-<h3>Image-Based Fonts<a class="headerlink" href="#image-based-fonts" title="Permalink to this headline">¶</a></h3>
-<p>Image based fonts can be registered by calling one of the following
-registration functions. Registering an image-based font requires the
-specification of a name, size, boldness, italicness, and
-underline. When all of these properties match the registered font,
-the registered font is used.</p>
+<h3> BMFont（图像字体集）<a class="headerlink" href="#image-based-fonts" title="Permalink to this headline">¶</a></h3>
+<p> BMFont 可以通过调用以下的注册函数来注册并使用。注册一个基于图像的字体需要声明这个字体的名称、大小、是否为粗体、是否为斜体、以及是否有下划线。只有当所有这些属性都与注册的字体属性相同时，才能使用注册的图像字体。</p>
 <dl class="function">
 <dt id="renpy.register_bmfont">
 <tt class="descclassname">renpy.</tt><tt class="descname">register_bmfont</tt><big>(</big><em>name=None</em>, <em>size=None</em>, <em>bold=False</em>, <em>italics=False</em>, <em>underline=False</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#renpy.register_bmfont" title="Permalink to this definition">¶</a></dt>
-<dd><p>This registers a BMFont with the given details. Please note that size, bold,
-italic, and underline are all advisory (used for matching), and do not
-change the appearance of the font.</p>
-<p>Please see the <a class="reference external" href="http://www.angelcode.com/products/bmfont/">BMFont home page</a>
-for the tool that creates BMFonts. Ren'Py expects that the filename
-parameter will be to a file in the BMFont text format, that describes a
-32-bit font. The Alpha channel should contain the font information, while
-the Red, Green, and Blue channels should be set to one. The image files,
-kerning, and other control information is read out of the BMFont file.</p>
-<p>We recommend including Latin and General Punctuation as part of your BMFont,
-to ensure all of the Ren'Py interface can render.</p>
+<dd><p>上面的例子展示了如何在 Ren'Py 以给定的参数注册一个 BMFont。请注意在例子中 size, bold,
+italic, 以及 underline 这些属性全部都需要声明（用于匹配文字的属性），但实际上它并没有改变字体的外观。</p>
+<p>请访问 <a class="reference external" href="http://www.angelcode.com/products/bmfont/">BMFont 的官方主页</a>
+以获得更多有关于制作 BMFonts 的工具。 Ren'Py 会将文件名参数视为一个32位的 BMFont 字体文件。字体的 Alpha 通道应该包含有字体文件的信息，而Red, Green, 和 Blue通道则应设置为一个整体。 图像文件、字距以及其它的控制信息会在 BMFont 字体文件外读取。</p>
+<p>我们推荐在您的 BMFont 中包含常见的拉丁字符与标点符号，以确保所有的 Ren'Py 界面都能正确绘制。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the font being registered, a string.</dd>
+<dd>将注册字体的名称，字符串型变量。</dd>
 <dt><cite>size</cite></dt>
-<dd>The size of the font being registered, an integer.</dd>
+<dd>将注册字体的字体大小，整数型变量。</dd>
 <dt><cite>bold</cite></dt>
-<dd>The boldness of the font being registered, a boolean.</dd>
+<dd>将注册字体是否为粗体，布尔型变量。</dd>
 <dt><cite>italics</cite></dt>
-<dd>The italicness of the font being registered, a boolean.</dd>
+<dd>将注册字体是否为斜体，布尔型变量。</dd>
 <dt><cite>underline</cite></dt>
-<dd>An ignored parameter.</dd>
+<dd>此参数将被忽略。</dd>
 <dt><cite>filename</cite></dt>
-<dd>The file containing BMFont control information.</dd>
+<dd>包含有 BMFont 控制信息的文件，字符串型变量。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.register_mudgefont">
 <tt class="descclassname">renpy.</tt><tt class="descname">register_mudgefont</tt><big>(</big><em>name=None</em>, <em>size=None</em>, <em>bold=False</em>, <em>italics=False</em>, <em>underline=False</em>, <em>filename=None</em>, <em>xml=None</em>, <em>spacewidth=10</em>, <em>default_kern=0</em>, <em>kerns={}</em><big>)</big><a class="headerlink" href="#renpy.register_mudgefont" title="Permalink to this definition">¶</a></dt>
-<dd><p>This registers a MudgeFont with the given details. Please note that size,
-bold, italic, and underline are all advisory (used for matching), and do not
-change the appearance of the font.</p>
-<p>Please see the <a class="reference external" href="http://www.larryhastings.com/programming/mudgefont/">MudgeFont home page</a>
-for the tool that creates MudgeFonts. Ren'Py assumes that character codes
-found in the MudgeFont xml file are unicode character numbers, and ignores
-negative character codes.</p>
+<dd><p>以给定的参数注册一个 MudgeFont（位图字体）。 请注意在例子中 size, bold,
+italic, 以及 underline 这些属性全部都需要声明（用于匹配文字的属性），但实际上它并没有改变字体的外观。</p>
+<p>请查看 <a class="reference external" href="http://www.larryhastings.com/programming/mudgefont/">MudgeFont 的官方主页</a>
+以获取制作 MudgeFonts所需的工具。Ren'Py 会假定在 MudgeFont 的 xml 文件编码为 unicode 字符，并且会忽视无法读取的字符。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the font being registered, a string.</dd>
+<dd>将注册字体的名称，字符串型变量。</dd>
 <dt><cite>size</cite></dt>
-<dd>The size of the font being registered, an integer.</dd>
+<dd>将注册字体的字体大小，整数型变量。</dd>
 <dt><cite>bold</cite></dt>
-<dd>The boldness of the font being registered, a boolean.</dd>
+<dd>将注册字体是否为粗体，布尔型变量。</dd>
 <dt><cite>italics</cite></dt>
-<dd>The italicness of the font being registered, a boolean.</dd>
+<dd>将注册字体是否为斜体，布尔型变量。</dd>
 <dt><cite>underline</cite></dt>
-<dd>An ignored parameter.</dd>
+<dd>此参数将会被忽略。</dd>
 <dt><cite>filename</cite></dt>
-<dd>The file containing the MudgeFont image, a string. The image is usually
-a TGA file, but could be a PNG or other format that Ren'PY supports.</dd>
+<dd>含有 MudgeFont 图像的文件，字符串型变量。这个图像通常是 TGA 格式，但也可以是 PNG 或其他 Ren'Py 所支持的图像格式。</dd>
 <dt><cite>xml</cite></dt>
-<dd>The xml file containing information generated by the MudgeFont tool.</dd>
+<dd> xml 文件包含了有 MudgeFont 字体生成工具生成的信息。</dd>
 <dt><cite>spacewidth</cite></dt>
-<dd>The width of a space character, an integer in pixels.</dd>
+<dd>空格字符的宽度，像素值型变量。</dd>
 <dt><cite>default_kern</cite></dt>
-<dd>The default kern spacing between characters, in pixels.</dd>
+<dd>默认文字间距，像素值型变量。</dd>
 <dt><cite>kerns</cite></dt>
 <dd>A map from two-character strings to the kern that should be used between
 those characters.</dd>
@@ -721,33 +580,31 @@ those characters.</dd>
 <dl class="function">
 <dt id="renpy.register_sfont">
 <tt class="descclassname">renpy.</tt><tt class="descname">register_sfont</tt><big>(</big><em>name=None</em>, <em>size=None</em>, <em>bold=False</em>, <em>italics=False</em>, <em>underline=False</em>, <em>filename=None</em>, <em>spacewidth=10</em>, <em>default_kern=0</em>, <em>kerns={}</em>, <em>charset=u'!&quot;#$%&amp;'()*+</em>, <em>-./0123456789:;&lt;=&gt;?&#64;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'</em><big>)</big><a class="headerlink" href="#renpy.register_sfont" title="Permalink to this definition">¶</a></dt>
-<dd><p>This registers an SFont with the given details. Please note that size, bold,
-italic, and underline are all advisory (used for matching), and do not
-change the appearance of the font.</p>
-<p><a class="reference external" href="http://www.linux-games.com/sfont/">More information about SFont.</a></p>
+<dd><p>以给定的参数注册一个 SFont。 请注意在例子中 size, bold,
+italic, 以及 underline 这些属性全部都需要声明（用于匹配文字的属性），但实际上它并没有改变字体的外观。</p>
+<p>点击<a class="reference external" href="http://www.linux-games.com/sfont/"> 这里</a> 了解更多有关 SFont 的信息。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the font being registered, a string.</dd>
+<dd>将注册字体的名称，字符串型变量。</dd>
 <dt><cite>size</cite></dt>
-<dd>The size of the font being registered, an integer.</dd>
+<dd>将注册字体的字体大小，整数型变量。</dd>
 <dt><cite>bold</cite></dt>
-<dd>The boldness of the font being registered, a boolean.</dd>
+<dd>将注册字体是否为粗体，布尔型变量。</dd>
 <dt><cite>italics</cite></dt>
-<dd>The italicness of the font being registered, a boolean.</dd>
+<dd>将注册字体是否为斜体，布尔型变量。</dd>
 <dt><cite>underline</cite></dt>
-<dd>An ignored parameter.</dd>
+<dd>此参数将被忽略。</dd>
 <dt><cite>filename</cite></dt>
-<dd>The file containing the sfont image, a string.</dd>
+<dd>包含有 SFont 字体图像的文件，字符串型变量。</dd>
 <dt><cite>spacewidth</cite></dt>
-<dd>The width of a space character, an integer in pixels.</dd>
+<dd>空格字符的宽度，像素值型变量。</dd>
 <dt><cite>default_kern</cite></dt>
-<dd>The default kern spacing between characters, in pixels.</dd>
+<dd>默认文字间距，像素值型变量。</dd>
 <dt><cite>kerns</cite></dt>
 <dd>A map from two-character strings to the kern that should be used between
 those characters.</dd>
-<dt><cite>charset</cite> - The character set of the font. A string containing characters in</dt>
-<dd><p class="first">the order in which they are found in the image. The default character
-set for a SFont is:</p>
+<dt><cite>charset</cite> - 这个字体的字符表。由在图像中寻找的文字排序组合而成。</dt>
+<dd><p class="first">默认的 SFont 字符表是这样的：</p>
 <div class="last highlight-renpy"><div class="highlight"><pre><span class="err">!</span> <span class="s">&quot; # $ % &amp; &#39; ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; &lt; = &gt; ?</span>
 <span class="err">@</span> <span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">D</span> <span class="n">E</span> <span class="n">F</span> <span class="n">G</span> <span class="n">H</span> <span class="n">I</span> <span class="n">J</span> <span class="n">K</span> <span class="n">L</span> <span class="n">M</span> <span class="n">N</span> <span class="n">O</span> <span class="n">P</span> <span class="n">Q</span> <span class="n">R</span> <span class="n">S</span> <span class="n">T</span> <span class="n">U</span> <span class="n">V</span> <span class="n">W</span> <span class="n">X</span> <span class="n">Y</span> <span class="n">Z</span> <span class="p">[</span> \ <span class="p">]</span> <span class="o">^</span> <span class="n">_</span>
 <span class="err">`</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="n">d</span> <span class="n">e</span> <span class="n">f</span> <span class="n">g</span> <span class="n">h</span> <span class="n">i</span> <span class="n">j</span> <span class="n">k</span> <span class="n">l</span> <span class="n">m</span> <span class="n">n</span> <span class="n">o</span> <span class="n">p</span> <span class="n">q</span> <span class="n">r</span> <span class="n">s</span> <span class="n">t</span> <span class="n">u</span> <span class="n">v</span> <span class="n">w</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span> <span class="p">{</span> <span class="o">|</span> <span class="p">}</span> <span class="o">~</span>
@@ -757,9 +614,7 @@ set for a SFont is:</p>
 </dl>
 </dd></dl>
 
-<p>As BMFont is the most complete of the three image font formats Ren'Py
-supports, it's the one recommended for new projects. An example of
-BMFont use is:</p>
+<p>在这三者中， Ren'Py 对于 BMFont 的支持最为完善，所以我们推荐您在您的新项目中使用它。下面有一个使用 BMFont 的例子：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
     <span class="n">renpy</span><span class="o">.</span><span class="n">register_bmfont</span><span class="p">(</span><span class="s">&quot;bmfont&quot;</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s">&quot;bmfont.fnt&quot;</span><span class="p">)</span>
 
@@ -772,17 +627,10 @@ BMFont use is:</p>
 </div>
 </div>
 <div class="section" id="font-groups">
-<h3>Font Groups<a class="headerlink" href="#font-groups" title="Permalink to this headline">¶</a></h3>
-<p>When creating a multilingual game, it may not be possible to find a single
-font that covers every writing system the game use while projecting the
-the mood the creator intends. To support this, Ren'Py supports font groups
-that can take characters from two or more fonts and combine them into a
-single font.</p>
-<p>To create a font group, create a FontGroup object and call the .add method
-on it once or more. a FontGroup can be used wherever a font name can be
-used. The add method takes the start and end of a range of unicode character
-points, and the first range to cover a point is used.</p>
-<p>For example:</p>
+<h3>字体组<a class="headerlink" href="#font-groups" title="Permalink to this headline">¶</a></h3>
+<p>当您在制作一个支持多语言的游戏时，单个字体可能不能满足显示所有语种文字的需求。为了解决这样的问题， Ren'Py 支持创建一个由多个字体组成的字体。</p>
+<p>在创建字体组时，你需要创建一个字体组对象并调用一次或多次 .add 命令。字体名能在哪用，字体组就能在哪用。add 命令会读取字体文件内从起始到结尾范围内的 unicode 字符，该范围内的非可显示字符会自动被忽略。</p>
+<p>举个栗子：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">font</span> <span class="o">=</span> <span class="n">FontGroup</span><span class="p">()</span><span class="o">.</span><span class="k">add</span><span class="p">(</span><span class="s">&quot;english.ttf&quot;</span><span class="p">,</span> <span class="mh">0x0020</span><span class="p">,</span> <span class="mh">0x007f</span><span class="p">)</span><span class="o">.</span><span class="k">add</span><span class="p">(</span><span class="s">&quot;japanese.ttf&quot;</span><span class="p">,</span> <span class="mh">0x0000</span><span class="p">,</span> <span class="mh">0xffff</span><span class="p">)</span>
 </pre></div>
@@ -790,23 +638,19 @@ points, and the first range to cover a point is used.</p>
 <dl class="function">
 <dt id="FontGroup">
 <tt class="descname">FontGroup</tt><big>(</big><big>)</big><a class="headerlink" href="#FontGroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>A group of fonts that can be used as a single font.</p>
+<dd><p>一个FontGroup对象可以视为一个单独的字体文件。</p>
 <dl class="function">
 <dt id="add">
 <tt class="descname">add</tt><big>(</big><em>font</em>, <em>start</em>, <em>end</em><big>)</big><a class="headerlink" href="#add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Associates a range of characters with a <cite>font</cite>.</p>
+<dd><p>将字体范围内的字符用 <cite>font</cite>命令连接起来。</p>
 <dl class="docutils">
 <dt><cite>start</cite></dt>
-<dd>The start of the range. This may be a single-character string, or
-an integer giving a unicode code point.</dd>
+<dd>截取字体的起始位置。它可以是一个单个字符的字符串，或者是一个表示位置的十六进制数。</dd>
 <dt><cite>end</cite></dt>
-<dd>The end of the range. This may be a single-character string, or an
-integer giving a unicode code point.</dd>
+<dd>截取字体的结束位置。它可以是一个单个字符的字符串，或者是一个表示位置的十六进制数。</dd>
 </dl>
-<p>When multiple .add() calls include the same character, the first call
-takes precedence.</p>
-<p>This returns the FontGroup, so that multiple calls to .add() can be
-chained together.</p>
+<p>当多个 .add() 命令中含有同样的字符时，以第一个 add 命令中读取的字符优先。</p>
+<p>这个命令会返回一个字体组文件，所以多个 .add() 命令的调用可以连接在一起写。</p>
 </dd></dl>
 
 </dd></dl>
@@ -814,62 +658,44 @@ chained together.</p>
 </div>
 </div>
 <div class="section" id="text-displayable">
-<h2>Text Displayable<a class="headerlink" href="#text-displayable" title="Permalink to this headline">¶</a></h2>
-<p>Text can also be used as a <a class="reference internal" href="displayables.html#displayables"><em>displayable</em></a>, which
-allows you to apply transforms to text, displaying it as if it was an
-image and moving it around the screen.</p>
+<h2>Text 可显示对象<a class="headerlink" href="#text-displayable" title="Permalink to this headline">¶</a></h2>
+<p>文字也可以作为 <a class="reference internal" href="displayables.html#displayables"><em>displayable（可显示对象）</em></a>,，它允许你将文字作为可显示对象，能让它在屏幕的任何位置移动。</p>
 <dl class="function">
 <dt id="Text">
 <tt class="descname">Text</tt><big>(</big><em>text</em>, <em>slow=None</em>, <em>scope=None</em>, <em>substitute=None</em>, <em>slow_done=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Text" title="Permalink to this definition">¶</a></dt>
-<dd><p>A displayable that displays text on the screen.</p>
+<dd><p>一个将要在屏幕上显示的 Text 可显示对象。</p>
 <dl class="docutils">
 <dt><cite>text</cite></dt>
-<dd>The text to display on the screen. This may be a string, or a list of
-strings and displayables.</dd>
+<dd>要在屏幕上显示的文字。它可以是一个字符串变量，或是一个由字符串与可显示对象所组成的列表。</dd>
 <dt><cite>slow</cite></dt>
-<dd>Determines if the text is displayed slowly, being typed out one character at the time.
-If None, slow text mode is determined by the <a class="reference internal" href="style_properties.html#style-property-slow_cps"><tt class="xref std std-propref docutils literal"><span class="pre">slow_cps</span></tt></a> style property. Otherwise,
-the truth value of this parameter determines if slow text mode is used.</dd>
+<dd>用于设定文字是否慢速显示，显示速度由输入的每秒显示文字数决定。
+如果这个值为空的话，是否慢速显示文字将由 <a class="reference internal" href="style_properties.html#style-property-slow_cps"><tt class="xref std std-propref docutils literal"><span class="pre">slow_cps</span></tt></a> 样式属性所决定。或者通过传递一个真值给这个参数以决定是否使用文字慢速显示模式。</dd>
 <dt><cite>scope</cite></dt>
-<dd>If not None, this should be a dictionary that provides an additional scope for text
+<dd>如果这个值不为空的话，那它的参数应该是一个字典，里面提供了 this should be a dictionary that provides an additional scope for text
 interpolation to occur in.</dd>
 <dt><cite>substitute</cite></dt>
-<dd>If true, text interpolation occurs. If false, it will not occur. If
-None, they are controlled by <a class="reference internal" href="config.html#var-config.new_substitutions"><tt class="xref std std-var docutils literal"><span class="pre">config.new_substitutions</span></tt></a>.</dd>
+<dd>如果这个值为真的话，将会允许在文字内插值。反之则为不允许。如果这个值为空的话，那么是否允许文字内插值将会由 <a class="reference internal" href="config.html#var-config.new_substitutions"><tt class="xref std std-var docutils literal"><span class="pre">config.new_substitutions</span></tt> 决定。</a></dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="slow-text-concerns">
 <h2>Slow Text Concerns<a class="headerlink" href="#slow-text-concerns" title="Permalink to this headline">¶</a></h2>
-<p>Ren'Py allows the creator or user to indicate that text should be
-displayed slowly. In this case, Ren'Py will render the text to a
-texture, and then draw rectangles from the texture to the screen.</p>
-<p>Unfortunately, this means that it's possible to get rendering
-artifacts when characters overlap. To minimize these rendering
-artifacts, ensure that the <a class="reference internal" href="style_properties.html#style-property-line_leading"><tt class="xref std std-propref docutils literal"><span class="pre">line_leading</span></tt></a> and
-<a class="reference internal" href="style_properties.html#style-property-line_spacing"><tt class="xref std std-propref docutils literal"><span class="pre">line_spacing</span></tt></a> properties are large enough that lines do not
-overlap. If the bottoms of characters on the first line are clipped,
-espeically if line_spacing is negative, consider increasing
-<a class="reference internal" href="style_properties.html#style-property-line_overlap_split"><tt class="xref std std-propref docutils literal"><span class="pre">line_overlap_split</span></tt></a>.</p>
-<p>Horizontal artifacts are also possible when characters are kerned
-together, but these artifacts are less severe, as they exist for only
-a single frame.</p>
-<p>Artifacts aren't a problem for static text, like the text in menus and
-other parts of the user interface.</p>
+<p>Ren'Py 允许用户或是玩家设定文字以慢速显示。在慢速显示模式下， Ren'Py 会将文字绘制在一个 texture 上，然后再从 texture 上绘制一个矩阵到屏幕上。</p>
+<p>不幸的是，这将有可能导致文本重叠。为了避免这一情况，请您保证<a class="reference internal" href="style_properties.html#style-property-line_leading"><tt class="xref std std-propref docutils literal"><span class="pre">line_leading</span></tt></a>和
+<a class="reference internal" href="style_properties.html#style-property-line_spacing"><tt class="xref std std-propref docutils literal"><span class="pre">line_spacing</span></tt></a> 属性足够大，以免行与行之间发生重叠现象。若最初的文本的尾部没有被显示，尤其是line_spacing是负数的时候，您应该考虑增加
+<a class="reference internal" href="style_properties.html#style-property-line_overlap_split"><tt class="xref std std-propref docutils literal"><span class="pre">line_overlap_split</span></tt></a>的值。</p>
+<p>虽然水平方向也有可能发生文本重叠的情况，但是只会持续一帧，因此影响并不如垂直方向的重叠那么严重。</p>
+<p>文字重叠不会发生在静态文本里，比如说选项的文本和其他用户界面里的文本。.</p>
 <div class="section" id="text-overflow-logging">
-<h3>Text Overflow Logging<a class="headerlink" href="#text-overflow-logging" title="Permalink to this headline">¶</a></h3>
-<p>Ren'Py can log cases where text expands outside of the area allocated
-for it. To enable text overflow logging, the following steps are
-necessary.</p>
+<h3>文字溢出记录<a class="headerlink" href="#text-overflow-logging" title="Permalink to this headline">¶</a></h3>
+<p>Ren'Py 可以记录下文字溢出对话框的情况。为了开启这个功能，您需要做以下的设定。</p>
 <ol class="arabic simple">
-<li>Set the <a class="reference internal" href="config.html#var-config.debug_text_overflow"><tt class="xref std std-var docutils literal"><span class="pre">config.debug_text_overflow</span></tt></a> variable to true.</li>
-<li>Set the <a class="reference internal" href="style_properties.html#style-property-xmaximum"><tt class="xref std std-propref docutils literal"><span class="pre">xmaximum</span></tt></a> and <a class="reference internal" href="style_properties.html#style-property-ymaximum"><tt class="xref std std-propref docutils literal"><span class="pre">ymaximum</span></tt></a> style properties on either the Text
-displayable, or a container enclosing it.</li>
-<li>Run the game.</li>
+<li>将 <a class="reference internal" href="config.html#var-config.debug_text_overflow"><tt class="xref std std-var docutils literal"><span class="pre">config.debug_text_overflow</span></tt></a> 这个变量的值设定为 True 。</li>
+<li>为 Text 可显示对象或对话框设置 <a class="reference internal" href="style_properties.html#style-property-xmaximum"><tt class="xref std std-propref docutils literal"><span class="pre">xmaximum</span></tt></a> 和 <a class="reference internal" href="style_properties.html#style-property-ymaximum"><tt class="xref std std-propref docutils literal"><span class="pre">ymaximum</span></tt></a> 这两个样式属性。</li>
+<li>运行游戏。</li>
 </ol>
-<p>Whenever text is displayed that overflows the available area, Ren'Py
-will log an error to the <tt class="docutils literal"><span class="pre">text_overflow.txt</span></tt> file.</p>
+<p>现在当文字溢出显示区域时， Ren'Py 会在 <tt class="docutils literal"><span class="pre">text_overflow.txt</span></tt> 文件里添加一行关于溢出位置的记录。</p>
 </div>
 </div>
 </div>
