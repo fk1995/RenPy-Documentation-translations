@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>文本 &mdash; Ren&#39;Py Documentation</title>
+    <title>文本</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -119,7 +119,7 @@
 <p>Text可显示对象负责管理向玩家显示文字的过程。它按照以下顺序来处理文本：</p>
 <ol class="arabic simple">
 <li>翻译文字。</li>
-<li>将数据插入文字中</li>
+<li>将数据插入文字中。</li>
 <li>按照预设定的样式与文本标签设定文字的显示样式。</li>
 <li>将处理后的文字移动到指定的位置。</li>
 <li>在屏幕上描绘出文字。</li>
@@ -131,7 +131,7 @@
 <dl class="docutils">
 <dt>(backslash)</dt>
 <dd><p class="first">在 Ren'Py
-或 Python 语句中常使用反斜杠（“\”）字符用于转义。这里一些常用的表达：（以下均为半角字符）</p>
+或 Python 语句中常使用反斜杠（“\”）字符用于转义。一些常用的表达：（以下均为半角字符）</p>
 <dl class="last docutils">
 <dt>\&quot; (反斜杠-双引号)</dt>
 <dd>在一串已经被双引号引起来的字符串中使用一个双引号。</dd>
@@ -199,7 +199,7 @@
 </div>
 <p>有些格式标签需要参数。在这种情况下，您应该在标签名之后加上一个等号 (=) ，等号后接所需的参数。有些参数可能不包含右大括号。这意味着这个参数是基于格式标签而变化的。 </p>
 <div class="section" id="general-text-tags">
-<h3>一般的格式标签<a class="headerlink" href="#general-text-tags" title="Permalink to this headline">¶</a></h3>
+<h3>一般文本标签<a class="headerlink" href="#general-text-tags" title="Permalink to this headline">¶</a></h3>
 <p>可以对所有文字使用的标签有以下几个：</p>
 <dl class="text-tag">
 <dt id="text-tag-a">
@@ -222,9 +222,9 @@
 
 <span class="k">label</span> <span class="n">define_trebuchet</span><span class="p">:</span>
 
-    <span class="n">e</span> <span class="s">&quot;A trebuchet is a kind of siege engine.&quot;</span>
-    <span class="n">e</span> <span class="s">&quot;It uses a lever to fling things at targets.&quot;</span>
-    <span class="n">e</span> <span class="s">&quot;Like us!&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;投石机是种攻城机器&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;它使用杠杆将巨石抛出，砸向目标。&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;比如说我们！&quot;</span>
 
     <span class="k">return</span>
 </pre></div>
@@ -409,7 +409,7 @@
 
 </div>
 <div class="section" id="user-defined-text-tags">
-<h3>用户自定义的文本标签<a class="headerlink" href="#user-defined-text-tags" title="Permalink to this headline">¶</a></h3>
+<h3>用户自定义文本标签<a class="headerlink" href="#user-defined-text-tags" title="Permalink to this headline">¶</a></h3>
 <p>Ren'Py 通常也支持用户自定义文本标签。用户所定义的文本标签其实是一个空的文本标签，在这时，命令解释器会将所接收到的参数作为用户自定义的样式名称。在这个标签自身和其闭合标签之间的文字将会作为以下样式属性的值：</p>
 <ul class="simple">
 <li>antialias</li>
@@ -432,7 +432,7 @@
     <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">font</span> <span class="o">=</span> <span class="s">&quot;taigacon.ttf&quot;</span>
 </pre></div>
 </div>
-<p>Ren'Py 在可以不通过复杂的设定就能支持世界上绝大多数的语言。然而，韩文是个特例。在韩文中，词与词之前可以空格也可以不空格。 Ren'Py 对于韩文有一套特殊的处理方法，您可以通过下面的设定来开启对于韩文分词的支持：</p>
+<p>Ren'Py 在可以不通过复杂的设定就能支持世界上绝大多数的语言。然而，韩文是个特例。在韩文中，词与词之间可以空格也可以不空格。 Ren'Py 对于韩文有一套特殊的处理方法，您可以通过下面的设定来开启对于韩文分词的支持：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">language</span> <span class="o">=</span> <span class="s">&quot;korean-with-spaces&quot;</span>
 </pre></div>
@@ -572,8 +572,7 @@ italic, 以及 underline 这些属性全部都需要声明（用于匹配文字�
 <dt><cite>default_kern</cite></dt>
 <dd>默认文字间距，像素值型变量。</dd>
 <dt><cite>kerns</cite></dt>
-<dd>A map from two-character strings to the kern that should be used between
-those characters.</dd>
+<dd>一个字典，键是一个长度为2个半角字符的字符串，值是在这两个字符串之间希望插入的字符串。</dd>
 </dl>
 </dd></dl>
 
@@ -601,8 +600,7 @@ italic, 以及 underline 这些属性全部都需要声明（用于匹配文字�
 <dt><cite>default_kern</cite></dt>
 <dd>默认文字间距，像素值型变量。</dd>
 <dt><cite>kerns</cite></dt>
-<dd>A map from two-character strings to the kern that should be used between
-those characters.</dd>
+<dd>一个字典，键是一个长度为2个半角字符的字符串，值是在这两个字符串之间希望插入的字符串。</dd>
 <dt><cite>charset</cite> - 这个字体的字符表。由在图像中寻找的文字排序组合而成。</dt>
 <dd><p class="first">默认的 SFont 字符表是这样的：</p>
 <div class="last highlight-renpy"><div class="highlight"><pre><span class="err">!</span> <span class="s">&quot; # $ % &amp; &#39; ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; &lt; = &gt; ?</span>
@@ -671,8 +669,7 @@ those characters.</dd>
 <dd>用于设定文字是否慢速显示，显示速度由输入的每秒显示文字数决定。
 如果这个值为空的话，是否慢速显示文字将由 <a class="reference internal" href="style_properties.html#style-property-slow_cps"><tt class="xref std std-propref docutils literal"><span class="pre">slow_cps</span></tt></a> 样式属性所决定。或者通过传递一个真值给这个参数以决定是否使用文字慢速显示模式。</dd>
 <dt><cite>scope</cite></dt>
-<dd>如果这个值不为空的话，那它的参数应该是一个字典，里面提供了 this should be a dictionary that provides an additional scope for text
-interpolation to occur in.</dd>
+<dd>如果这个值不为空的话，那它的参数应该是一个字典，它提供了额外的文本插值使用的变量的作用域。</dd>
 <dt><cite>substitute</cite></dt>
 <dd>如果这个值为真的话，将会允许在文字内插值。反之则为不允许。如果这个值为空的话，那么是否允许文字内插值将会由 <a class="reference internal" href="config.html#var-config.new_substitutions"><tt class="xref std std-var docutils literal"><span class="pre">config.new_substitutions</span></tt> 决定。</a></dd>
 </dl>
@@ -680,7 +677,7 @@ interpolation to occur in.</dd>
 
 </div>
 <div class="section" id="slow-text-concerns">
-<h2>Slow Text Concerns<a class="headerlink" href="#slow-text-concerns" title="Permalink to this headline">¶</a></h2>
+<h2>关于慢速文本的注意事项<a class="headerlink" href="#slow-text-concerns" title="Permalink to this headline">¶</a></h2>
 <p>Ren'Py 允许用户或是玩家设定文字以慢速显示。在慢速显示模式下， Ren'Py 会将文字绘制在一个 texture 上，然后再从 texture 上绘制一个矩阵到屏幕上。</p>
 <p>不幸的是，这将有可能导致文本重叠。为了避免这一情况，请您保证<a class="reference internal" href="style_properties.html#style-property-line_leading"><tt class="xref std std-propref docutils literal"><span class="pre">line_leading</span></tt></a>和
 <a class="reference internal" href="style_properties.html#style-property-line_spacing"><tt class="xref std std-propref docutils literal"><span class="pre">line_spacing</span></tt></a> 属性足够大，以免行与行之间发生重叠现象。若最初的文本的尾部没有被显示，尤其是line_spacing是负数的时候，您应该考虑增加
