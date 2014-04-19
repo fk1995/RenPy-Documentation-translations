@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Transforms and Transitions in Python &mdash; Ren&#39;Py Documentation</title>
+    <title>在 Python 中使用变换和特效&mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,9 +57,9 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Transforms and Transitions in Python</a><ul>
-<li><a class="reference internal" href="#transforms">Transforms</a></li>
-<li><a class="reference internal" href="#transitions">Transitions</a></li>
+<li><a class="reference internal" href="#">在 Python 中使用变换和特效</a><ul>
+<li><a class="reference internal" href="#transforms">变换</a></li>
+<li><a class="reference internal" href="#transitions">特效</a></li>
 </ul>
 </li>
 </ul>
@@ -90,18 +90,15 @@
           <div class="body">
             
   <div class="section" id="transforms-and-transitions-in-python">
-<h1>Transforms and Transitions in Python<a class="headerlink" href="#transforms-and-transitions-in-python" title="Permalink to this headline">¶</a></h1>
-<p>Python can be used to create new transforms and transitions for use by
-Ren'Py scripts.</p>
+<h1>在 Python 中使用变换和特效<a class="headerlink" href="#transforms-and-transitions-in-python" title="Permalink to this headline">¶</a></h1>
+<p>创作者可以使用 Python 来创建用于 Ren'Py 脚本的新的变换和特效效果。</p>
 <div class="section" id="transforms">
-<h2>Transforms<a class="headerlink" href="#transforms" title="Permalink to this headline">¶</a></h2>
-<p>A transform is a python callable that, when called with a displayable,
-returns another displayable.</p>
-<p>For example:</p>
+<h2>变换<a class="headerlink" href="#transforms" title="Permalink to this headline">¶</a></h2>
+<p>变换（transform）在 python 中是一个可调用的对象。当它和一个可显示对象一起被传入时，系统会返回另一个处理过的可显示对象。</p>
+<p>举例:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
 
-     <span class="c"># This is a transform that uses the right and</span>
-     <span class="c"># left transforms.</span>
+     <span class="c"># 这个变换使用了右变换和左变换</span>
      <span class="k">def</span> <span class="nf">right_or_left</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
          <span class="k">if</span> <span class="n">switch</span><span class="p">:</span>
              <span class="k">return</span> <span class="n">right</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
@@ -109,76 +106,66 @@ returns another displayable.</p>
              <span class="k">return</span> <span class="n">left</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The python equivalent of an ATL transform is a Transform object.</p>
+<p>请注意，Python 将动画变换语言（ATL）也视为一个 transform 对象。</p>
 <dl class="class">
 <dt id="Transform">
 <em class="property">class </em><tt class="descname">Transform</tt><big>(</big><em>child=None</em>, <em>function=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>A transform applies operations such as cropping, rotation, scaling, and
-alpha-blending to its child. A transform object has fields corresponding
-to the <a class="reference internal" href="atl.html#transform-properties"><em>transform properties</em></a>, which it applies
-to its child.</p>
+<dd><p> transform 可以允许对它的子对象进行剪裁、旋转、缩放以及透明度变化等操作。一个 transform 对象拥有一个匹配 <a class="reference internal" href="atl.html#transform-properties"><em>transform 属性</em></a> 的值域，这对其子对象也同样适用。 </p>
 <dl class="docutils">
 <dt><cite>child</cite></dt>
-<dd>The child the transform applies to.</dd>
+<dd> transform 作用的子对象。</dd>
 <dt><cite>function</cite></dt>
-<dd><p class="first">If not none, this is a function that is called when the transform
-is rendered. The function is called with three arguments:</p>
+<dd><p class="first">如果不为空，则系统会在绘制 transform 时自动调用此函数。此函数拥有三个参数：</p>
 <ul class="simple">
-<li>The transform object.</li>
-<li>The shown timebase, in seconds.</li>
-<li>The animation timebase, in seconds.</li>
+<li> Transform 的对象。</li>
+<li> 显示的时间，以秒为单位。</li>
+<li> 动画的时间，以秒为单位。</li>
 </ul>
-<p class="last">The function should return a delay, in seconds, after which it will
-be called again, or None to never be called again.</p>
+<p class="last">这个函数会返回一个几秒钟的延迟，在等待结束后，它可能会再次被调用，或者再也不会被调用。</p>
 </dd>
 </dl>
-<p>Additional arguments are taken as values to set transform properties to.</p>
+<p>除此之外的参数，将会被作为 transform 的属性传入并设置。</p>
 <dl class="attribute">
 <dt id="Transform.hide_request">
 <tt class="descname">hide_request</tt><a class="headerlink" href="#Transform.hide_request" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is set to true when the function is called, to indicate that the
-transform is being hidden.</p>
+<dd><p>当函数被调用时，这个值会被设置为真，用于表示
+transform 已经被隐藏了。</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Transform.hide_response">
 <tt class="descname">hide_response</tt><a class="headerlink" href="#Transform.hide_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>If hide request is true, this can be set to false to prevent the
-transform from being hidden.</p>
+<dd><p>如果 hide request 为真的话，这个值就可以被设置为假来阻止系统隐藏
+transform 。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Transform.set_child">
 <tt class="descname">set_child</tt><big>(</big><em>child</em><big>)</big><a class="headerlink" href="#Transform.set_child" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call this method with a new <cite>child</cite> to change the child of
-this transform.</p>
+<dd><p>用同样的方式重新调用一个 <cite>child</cite> 对象，以更改这个 transform 对象的子对象。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Transform.update">
 <tt class="descname">update</tt><big>(</big><big>)</big><a class="headerlink" href="#Transform.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>This should be called when a transform property field is
-updated outside of the callback method, to ensure that the
-change takes effect.</p>
+<dd><p>当 transform 的属性在除了使用 callback 方式以外的情况下更新时，您可以用此方法来确保改动生效。</p>
 </dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="section" id="transitions">
-<h2>Transitions<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
-<p>A transition is a python callable that, when called with two keyword
-arguments, returns a displayable that performs the transition effect.
-The two keyword arguments are:</p>
+<h2>特效<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
+<p>特效（transition）在 python 中是一个可调用的对象。在 python 中调用 transition 需要两个参数，它会返回一个用特效执行的可显示对象。
+这两个参数是:</p>
 <dl class="docutils">
 <dt><cite>old_widget</cite></dt>
-<dd>A displayable representing the old screen.</dd>
+<dd>一个代表旧视屏的可显示对象。</dd>
 <dt><cite>new_widget</cite></dt>
-<dd>A displayable representing the new screen.</dd>
+<dd>一个代表新视屏的可显示对象。</dd>
 </dl>
-<p>The returned displayable should have a <tt class="docutils literal"><span class="pre">delay</span></tt> field, which gives
-the number of seconds the transition should run for.</p>
-<p>For example:</p>
+<p>这个函数所返回的可显示对象应该有一个 <tt class="docutils literal"><span class="pre">delay</span></tt> 值域，这个值域里存放的是特效效果执行的时间（以秒为单位）。</p>
+<p>举个例子:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">dissolve_or_pixellate</span><span class="p">(</span><span class="n">old_widget</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">new_widget</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
