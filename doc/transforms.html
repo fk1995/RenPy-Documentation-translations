@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Transforms &mdash; Ren&#39;Py Documentation</title>
+    <title>变换 &mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,19 +57,19 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Transforms</a><ul>
-<li><a class="reference internal" href="#default-transforms">Default Transforms</a></li>
-<li><a class="reference internal" href="#creator-defined-transforms">Creator-Defined Transforms</a></li>
+<li><a class="reference internal" href="#">变换</a><ul>
+<li><a class="reference internal" href="#default-transforms">默认变换</a></li>
+<li><a class="reference internal" href="#creator-defined-transforms">用户自定义变换</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="displayables.html"
-                        title="previous chapter">Displayables</a></p>
+                        title="previous chapter">可显示对象</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="transitions.html"
-                        title="next chapter">Transitions</a></p>
+                        title="next chapter">特效</a></p>
             <h4>Search</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
@@ -90,32 +90,21 @@
           <div class="body">
             
   <div class="section" id="transforms">
-<span id="id1"></span><h1>Transforms<a class="headerlink" href="#transforms" title="Permalink to this headline">¶</a></h1>
-<p>A transform can be applied to a displayable to yield another
-displayable. The built-in transforms are used to control where an
-object is placed on the screen, while user-defined transforms
-can cause more complex effects, like motion, zoom, and rotation.</p>
-<p>Transforms can be applied by giving the at clause to the scene and
-show statements. The following code applies the &quot;right&quot; transform to
-the eileen happy displayable.:</p>
+<span id="id1"></span><h1>变换<a class="headerlink" href="#transforms" title="Permalink to this headline">¶</a></h1>
+<p>您可以在更改可显示对象位置时使用变换（transform）。Ren'Py 系统内建的变换主要用于控制对象显示在屏幕的何处，然而用户自定义变换可以表现出更为复杂的效果，比如图像移动、缩放或是旋转。</p>
+<p>变换可以通过在场景或是 show 命令后添加一条从句来实现。下面的例子就将 eileen happy 这个可显示对象变换到了 &quot;right&quot; 位置上：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">right</span>
 </pre></div>
 </div>
-<p>Multiple transforms can be applied by separating them with commas. These
-transforms are applied from left-to-right, with the rightmost
-transform taking precendece in the case of conflicts.</p>
+<p>多个变换命令可以通过用逗号分割开来执行。这些变换命令的执行顺序是从左到右，而在命令之间有冲突的情况下时，系统将会优先执行最右方的命令。 </p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="k">at</span> <span class="n">halfsize</span><span class="p">,</span> <span class="n">right</span>
 </pre></div>
 </div>
-<p>A displayable always has a transform associated with it. If no
-transform is given, the prior transform is used. When the transform is
-changed, undefined values are taken from the prior transform, or from
-<tt class="docutils literal"><span class="pre">default</span></tt> if there is no prior transform.</p>
+<p>一个可显示对象通常都会有一个变换语句紧随其后。如果没有给出变换语句，那么系统会使用之前的变换语句。当可显示对象产生了变换时，系统会自动从之前的变换语句中获取在当前变换语句中未定义的参数，如果之前没有使用过变换语句，则系统会使用
+<tt class="docutils literal"><span class="pre"> default </span></tt> 这个值。</p>
 <div class="section" id="default-transforms">
-<h2>Default Transforms<a class="headerlink" href="#default-transforms" title="Permalink to this headline">¶</a></h2>
-<p>Ren'Py ships with a number of transforms defined by default. These
-transforms position things on the screen. Here's a depiction of where
-each default transform will position an image.</p>
+<h2>默认变换<a class="headerlink" href="#default-transforms" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py 提供了多种默认定义的变换。这些变换会将对象放置在屏幕上。下面的图解释了默认定义变换显示在屏幕上的位置：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="o">+-----------------------------------------------------------+</span>
 <span class="o">|</span><span class="n">topleft</span><span class="p">,</span> <span class="n">reset</span>               <span class="n">top</span>                   <span class="n">topright</span><span class="o">|</span>
 <span class="o">|</span>                                                           <span class="o">|</span>
@@ -131,89 +120,80 @@ each default transform will position an image.</p>
 <span class="o">+-----------------------------------------------------------+</span>
 </pre></div>
 </div>
-<p>The offscreenleft and offscreenright transforms position images off the
-screen. These transforms can be used to move things off the screen
-(remember to hide them afterwards, to ensure that they do not consume
-resources).</p>
+<p> offscreenleft 和 offscreenright 变换会将图像放置在屏幕之外。这两个变换可以在需要将图像移动到屏幕之外时使用（之后请记得隐藏它们，以避免消耗系统资源）。</p>
 <p>The transforms are:</p>
 <dl class="var">
 <dt id="var-center">
 <tt class="descname">center</tt><a class="headerlink" href="#var-center" title="Permalink to this definition">¶</a></dt>
-<dd><p>Centers horizontally, and aligns to the bottom of the screen.</p>
+<dd><p>水平中心位置，并对齐屏幕底部。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-default">
 <tt class="descname">default</tt><a class="headerlink" href="#var-default" title="Permalink to this definition">¶</a></dt>
-<dd><p>Centers horizontally, and aligns to the bottom of the screen. This
-can be redefined to change the default placement of images shown
-with the show or scene statements.</p>
+<dd><p>水平中心位置，并对齐屏幕底部。这个值可以被重新定义，以改变 show 或是 scene 命令默认的图像显示位置。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-left">
 <tt class="descname">left</tt><a class="headerlink" href="#var-left" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aligns to the bottom-left corner of the screen.</p>
+<dd><p>对齐屏幕的左下角位置。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-offscreenleft">
 <tt class="descname">offscreenleft</tt><a class="headerlink" href="#var-offscreenleft" title="Permalink to this definition">¶</a></dt>
-<dd><p>Places the displayable off the left side of the screen,
-aligned to the bottom of the screen.</p>
+<dd><p>将图像放置到左方屏幕外，并对齐屏幕底部。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-offscreenright">
 <tt class="descname">offscreenright</tt><a class="headerlink" href="#var-offscreenright" title="Permalink to this definition">¶</a></dt>
-<dd><p>Places the displayable off the left side of the screen,
-aligned to the bottom of the screen.</p>
+<dd><p>将图像放置到右方屏幕外，并对齐屏幕底部。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-reset">
 <tt class="descname">reset</tt><a class="headerlink" href="#var-reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resets the transform. Places the displayable in the top-left
-corner of the scren, and also eliminates any zoom, rotation, or
-other effects.</p>
+<dd><p>重置变换。这个操作会将可显示对象放置到屏幕的左上角位置，同时也会还原类似缩放、旋转等图像操作变化。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-right">
 <tt class="descname">right</tt><a class="headerlink" href="#var-right" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aligns to the bottom-right corner of the screen.</p>
+<dd><p>对齐屏幕的右下角位置。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-top">
 <tt class="descname">top</tt><a class="headerlink" href="#var-top" title="Permalink to this definition">¶</a></dt>
-<dd><p>Centers horizontally, and aligns to the top of the screen.</p>
+<dd><p>水平中心位置，并对齐屏幕顶部。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-topleft">
 <tt class="descname">topleft</tt><a class="headerlink" href="#var-topleft" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aligns to the top-left corner of the screen.</p>
+<dd><p>对齐屏幕的左上角位置。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-topright">
 <tt class="descname">topright</tt><a class="headerlink" href="#var-topright" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aligns to the top-right corner of the screen.</p>
+<dd><p>对齐屏幕的右上角位置。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-truecenter">
 <tt class="descname">truecenter</tt><a class="headerlink" href="#var-truecenter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Centers both horizontally and vertically.</p>
+<dd><p>垂直水平中心位置。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="creator-defined-transforms">
-<h2>Creator-Defined Transforms<a class="headerlink" href="#creator-defined-transforms" title="Permalink to this headline">¶</a></h2>
-<p>A creator can define a transform using the
-<a class="reference internal" href="atl.html#atl"><em>animation and transformation language</em></a>, or the
-<a class="reference internal" href="trans_trans_python.html#Transform" title="Transform"><tt class="xref py py-class docutils literal"><span class="pre">Transform</span></tt></a> function.</p>
+<h2>用户自定义变换<a class="headerlink" href="#creator-defined-transforms" title="Permalink to this headline">¶</a></h2>
+<p>用户可以通过使用
+<a class="reference internal" href="atl.html#atl"><em> 动画变换语言 </em></a>，或 
+<a class="reference internal" href="trans_trans_python.html#Transform" title="Transform"><tt class="xref py py-class docutils literal"><span class="pre">Transform</span></tt></a> 函数来自定义自己的变换。</p>
 </div>
 </div>
 
