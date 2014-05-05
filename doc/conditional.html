@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Conditional Statements &mdash; Ren&#39;Py Documentation</title>
+    <title>条件语句</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,20 +57,20 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Conditional Statements</a><ul>
-<li><a class="reference internal" href="#if-statement">If Statement</a></li>
-<li><a class="reference internal" href="#while-statement">While Statement</a></li>
-<li><a class="reference internal" href="#pass-statement">Pass Statement</a></li>
+<li><a class="reference internal" href="#">条件语句</a><ul>
+<li><a class="reference internal" href="#if-statement">If命令</a></li>
+<li><a class="reference internal" href="#while-statement">While 命令</a></li>
+<li><a class="reference internal" href="#pass-statement">Pass命令</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="python.html"
-                        title="previous chapter">Python Statements</a></p>
+                        title="previous chapter">Python命令</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="audio.html"
-                        title="next chapter">Audio</a></p>
+                        title="next chapter">声音</a></p>
             <h4>Search</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
@@ -91,25 +91,18 @@
           <div class="body">
             
   <div class="section" id="conditional-statements">
-<h1>Conditional Statements<a class="headerlink" href="#conditional-statements" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py includes several statements that can alter control flow based on
-expression values. (This is in addition to the <a class="reference internal" href="label.html#jump-statement"><em>jump</em></a>,
-<a class="reference internal" href="label.html#call-statement"><em>call</em></a> and <a class="reference internal" href="label.html#return-statement"><em>return</em></a> statements,
-which transfer control unconditionally.</p>
-<p>Note that is pages discusses statements that can be used inside Ren'Py
-script. Python code embedded in a Ren'Py game uses the Python while, if,
-and for statements, but can't embed Ren'Py script code.</p>
+<h1>条件语句<a class="headerlink" href="#conditional-statements" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py中有许多可以根据表达式的值来控制脚本运行的命令。我们已经见过一些不需要条件就能够控制脚本运行的命令了，如<a class="reference internal" href="label.html#jump-statement"><em>jump</em></a>,
+<a class="reference internal" href="label.html#call-statement"><em>call</em></a>和<a class="reference internal" href="label.html#return-statement"><em>return</em></a>命令。</p>
+<p>需要注意的是，这一节我们讨论的是Ren'Py中使用的命令，而不是python代码中使用的命令。在Python代码中，您不能使用Ren'Py里的这些命令（虽然看起来十分相似）。</p>
 <div class="section" id="if-statement">
-<span id="id1"></span><h2>If Statement<a class="headerlink" href="#if-statement" title="Permalink to this headline">¶</a></h2>
-<p>The if statement conditionally executes a block of code if a python
-expression is true. It consists of an <tt class="docutils literal"><span class="pre">if</span></tt> clause, zero or more <tt class="docutils literal"><span class="pre">elif</span></tt>
-clauses, and an optional``else`` clause.</p>
-<p>Each clause should be on its own logical line, followed by a block of
-statements. The <tt class="docutils literal"><span class="pre">if</span></tt> and <tt class="docutils literal"><span class="pre">elif</span></tt> clauses are followed by an expression,
-while all clauses end with a colon. (:)</p>
-<p>Examples are:</p>
+<span id="id1"></span><h2>If命令<a class="headerlink" href="#if-statement" title="Permalink to this headline">¶</a></h2>
+<p>if命令的作用是，若提供python表达式为真，则执行之后区块内的代码。它由一个<tt class="docutils literal"><span class="pre">if</span></tt>从句，若干个<tt class="docutils literal"><span class="pre">elif</span></tt>
+从句，以及在最后的可选的else从句组成。</p>
+<p>每个从句都应该在自己的逻辑行内，后面跟着一个区块。<tt class="docutils literal"><span class="pre">if</span></tt>和<tt class="docutils literal"><span class="pre">elif</span></tt>从句后面接一个表达式。所有的从句均以冒号结束。 </p>
+<p>下面是一些栗子:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
-    <span class="n">e</span> <span class="s">&quot;You&#39;re set the flag!&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;死亡flag已经立起来了哦！&quot;</span>
 </pre></div>
 </div>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">if</span> <span class="n">points</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
@@ -122,18 +115,12 @@ while all clauses end with a colon. (:)</p>
     <span class="k">jump</span> <span class="n">worst_ending</span>
 </pre></div>
 </div>
-<p>The expressions in the if statement are evaluated in order, from
-first to last. When an expression evaluates to true, the block
-corresponding to that statement is executed. When control reaches the
-end of the block, it proceeds to the statement following the if
-statement.</p>
-<p>If all expressions evaluate to false, the block associated with
-the <tt class="docutils literal"><span class="pre">else</span></tt> clause is executed, if the <tt class="docutils literal"><span class="pre">else</span></tt> clause is present.</p>
+<p>在if命令中的表达式的求值顺序是从上向下的。当有一个表达式的值为True时，该从句对应的区块将被执行。当脚本运行到该区块的结束部分时，Ren'Py将运行在if命令之后的脚本。.</p>
+<p>如果所有的表达式的值均为False，<tt class="docutils literal"><span class="pre">else</span></tt> 从句对应的区块将被执行（如果有else从句的话）。</p>
 </div>
 <div class="section" id="while-statement">
-<span id="id2"></span><h2>While Statement<a class="headerlink" href="#while-statement" title="Permalink to this headline">¶</a></h2>
-<p>The while statement executes a block of code while an
-expression evaluates true. For example:</p>
+<span id="id2"></span><h2>While命令<a class="headerlink" href="#while-statement" title="Permalink to this headline">¶</a></h2>
+<p>该命令会在表达式的值为True时反复运行一个区块的代码，直到表达式的值不再为True为止。比如：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">$</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="k">while</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -147,33 +134,28 @@ expression evaluates true. For example:</p>
 </div>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
 
-    <span class="s">&quot;This is the song that never terminates.&quot;</span>
-    <span class="s">&quot;It goes on and on, my compatriots.&quot;</span>
+    <span class="s">&quot;此乃永无终焉之歌。&quot;</span>
+    <span class="s">&quot;谛听吧，吾之半身哟！&quot;</span>
 </pre></div>
 </div>
-<p>The expression is evaluated when while statement is first reached, and
-then each time control reaches the end of the block. When the expression
-return a false value, the statement after the while statement is executed.</p>
-<p>Ren'Py does not have continue, break, or for statements. Continue and break
-statements can be replaced by jumps to labels placed before or after the
-while loop, respectively. The first example of a while loop, above, shows
-how a while loop can replace a for statement.</p>
+<p>该表达式会在脚本第一次运行到这里以及每次运行完后面的区块的时候被求值。当该表达式的值为False时，在while后面的下一条命令将被执行。</p>
+<p>Ren'Py没有continue，break或者for命令。Continue和break命令可以用jump命令替代。上面第一个while的例子展示了如何使用while来取代for命令。</p>
+<p>值得一提的是，以上所有的True和False并不只是指这两个值，而是按照Python的规则来的。也就是说，所有不是0,False,[],{},&quot;&quot;的对象都是True，而这些是False。用简单的话来说，如果一个变量的值“有点什么”，那它就是True，否则就是False（什么也没有）。</p>
 </div>
 <div class="section" id="pass-statement">
-<span id="id3"></span><h2>Pass Statement<a class="headerlink" href="#pass-statement" title="Permalink to this headline">¶</a></h2>
-<p>The pass statement can be used when a block is required, but no
-statement is suitable. It does nothing.</p>
-<p>For example:</p>
+<span id="id3"></span><h2>Pass命令<a class="headerlink" href="#pass-statement" title="Permalink to this headline">¶</a></h2>
+<p>pass命令是当你需要一个区块但是什么事都不想做的时候使用的命令。它只是个占位符，什么也不会发生。</p>
+<p>例如:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">if</span> <span class="n">points</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
-    <span class="s">&quot;You&#39;re doing great!&quot;</span>
+    <span class="s">&quot;干得不错！&quot;</span>
 <span class="k">elif</span> <span class="n">points</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
     <span class="k">pass</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="s">&quot;Things aren&#39;t looking so good.&quot;</span>
+    <span class="s">&quot;情况有些不妙啊。&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># event.step() is a function that returns true while there are</span>
-<span class="c"># still events that need to be executed.</span>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 当还有事件没被执行时，event.step()</span>
+<span class="c"># 会返回True。</span>
 
 <span class="k">while</span> <span class="k">event</span><span class="o">.</span><span class="n">step</span><span class="p">():</span>
     <span class="k">pass</span>
