@@ -13,13 +13,15 @@ RenPy-Documentation-translations
 校对：暂缺
 
 
-目前进度：11/70
+目前进度：13/70
 
 已完成的文件：
 
 audio
 
 character_callbacks
+
+conditional
 
 dialogue
 
@@ -32,6 +34,8 @@ input
 language_basic
 
 label
+
+movie
 
 python
 

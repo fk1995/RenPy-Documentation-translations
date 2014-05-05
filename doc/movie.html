@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Movie &mdash; Ren&#39;Py Documentation</title>
+    <title>视频 &mdash; Ren&#39;Py 文档</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,19 +57,19 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Movie</a><ul>
-<li><a class="reference internal" href="#fullscreen-movies">Fullscreen Movies</a></li>
-<li><a class="reference internal" href="#movies-inside-displayables">Movies Inside Displayables</a></li>
+<li><a class="reference internal" href="#">视频</a><ul>
+<li><a class="reference internal" href="#fullscreen-movies">全屏视频</a></li>
+<li><a class="reference internal" href="#movies-inside-displayables">区域内嵌视频</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="audio.html"
-                        title="previous chapter">Audio</a></p>
+                        title="previous chapter">声音</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="voice.html"
-                        title="next chapter">Voice</a></p>
+                        title="next chapter">语音</a></p>
             <h4>Search</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
@@ -90,76 +90,65 @@
           <div class="body">
             
   <div class="section" id="movie">
-<h1>Movie<a class="headerlink" href="#movie" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py is capable of using libav (included) to play movies using the
-video codecs:</p>
+<h1>视频<a class="headerlink" href="#movie" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py使用 libav解码器(内置)来播放以下条件的视频。</p>
+<p>视频编码采用:</p>
 <ul class="simple">
 <li>Theora</li>
 <li>V8</li>
-<li>MPEG 4 part 2 (including Xvid and DivX)</li>
+<li>MPEG 4 part 2 (包括 Xvid 和 DivX)</li>
 <li>MPEG 2</li>
 <li>MPEG 1</li>
 </ul>
-<p>and the following audio codecs:</p>
+<p>音频编码采用:</p>
 <ul class="simple">
 <li>Vorbis</li>
 <li>MP3</li>
 <li>MP2</li>
 <li>PCM</li>
 </ul>
-<p>inside the following container formats:</p>
+<p>使用以下的格式容器：</p>
 <ul class="simple">
-<li>Matroska</li>
+<li>Matroska(常说的mkv)</li>
 <li>WebM</li>
 <li>Ogg</li>
 <li>Avi</li>
 <li>Various kinds of MPEG stream.</li>
 </ul>
-<p>(Note that using some of these formats may require patent licenses.
-When in doubt, and especially for commercial games, we recommend using
-Theora, Vorbis, and Matroska or Ogg.)</p>
-<p>Ren'Py expects that every movie will have an audio track associated with it,
-even if that audio track consists of nothing but silence. This is because
-the audio track is used for synchronization purposes.</p>
-<p>Movies can be displayed fullscreen, or in a displayable. Fullscreen movies
-are the more efficient.</p>
+<p>(要注意的是：使用一些格式可能会需要专利授权。如果有疑问，尤其是商业游戏的时候。我们推荐使用Theora,Vorbis和Matroska或ogg(因为这四个多媒体格式都是开源的。)) </p>
+<p>Ren'Py 会认为，所有的视频都带有音频轨道，哪怕音轨并没有声音。这么做是为了让音轨与视频播放同步。</p>
+<p>视频可以全屏播放，或在显示区域内嵌播放。全屏播放视频会更具效率。</p>
 <div class="section" id="fullscreen-movies">
-<h2>Fullscreen Movies<a class="headerlink" href="#fullscreen-movies" title="Permalink to this headline">¶</a></h2>
-<p>The easiest way to display a movie fullscreen is to display it using
-the <a class="reference internal" href="#renpy.movie_cutscene" title="renpy.movie_cutscene"><tt class="xref py py-func docutils literal"><span class="pre">renpy.movie_cutscene()</span></tt></a> function. This function displays a movie for a specified
-length of time. When that time has elapsed, or when the user clicks to dismiss
-the movie, the movie ends and the function returns.</p>
+<h2>全屏视频<a class="headerlink" href="#fullscreen-movies" title="Permalink to this headline">¶</a></h2>
+<p>播放全屏视频，最简单的方法就是使用<a class="reference internal" href="#renpy.movie_cutscene" title="renpy.movie_cutscene"><tt class="xref py py-func docutils literal"><span class="pre">renpy.movie_cutscene()</span></tt></a> 函数。 这个函数在指定时间内显示视频。当时间超过或是玩家点击取消了视频时，视频播放结束，函数返回。</p>
+<p>例子：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">$</span> <span class="n">renpy</span><span class="o">.</span><span class="n">movie_cutscene</span><span class="p">(</span><span class="s">&quot;On_Your_Mark.mpg&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="function">
 <dt id="renpy.movie_cutscene">
 <tt class="descclassname">renpy.</tt><tt class="descname">movie_cutscene</tt><big>(</big><em>filename</em>, <em>delay=None</em>, <em>loops=0</em>, <em>stop_music=True</em><big>)</big><a class="headerlink" href="#renpy.movie_cutscene" title="Permalink to this definition">¶</a></dt>
-<dd><p>This displays an MPEG-1 cutscene for the specified number of
-seconds. The user can click to interrupt the cutscene.
-Overlays and Underlays are disabled for the duration of the cutscene.</p>
+<dd><p>例子显示了一个给定时间的MPEG-1格式的全屏视频。用户可以单击来中断视频过程。展示视频的过程中，视频的上层和下层显示不能保持。
+</p>
 <dl class="docutils">
-<dt><cite>filename</cite></dt>
-<dd>The name of a file containing an MPEG-1 movie.</dd>
-<dt><cite>delay</cite></dt>
-<dd>The number of seconds to wait before ending the cutscene.
-Normally the length of the movie, in seconds. If None, then the
-delay is computed from the number of loops (that is, loops + 1) *
-the length of the movie. If -1, we wait until the user clicks.</dd>
-<dt><cite>loops</cite></dt>
-<dd>The number of extra loops to show, -1 to loop forever.</dd>
+<dt><cite>filename  #文件名</cite></dt>
+<dd>包含MPEG-1视频文件的文件名。</dd>
+<dt><cite>delay  #延时</cite></dt>
+<dd>视频结束播放前等待的时间。通常延时时间与视频时长相等。如果延时值为None，将由循环次数与视频时长的乘积来计算出延时时间。如果值为-1，将等待用户的点击以结束播放。
+</dd>
+<dt><cite>loops  #循环</cite></dt>
+<dd>视频展示的额外播放次数。如果值为-1，则无限循环。</dd>
 </dl>
-<p>Returns True if the movie was terminated by the user, or False if the
-given delay elapsed uninterrupted.</p>
+<p>如果视频由用户结束，函数返回值为True。如果未中断，而是由延时结束，则函数返回值为False。
+</p>
 </dd></dl>
 
 </div>
 <div class="section" id="movies-inside-displayables">
-<h2>Movies Inside Displayables<a class="headerlink" href="#movies-inside-displayables" title="Permalink to this headline">¶</a></h2>
-<p>A movie can also be displayed inside a displayable, allowing it to be combined with
-other things on the screen. To do this, one must first show a Movie displayable, and
-then play the movie on an audio channel. (We recommend using the movie channel
-for this purpose.)</p>
+<h2>区域内嵌视频<a class="headerlink" href="#movies-inside-displayables" title="Permalink to this headline">¶</a></h2>
+<p>视频也可以在限定区域内，和视屏内的其他内容合并显示。那么，首先要设置一个视频显示区域，然后在一个声音通道中来播放视频。(我们推荐使用movie通道)
+</p>
+<p>例子:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span><span class="p">:</span>
     <span class="k">image</span> <span class="n">movie</span> <span class="o">=</span> <span class="n">Movie</span><span class="p">(</span><span class="na">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
@@ -186,18 +175,17 @@ for this purpose.)</p>
 <dl class="function">
 <dt id="Movie">
 <tt class="descname">Movie</tt><big>(</big><em>fps=24</em>, <em>size=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Movie" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a displayable that shows the current movie.</p>
+<dd><p>设置当前视频的显示区域。</p>
 <dl class="docutils">
-<dt><cite>fps</cite></dt>
-<dd>The framerate that the movie should be shown at. (This is currently
-ignored, but the parameter is kept for backwards compatibility.
-The framerate is auto-detected.)</dd>
-<dt><cite>size</cite></dt>
-<dd>This should always be specified. A tuple giving the width and height
-of the movie.</dd>
+<dt><cite>fps  #帧率</cite></dt>
+<dd>区域中视频播放时的帧率。(这个参数现在略过，参数保留用于向后兼容。现在帧率自动检测。)
+</dd>
+<dt><cite>size  #尺寸</cite></dt>
+<dd>经常需要指定的参数。使用一个元组来给出视频区域的宽和高。
+</dd>
 </dl>
-<p>The contents of this displayable when a movie is not playing are undefined.
-(And may change when a rollback occurs.)</p>
+<p>视频不在播放状态时，显示容器是不明确定义的。(所以在回滚操作时可能出现改变)
+</p>
 </dd></dl>
 
 </div>
