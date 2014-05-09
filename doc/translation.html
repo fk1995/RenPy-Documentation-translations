@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Translation &mdash; Ren&#39;Py Documentation</title>
+    <title>翻译</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,36 +57,36 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Translation</a><ul>
-<li><a class="reference internal" href="#primary-and-alternate-languages">Primary and Alternate Languages</a></li>
-<li><a class="reference internal" href="#generating-translation-files">Generating Translation Files</a></li>
-<li><a class="reference internal" href="#translating-dialogue">Translating Dialogue</a><ul>
-<li><a class="reference internal" href="#translation-units">Translation Units</a></li>
-<li><a class="reference internal" href="#translate-statement">Translate Statement</a></li>
-<li><a class="reference internal" href="#more-complex-translations">More Complex Translations</a></li>
-<li><a class="reference internal" href="#tips">Tips</a></li>
+<li><a class="reference internal" href="#">翻译</a><ul>
+<li><a class="reference internal" href="#primary-and-alternate-languages">主要语言和其他语言</a></li>
+<li><a class="reference internal" href="#generating-translation-files">生成翻译用文件</a></li>
+<li><a class="reference internal" href="#translating-dialogue">对话翻译</a><ul>
+<li><a class="reference internal" href="#translation-units">单元翻译</a></li>
+<li><a class="reference internal" href="#translate-statement">Translate命令</a></li>
+<li><a class="reference internal" href="#more-complex-translations">复杂的翻译</a></li>
+<li><a class="reference internal" href="#tips">小贴士</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#menu-and-string-translations">Menu and String Translations</a><ul>
-<li><a class="reference internal" href="#translating-substitutions">Translating substitutions</a></li>
+<li><a class="reference internal" href="#menu-and-string-translations">选项和字符串翻译</a><ul>
+<li><a class="reference internal" href="#translating-substitutions">文本插入值翻译</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#image-and-file-translations">Image and File Translations</a></li>
-<li><a class="reference internal" href="#style-translations">Style Translations</a></li>
-<li><a class="reference internal" href="#default-language">Default Language</a></li>
-<li><a class="reference internal" href="#translation-actions-functions-and-variables">Translation Actions, Functions, and Variables</a></li>
-<li><a class="reference internal" href="#unsanctioned-translations">Unsanctioned Translations</a></li>
+<li><a class="reference internal" href="#image-and-file-translations">图像和文件翻译</a></li>
+<li><a class="reference internal" href="#style-translations">样式翻译</a></li>
+<li><a class="reference internal" href="#default-language">默认语言</a></li>
+<li><a class="reference internal" href="#translation-actions-functions-and-variables">翻译相关动作，函数和变量</a></li>
+<li><a class="reference internal" href="#unsanctioned-translations">非官方的翻译</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="text.html"
-                        title="previous chapter">Text</a></p>
+                        title="previous chapter">文本</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="displayables.html"
-                        title="next chapter">Displayables</a></p>
-            <h4>Search</h4>
+                        title="next chapter">可显示对象</a></p>
+            <h4>搜索</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
 
@@ -107,173 +107,131 @@
             
   <div class="section" id="translation">
 <span id="id1"></span><h1>Translation<a class="headerlink" href="#translation" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py contains a comprehensive framework for the translation of
-visual novels. There are four main types of things that can be
-translated:</p>
+<p>Ren'Py中有一套为视觉小说设计的完整的翻译系统。能够被翻译的游戏内容大致有以下四种：</p>
 <dl class="docutils">
-<dt>Dialogue</dt>
-<dd>The main dialogue of the script can be translated, including a
-provision for splitting, combining, omitting, and reordering
-lines.</dd>
-<dt>Menus and Interface Strings</dt>
-<dd>All interface text can be translated.</dd>
-<dt>Images and Files</dt>
-<dd>It's possible to include variant images and other files that are
-used when a language is selected.</dd>
-<dt>Styles</dt>
-<dd>It's possible to customize styles based on the language, so that
-the game can automatically switch to a font appropriate for the
-language that was chosen.</dd>
+<dt>对话</dt>
+<dd>脚本中的所有对话均可以被翻译，您也可以分割、整合、删除和重排一些对话。</dd>
+<dt>选项和交互界面的字符串</dt>
+<dd>所有交互界面的字符串均可被翻译。</dd>
+<dt>图像和文件</dt>
+<dd>在使用非主要语言的语言时，您可为该语言提供相应的图片和其他文件。</dd>
+<dt>样式</dt>
+<dd>您可以为不同语言提供不同的样式属性，这样游戏就能够自动为相应的语言选择合适的字体文件。</dd>
 </dl>
-<p>Ren'Py's translation support is currently focused on sanctioned
-translations, where the game's creators either release the game
-scripts to the translator or create translation templates
-themselves. Support for unsanctioned translations is more limited.</p>
+<p>Ren'Py's翻译系统主要为官方授权的翻译服务，也就是游戏制作者向翻译者提供脚本，或者是自行翻译。Ren'Py仅为非官方的翻译提供有限的支持。</p>
 <div class="section" id="primary-and-alternate-languages">
-<h2>Primary and Alternate Languages<a class="headerlink" href="#primary-and-alternate-languages" title="Permalink to this headline">¶</a></h2>
-<p>Ren'Py expects each game to be written in a single primary
-language. This is called the <tt class="docutils literal"><span class="pre">None</span></tt> language, regardless of what
-language it actually is. (For example, if the game was written in
-English, English will be the <tt class="docutils literal"><span class="pre">None</span></tt> language.)</p>
-<p>When the None language is selected, most of Ren'Py's translation
-functionality is disabled.</p>
-<p>Alternate languages are referred to by names which can double as
-python identifiers. (Starts with a letter or underscore, followed by
-letters, numbers, and underscores.)</p>
+<h2>主要语言和其他语言<a class="headerlink" href="#primary-and-alternate-languages" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py默认每个游戏由一种主要的语言（一般为开发者的母语或者受众的母语）写成。该语言被称为<tt class="docutils literal"><span class="pre">None</span></tt> 语言，无论这种语言究竟是什么语言。比如说，游戏用火星文写成，那么火星文就是<tt class="docutils literal"><span class="pre">None</span></tt>语言。</p>
+<p>当使用None语言时，Ren'Py翻译系统的大部分功能是被禁用的。</p>
+<p>其他语言指的是可以被识别为python标示符的名称（由字母或者下划线开头，后面是若干数量的字母和下划线的组合）。</p>
 </div>
 <div class="section" id="generating-translation-files">
-<h2>Generating Translation Files<a class="headerlink" href="#generating-translation-files" title="Permalink to this headline">¶</a></h2>
-<p>When the project scripts are available, translation files can be
-generated by opening the project in the Ren'Py Launcher, and choosing
-&quot;Generate Translations&quot;. The launcher will prompt you for the name of
-the language to generate, and will then proceed to create or update
-the translation files.</p>
-<p>The translation files live in directories underneath the &quot;tl&quot;
-subdirectory of the game directory. For example, if you create a
-piglatin translation of the tutorial project, translation files will
-be placed under <tt class="docutils literal"><span class="pre">tutorial/game/tl/piglatin</span></tt>.</p>
-<p>There will be one translation file created per game script file. The
-common.rpy file will also be created to contain translations of
-strings found in the common code.</p>
+<h2>生成翻译用文件<a class="headerlink" href="#generating-translation-files" title="Permalink to this headline">¶</a></h2>
+<p>当工程的脚本文件没有被打包的时候，翻译用文件可以通过点击启动器里的
+&quot;Generate Translations&quot;按钮来生成。启动器会提示您输入目标语言的名称，然后去创建或者更新翻译用文件。</p>
+<p>翻译用文件会被存放在game目录的&quot;tl&quot;子目录下。例如，您创建了tutorial工程的火星文翻译(hxw)，那么翻译用文件会出现在<tt class="docutils literal"><span class="pre">tutorial/game/tl/hxw</span></tt>目录下。</p>
+<p>每个游戏脚本文件均会生成一个对应的翻译用文件。common.rpy文件用于翻译在common文件夹中的代码。</p>
 </div>
 <div class="section" id="translating-dialogue">
-<h2>Translating Dialogue<a class="headerlink" href="#translating-dialogue" title="Permalink to this headline">¶</a></h2>
-<p>As Ren'Py is a visual novel engine, we expect most translation to
-involve dialogue. Ren'Py includes a flexible framework that allows
-dialogue to be split, combined, reordered, and omitted entirely.</p>
+<h2>对话翻译<a class="headerlink" href="#translating-dialogue" title="Permalink to this headline">¶</a></h2>
+<p>作为一个视觉小说引擎，翻译系统的主要任务是把游戏文本和对话翻译成其他语言。Ren'Py的翻译系统允许您自由地分隔，组合，重排和删减对话。</p>
 <div class="section" id="translation-units">
-<h3>Translation Units<a class="headerlink" href="#translation-units" title="Permalink to this headline">¶</a></h3>
-<p>The fundamental unit of translation is a block of zero or more
-translatable statements, optionally followed by a single say
-statement. Translatable statements are the voice and nvl statements. For example
-take the following game:</p>
+<h3>单元翻译<a class="headerlink" href="#translation-units" title="Permalink to this headline">¶</a></h3>
+<p>翻译的基本单元是一个由0个或多个可翻译命令组成的区块，可以带一个say命令。可翻译命令指的是voice命令和nvl命令。比如，考虑下面这个游戏：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">start</span><span class="p">:</span>
-    <span class="n">e</span> <span class="s">&quot;Thank you for taking a look at the Ren&#39;Py translation framework.&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;感谢您关注Ren&#39;Py 的翻译系统。&quot;</span>
 
     <span class="k">show</span> <span class="n">eileen</span> <span class="n">happy</span>
 
-    <span class="n">e</span> <span class="s">&quot;We aim to provide a comprehensive framework for translating dialogue, strings, images, and styles.&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;我们致力于提供一个全面的翻译系统，来翻译对话，字符串，图片和样式。&quot;</span>
 
-    <span class="n">e</span> <span class="s">&quot;Pretty much everything your game needs!&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;这应该能满足您的一切需求！&quot;</span>
 </pre></div>
 </div>
-<p>This is broken up into multiple translation units. Each unit has an
-identifier assigned to it, with the identifier being generated from
-the label preceding the unit, and the code inside the unit. (If
-multiple units would be assigned the same translation number, a serial
-number to the second and later units to distinguish them.)</p>
-<p>In the example above, the first unit generated is assigned the identifier
-start_636ae3f5, and contains the statement:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;Thank you for taking a look at the Ren&#39;Py translation framework.&quot;</span>
+<p>这段脚本将会被分割成几个翻译单元。每一个单元有一个独特的标识符，由此单元之前的标签名称和此单元内的代码内容决定（如果有几个翻译单元的标识符相同，在标识符后面还会有不同的编号来区分它们）。</p>
+<p>在上面这个例子中，第一个单元的标识符是
+start_636ae3f5，包含以下命令：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;感谢您关注Ren&#39;Py 的翻译系统。&quot;</span>
 </pre></div>
 </div>
-<p>The second unit is given the identifier start_bd1ad9e1m and contains:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;We aim to provide a comprehensive framework for translating dialogue, strings, images, and styles.&quot;</span>
+<p>第二个单元的标识符是start_bd1ad9e1m，包含以下命令：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;我们致力于提供一个全面的翻译系统，来翻译对话，字符串，图片和样式。&quot;</span>
 </pre></div>
 </div>
-<p>The third unit has the identifier start_9e949aac, and contains:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;Pretty much everything your game needs!&quot;</span>
+<p>第二个单元的标识符是start_9e949aac，包含以下命令：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;这应该能满足您的一切需求！&quot;</span>
 </pre></div>
 </div>
-<p>These units are created automatically by Ren'Py when the game script
-is loaded.</p>
+<p>这些单元将会在Ren'Py读取游戏脚本时自动生成。</p>
 </div>
 <div class="section" id="translate-statement">
-<h3>Translate Statement<a class="headerlink" href="#translate-statement" title="Permalink to this headline">¶</a></h3>
-<p>When you generate translations for a language, Ren'Py will generate a
-translate statement corresponding to each translation unit. When
-translating the code above, Ren'Py will generate:</p>
+<h3>Translate命令<a class="headerlink" href="#translate-statement" title="Permalink to this headline">¶</a></h3>
+<p>当您导出翻译文件时，Ren'Py会自动为每一个翻译单元生成相应的translate命令。当在翻译以上的代码时，Ren'Py将会生成：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="c"># game/script.rpy:95</span>
-<span class="k">translate</span> <span class="n">piglatin</span> <span class="n">start_636ae3f5</span><span class="p">:</span>
+<span class="k">translate</span> <span class="n">hxw</span> <span class="n">start_636ae3f5</span><span class="p">:</span>
 
-    <span class="c"># e &quot;Thank you for taking a look at the Ren&#39;Py translation framework.&quot;</span>
+    <span class="c"># e &quot;感谢您关注Ren&#39;Py 的翻译系统。&quot;</span>
     <span class="n">e</span> <span class="s">&quot;&quot;</span>
 
 <span class="c"># game/script.rpy:99</span>
-<span class="k">translate</span> <span class="n">piglatin</span> <span class="n">start_bd1ad9e1</span><span class="p">:</span>
+<span class="k">translate</span> <span class="n">hxw</span> <span class="n">start_bd1ad9e1</span><span class="p">:</span>
 
-    <span class="c"># e &quot;We aim to provide a comprehensive framework for translating dialogue, strings, images, and styles.&quot;</span>
+    <span class="c"># e &quot;我们致力于提供一个全面的翻译系统，来翻译对话，字符串，图片和样式。&quot;</span>
     <span class="n">e</span> <span class="s">&quot;&quot;</span>
 
 <span class="c"># game/script.rpy:101</span>
-<span class="k">translate</span> <span class="n">piglatin</span> <span class="n">start_9e949aac</span><span class="p">:</span>
+<span class="k">translate</span> <span class="n">hxw</span> <span class="n">start_9e949aac</span><span class="p">:</span>
 
-    <span class="c"># e &quot;Pretty much everything your game needs!&quot;</span>
+    <span class="c"># e &quot;这应该能满足您的一切需求！&quot;</span>
     <span class="n">e</span> <span class="s">&quot;&quot;</span>
 </pre></div>
 </div>
-<p>This can be translated by editing the generated code. A finished
-translation might look like:</p>
+<p>您可以通过编辑生成的代码来进行翻译工作。完成的翻译大概是这样的：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="c"># game/script.rpy:95</span>
-<span class="k">translate</span> <span class="n">piglatin</span> <span class="n">start_636ae3f5</span><span class="p">:</span>
-    <span class="c"># e &quot;Thank you for taking a look at the Ren&#39;Py translation framework.&quot;</span>
-    <span class="n">e</span> <span class="s">&quot;Ankthay ouyay orfay akingtay away ooklay atway ethay En&#39;Pyray anslationtray ameworkfray.&quot;</span>
+<span class="k">translate</span> <span class="n">hxw</span> <span class="n">start_636ae3f5</span><span class="p">:</span>
+    <span class="c"># e &quot;感谢您关注Ren&#39;Py 的翻译系统。&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;感謝您関紸Ren'Py の翻譯係統。&quot;</span>
 
 <span class="c"># game/script.rpy:99</span>
-<span class="k">translate</span> <span class="n">piglatin</span> <span class="n">start_bd1ad9e1</span><span class="p">:</span>
+<span class="k">translate</span> <span class="n">hxw</span> <span class="n">start_bd1ad9e1</span><span class="p">:</span>
 
-    <span class="c"># e &quot;We aim to provide a comprehensive framework for translating dialogue, strings, images, and styles.&quot;</span>
-    <span class="n">e</span> <span class="s">&quot;Eway aimway otay ovidepray away omprehensivecay ameworkfray orfay anslatingtray ialogueday, ingsstray, imagesway, andway ylesstay.&quot;</span>
+    <span class="c"># e &quot;我们致力于提供一个全面的翻译系统，来翻译对话，字符串，图片和样式。&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;涐扪致ㄌ亍提供①嗰佺緬の翻譯係統，莱翻譯対話，牸符賗，图魸啝樣鉽。&quot;</span>
 
 <span class="c"># game/script.rpy:101</span>
-<span class="k">translate</span> <span class="n">piglatin</span> <span class="n">start_9e949aac</span><span class="p">:</span>
+<span class="k">translate</span> <span class="n">hxw</span> <span class="n">start_9e949aac</span><span class="p">:</span>
 
-    <span class="c"># e &quot;Pretty much everything your game needs!&quot;</span>
-    <span class="n">e</span> <span class="s">&quot;Ettypray uchmay everythingway ouryay amegay eedsnay!&quot;</span>
+    <span class="c"># e &quot;这应该能满足您的一切需求！&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;這應該褦懑哫您の①苆繻俅！&quot;</span>
 </pre></div>
 </div>
-<p>When a block in the main script is encountered, Ren'Py checks to see
-if a translate statement corresponding to that block exists. If so, it
-executes the translate statement instead of the translated block,
-showing the user the translation.</p>
+<p>当读取脚本时，Ren'Py会检查是否有相应翻译过的版本。如果有的话，它将会执行翻译过的区块而不是原始版本，这样，玩家阅读到的就是翻译过的文本了。</p>
 </div>
 <div class="section" id="more-complex-translations">
-<h3>More Complex Translations<a class="headerlink" href="#more-complex-translations" title="Permalink to this headline">¶</a></h3>
-<p>Translate statements do not need to contain 1-to-1 translations of the
-original language. For example, a long line could be split:</p>
+<h3>复杂的翻译<a class="headerlink" href="#more-complex-translations" title="Permalink to this headline">¶</a></h3>
+<p>翻译命令并不需要和原始文本有一一对应的关系。比如说，一个过长的行可以被分割成几个短句：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="c"># game/script.rpy:99</span>
-<span class="k">translate</span> <span class="n">piglatin</span> <span class="n">start_bd1ad9e1</span><span class="p">:</span>
-    <span class="c"># e &quot;We aim to provide a comprehensive framework for translating dialogue, strings, images, and styles.&quot;</span>
-    <span class="n">e</span> <span class="s">&quot;Eway aimway otay ovidepray away omprehensivecay ameworkfray...&quot;</span>
-    <span class="n">e</span> <span class="s">&quot;...orfay anslatingtray ialogueday, ingsstray, imagesway, andway ylesstay.&quot;</span>
+<span class="k">translate</span> <span class="n">hxw</span> <span class="n">start_bd1ad9e1</span><span class="p">:</span>
+    <span class="c"># e &quot;我们致力于提供一个全面的翻译系统，来翻译对话，字符串，图片和样式。&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;涐扪致ㄌ亍提供①嗰佺緬の翻譯係統，...&quot;</span>
+    <span class="n">e</span> <span class="s">&quot;...莱翻譯対話，牸符賗，图魸啝樣鉽。&quot;</span>
 </pre></div>
 </div>
-<p>Or a statement can be removed, by replacing it with the pass statement:</p>
+<p>您也可以使用pass命令来直接忽略某一句：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="c"># game/script.rpy:101</span>
-<span class="k">translate</span> <span class="n">piglatin</span> <span class="n">start_9e949aac</span><span class="p">:</span>
+<span class="k">translate</span> <span class="n">hxw</span> <span class="n">start_9e949aac</span><span class="p">:</span>
 
-     <span class="c"># e &quot;Pretty much everything your game needs!&quot;</span>
+     <span class="c"># e &quot;这应该能满足您的一切需求！&quot;</span>
      <span class="k">pass</span>
 </pre></div>
 </div>
-<p>It's also possible to run non-dialogue statements, such as
-conditionals or python code. For example, we can translate:</p>
+<p>也可以在区块内使用非对话命令，比如条件语句或者python代码。例如，我们可以这么翻译：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;You scored [points] points!&quot;</span>
 </pre></div>
 </div>
 <p>into:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="c"># game/script.rpy:103</span>
-<span class="k">translate</span> <span class="n">piglatin</span> <span class="n">start_36562aba</span><span class="p">:</span>
+<span class="k">translate</span> <span class="n">hxw</span> <span class="n">start_36562aba</span><span class="p">:</span>
 
     <span class="c"># e &quot;You scored [points] points!&quot;</span>
     <span class="n">e</span> <span class="k">$</span> <span class="n">latin_points</span> <span class="o">=</span> <span class="n">to_roman_numerals</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
@@ -282,38 +240,24 @@ conditionals or python code. For example, we can translate:</p>
 </div>
 </div>
 <div class="section" id="tips">
-<h3>Tips<a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h3>
-<p>Be very careful when changing dialogue that has been translated,
-especially when that dialogue is repeated in more than one place
-inside a label. In some cases, it may be necessary to assign
-a translation identifier directly, using a statement like:</p>
+<h3>小贴士<a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h3>
+<p>在修改相似的对话时，您需多加留意。尤其是在一个标签内反复出现的对话。有些时候，您可能需要手动把相同的对话区分开来。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="bp">None</span> <span class="n">mylable_03ac197e_1</span><span class="p">:</span>
     <span class="s">&quot;...&quot;</span>
 </pre></div>
 </div>
-<p>Adding labels can also confuse the translation process. To prevent
-this, labels that are given the hide clause are ignored by the
-translation code.:</p>
+<p>增加额外的标签可能会让翻译过程变得混乱。您可以使用hide从句来避免这一点：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">ignored_by_translation</span> <span class="k">hide</span><span class="p">:</span>
     <span class="s">&quot;...&quot;</span>
 </pre></div>
 </div>
-<p>While translation blocks may include python code, this code should not
-have side effects visible outside of the block. That's because
-changing languages will restart the translation block, causing the
-side effects to occur multiple times.</p>
+<p>虽然您可以在翻译区块内使用python代码，但它不应该对画面产生可见的影响（“副作用”），这是因为在切换语言的时候，该区块内的代码会被重新运行，这样副作用就会反复发生，严重影响游戏体验。</p>
 </div>
 </div>
 <div class="section" id="menu-and-string-translations">
-<h2>Menu and String Translations<a class="headerlink" href="#menu-and-string-translations" title="Permalink to this headline">¶</a></h2>
-<p>In addition to dialogue, Ren'Py is able to translate text found in
-menus and other strings. Interface translations are a 1-to-1
-substitution. Wherever a string is found, it will be replaced by a
-single replacement.</p>
-<p>When generating translations, Ren'Py will scan the script files for
-menus, and for strings enclosed inside the _() function. It will then
-place the strings inside a translate strings block. For example, if we
-have the following script:</p>
+<h2>选项和字符串翻译<a class="headerlink" href="#menu-and-string-translations" title="Permalink to this headline">¶</a></h2>
+<p>除了对话以外，Ren'Py也可以为选项和菜单中的字符串提供翻译。交互界面的翻译是简单的一一替换。所有的字符串都会直接被替换成另外一种语言的字符串。</p>
+<p>当生成翻译文件时，Ren'Py会扫描菜单和选项的字符串，以及所有在_()中的字符串。然后它会将这些字符串和对话一起放在翻译文件中。比如说，如果我们有以下脚本：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">))</span>
 
 <span class="c"># ...</span>
@@ -327,8 +271,8 @@ have the following script:</p>
         <span class="c"># ...</span>
 </pre></div>
 </div>
-<p>Ren'Py will generate the following code:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="n">piglatin</span> <span class="n">strings</span><span class="p">:</span>
+<p>Ren'Py会生成这样的代码：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="n">hxw</span> <span class="n">strings</span><span class="p">:</span>
 
     <span class="n">old</span> <span class="s">&quot;Eileen&quot;</span>
     <span class="n">new</span> <span class="s">&quot;&quot;</span>
@@ -340,44 +284,36 @@ have the following script:</p>
     <span class="n">new</span> <span class="s">&quot;&quot;</span>
 </pre></div>
 </div>
-<p>Which can then be translated:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="n">piglatin</span> <span class="n">strings</span><span class="p">:</span>
+<p>然后您就可以这么翻译：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="n">Chinese</span> <span class="n">strings</span><span class="p">:</span>
 
     <span class="n">old</span> <span class="s">&quot;Eileen&quot;</span>
-    <span class="n">new</span> <span class="s">&quot;Eileenway&quot;</span>
+    <span class="n">new</span> <span class="s">&quot;艾莲&quot;</span>
 
     <span class="n">old</span> <span class="s">&quot;Go West&quot;</span>
-    <span class="n">new</span> <span class="s">&quot;Ogay Estway&quot;</span>
+    <span class="n">new</span> <span class="s">&quot;向西走&quot;</span>
 
     <span class="n">old</span> <span class="s">&quot;Head East&quot;</span>
-    <span class="n">new</span> <span class="s">&quot;Eadhay Eastway&quot;</span>
+    <span class="n">new</span> <span class="s">&quot;去北边&quot;</span>
 </pre></div>
 </div>
-<p>String translations are also applied to dialogue strings that are not
-translated as dialogue.</p>
-<p>When the same string is used in multiple places in the code, the string can
-be distinguished using the {#...} text tag. Even though they display the
-same, Ren'Py considers all of these distinct strings for the purpose
-of translation:</p>
+<p>字符串翻译对于那些没有被识别为对话的对话也适用。</p>
+<p>当相同的字符串反复在代码中出现时，您可以使用文本标记{#...}来区分它们。尽管显示出来是一样的，Ren'Py会把它们当做不同的字符串来翻译：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;New&quot;</span>
 <span class="s">&quot;New{#project}&quot;</span>
 <span class="s">&quot;New{#game}&quot;</span>
 <span class="s">&quot;New{#playlist}&quot;</span>
 </pre></div>
 </div>
-<p>The translate strings statement can also be used to translate the None
-language. This can be used to when the game is written in a non-English
-language, to translate the Ren'Py user interface.</p>
+<p>translate strings命令也可以用来翻译None语言。当游戏使用非英语语言编写时，可以用此命令来翻译交互界面。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="bp">None</span> <span class="n">strings</span><span class="p">:</span>
      <span class="n">old</span> <span class="s">&quot;Start Game&quot;</span>
      <span class="n">new</span> <span class="s">&quot;Artstay Amegay&quot;</span>
 </pre></div>
 </div>
 <div class="section" id="translating-substitutions">
-<h3>Translating substitutions<a class="headerlink" href="#translating-substitutions" title="Permalink to this headline">¶</a></h3>
-<p>String substitutions can be translated using the !t conversion
-flag. So the following code will be translatable using the dialogue
-and code translation systems:</p>
+<h3>文本插入值翻译<a class="headerlink" href="#translating-substitutions" title="Permalink to this headline">¶</a></h3>
+<p>文本插入值可以使用!t这个转换flag来进行翻译。下面的代码是可以被翻译的：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">if</span> <span class="n">mood_points</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
     <span class="k">$</span> <span class="n">mood</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;great&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
@@ -389,156 +325,113 @@ and code translation systems:</p>
 </div>
 </div>
 <div class="section" id="image-and-file-translations">
-<h2>Image and File Translations<a class="headerlink" href="#image-and-file-translations" title="Permalink to this headline">¶</a></h2>
-<p>When translating a game, it may be necessary to replace a file
-with a translate version. For example, if an image contains text, it
-might make sense to replace it with a version of the image where the
-text is in another language.</p>
-<p>Ren'Py handles this by looking in the translation directory for the
-image. For example, if the &quot;piglatin&quot; language is in use, and
-&quot;library.png&quot; is loaded, Ren'Py will use &quot;game/tl/piglatin/library.png&quot;
-in preference to &quot;game/library.png&quot;.</p>
+<h2>图像和文件翻译<a class="headerlink" href="#image-and-file-translations" title="Permalink to this headline">¶</a></h2>
+<p>在翻译一个游戏时，我们有时候必须翻译图片里的文字和其他文件中的文字。</p>
+<p>Ren'Py会自动从翻译目录下面寻找需要替换的图片。比如，如果使用的是&quot;hxw&quot;这种语言，然后需要载入
+&quot;library.png&quot;，Ren'Py会优先使用&quot;game/tl/hxw/library.png&quot;，相比&quot;game/library.png&quot;而言。</p>
 </div>
 <div class="section" id="style-translations">
-<h2>Style Translations<a class="headerlink" href="#style-translations" title="Permalink to this headline">¶</a></h2>
-<p>It may be necessary to change styles - especially font-related
-styles - when translating a game. Ren'Py handles this with translate
-style blocks and translate python blocks. These blocks can contain code
-to change language-related variables and styles. For example:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="n">piglatin</span> <span class="k">style</span> <span class="na">default</span><span class="p">:</span>
+<h2>样式翻译<a class="headerlink" href="#style-translations" title="Permalink to this headline">¶</a></h2>
+<p>有时候在翻译游戏的过程中我们必须修改样式属性——尤其是使用的字体。Ren'Py使用translate style区块和translate python区块来处理这个问题。这些区块可以包含语言相关的变量和样式。比如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="n">hxw</span> <span class="k">style</span> <span class="na">default</span><span class="p">:</span>
     <span class="na">font</span> <span class="s">&quot;stonecutter.ttf&quot;</span>
 </pre></div>
 </div>
-<p>or equivalently:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="n">piglatin</span> <span class="k">python</span><span class="p">:</span>
+<p>或者等价地：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">translate</span> <span class="n">hxw</span> <span class="k">python</span><span class="p">:</span>
     <span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">font</span> <span class="o">=</span> <span class="s">&quot;stonecutter.ttf&quot;</span>
 </pre></div>
 </div>
-<p>When a language is activated - either at the start of the game, or
-after a language change - Ren'Py resets the styles to their contents
-at the end of the init phase. It then runs all translate python blocks
-and translate style blocks associated with the current language, guaranteeing
-that blocks appearing earlier in a file are executed first. Finally, it
-rebuilds styles, allowing the changes to take effect.</p>
-<p>Style translations may be added to any .rpy file.</p>
+<p>当某种语言被选中时——不管是在游戏开始时还是在切换语言之后——Ren'Py在初始化阶段结束后重新设置样式。然后，所有当前语言的translate python和translate style区块将被运行。这样一来，改变才会生效。</p>
+<p>样式翻译可以在任何rpy文件中添加。Style translations may be added to any .rpy file.</p>
 </div>
 <div class="section" id="default-language">
-<h2>Default Language<a class="headerlink" href="#default-language" title="Permalink to this headline">¶</a></h2>
-<p>The default language is chosen using the following method:</p>
+<h2>默认语言<a class="headerlink" href="#default-language" title="Permalink to this headline">¶</a></h2>
+<p>默认语言由以下方式决定：</p>
 <ul class="simple">
-<li>If the RENPY_LANGUAGE environment variable is set, that language is
-used.</li>
-<li>If <a class="reference internal" href="config.html#var-config.language"><tt class="xref std std-var docutils literal"><span class="pre">config.language</span></tt></a> is set, that language is used.</li>
-<li>If the game has ever chosen a language in the past, that language is
-used.</li>
-<li>If this is the first time the game has been run,
-<a class="reference internal" href="config.html#var-config.default_language"><tt class="xref std std-var docutils literal"><span class="pre">config.default_language</span></tt></a> is used. (This defaults to the None
-language.)</li>
-<li>Otherwise, the None language is used.</li>
+<li>如果RENPY_LANGUAGE环境变量存在，该变量的值所指定的语言将被使用。</li>
+<li>如果设置了<a class="reference internal" href="config.html#var-config.language"><tt class="xref std std-var docutils literal"><span class="pre">config.language</span></tt></a>的话，会使用该语言。</li>
+<li>如果在该游戏中曾经设置过语言，该语言会继续被使用。</li>
+<li>如果该游戏第一次运行，
+<a class="reference internal" href="config.html#var-config.default_language"><tt class="xref std std-var docutils literal"><span class="pre">config.default_language</span></tt></a>将会被使用（默认值是None语言）。</li>
+<li>其他情况下，使用None语言。</li>
 </ul>
 </div>
 <div class="section" id="translation-actions-functions-and-variables">
-<h2>Translation Actions, Functions, and Variables<a class="headerlink" href="#translation-actions-functions-and-variables" title="Permalink to this headline">¶</a></h2>
-<p>The main way to switch languages is with the Language action.</p>
+<h2>翻译相关动作，函数和变量<a class="headerlink" href="#translation-actions-functions-and-variables" title="Permalink to this headline">¶</a></h2>
+<p>调整使用语言的主要方法是使用Language动作。</p>
 <dl class="function">
 <dt id="Language">
 <tt class="descname">Language</tt><big>(</big><em>language</em><big>)</big><a class="headerlink" href="#Language" title="Permalink to this definition">¶</a></dt>
-<dd><p>Changes the language of the game to <cite>language</cite>.</p>
+<dd><p>将游戏的语言设置成<cite>language</cite>。</p>
 <dl class="docutils">
 <dt><cite>language</cite></dt>
-<dd>A string giving the language to translate to, or None to use
-the default language of the game script.</dd>
+<dd>希望使用的语言的名称的字符串，或者是None来使用默认语言。</dd>
 </dl>
 </dd></dl>
 
-<p>The Language action can be used to add a language preference to the
-preferences screen, using code like:</p>
+<p>Language动作可以用于在设置界面添加一个语言选项。例如：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">frame</span><span class="p">:</span>
     <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
     <span class="k">has</span> <span class="k">vbox</span>
 
     <span class="k">label</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Language&quot;</span><span class="p">)</span>
     <span class="k">textbutton</span> <span class="s">&quot;English&quot;</span> <span class="na">action</span> <span class="n">Language</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
-    <span class="k">textbutton</span> <span class="s">&quot;Igpay Atinlay&quot;</span> <span class="na">action</span> <span class="n">Language</span><span class="p">(</span><span class="s">&quot;piglatin&quot;</span><span class="p">)</span>
+    <span class="k">textbutton</span> <span class="s">&quot;Igpay Atinlay&quot;</span> <span class="na">action</span> <span class="n">Language</span><span class="p">(</span><span class="s">&quot;hxw&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>There are two translation-related functions:</p>
+<p>翻译相关的函数有两个：</p>
 <dl class="function">
 <dt id="renpy.change_language">
 <tt class="descclassname">renpy.</tt><tt class="descname">change_language</tt><big>(</big><em>language</em><big>)</big><a class="headerlink" href="#renpy.change_language" title="Permalink to this definition">¶</a></dt>
-<dd><p>Changes the current language to <cite>language</cite>, which can be a string or
-None to use the default language.</p>
+<dd><p>将当前语言改变为<cite>language</cite>, 该参数的值可以是字符串（语言名称）或者是None。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.known_languages">
 <tt class="descclassname">renpy.</tt><tt class="descname">known_languages</tt><big>(</big><big>)</big><a class="headerlink" href="#renpy.known_languages" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the set of known languages. This does not include the default
-language, None.</p>
+<dd><p>返回已知的语言列表。不包括None语言。</p>
 </dd></dl>
 
-<p>In addition, there are two functions that are related to string
-translation:</p>
+<p>另外，有两个字符串翻译相关的函数：</p>
 <dl class="function">
 <dt id="_">
 <tt class="descname">_</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#_" title="Permalink to this definition">¶</a></dt>
-<dd><p>(Single underscore) Returns <cite>s</cite> unchanged. Ren'Py will scan for
-strings enclosed in this function, and add them to the list of
-translatable strings. The strings will not be translated until
-they are displayed.</p>
+<dd><p>(单下划线)返回未经翻译的<cite>s</cite>。Ren'Py会将括号内的字符串添加到翻译列表中。在被显示之前，这些字符串不会被翻译。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="__">
 <tt class="descname">__</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#__" title="Permalink to this definition">¶</a></dt>
-<dd><p>(Double underscore) Returns <cite>s</cite> immediately translated into the
-current language. Strings enclosed in this function will be added
-to the list of translatable strings. Note that the string may be
-double-translated, if it matches a string translation when it
-is displayed.</p>
+<dd><p>(双下划线)返回在当前语言中的<cite>s</cite>。Ren'Py会将括号内的字符串添加到翻译列表中。注意该字符串可能被翻译两次（一次在调用该函数时，一次在显示时）。 </p>
 </dd></dl>
 
-<p>There are two language-related variables. One is
-<a class="reference internal" href="config.html#var-config.language"><tt class="xref std std-var docutils literal"><span class="pre">config.language</span></tt></a>, which is used to change the default language
-of the game.</p>
+<p>有两个语言相关的变量：
+<a class="reference internal" href="config.html#var-config.language"><tt class="xref std std-var docutils literal"><span class="pre">config.language</span></tt></a>用来改变游戏的默认语言。</p>
 <dl class="var">
 <dt id="var-_preferences.language">
 <tt class="descname">_preferences.language</tt><a class="headerlink" href="#var-_preferences.language" title="Permalink to this definition">¶</a></dt>
-<dd><p>The name of the current language, or None if the default language is
-being used. This should be treated as a read-only variable. To
-change the language, call <a class="reference internal" href="#renpy.change_language" title="renpy.change_language"><tt class="xref py py-func docutils literal"><span class="pre">renpy.change_language()</span></tt></a>.</p>
+<dd><p>该变量的值为当前使用的语言，或者None。请注意，该变量在使用时应被认为是只读的。如果想要改变语言，请调用<a class="reference internal" href="#renpy.change_language" title="renpy.change_language"><tt class="xref py py-func docutils literal"><span class="pre">renpy.change_language()</span></tt></a>。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="unsanctioned-translations">
-<h2>Unsanctioned Translations<a class="headerlink" href="#unsanctioned-translations" title="Permalink to this headline">¶</a></h2>
+<h2>非官方的翻译<a class="headerlink" href="#unsanctioned-translations" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">It's best to ask a game's creators for permission before
-creating an unsanctioned translation.</p>
+<p class="last">在开始翻译他人的游戏前，最好征得游戏制作者的翻译。</p>
 </div>
-<p>Ren'Py includes a small amount of support for creating translations
-without the active assistance of the game's creators. This support
-consists of the ability to automatically create a string translation
-file from all of the strings in the game. Since string translations
-are used for untranslated dialogue, this technique makes it possible
-to translate a game.</p>
-<p>To create a string translation file, perform the following steps:</p>
+<p>Ren'Py为那些没有获得游戏制作者帮助的翻译者提供了有限的支持，包括为游戏内的所有字符串创建一个翻译文件。因为这些字符串也会包括对话，所以基础的翻译是没有问题的。</p>
+<p>您需要按照以下步骤来创建一个字符串翻译文件：</p>
 <ul class="simple">
-<li>Set the RENPY_LANGUAGE environment variable to the language you want
-to translate to.</li>
-<li>Set the RENPY_UPDATE_STRINGS environment variable to a non-empty
-value.</li>
-<li>Play through the game until all text is seen.</li>
+<li>将RENPY_LANGUAGE环境变量设置为您翻译的目标语言。</li>
+<li>将RENPY_UPDATE_STRINGS环境变量设置为一个非空的值。</li>
+<li>阅读游戏内的所有文本。</li>
 </ul>
-<p>This will update the &quot;game/tl/language/strings.rpy&quot; file with a
-translation template that contains all of the strings in it.</p>
-<p>If a game doesn't include support for changing the language, it may be
-appropriate to use an init python block to set <a class="reference internal" href="config.html#var-config.language"><tt class="xref std std-var docutils literal"><span class="pre">config.language</span></tt></a>
-to the target language.</p>
-<p>Along with the use of string translations for dialogue, unsanctioned
-translators may be interested in using the techniques described above
-to translate images and styles.</p>
+<p>这将会更新&quot;game/tl/language/strings.rpy&quot;文件，现在它里面有游戏中所有的字符串了。</p>
+<p>若游戏不提供切换语言的选项，您可以考虑使用init python区块将<a class="reference internal" href="config.html#var-config.language"><tt class="xref std std-var docutils literal"><span class="pre">config.language</span></tt></a>
+的值设置为目标语言。</p>
+<p>类似地，非官方的翻译也可以考虑使用类似的方法来替换图片和样式。</p>
 </div>
 </div>
 
