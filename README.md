@@ -13,7 +13,7 @@ RenPy-Documentation-translations
 校对：暂缺
 
 
-目前进度：13/70
+目前进度：15/70
 
 已完成的文件：
 
@@ -26,6 +26,8 @@ conditional
 dialogue
 
 display_image
+
+displayable
 
 index
 
@@ -40,5 +42,7 @@ movie
 python
 
 skins
+
+translation
 
 quickstart
