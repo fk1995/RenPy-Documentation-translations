@@ -112,7 +112,7 @@
 <li><tt class="docutils literal"><span class="pre">scene</span></tt> - 清空一个层，然后可以在它上面显示一张图像。</li>
 <li><tt class="docutils literal"><span class="pre">hide</span></tt> -从一个层上移除一张图像。</li>
 </ul>
-<p>瞬间的图片显示/消失会让玩家感觉不适，所以Ren'Py还有<tt class="docutils literal"><span class="pre">with</span></tt>命令，允许您为图片的隐藏和显示添加特效。</p>
+<p>瞬间的图片显示/消失会让玩家感觉不适，所以Ren'Py还有<tt class="docutils literal"><span class="pre">with</span></tt>命令，允许您为图片的隐藏和显示添加转场效果。</p>
 <div class="section" id="concepts">
 <h2>概念<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="image">
@@ -277,11 +277,11 @@ show layer命令允许将一个变换或者ATL变换应用到一个层上（比�
 </div>
 <div class="section" id="with-statement">
 <span id="id6"></span><h2>With命令<a class="headerlink" href="#with-statement" title="Permalink to this headline">¶</a></h2>
-<p>with命令用于在画面变化时显示一个特效，使得图像的消失和出现不那么突兀。with命令由关键字<tt class="docutils literal"><span class="pre">with</span></tt>开始，然后是一个简单表达式，该表达式的值应该是一个特效或者一个特殊的值，<tt class="docutils literal"><span class="pre">None</span></tt>。</p>
+<p>with命令用于在画面变化时显示一个转场效果，使得图像的消失和出现不那么突兀。with命令由关键字<tt class="docutils literal"><span class="pre">with</span></tt>开始，然后是一个简单表达式，该表达式的值应该是一个转场效果或者一个特殊的值，<tt class="docutils literal"><span class="pre">None</span></tt>。</p>
 <p>屏幕将从上一个交互结束的状态（图像和渐变都没有发生时）变化到show和hide这类命令执行完毕之后的状态。</p>
-<p>with命令将会导致一个交互发生。此交互的持续时间由玩家决定，他们可以提早结束这个交互（也就是可以手动跳过特效）。</p>
-<p>若您对有哪些特效可用感兴趣，我们建议您看看
-<a class="reference internal" href="transitions.html#transitions"><em>特效</em></a>这一节。</p>
+<p>with命令将会导致一个交互发生。此交互的持续时间由玩家决定，他们可以提早结束这个交互（也就是可以手动跳过转场效果）。</p>
+<p>若您对有哪些转场效果可用感兴趣，我们建议您看看
+<a class="reference internal" href="transitions.html#transitions"><em>转场效果</em></a>这一节。</p>
 <p>以下是with命令的一个例子：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">bg</span> <span class="n">washington</span>
 <span class="k">with</span> <span class="n">dissolve</span>
@@ -291,14 +291,14 @@ show layer命令允许将一个变换或者ATL变换应用到一个层上（比�
 <span class="k">with</span> <span class="n">dissolve</span>
 </pre></div>
 </div>
-<p>这里会有两个特效发生。第一个with命令使用了<tt class="docutils literal"><span class="pre">dissolve</span></tt>特效，将之前的画面渐变到了新的背景图。（<tt class="docutils literal"><span class="pre">dissolve</span></tt>
-是预定义的0.5秒平滑渐变特效）</p>
-<p>第二个特效在Eileen和Lucy这两个图像显示后发生。它将会使屏幕从原来只有背景图的状态变化到有背景图和两个人物的状态。注意，这两个人物立绘将会同时平滑淡入到屏幕上。</p>
+<p>这里会有两个转场效果发生。第一个with命令使用了<tt class="docutils literal"><span class="pre">dissolve</span></tt>转场效果，将之前的画面渐变到了新的背景图。（<tt class="docutils literal"><span class="pre">dissolve</span></tt>
+是预定义的0.5秒平滑转场效果）</p>
+<p>第二个转场效果在Eileen和Lucy这两个图像显示后发生。它将会使屏幕从原来只有背景图的状态变化到有背景图和两个人物的状态。注意，这两个人物立绘将会同时平滑淡入到屏幕上。</p>
 <div class="section" id="with-none">
 <span id="id7"></span><h3>With None命令<a class="headerlink" href="#with-none" title="Permalink to this headline">¶</a></h3>
-<p>在上面这个例子里，有两个dissolve特效。但要是我们希望第一个特效瞬间完成，然后第二个特效保持原样呢？只是删除第一个with命令不会奏效——三张图片将同时淡入——所以我们需要告诉Ren'Py第一张图像应该立刻显示在屏幕上。</p>
+<p>在上面这个例子里，有两个dissolve转场效果。但要是我们希望第一个转场效果瞬间完成，然后第二个转场效果保持原样呢？只是删除第一个with命令不会奏效——三张图片将同时淡入——所以我们需要告诉Ren'Py第一张图像应该立刻显示在屏幕上。</p>
 <p>当参数是
-<tt class="docutils literal"><span class="pre">None</span></tt>时，with命令的行为会有所变化。<tt class="docutils literal"><span class="pre">with</span> <span class="pre">None</span></tt>命令会导致一个很短的交互发生，但并不会改变屏幕的内容。当下个特效发生时，它将从这个很短的交互发生之后的屏幕状态开始渐变。</p>
+<tt class="docutils literal"><span class="pre">None</span></tt>时，with命令的行为会有所变化。<tt class="docutils literal"><span class="pre">with</span> <span class="pre">None</span></tt>命令会导致一个很短的交互发生，但并不会改变屏幕的内容。当下个转场效果发生时，它将从这个很短的交互发生之后的屏幕状态开始渐变。</p>
 <p>比如，以下代码：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">bg</span> <span class="n">washington</span>
 <span class="k">with</span> <span class="bp">None</span>
@@ -308,11 +308,11 @@ show layer命令允许将一个变换或者ATL变换应用到一个层上（比�
 <span class="k">with</span> <span class="n">dissolve</span>
 </pre></div>
 </div>
-<p>只有一个特效会发生，画面从一张背景图像变成三张图像。</p>
+<p>只有一个转场效果会发生，画面从一张背景图像变成三张图像。</p>
 </div>
 <div class="section" id="with-clause-of-scene-show-and-hide-statements">
 <h3>Scene,show,hide命令的With从句<a class="headerlink" href="#with-clause-of-scene-show-and-hide-statements" title="Permalink to this headline">¶</a></h3>
-<p>show,scene和hide命令都可以带一个with从句，这样该命令就会使用with从句指定的特效来显示或者隐藏图像。with从句的位置在逻辑行的行尾，由关键字<tt class="docutils literal"><span class="pre">with</span></tt>后面是一个简单表达式。</p>
+<p>show,scene和hide命令都可以带一个with从句，这样该命令就会使用with从句指定的转场效果来显示或者隐藏图像。with从句的位置在逻辑行的行尾，由关键字<tt class="docutils literal"><span class="pre">with</span></tt>后面是一个简单表达式。</p>
 <p>您需要注意的是，with从句必须出现在行尾，如果在with后面还有其他的内容（比如show命令的属性），将导致语法错误。</p>
 <p>with命令等价于在该行前添加一行<tt class="docutils literal"><span class="pre">with</span>
 <span class="pre">None</span></tt>，然后在该行后面添加一个相应的<a class="reference internal" href="#with-statement"><em>with命令</em></a> 。例如：</p>
@@ -334,9 +334,9 @@ show layer命令允许将一个变换或者ATL变换应用到一个层上（比�
 </div>
 <div class="section" id="hide-and-show-window">
 <h2>隐藏与显示对话窗口<a class="headerlink" href="#hide-and-show-window" title="Permalink to this headline">¶</a></h2>
-<p>window命令用于控制在一名角色没有说话时是否显示对话窗口。（比如，特效发生时或者pause命令生效时）window show命令会导致窗口在这些时候被显示出来，而windowh hide会在这些时候隐藏窗口。</p>
-<p>若提供一个特效，该特效将被用于显示或隐藏窗口。如果不提供，那么将使用<a class="reference internal" href="config.html#var-config.window_show_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_show_transition</span></tt></a>和
-<a class="reference internal" href="config.html#var-config.window_hide_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_hide_transition</span></tt></a>的值。使用None的话就不会有任何特效（就算上面两个config的值不是None）。</p>
+<p>window命令用于控制在一名角色没有说话时是否显示对话窗口。（比如，转场效果发生时或者pause命令生效时）window show命令会导致窗口在这些时候被显示出来，而windowh hide会在这些时候隐藏窗口。</p>
+<p>若提供一个转场效果，该转场效果将被用于显示或隐藏窗口。如果不提供，那么将使用<a class="reference internal" href="config.html#var-config.window_show_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_show_transition</span></tt></a>和
+<a class="reference internal" href="config.html#var-config.window_hide_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_hide_transition</span></tt></a>的值。使用None的话就不会有任何转场效果（就算上面两个config的值不是None）。</p>
 <p>显示窗口这个动作实际上可以自定义，用的是<a class="reference internal" href="config.html#var-config.empty_window"><tt class="xref std std-var docutils literal"><span class="pre">config.empty_window</span></tt></a>这个函数。默认情况下，它会令narrator这个角色说一个空的字符串。（于是看起来就像一个空的窗口出现了）</p>
 <div class="highlight-renpy"><div class="highlight"><pre>
     <span class="k">show</span> <span class="n">bg</span> <span class="n">washington</span>
