@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>在 Python 中使用变换和特效&mdash; Ren&#39;Py Documentation</title>
+    <title>在 Python 中使用变换和转场效果&mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,9 +57,9 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">在 Python 中使用变换和特效</a><ul>
+<li><a class="reference internal" href="#">在 Python 中使用变换和转场效果</a><ul>
 <li><a class="reference internal" href="#transforms">变换</a></li>
-<li><a class="reference internal" href="#transitions">特效</a></li>
+<li><a class="reference internal" href="#transitions">转场效果</a></li>
 </ul>
 </li>
 </ul>
@@ -90,8 +90,8 @@
           <div class="body">
             
   <div class="section" id="transforms-and-transitions-in-python">
-<h1>在 Python 中使用变换和特效<a class="headerlink" href="#transforms-and-transitions-in-python" title="Permalink to this headline">¶</a></h1>
-<p>创作者可以使用 Python 来创建用于 Ren'Py 脚本的新的变换和特效效果。</p>
+<h1>在 Python 中使用变换和转场效果<a class="headerlink" href="#transforms-and-transitions-in-python" title="Permalink to this headline">¶</a></h1>
+<p>创作者可以使用 Python 来创建用于 Ren'Py 脚本的新的变换和转场效果。</p>
 <div class="section" id="transforms">
 <h2>变换<a class="headerlink" href="#transforms" title="Permalink to this headline">¶</a></h2>
 <p>变换（transform）在 python 中是一个可调用的对象。当它和一个可显示对象一起被传入时，系统会返回另一个处理过的可显示对象。</p>
@@ -155,8 +155,8 @@ transform 。</p>
 
 </div>
 <div class="section" id="transitions">
-<h2>特效<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
-<p>特效（transition）在 python 中是一个可调用的对象。在 python 中调用 transition 需要两个参数，它会返回一个用特效执行的可显示对象。
+<h2>转场效果<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
+<p>转场效果（transition）在 python 中是一个可调用的对象。在 python 中调用 transition 需要两个参数，它会返回一个用转场效果执行的可显示对象。
 这两个参数是:</p>
 <dl class="docutils">
 <dt><cite>old_widget</cite></dt>
@@ -164,7 +164,7 @@ transform 。</p>
 <dt><cite>new_widget</cite></dt>
 <dd>一个代表新视屏的可显示对象。</dd>
 </dl>
-<p>这个函数所返回的可显示对象应该有一个 <tt class="docutils literal"><span class="pre">delay</span></tt> 值域，这个值域里存放的是特效效果执行的时间（以秒为单位）。</p>
+<p>这个函数所返回的可显示对象应该有一个 <tt class="docutils literal"><span class="pre">delay</span></tt> 值域，这个值域里存放的是转场效果效果执行的时间（以秒为单位）。</p>
 <p>举个例子:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
 
