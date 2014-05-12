@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Statement Equivalents &mdash; Ren&#39;Py Documentation</title>
+    <title>等价命令 &mdash; Ren&#39;Py 文档</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,23 +57,23 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Statement Equivalents</a><ul>
-<li><a class="reference internal" href="#dialogue">Dialogue</a></li>
-<li><a class="reference internal" href="#choice-menus">Choice Menus</a></li>
-<li><a class="reference internal" href="#displaying-images">Displaying Images</a></li>
-<li><a class="reference internal" href="#transitions">Transitions</a></li>
-<li><a class="reference internal" href="#jump">Jump</a></li>
-<li><a class="reference internal" href="#call">Call</a></li>
+<li><a class="reference internal" href="#">等价命令</a><ul>
+<li><a class="reference internal" href="#dialogue">对话</a></li>
+<li><a class="reference internal" href="#choice-menus">选择项</a></li>
+<li><a class="reference internal" href="#displaying-images">图像显示</a></li>
+<li><a class="reference internal" href="#transitions">转场效果</a></li>
+<li><a class="reference internal" href="#jump">跳转</a></li>
+<li><a class="reference internal" href="#call">调用</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="developer_tools.html"
-                        title="previous chapter">Developer Tools</a></p>
+                        title="previous chapter">开发者工具</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="save_load_rollback.html"
-                        title="next chapter">Saving, Loading, and Rollback</a></p>
+                        title="next chapter">保存，读取和回滚</a></p>
             <h4>Search</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
@@ -94,30 +94,20 @@
           <div class="body">
             
   <div class="section" id="statement-equivalents">
-<span id="id1"></span><h1>Statement Equivalents<a class="headerlink" href="#statement-equivalents" title="Permalink to this headline">¶</a></h1>
-<p>To allow Ren'Py to be scripted in python, each Ren'Py statement has
-equivalent Python code. This usually consists of a Python function,
-but may also consist of a code pattern that performs an action
-equivalent to the statement.</p>
+<span id="id1"></span><h1>等价命令<a class="headerlink" href="#statement-equivalents" title="Permalink to this headline">¶</a></h1>
+<p>为了能在 python 环境下使用 Ren'py，每一条 Ren'Py 命令都有等价的 python 代码。它们通常由一个 python 函数构成，不过也有可能是由一些能完成和原命令相同功能的代码所构成。</p>
 <div class="section" id="dialogue">
-<h2>Dialogue<a class="headerlink" href="#dialogue" title="Permalink to this headline">¶</a></h2>
-<p>The Ren'Py say statement is equivalent to calling the character object
-as a function. The following code displays the same line twice:</p>
+<h2>对话<a class="headerlink" href="#dialogue" title="Permalink to this headline">¶</a></h2>
+<p>直接将角色对象视为一个函数对象调用等价于 Ren'Py 的 say 命令。下面的例子将会显示同一行文字两次：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;Hello, world.&quot;</span>
 
 <span class="k">$</span> <span class="n">e</span><span class="p">(</span><span class="s">&quot;Hello, world.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Displaying narration can be done the same way, by using the
-<tt class="docutils literal"><span class="pre">narrator</span></tt> character. When calling a character, it's possible to
-supply the keyword argument <cite>interact</cite>. When interact is false,
-Ren'Py will display the character dialogue box, and will then
-return before performing an interaction.</p>
-<p>This equivalence of characters and function objects works in the other
-direction as well. It is possible to declare a python function, and
-then use that function in the place of a character object. For
-example, the following function uses a variable to choose between
-two characters.</p>
+<p>同样地，您也可以通过直接调用
+<tt class="docutils literal"><span class="pre">narrator</span></tt> 角色，来显示叙述文字。当调用一个角色时，你可以提供一个关键字参数 <cite>interact</cite>。 当 interact 的值为假时，
+Ren'Py 将会显示人物的对话框，并会在触发交互之前返回。</p>
+<p>在其他的地方，我们也能应用到角色和函数对象的等价性。我们可以定义一个 python 函数，然后用它来替换角色对象。下面的例子就展示了一个通过判断变量来在两个不同的角色间切换的函数。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">lucy_normal</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Lucy&quot;</span><span class="p">)</span>
 <span class="k">define</span> <span class="n">lucy_evil</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Evil Lucy&quot;</span><span class="p">)</span>
 
@@ -133,35 +123,28 @@ two characters.</p>
 
     <span class="k">$</span> <span class="n">lucy_is_evil</span> <span class="o">=</span> <span class="bp">False</span>
 
-    <span class="n">l</span> <span class="s">&quot;Usually, I feel quite normal.&quot;</span>
+    <span class="n">l</span> <span class="s">&quot;有时我很平静。&quot;</span>
 
     <span class="k">$</span> <span class="n">lucy_is_evil</span> <span class="o">=</span> <span class="bp">True</span>
 
-    <span class="n">l</span> <span class="s">&quot;But sometimes, I get really mad!&quot;</span>
+    <span class="n">l</span> <span class="s">&quot;但有时，我也会很疯狂！&quot;</span>
 </pre></div>
 </div>
-<p>A function used in this way should either ignore unknown keyword
-arguments, or pass them to a character function. Doing this will
-allow the game to continue working if Ren'Py adds additional keyword
-arguments to character calls.</p>
+<p>像这样的函数应该忽视掉未知的关键字和参数，或者将它们传递给一个角色函数。这样做可以确保即使是在 Ren'Py 为调用角色添加了额外的关键字参数后，游戏也能正常运行。</p>
 <dl class="function">
 <dt id="renpy.say">
 <tt class="descclassname">renpy.</tt><tt class="descname">say</tt><big>(</big><em>who</em>, <em>what</em>, <em>interact=True</em><big>)</big><a class="headerlink" href="#renpy.say" title="Permalink to this definition">¶</a></dt>
-<dd><p>The equivalent of the say statement.</p>
+<dd><p>等价于 say 命令。</p>
 <dl class="docutils">
 <dt><cite>who</cite></dt>
-<dd>Either the character that will say something, None for the narrator,
-or a string giving the character name. In the latter case, the
-<tt class="xref py py-func docutils literal"><span class="pre">say()</span></tt> is used to create the speaking character.</dd>
+<dd>说明了谁将是这句话的叙述者，如果为 None ，则是以 narrator 方式来叙述；或是一个字符串作为角色名称。如果是后者的话，
+<tt class="xref py py-func docutils literal"><span class="pre">say()</span></tt> 命令将会用于创建说话者。</dd>
 <dt><cite>what</cite></dt>
-<dd>A string giving the line to say. Percent-substitutions are performed
-in this string.</dd>
+<dd>一个字符串，里面是叙述的内容。百分比替换将会在这个字符串中被执行。</dd>
 <dt><cite>interact</cite></dt>
-<dd>If true, Ren'Py waits for player input when displaying the dialogue. If
-false, Ren'Py shows the dialogue, but does not perform an interaction.</dd>
+<dd>如果这个值为真，Ren'Py 将会在显示对话时等待用户输入。如果为假， Ren'Py 会显示对话，但不会触发交互。</dd>
 </dl>
-<p>This function is rarely necessary, as the following three lines are
-equivalent.</p>
+<p>一般使用中，鲜有会用到这个函数的情况。下面三行命令的显示效果都是一样的。</p> 
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">e</span> <span class="s">&quot;Hello, world.&quot;</span>
 <span class="k">$</span> <span class="n">renpy</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s">&quot;Hello, world.&quot;</span><span class="p">)</span>
 <span class="k">$</span> <span class="n">e</span><span class="p">(</span><span class="s">&quot;Hello, world.&quot;</span><span class="p">)</span>
@@ -171,89 +154,79 @@ equivalent.</p>
 
 </div>
 <div class="section" id="choice-menus">
-<h2>Choice Menus<a class="headerlink" href="#choice-menus" title="Permalink to this headline">¶</a></h2>
-<p>The menu statement has an equivalent Python function.</p>
+<h2>选择项<a class="headerlink" href="#choice-menus" title="Permalink to this headline">¶</a></h2>
+<p>menu 语句也有等价的 python 函数。</p>
 <dl class="function">
 <dt id="menu">
 <tt class="descname">menu</tt><big>(</big><em>items</em>, <em>interact=True</em>, <em>screen=&quot;choice&quot;</em><big>)</big><a class="headerlink" href="#menu" title="Permalink to this definition">¶</a></dt>
-<dd><p>This displays a menu to the user. <cite>items</cite> should be a list of 2-item tuples.
-In each tuple, the first item is a textual label, and the second item is
-the value to be returned if that item is selected. If the value is None,
-the first item is used as a menu caption.</p>
-<p>This function takes many arguments, of which only a few are documented.
-Except for <cite>items</cite>, all arguments should be given as keyword arguments.</p>
+<dd><p>这个命令将会向玩家显示一个选择项。 <cite>items</cite> 应该是一个列表，其中的元素是一个拥有两个元素的元组。
+在每个元组中，第一个元素是一个文字标签，第二个元素则是如果该选项被选中时所返回的值。如果该参数为空的话，那么第一个元素将会被用作菜单标题。</p>
+<p>这个函数接收很多参数，但只有其中一部分被记在了文档里。
+除 <cite>items</cite>之外的所有参数都应该以关键字参数的形式给出。</p>
 <dl class="docutils">
 <dt><cite>interact</cite></dt>
-<dd>If false, the menu is displayed, but no interaction is performed.</dd>
+<dd>如果为假，选择项将会在不和玩家产生交互的情况下显示。</dd>
 <dt><cite>screen</cite></dt>
-<dd>The name of the screen used to display the menu.</dd>
+<dd>将要在其上显示选择项的视屏的名称。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.display_menu">
 <tt class="descclassname">renpy.</tt><tt class="descname">display_menu</tt><big>(</big><em>items</em>, <em>interact=True</em>, <em>screen=&quot;choice&quot;</em><big>)</big><a class="headerlink" href="#renpy.display_menu" title="Permalink to this definition">¶</a></dt>
-<dd><p>This displays a menu to the user. <cite>items</cite> should be a list of 2-item tuples.
-In each tuple, the first item is a textual label, and the second item is
-the value to be returned if that item is selected. If the value is None,
-the first item is used as a menu caption.</p>
-<p>This function takes many arguments, of which only a few are documented.
-Except for <cite>items</cite>, all arguments should be given as keyword arguments.</p>
+<dd><p>这个命令将会向玩家显示一个选择项。 <cite>items</cite> 应该是一个列表，其中的元素是一个拥有两个元素的元组。
+在每个元组中，第一个元素是一个文字标签，第二个元素则是如果该选项被选中时所返回的值。如果该参数为空的话，那么第一个元素将会被用作菜单标题。</p>
+<p>这个函数接收很多参数，但只有其中一部分被记在了文档里。
+除 <cite>items</cite>之外的所有参数都应该以关键字参数的形式给出。</p>
 <dl class="docutils">
 <dt><cite>interact</cite></dt>
-<dd>If false, the menu is displayed, but no interaction is performed.</dd>
+<dd>如果为假，选择项将会在不和玩家产生交互的情况下显示。</dd>
 <dt><cite>screen</cite></dt>
-<dd>The name of the screen used to display the menu.</dd>
+<dd>将要在其上显示选择项的视屏的名称。</dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="displaying-images">
-<h2>Displaying Images<a class="headerlink" href="#displaying-images" title="Permalink to this headline">¶</a></h2>
-<p>The image, scene, show, and hide statements each have an equivalent
-python function.</p>
+<h2>显示图像<a class="headerlink" href="#displaying-images" title="Permalink to this headline">¶</a></h2>
+<p>对 image, scene, show, 还有 hide 语句，在 python 中都有与之对应的函数。</p>
 <dl class="function">
 <dt id="renpy.hide">
 <tt class="descclassname">renpy.</tt><tt class="descname">hide</tt><big>(</big><em>name</em>, <em>layer='master'</em><big>)</big><a class="headerlink" href="#renpy.hide" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hides an image from a layer. The python equivalent of the hide statement.</p>
+<dd><p>从指定层上移除一张图像。即 python 中对应 Hide 命令的函数。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the image to hide. Only the image tag is used, and
-any image with the tag is hidden (the precise name does not matter).</dd>
+<dd>将要移除的图像的名称。本命令使用的是图像的标记名，所有图像标记与提供的图像标记相同的图像都会被移除（和图像的真实文件名无关）。</dd>
 <dt><cite>layer</cite></dt>
-<dd>The layer on which this function operates.</dd>
+<dd>这个函数作用的对象层。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.image">
 <tt class="descclassname">renpy.</tt><tt class="descname">image</tt><big>(</big><em>name</em>, <em>d</em><big>)</big><a class="headerlink" href="#renpy.image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines an image. This function is the python equivalent of the
-image statement.</p>
+<dd><p>定义一张图像。即 python 中对应 image 命令的函数。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the image to display, a string.</dd>
+<dd>将要定义的图像文件名，字符串型变量。</dd>
 <dt><cite>d</cite></dt>
-<dd>The displayable to associate with that image name.</dd>
+<dd>将要和这个图像名相关联的可显示对象。</dd>
 </dl>
-<p>This function may only be run from inside an init block. It is an
-error to run this function once the game has started.</p>
+<p>这个函数可能只能在初始化区块中运行。如果在游戏开始后运行这个函数的话，系统将会报错。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.layer_at_list">
 <tt class="descclassname">renpy.</tt><tt class="descname">layer_at_list</tt><big>(</big><em>at_list</em>, <em>layer='master'</em><big>)</big><a class="headerlink" href="#renpy.layer_at_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>The python equivalent of the <tt class="docutils literal"><span class="pre">show</span> <span class="pre">layer</span></tt> <cite>layer</cite> <tt class="docutils literal"><span class="pre">at</span></tt> <cite>at_list</cite>
-statement.</p>
+<dd><p>这个 python 函数等价于 Ren'py 中的 <tt class="docutils literal"><span class="pre">show</span> <span class="pre">layer</span></tt> <cite>layer</cite> <tt class="docutils literal"><span class="pre">at</span></tt> <cite>at_list</cite>
+语句。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.scene">
 <tt class="descclassname">renpy.</tt><tt class="descname">scene</tt><big>(</big><em>layer='master'</em><big>)</big><a class="headerlink" href="#renpy.scene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes all displayables from <cite>layer</cite>. This is equivalent to the scene
-statement, when the scene statement is not given an image to show.</p>
-<p>A full scene statement is equivalent to a call to renpy.scene followed by a
-call to <a class="reference internal" href="#renpy.show" title="renpy.show"><tt class="xref py py-func docutils literal"><span class="pre">renpy.show()</span></tt></a>. For example:</p>
+<dd><p>从 <cite>layer</cite>上移除所有可显示对象。 当 scene 语句没有指定将要显示的图像时，这个函数等价于 scene 语句。</p>
+<p>一个完整的 scene 语句在 python 中等价于在调用 renpy.scene 后再调用一个 <a class="reference internal" href="#renpy.show" title="renpy.show"><tt class="xref py py-func docutils literal"><span class="pre">renpy.show()</span></tt></a>。 如下面所示：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">scene</span> <span class="n">bg</span> <span class="n">beach</span>
 </pre></div>
 </div>
@@ -267,82 +240,72 @@ call to <a class="reference internal" href="#renpy.show" title="renpy.show"><tt 
 <dl class="function">
 <dt id="renpy.show">
 <tt class="descclassname">renpy.</tt><tt class="descname">show</tt><big>(</big><em>name</em>, <em>at_list=</em><span class="optional">[</span><span class="optional">]</span>, <em>layer='master'</em>, <em>what=None</em>, <em>zorder=0</em>, <em>tag=None</em>, <em>behind=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#renpy.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shows an image on a layer. This is the programmatic equivalent of the show
-statement.</p>
+<dd><p>在指定的层上显示一张图像。等价于 Ren'py 中的 show 语句。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the image to show, a string.</dd>
+<dd>将要显示的图像名，字符串型变量。</dd>
 <dt><cite>at_list</cite></dt>
-<dd>A list of transforms that are applied to the image.
-The equivalent of the <tt class="docutils literal"><span class="pre">at</span></tt> property.</dd>
+<dd>一个由字符串组成的列表，其中的元素应该是将要应用到图像上的转场效果。
+等价于 <tt class="docutils literal"><span class="pre">at</span></tt> 属性。</dd>
 <dt><cite>layer</cite></dt>
-<dd>A string, giving the name of the layer on which the image will be shown.
-The equivalent of the <tt class="docutils literal"><span class="pre">onlayer</span></tt> property.</dd>
+<dd>字符串型变量，将会在该字符串指定的层上显示图像。
+等价于 <tt class="docutils literal"><span class="pre">onlayer</span></tt> 属性。</dd>
 <dt><cite>what</cite></dt>
-<dd>If not None, this is a displayable that will be shown in lieu of
-looking on the image. (This is the equivalent of the show expression
-statement.) When a <cite>what</cite> parameter is given, <cite>name</cite> can be used to
-associate a tag with the image.</dd>
+<dd>如果这个值不为空，那这张图将会替代之前的图像被显示。 (这里等价于 show expression
+语句。) 如果已经给出了 <cite>what</cite> 参数， <cite>name</cite> 将会被用做这个图像的标记名。</dd>
 <dt><cite>zorder</cite></dt>
-<dd>An integer, the equivalent of the <tt class="docutils literal"><span class="pre">zorder</span></tt> property.</dd>
+<dd>整数型变量，等价于 <tt class="docutils literal"><span class="pre">zorder</span></tt> 属性。</dd>
 <dt><cite>tag</cite></dt>
-<dd>A string, used to specify the the image tag of the shown image. The
-equivalent of the <tt class="docutils literal"><span class="pre">as</span></tt> property.</dd>
+<dd>一个字符串，用于指定显示图像的标记名。等价于 <tt class="docutils literal"><span class="pre">as</span></tt> 属性。</dd>
 <dt><cite>behind</cite></dt>
-<dd>A list of strings, giving image tags that this image is shown behind.
-The equivalent of the <tt class="docutils literal"><span class="pre">behind</span></tt> property.</dd>
+<dd>一个由字符串组成的列表，其中的元素应该是图像的标记名。这张图像将会显示在所有给出的的图像后面。等价于 <tt class="docutils literal"><span class="pre">behind</span></tt> 属性。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.show_layer_at">
 <tt class="descclassname">renpy.</tt><tt class="descname">show_layer_at</tt><big>(</big><em>at_list</em>, <em>layer='master'</em><big>)</big><a class="headerlink" href="#renpy.show_layer_at" title="Permalink to this definition">¶</a></dt>
-<dd><p>The python equivalent of the <tt class="docutils literal"><span class="pre">show</span> <span class="pre">layer</span></tt> <cite>layer</cite> <tt class="docutils literal"><span class="pre">at</span></tt> <cite>at_list</cite>
-statement.</p>
+<dd><p>这个 python 函数等价于 Ren'py 中的 <tt class="docutils literal"><span class="pre">show</span> <span class="pre">layer</span></tt> <cite>layer</cite> <tt class="docutils literal"><span class="pre">at</span></tt> <cite>at_list</cite>
+语句。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="transitions">
-<h2>Transitions<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
-<p>The equivalent of the with statement is the renpy.with_statement
-function.</p>
+<h2>转场效果<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
+<p>在 python 中，等价于 with 语句的函数是 renpy.with_statement
+。</p>
 <dl class="function">
 <dt id="renpy.with_statement">
 <tt class="descclassname">renpy.</tt><tt class="descname">with_statement</tt><big>(</big><em>trans</em>, <em>always=False</em><big>)</big><a class="headerlink" href="#renpy.with_statement" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes a transition to occur. This is the python equivalent of the
-with statement.</p>
+<dd><p>产生一个转场效果。python 中对应 with 命令的函数。</p>
 <dl class="docutils">
 <dt><cite>trans</cite></dt>
-<dd>The transition.</dd>
+<dd>转场效果的名称。</dd>
 <dt><cite>always</cite></dt>
-<dd>If True, the transition will always occur, even if the user has
-disabled transitions.</dd>
+<dd>如果这个值为真，那么这个转场效果即使是在玩家关闭转场效果后也会一直存在。</dd>
 </dl>
-<p>This function returns true if the user chose to interrupt the transition,
-and false otherwise.</p>
+<p>当玩家中断转场效果后，本函数会返回 true ，其他情况下则会返回 false 。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="jump">
-<h2>Jump<a class="headerlink" href="#jump" title="Permalink to this headline">¶</a></h2>
-<p>The equivalent of the jump statement is the renpy.jump function.</p>
+<h2>跳转<a class="headerlink" href="#jump" title="Permalink to this headline">¶</a></h2>
+<p>在 python 中，等价于 jump 语句的函数是 renpy.jump 。</p>
 <dl class="function">
 <dt id="renpy.jump">
 <tt class="descclassname">renpy.</tt><tt class="descname">jump</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#renpy.jump" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes the current statement to end, and control to jump to the given
-label.</p>
+<dd><p>使当前正在执行的语句结束，之后控制系统跳转到指定的标签处。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="call">
-<h2>Call<a class="headerlink" href="#call" title="Permalink to this headline">¶</a></h2>
-<p>The equivalent of the call statement is the renpy.call function.</p>
+<h2>调用<a class="headerlink" href="#call" title="Permalink to this headline">¶</a></h2>
+<p>在 python 中，等价于 call 语句的函数是 renpy.call 。</p>
 <dl class="function">
 <dt id="renpy.call">
 <tt class="descclassname">renpy.</tt><tt class="descname">call</tt><big>(</big><em>label</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#renpy.call" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes the current Ren'Py statement to terminate, and a jump to a
-<cite>label</cite> to occur. When the jump returns, control will be passed
-to the statement following the current statement.</p>
+<dd><p>终止当前正在执行的 Ren'Py 语句，然后调用
+<cite>label</cite> 标签。当跳转回来时，脚本处理器将会顺序执行这个函数下面的一条语句。</p>
 </dd></dl>
 
 </div>
