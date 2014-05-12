@@ -63,7 +63,7 @@
 <li><a class="reference internal" href="#init">初始化</a></li>
 <li><a class="reference internal" href="#characters">角色</a></li>
 <li><a class="reference internal" href="#images">图像</a></li>
-<li><a class="reference internal" href="#transitions">特效</a></li>
+<li><a class="reference internal" href="#transitions">转场效果</a></li>
 <li><a class="reference internal" href="#positions">位置</a></li>
 <li><a class="reference internal" href="#music-and-sound">音乐与音效</a></li>
 <li><a class="reference internal" href="#pause-statement">Pause命令</a></li>
@@ -256,8 +256,8 @@ Ren'Py 也支持hide命令，用于隐藏一个指定的图像。</p>
 <p>事实上需要用到隐藏命令的情况极其罕见。需要改变角色的表情时，可以使用show命令；当所有人离开时，可以使用scene命令。只有当某一名角色离开画面的时候，您才需要用到hide命令。</p>
 </div>
 <div class="section" id="transitions">
-<h2>特效<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
-<p>只是单纯的瞬时显示一张图片是无趣的，所以 Ren'Py 提供了多种特效类的接口，能让转场效果变得更加有趣。特效会让画面从上一个交互结束后的状态变化到在这之后任何的scene,show和hide命令生效后的状态。也就是说，如果没有with命令，那么show,scene和hide命令都会立即生效。如果在它们后面有一条with命令，那么它们将会一起生效——画面将从第一条这类命令之前的状态变换到最后一条这类命令之后的状态。</p>
+<h2>转场效果<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
+<p>只是单纯的瞬时显示一张图片是无趣的，所以 Ren'Py 提供了多种转场效果类的接口，能让转场效果变得更加有趣。转场效果会让画面从上一个交互结束后的状态变化到在这之后任何的scene,show和hide命令生效后的状态。也就是说，如果没有with命令，那么show,scene和hide命令都会立即生效。如果在它们后面有一条with命令，那么它们将会一起生效——画面将从第一条这类命令之前的状态变换到最后一条这类命令之后的状态。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">label</span> <span class="n">start</span><span class="p">:</span>
     <span class="k">scene</span> <span class="n">bg</span> <span class="n">uni</span>
     <span class="k">show</span> <span class="n">sylvie</span> <span class="n">smile</span>
@@ -283,7 +283,7 @@ Ren'Py 也支持hide命令，用于隐藏一个指定的图像。</p>
     <span class="n">m</span> <span class="s">&quot;Will you be my artist for a visual novel?&quot;</span>
 </pre></div>
 </div>
-<p>with命令声明了我们所要使用的特效。最常见的一个就是 <tt class="docutils literal"><span class="pre">dissolve</span></tt> 特效。它的作用是使用渐变效果，从当前屏幕切换到下一个屏幕（用PPT来说，就是淡入淡出特效）。另一个比较常见的特效是 <tt class="docutils literal"><span class="pre">fade</span></tt> ，这个效果会让画面渐变成黑色，再从黑色渐变至下一个屏幕。</p>
+<p>with命令声明了我们所要使用的转场效果。最常见的一个就是 <tt class="docutils literal"><span class="pre">dissolve</span></tt> 转场效果。它的作用是使用渐变效果，从当前屏幕切换到下一个屏幕（用PPT来说，就是淡入淡出）。另一个比较常见的转场效果是 <tt class="docutils literal"><span class="pre">fade</span></tt> ，这个效果会让画面渐变成黑色，再从黑色渐变至下一个屏幕。</p>
 <p>当效果命令被放置在几个 scene, show, 或是 hide命令之后时，它会让这些对象一起显示出来。如果您这么写：</p>
 <div class="highlight-renpy"><div class="highlight"><pre>
     <span class="k">scene</span> <span class="n">bg</span> <span class="n">meadow</span>
@@ -307,7 +307,7 @@ Ren'Py 也支持hide命令，用于隐藏一个指定的图像。</p>
     <span class="k">with</span> <span class="n">dissolve</span>
 </pre></div>
 </div>
-<p>在这里，None是一种特殊的特效：它会将所需加载的图像瞬时刷新在屏幕上。</p>
+<p>在这里，None是一种特殊的转场效果：它会将所需加载的图像瞬时刷新在屏幕上。</p>
 </div>
 <div class="section" id="positions">
 <h2>位置<a class="headerlink" href="#positions" title="Permalink to this headline">¶</a></h2>
