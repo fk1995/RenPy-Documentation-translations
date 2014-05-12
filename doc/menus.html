@@ -57,11 +57,11 @@
         <div class="sphinxsidebarwrapper">
   <h4>上一节</h4>
   <p class="topless"><a href="displaying_images.html"
-                        title="previous chapter">Displaying Images</a></p>
+                        title="previous chapter">显示图像</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="python.html"
-                        title="next chapter">Python Statements</a></p>
-            <h4>Search</h4>
+                        title="next chapter">Python命令</a></p>
+            <h4>搜索</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
 
@@ -81,64 +81,48 @@
           <div class="body">
             
   <div class="section" id="in-game-menus">
-<span id="menu-statement"></span><span id="menus"></span><h1>In-Game Menus<a class="headerlink" href="#in-game-menus" title="Permalink to this headline">¶</a></h1>
-<p>In many visual novels, the player is asked to make choices that
-control the outcome of the story. The Ren'Py language contains a menus
-statement that makes it easy to present choices to the user.</p>
-<p>Here's an example of a menu statement:</p>
+<span id="menu-statement"></span><span id="menus"></span><h1>游戏内菜单<a class="headerlink" href="#in-game-menus" title="Permalink to this headline">¶</a></h1>
+<p>在视觉小说中，玩家经常会遇到各种各样决定游戏展开的选项。Ren'Py语言中有一个menu命令，可以让您轻松地制作这些选项。</p>
+<p>以下是menu命令的例子：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">menu</span><span class="p">:</span>
-     <span class="s">&quot;What should I do?&quot;</span>
+     <span class="s">&quot;我该怎么办呢？&quot;</span>
 
-     <span class="s">&quot;Drink coffee.&quot;</span><span class="p">:</span>
-         <span class="s">&quot;I drink the coffee, and it&#39;s good to the last drop.&quot;</span>
+     <span class="s">&quot;喝咖啡&quot;</span><span class="p">:</span>
+         <span class="s">&quot;我喝了些咖啡，直到最后一滴都意犹未尽。&quot;</span>
 
-     <span class="s">&quot;Drink tea.&quot;</span><span class="p">:</span>
+     <span class="s">&quot;喝茶&quot;</span><span class="p">:</span>
          <span class="k">$</span> <span class="n">drank_tea</span> <span class="o">=</span> <span class="bp">True</span>
 
-         <span class="s">&quot;I drink the tea, trying not to make a political statement as I do.&quot;</span>
+         <span class="s">&quot;我喝了些茶，不知为何想起了些不好的事情。&quot;</span>
 
-     <span class="s">&quot;Genuflect.&quot;</span><span class="p">:</span>
+     <span class="s">&quot;下跪&quot;</span><span class="p">:</span>
          <span class="k">jump</span> <span class="n">genuflect_ending</span>
 
 <span class="k">label</span> <span class="n">after_menu</span><span class="p">:</span>
 
-     <span class="s">&quot;After having my drink, I got on with my morning.&quot;</span>
+     <span class="s">&quot;我的早晨开始了。&quot;</span>
 </pre></div>
 </div>
-<p>The menu statement begins with the keyword menu. This may be followed
-by a label name, in which case it's equivalent to preceding the menu
-with that label. For example:</p>
+<p>menu命令由menu关键字开始。后面可以跟一个标签名称，这等价于在menu命令前使用一个label命令。如：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">menu</span> <span class="n">drink_menu</span><span class="p">:</span>
     <span class="o">...</span>
 </pre></div>
 </div>
-<p>The menu statement is followed by an indented block. This block may
-contain a <a class="reference internal" href="dialogue.html#say-statement"><em>say statement</em></a>, and must contain at
-least one menu choice. If the say statement is present, it is
-displayed on the screen at the same time as the menu.</p>
-<p><strong>Menu Choices.</strong>
-A menu choice is an option the user can select from the in-game
-menu. A menu choice begins with a string. The string may be followed
-by an if-clause, which makes the choice conditional. The menu choice
-ends with a colon, and must be followed by a block of Ren'Py
-statements.</p>
-<p>When the choice is selected, the block of code is run. If execution
-reaches the end of this block of code, it continues with the statement
-after the end of the menu statement.</p>
-<p>An if-clause consists of the keyword <tt class="docutils literal"><span class="pre">if</span></tt>, followed by a python
-expression. The menu choice is only displayed if the expression is
-true. In the following menu:</p>
+<p>menu命令后面应该带一个区块。这个区块可以包含<a class="reference internal" href="dialogue.html#say-statement"><em>say命令</em></a>，且必须带至少一个选择肢。如果使用了say命令，该行文本将与选择肢同时显示在屏幕上。</p>
+<p><strong>选择肢</strong>
+选择肢指的是玩家在某个选项中所能够做出的某一个具体选择。选择肢由一个字符串开始，可以带一个if从句来决定它是否出现。选择肢由一个冒号结束，然后后面带一个区块，内容是该选择肢被选中后执行的Ren'Py命令。</p>
+<p>当脚本执行到该区块的结束部分时，脚本执行器将会从menu命令的后面继续执行下去。</p>
+<p>if从句由关键词<tt class="docutils literal"><span class="pre">if</span></tt>以及一个python表达式组成。只有该表达式的值为True时，该选择肢才会出现。在下面这个选项中：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">menu</span><span class="p">:</span>
-    <span class="s">&quot;Go left.&quot;</span><span class="p">:</span>
+    <span class="s">&quot;向左&quot;</span><span class="p">:</span>
         <span class="o">...</span>
-    <span class="s">&quot;Go right.&quot;</span><span class="p">:</span>
+    <span class="s">&quot;向右&quot;</span><span class="p">:</span>
         <span class="o">...</span>
-    <span class="s">&quot;Fly above.&quot;</span> <span class="k">if</span> <span class="n">drank_tea</span><span class="p">:</span>
+    <span class="s">&quot;起飞&quot;</span> <span class="k">if</span> <span class="n">drank_tea</span><span class="p">:</span>
         <span class="o">...</span>
 </pre></div>
 </div>
-<p>The third choice will only be presented if the drank_tea variable is
-true.</p>
+<p>第三个选择肢仅在drank_tea这个变量为True的时候出现。</p>
 </div>
 
 

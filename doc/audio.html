@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Audio &mdash; Ren&#39;Py Documentation</title>
+    <title>声音</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '6.18.0',
+        VERSION:     '6.17.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -57,23 +57,23 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Audio</a><ul>
-<li><a class="reference internal" href="#play-statement">Play Statement</a></li>
-<li><a class="reference internal" href="#stop-statement">Stop Statement</a></li>
-<li><a class="reference internal" href="#queue-statement">Queue Statement</a></li>
-<li><a class="reference internal" href="#functions">Functions</a></li>
-<li><a class="reference internal" href="#sound-functions">Sound Functions</a></li>
+<li><a class="reference internal" href="#">声音</a><ul>
+<li><a class="reference internal" href="#play-statement">Play 命令</a></li>
+<li><a class="reference internal" href="#stop-statement">Stop 命令</a></li>
+<li><a class="reference internal" href="#queue-statement">Queue 命令</a></li>
+<li><a class="reference internal" href="#functions">函数</a></li>
+<li><a class="reference internal" href="#sound-functions">音效函数</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>上一节</h4>
+  <h4>上一主题</h4>
   <p class="topless"><a href="conditional.html"
-                        title="previous chapter">Conditional Statements</a></p>
-  <h4>下一节</h4>
+                        title="previous chapter">条件语句</a></p>
+  <h4>下一主题</h4>
   <p class="topless"><a href="movie.html"
-                        title="next chapter">Movie</a></p>
-            <h4>Search</h4>
+                        title="next chapter">视频</a></p>
+            <h4>搜索</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
 
@@ -93,265 +93,249 @@
           <div class="body">
             
   <div class="section" id="audio">
-<h1>Audio<a class="headerlink" href="#audio" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py supports playing music and sound effects in the background,
-using the following audio file formats</p>
+<h1>声音<a class="headerlink" href="#audio" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py 支持播放背景音乐和音效,支持的音频格式如下：</p>
 <ul class="simple">
 <li>OGG Vorbis</li>
 <li>MP3</li>
-<li>WAV (uncompressed PCM only)</li>
+<li>WAV (仅限未压缩过的PCM)</li>
 </ul>
-<p>Ren'Py supports an arbitrary number of audio channels.
-Three are defined by default:</p>
+<p>Ren'Py 支持任意数量的音频频道。预定义的频道有三条：</p>
 <ul class="simple">
-<li>music - A channel for music playback.</li>
-<li>sound - A channel for sound effects.</li>
-<li>voice - A channel for voice.</li>
+<li>music - 音乐，用于播放往复音频的频道。</li>
+<li>sound - 音效，用于播放声音效果的频道。</li>
+<li>voice - 语音，用于播放话语语音的频道。</li>
 </ul>
-<p>New channels can be registered with <a class="reference internal" href="#renpy.music.register_channel" title="renpy.music.register_channel"><tt class="xref py py-func docutils literal"><span class="pre">renpy.music.register_channel()</span></tt></a>.</p>
-<p>The 'Music Volume', 'Sound Volume', and 'Voice Volume' settings
-of the in-game preferences menu are used to set individual
-volumes for these channels.</p>
-<p>Sounds can also be set to play when buttons, menu choices, or
-imagemaps enter their hovered or activated states. See
-<a class="reference internal" href="style_properties.html#button-style-properties"><em>Button Style Properties</em></a>. Two configuration
-variables, <a class="reference internal" href="config.html#var-config.main_menu_music"><tt class="xref std std-var docutils literal"><span class="pre">config.main_menu_music</span></tt></a> and <a class="reference internal" href="config.html#var-config.game_menu_music"><tt class="xref std std-var docutils literal"><span class="pre">config.game_menu_music</span></tt></a> allow
-for the given music files to be played as the main and game menu music,
-respectively.</p>
-<p>In-game, the usual way to play music and sound in Ren'Py is using
-the three music/sound statements.</p>
+<p>新的音频频道可以使用<a class="reference internal" href="#renpy.music.register_channel" title="renpy.music.register_channel"><tt class="xref py py-func docutils literal"><span class="pre">renpy.music.register_channel()</span></tt></a> 来注册定义。</p>
+<p>音乐音量('Music Volume')，音效音量('Sound Volume')和语音音量('Voice Volume')可以通过选项菜单，对各频道的音量进行单独的设置。</p>
+<p>也可以在'按钮'，'菜单选项'和'图片地图'的响应或鼠标悬停的时候添加音效。参见
+<a class="reference internal" href="style_properties.html#button-style-properties"><em>按钮风格属性(Button Style Properties)</em></a>页面。</p>
+<p>有两个变量：
+<a class="reference internal" href="config.html#var-config.main_menu_music"><tt class="xref std std-var docutils literal"><span class="pre">config.main_menu_music</span></tt></a> 和 <a class="reference internal" href="config.html#var-config.game_menu_music"><tt class="xref std std-var docutils literal"><span class="pre">config.game_menu_music</span></tt></a> 分别允许对应的音乐当作主菜单音乐和游戏菜单音乐来播放。</p>
+<p>在游戏当中，Ren'py常用的三个音乐或音效命令来播放音乐和音效。</p>
 <div class="section" id="play-statement">
-<h2>Play Statement<a class="headerlink" href="#play-statement" title="Permalink to this headline">¶</a></h2>
-<p>The play statement is used to play sound and music. If a file is
-currently playing, it is interrupted and replaced with the new file.</p>
-<p>The name of a channel is expected following keyword <tt class="docutils literal"><span class="pre">play</span></tt>,
-(Usually, this is either &quot;sound&quot;, &quot;music&quot;, or &quot;voice&quot;). This is
-followed by audiofile(s), where audiofile(s) can be one file or list of files.
-When the list is given, the item of it is played in order.</p>
-<p>The <tt class="docutils literal"><span class="pre">fadein</span></tt> and <tt class="docutils literal"><span class="pre">fadeout</span></tt> clauses are optional. Fadeout gives the fadeout
-time for currently playing music, in seconds, while fadein gives the time
-it takes to fade in the new music. If fadeout is not given, config.fade_music
-is used.</p>
-<p>The <tt class="docutils literal"><span class="pre">loop</span></tt> and <tt class="docutils literal"><span class="pre">noloop</span></tt> clauses are also optional. The loop clause causes
-the music to loop, while noloop causes it to play only once. If both of them isn't
-given, the default of the channel is used.</p>
+<h2>Play 命令<a class="headerlink" href="#play-statement" title="Permalink to this headline">¶</a></h2>
+<p>'play'命令用来播放音乐和音效。如果在一首曲子播放过程中出现该命令，那么当前播放的曲子会被中断停止，开始播放新的文件。
+</p>
+<p>命令关键词'play'后接的是频道名。(通常是'sound'，'music'或是'voice')</p>
+<p>频道名后接的是文件名。文件名可以是一个单独的文件，也可以是一个文件列表。如果给出的是一个文件列表，那么会按照顺序进行播放。
+<p><tt class="docutils literal"><span class="pre">fadein</span></tt> 和 <tt class="docutils literal"><span class="pre">fadeout</span></tt> 是可选参数。fadeout 设置当前播放音频的淡出时间，时间以秒为单位。 fadein 设置播放新音频的淡入时间。如果没有设置fadeout，将使用config.fade_music。</p>
+<p><tt class="docutils literal"><span class="pre">loop</span></tt> 和 <tt class="docutils literal"><span class="pre">noloop</span></tt> 也是可选参数。loop控制音乐是否循环播放，如果noloop，则音乐只播放一次。如果两者都没有设置，使用频道的默认设置。</p>
+<p>例子：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">play</span> <span class="n">music</span> <span class="s">&quot;mozart.ogg&quot;</span>
 <span class="k">play</span> <span class="na">sound</span> <span class="s">&quot;woof.mp3&quot;</span>
-<span class="k">play</span> <span class="n">myChannel</span> <span class="s">&quot;punch.wav&quot;</span> <span class="c"># &#39;myChannel&#39; needs to be defined with renpy.music.register_channel().</span>
+<span class="k">play</span> <span class="n">myChannel</span> <span class="s">&quot;punch.wav&quot;</span> 
+<span class="c"># &#39;myChannel&#39; 需要用 renpy.music.register_channel()注册定义。</span>
 
-<span class="s">&quot;We can also play a list of sounds, or music.&quot;</span>
+<span class="s">&quot;我们也可以播放一个音效或音乐的列表。&quot;</span>
 <span class="k">play</span> <span class="n">music</span> <span class="p">[</span> <span class="s">&quot;a.ogg&quot;</span><span class="p">,</span> <span class="s">&quot;b.ogg&quot;</span> <span class="p">]</span> <span class="n">fadeout</span> <span class="mf">1.0</span> <span class="n">fadein</span> <span class="mf">1.0</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="stop-statement">
-<h2>Stop Statement<a class="headerlink" href="#stop-statement" title="Permalink to this headline">¶</a></h2>
-<p>The stop statement begin with keyword <tt class="docutils literal"><span class="pre">stop</span></tt>, followed by the the name of a
-channel to stop sound on. It may optionally have a <tt class="docutils literal"><span class="pre">fadeout</span></tt>
-clause.</p>
+<h2>Stop 命令<a class="headerlink" href="#stop-statement" title="Permalink to this headline">¶</a></h2>
+<p>stop命令以关键词<tt class="docutils literal"><span class="pre">stop</span></tt>开头，后接需要停止播放的频道的名称。
+stop命令可以设置<tt class="docutils literal"><span class="pre">fadeout</span></tt>参数。
+</p>
+<p>例子：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">stop</span> <span class="na">sound</span>
 <span class="k">stop</span> <span class="n">music</span> <span class="n">fadeout</span> <span class="mf">1.0</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="queue-statement">
-<h2>Queue Statement<a class="headerlink" href="#queue-statement" title="Permalink to this headline">¶</a></h2>
-<p>The queue statement is used to queue up audio files. They will be played when
-the channel finishes playing the currently playing file.</p>
-<p>The queue statement begin with keyword <tt class="docutils literal"><span class="pre">queue</span></tt>, followed by the the name of a
-channel to play sound on. It optionally takes the <tt class="docutils literal"><span class="pre">loop</span></tt> and <tt class="docutils literal"><span class="pre">noloop</span></tt> clauses.</p>
+<h2>Queue 命令<a class="headerlink" href="#queue-statement" title="Permalink to this headline">¶</a></h2>
+<p>queue命令用于设置音频文件队列。当前频道中的文件播放完成后，会播放文件队列中的文件。</p>
+<p>queue命令以关键词<tt class="docutils literal"><span class="pre">queue</span></tt>开头，后接需要播放的频道名称。
+可以设置<tt class="docutils literal"><span class="pre"> loop</span></tt> 和 <tt class="docutils literal"><span class="pre">noloop</span></tt> 参数。</p>
+<p>例子：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">queue</span> <span class="na">sound</span> <span class="s">&quot;woof.ogg&quot;</span>
 <span class="k">queue</span> <span class="n">music</span> <span class="p">[</span> <span class="s">&quot;a.ogg&quot;</span><span class="p">,</span> <span class="s">&quot;b.ogg&quot;</span> <span class="p">]</span>
 </pre></div>
 </div>
-<p>The advantage of using these statements is that your program will be checked for
-missing sound and music files when lint is run. The functions below exist to allow
-access to allow music and sound to be controlled from python, and to expose
-advanced (rarely-used) features.</p>
+<p>使用这些命令的好处是，当lint（脚本检查工具）运行时，可以检查出音效或音乐文件丢失。
+下面这些函数允许音乐和音效被python语句控制，并体现出一些进阶的特性。(很少使用)
+
+</p>
 </div>
 <div class="section" id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>函数<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="renpy.seen_audio">
 <tt class="descclassname">renpy.</tt><tt class="descname">seen_audio</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#renpy.seen_audio" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns True if the given filename has been played at least once on the current
-user's system.</p>
+<dd><p>如果该文件名的文件在当前的用户系统中播放过至少一次，函数返回值为True
+</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.music.get_playing">
 <tt class="descclassname">renpy.music.</tt><tt class="descname">get_playing</tt><big>(</big><em>channel='music'</em><big>)</big><a class="headerlink" href="#renpy.music.get_playing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if the given channel is playing.</p>
+<dd><p>如果给定的频道正在播放，函数返回值为True。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.music.is_playing">
 <tt class="descclassname">renpy.music.</tt><tt class="descname">is_playing</tt><big>(</big><em>channel='music'</em><big>)</big><a class="headerlink" href="#renpy.music.is_playing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns True if the channel is currently playing a sound, False if
-it is not, or if the sound system isn't working.</p>
+<dd><p>如果当前频道正在播放，函数返回值为True。如果没有播放，或是声音系统未工作，则返回值为False。
+</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.music.play">
 <tt class="descclassname">renpy.music.</tt><tt class="descname">play</tt><big>(</big><em>filenames</em>, <em>channel='music'</em>, <em>loop=None</em>, <em>fadeout=None</em>, <em>synchro_start=False</em>, <em>fadein=0</em>, <em>tight=None</em>, <em>if_changed=False</em><big>)</big><a class="headerlink" href="#renpy.music.play" title="Permalink to this definition">¶</a></dt>
-<dd><p>This stops the music currently playing on the numbered channel, dequeues
-any queued music, and begins playing the specified file or files.</p>
+<dd><p>停止指定频道的当前播放的音乐，除去正在排队的音乐，并开始播放指定的文件或文件集。</p>
 <dl class="docutils">
-<dt><cite>filenames</cite></dt>
-<dd>This may be a single file, or a list of files to be played.</dd>
-<dt><cite>channel</cite></dt>
-<dd>The channel to play the sound on.</dd>
-<dt><cite>loop</cite></dt>
-<dd>If this is True, the tracks will loop while they are the last thing
-in the queue.</dd>
-<dt><cite>fadeout</cite></dt>
-<dd>If not None, this is a time in seconds to fade for. Otherwise the
-fadeout time is taken from config.fade_music.</dd>
-<dt><cite>synchro_start</cite></dt>
-<dd>Ren'Py will ensure that all channels of with synchro_start set to true
-will start playing at exactly the same time. Synchro_start should be
-true when playing two audio files that are meant to be synchronized
-with each other.</dd>
-<dt><cite>fadein</cite></dt>
-<dd>This is the number of seconds to fade the music in for, on the
-first loop only.</dd>
-<dt><cite>tight</cite></dt>
-<dd>If this is True, then fadeouts will span into the next-queued sound.</dd>
-<dt><cite>if_changed</cite></dt>
-<dd>If this is True, and the music file is currently playing,
-then it will not be stopped/faded out and faded back in again, but
-instead will be kept playing. (This will always queue up an additional
-loop of the music.)</dd>
+<dt><cite>filenames  #文件名</cite></dt>
+<dd>可以是一个文件名，也可以是一个文件列表
+</dd>
+<dt><cite>channel  #频道</cite></dt>
+<dd>用于播放的频道。</dd>
+<dt><cite>loop  #循环</cite></dt>
+<dd>如果值为True时，队列的最后一项将被循环播放。</dd>
+<dt><cite>fadeout  #淡出</cite></dt>
+<dd>如果值不是None的时候，按照时间淡出，时间以秒为单位。否则，fadeout的时间取自config.fade_music。</dd>
+<dt><cite>synchro_start  #同步开始</cite></dt>
+<dd>Ren'py确保所有'synchro_start'参数为True的频道同时播放。当你需要两个音频文件同时同步播放，'synchro_start'参数应该为True。</dd>
+<dt><cite>fadein  #淡入</cite></dt>
+<dd>淡入设置的时间是以秒为单位的，在循环时，只有第一次播放时生效。</dd>
+<dt><cite>tight  #紧凑</cite></dt>
+<dd>如果值为True，在前一曲开始淡出过程的时候，队列中的下一曲就开始播放。
+</dd>
+
+<dt><cite>if_changed  #如果变更</cite></dt>
+<dd>
+如果这个参数的值为真，并且这个音乐文件当前正在播放，那么它将不会被停止/淡出或是重新淡入，而是将保持播放。
+ (这通常用于为当前播放的音乐增加额外的循环)
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.music.queue">
 <tt class="descclassname">renpy.music.</tt><tt class="descname">queue</tt><big>(</big><em>filenames</em>, <em>channel='music'</em>, <em>loop=None</em>, <em>clear_queue=True</em>, <em>fadein=0</em>, <em>tight=None</em><big>)</big><a class="headerlink" href="#renpy.music.queue" title="Permalink to this definition">¶</a></dt>
-<dd><p>This queues the given filenames on the specified channel.</p>
+<dd><p>queue函数将指定的文件排队到指定的频道中。</p>
 <dl class="docutils">
-<dt><cite>filenames</cite></dt>
-<dd>This may be a single file, or a list of files to be played.</dd>
-<dt><cite>channel</cite></dt>
-<dd>The channel to play the sound on.</dd>
-<dt><cite>loop</cite></dt>
-<dd>If this is True, the tracks will loop while they are the last thing
-in the queue.</dd>
-<dt><cite>clear_queue</cite></dt>
-<dd>If True, then the queue is cleared, making these files the files that
-are played when the currently playing file finishes. If it is False,
-then these files are placed at the back of the queue. In either case,
-if no music is playing these files begin playing immediately.</dd>
-<dt><cite>fadein</cite></dt>
-<dd>This is the number of seconds to fade the music in for, on the
-first loop only.</dd>
-<dt><cite>tight</cite></dt>
-<dd>If this is True, then fadeouts will span into the next-queued sound.</dd>
+<dt><cite>filenames  #文件名</cite></dt>
+<dd>可以是一个文件名，也可以是一个文件列表
+</dd>
+<dt><cite>channel  #频道</cite></dt>
+<dd>用于播放的频道。</dd>
+<dt><cite>loop  #循环</cite></dt>
+<dd>如果值为True时，队列的最后一项将被循环播放。</dd>
+<dt><cite>clear_queue  #清除队列</cite></dt>
+<dd>
+如果值为True，当前文件播放完成时，播放过的文件队列将被清除。
+如果值为False，播过的文件将被放置到队列后端。
+在任一情况下，如果没有音乐正在播放，则新列队文件将被直接播放。
+</dd>
+<dt><cite>fadein  #淡入</cite></dt>
+<dd>淡入设置的时间是以秒为单位的，在循环时，只有第一次播放时生效。</dd>
+<dt><cite>tight  #紧凑</cite></dt>
+<dd>如果值为True，在前一曲开始淡出过程的时候，队列中的下一曲就开始播放。
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.music.register_channel">
 <tt class="descclassname">renpy.music.</tt><tt class="descname">register_channel</tt><big>(</big><em>name</em>, <em>mixer=None</em>, <em>loop=None</em>, <em>stop_on_mute=True</em>, <em>tight=False</em>, <em>file_prefix=''</em>, <em>file_suffix=''</em>, <em>buffer_queue=True</em><big>)</big><a class="headerlink" href="#renpy.music.register_channel" title="Permalink to this definition">¶</a></dt>
-<dd><p>This registers a new audio channel named <cite>name</cite>. Audio can then be
-played on the channel by supplying the channel name to the play or
-queue statements.</p>
+<dd><p>注册一个新的音频频道。音频可以在频道中播放，play或queue命令支持。
+</p>
 <dl class="docutils">
-<dt><cite>mixer</cite></dt>
-<dd>The name of the mixer the channel uses. By default, Ren'Py
-knows about the &quot;music&quot;, &quot;sfx&quot;, and &quot;voice&quot; mixers. Using
-other names is possible, but may require changing the
-preferences screens.</dd>
-<dt><cite>loop</cite></dt>
-<dd>If true, sounds on this channel loop by default.</dd>
-<dt><cite>stop_on_mute</cite></dt>
-<dd>If true, music on the channel is stopped when the channel is muted.</dd>
-<dt><cite>tight</cite></dt>
-<dd>If true, sounds will loop even when fadeout is occuring. This should
-be set to True for a sound effects or seamless music channel, and False
-if the music fades out on its own.</dd>
-<dt><cite>file_prefix</cite></dt>
-<dd>A prefix that is prepended to the filenames of the sound files being
-played on this channel.</dd>
-<dt><cite>file_suffix</cite></dt>
-<dd>A suffix that is appended to the filenames of the sound files being
-played on this channel.</dd>
-<dt><cite>buffer_queue</cite></dt>
-<dd>Should we buffer the first second or so of a queued file? This should
-be True for audio, and False for movie playback.</dd>
+<dt><cite>name  #名称</cite></dt>
+<dd>新频道使用的名称。
+</dd>
+<dt><cite>mixer  #混音器</cite></dt>
+<dd>频道使用的混音器的名称。RenPy默认提供music，sfx和voice混音器。可以使用其他的名称，但是可能需要更改偏好选项视屏。
+</dd>
+<dt><cite>loop  #循环</cite></dt>
+<dd>如果值为True，频道内的音频默认为循环播放。</dd>
+<dt><cite>stop_on_mute  #静音停止</cite></dt>
+<dd>如果值为True，当频道被静音的时候，频道内的音频停止播放。</dd>
+<dt><cite>tight  #紧凑</cite></dt>
+<dd>如果值为True，当淡出的时候，音频将平缓的循环。如果为音效，或是无缝连接的音乐频道，该值应设为True。如果让音乐自己淡出，则设为False。</dd>
+<dt><cite>file_prefix  #文件名前缀</cite></dt>
+<dd>
+频道中播放的音频文件名的前缀。
+</dd>
+<dt><cite>file_suffix  #文件名后缀</cite></dt>
+<dd>
+频道中播放的音频文件名的后缀。
+</dd>
+<dt><cite>buffer_queue  #队列缓冲</cite></dt>
+<dd>我们是否想要缓冲一个曲子的开头几秒，亦或是队列中的一首曲子？音频中应该设置为True，视频播放中应该设置为False。
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.music.set_pan">
 <tt class="descclassname">renpy.music.</tt><tt class="descname">set_pan</tt><big>(</big><em>pan</em>, <em>delay</em>, <em>channel='music'</em><big>)</big><a class="headerlink" href="#renpy.music.set_pan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the pan of this channel.</p>
+<dd><p>设置频道的均衡器
+</p>
 <dl class="docutils">
-<dt><cite>pan</cite></dt>
-<dd>A number between -1 and 1 that control the placement of the audio.
-If this is -1, then all audio is sent to the left channel.
-If it's 0, then the two channels are equally balanced. If it's 1,
-then all audio is sent to the right ear.</dd>
-<dt><cite>delay</cite></dt>
-<dd>The amount of time it takes for the panning to occur.</dd>
-<dt><cite>channel</cite></dt>
-<dd>The channel the panning takes place on. This can be a sound or a music
-channel. Often, this is channel 7, the default music channel.</dd>
+<dt><cite>pan  #均衡器</cite></dt>
+<dd>一个用于控制音频分布控置的介于-1到1之间的数字。如果值为-1，所有音频设置为左声道。如果值为0，那么双声道平衡。如果值为1，所有音频设置为右声道。
+</dd>
+<dt><cite>delay  #延时</cite></dt>
+<dd>均衡器开始更改到更改生效的时间。</dd>
+<dt><cite>channel  #频道</cite></dt>
+<dd>均衡器加强的频道。可以是音效频道或是音乐频道。通常是第7频道，默认的音乐频道。
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.music.set_queue_empty_callback">
 <tt class="descclassname">renpy.music.</tt><tt class="descname">set_queue_empty_callback</tt><big>(</big><em>callback</em>, <em>channel='music'</em><big>)</big><a class="headerlink" href="#renpy.music.set_queue_empty_callback" title="Permalink to this definition">¶</a></dt>
-<dd><p>This sets a callback that is called when the queue is empty. This
-callback is called when the queue first becomes empty, and at
-least once per interaction while the queue is empty.</p>
-<p>The callback is called with no parameters. It can queue sounds by
-calling renpy.music.queue with the appropriate arguments. Please
-note that the callback may be called while a sound is playing, as
-long as a queue slot is empty.</p>
+<dd><p>
+设置一个当队列为空时被调用的回调函数。
+当队列第一次为空的时候调用回调函数。队列为空，每次进行交互动作时都要至少被调用一次。
+</p>
+<p>
+回调函数在调用时没有参数。
+可以使用renpy.music.queue和合适的参数来排队音乐。
+需要注意的是，回调函数可能在一个音频在播放的过程中被调用，只要排队列表是空的。
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.music.set_volume">
 <tt class="descclassname">renpy.music.</tt><tt class="descname">set_volume</tt><big>(</big><em>volume</em>, <em>delay=0</em>, <em>channel='music'</em><big>)</big><a class="headerlink" href="#renpy.music.set_volume" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the volume of this channel, as a fraction of the volume of the
-mixer controlling the channel.</p>
+<dd><p>设置频道内的音量，就像作为一个控制频道的分减音量的混音器。
+</p>
 <dl class="docutils">
-<dt><cite>volume</cite></dt>
-<dd>This is a number between 0.0 and 1.0, and is interpreted as a fraction
-of the mixer volume for the channel.</dd>
-<dt><cite>delay</cite></dt>
-<dd>It takes delay seconds to change/fade the volume from the old to
-the new value. This value is persisted into saves, and participates
-in rollback.</dd>
-<dt><cite>channel</cite></dt>
-<dd>The channel to be set</dd>
+<dt><cite>volume  #音量</cite></dt>
+<dd>这是一个0.0到1.0之间的数字参数，影响频道中的分减混音器的音量。
+</dd>
+<dt><cite>delay  #延迟</cite></dt>
+<dd>从旧值到新值改变或渐变所延迟的时间。
+这个值将持续到存档中，并且在回滚中有效。
+</dd>
+<dt><cite>channel  #频道</cite></dt>
+<dd>设置的频道。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.music.stop">
 <tt class="descclassname">renpy.music.</tt><tt class="descname">stop</tt><big>(</big><em>channel='music'</em>, <em>fadeout=None</em><big>)</big><a class="headerlink" href="#renpy.music.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>This stops the music that is currently playing, and dequeues all
-queued music. If fadeout is None, the music is faded out for the
-time given in config.fade_music, otherwise it is faded for fadeout
-seconds.</p>
-<p>This sets the last queued file to None.</p>
+<dd><p>该函数停止正在播放的乐器，清空所有排队的音乐。如果fadeout值为None，音乐按照config.fade_music的时间进行淡出。或者fadeout设置了时间(秒为单位)。
+</p>
+<p>将排队的文件设置为None。</p>
 <dl class="docutils">
-<dt><cite>channel</cite></dt>
-<dd>The channel to stop the sound on.</dd>
-<dt><cite>fadeout</cite></dt>
-<dd>If not None, this is a time in seconds to fade for. Otherwise the
-fadeout time is taken from config.fade_music.</dd>
+<dt><cite>channel  #频道</cite></dt>
+<dd>需要停止音频播放的频道。</dd>
+<dt><cite>fadeout  #淡出</cite></dt>
+<dd>如果参数不是None，将时间以秒为单位进行淡出。否则淡出时间使用config.fade_music。
+</dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="sound-functions">
-<h2>Sound Functions<a class="headerlink" href="#sound-functions" title="Permalink to this headline">¶</a></h2>
-<p>Most renpy.music functions have aliases in renpy.sound. These functions are similar,
-except they default to the sound channel rather than the music channel, and default to not looping.</p>
+<h2>音效函数<a class="headerlink" href="#sound-functions" title="Permalink to this headline">¶</a></h2>
+<p>大多数的renpy.music 函数都可以另用于renpy.sound函数。那些函数都是类似的，除了sound函数不同于music函数，默认设置不进行循环。
+</p>
 </div>
 </div>
 

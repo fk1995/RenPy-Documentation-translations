@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Displayables &mdash; Ren&#39;Py Documentation</title>
+    <title>可显示对象</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,14 +57,14 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Displayables</a><ul>
-<li><a class="reference internal" href="#images">Images</a></li>
-<li><a class="reference internal" href="#image-like-displayables">Image-Like Displayables</a></li>
-<li><a class="reference internal" href="#dynamic-displayables">Dynamic Displayables</a></li>
-<li><a class="reference internal" href="#applying-transforms-to-displayables">Applying Transforms to Displayables</a></li>
-<li><a class="reference internal" href="#layout-boxes-and-grids">Layout Boxes and Grids</a></li>
-<li><a class="reference internal" href="#effects">Effects</a></li>
-<li><a class="reference internal" href="#image-manipulators">Image Manipulators</a></li>
+<li><a class="reference internal" href="#">可显示对象</a><ul>
+<li><a class="reference internal" href="#images">图像</a></li>
+<li><a class="reference internal" href="#image-like-displayables">类图像可显示对象</a></li>
+<li><a class="reference internal" href="#dynamic-displayables">动态可显示对象</a></li>
+<li><a class="reference internal" href="#applying-transforms-to-displayables">对可显示对象使用变换</a></li>
+<li><a class="reference internal" href="#layout-boxes-and-grids">布局框和栅格</a></li>
+<li><a class="reference internal" href="#effects">特效</a></li>
+<li><a class="reference internal" href="#image-manipulators">图像操作器</a></li>
 <li><a class="reference internal" href="#im-matrixcolor">im.MatrixColor</a></li>
 </ul>
 </li>
@@ -72,11 +72,11 @@
 
   <h4>上一节</h4>
   <p class="topless"><a href="translation.html"
-                        title="previous chapter">Translation</a></p>
+                        title="previous chapter">翻译</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="transforms.html"
-                        title="next chapter">Transforms</a></p>
-            <h4>Search</h4>
+                        title="next chapter">变换</a></p>
+            <h4>搜索</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
 
@@ -96,127 +96,79 @@
           <div class="body">
             
   <div class="section" id="displayables">
-<span id="id1"></span><h1>Displayables<a class="headerlink" href="#displayables" title="Permalink to this headline">¶</a></h1>
-<p>A displayable is an object that can be shown to the user. Ren'Py
-displayables can be used in many ways.</p>
+<span id="id1"></span><h1>可显示对象<a class="headerlink" href="#displayables" title="Permalink to this headline">¶</a></h1>
+<p>可显示对象是可以被显示在屏幕上给用户看的对象。Ren'Py的可显示对象用途广泛。</p>
 <ul class="simple">
-<li>Assignment to an image name using the image statement.</li>
-<li>Added to a screen using the screen language add statement.</li>
-<li>Assignment to certain config variables.</li>
-<li>Assignment to certain style properties.</li>
+<li>使用image命令来将一个可显示对象分配给一个图像名称。</li>
+<li>使用视屏语言中的add命令来将一个可显示对象显示在视屏上。</li>
+<li>作为某些config变量的值。</li>
+<li>作为某些样式属性的值。</li>
 </ul>
-<p>When a Ren'Py function or variable expects a displayable, there are
-four things that can be provided:</p>
+<p>当一个Ren’Py函数或者一个变量接受可显示对象作为参数的时候，您可以提供以下四者之一：</p>
 <ul class="simple">
-<li>An object of type Displayable, created by calling one of the
-functions given below.</li>
-<li>A string with a dot (.) in it. Such a string is interpreted as
-a filename by <a class="reference internal" href="#Image" title="Image"><tt class="xref py py-func docutils literal"><span class="pre">Image()</span></tt></a>.</li>
-<li>A color. A color may either be given as a hexidecimal color string in &quot;#rgb&quot;,
-&quot;#rgba&quot;, &quot;#rrggbb&quot;, or &quot;#rrggbbaa&quot; form, or an (r, g, b, a) tuple,
-where each component is an integer between 0 and 255. Colors are
-passed to <a class="reference internal" href="#Solid" title="Solid"><tt class="xref py py-func docutils literal"><span class="pre">Solid()</span></tt></a>.</li>
-<li>An image name. Any other string is interpreted as a reference to an
-image defined with the image statement.</li>
+<li>一个含有“.”的字符串。这个字符串会被Image()<a class="reference internal" href="#Image" title="Image"><tt class="xref py py-func docutils literal"><span class="pre">Image()</span></tt></a>函数当成一张图像的文件名。</li>
+<li>一种颜色。这个颜色可以有以下的定义方式："#rgb", "#rgba", "#rrggbb", 或者 "#rrggbbaa"，这里rgba都是十六进制数；还可以是一个(r, g, b, a)样子的数组，每一个参数是一个介于0到255的整数。颜色会被传递到Solid()<a class="reference internal" href="#Solid" title="Solid"><tt class="xref py py-func docutils literal"><span class="pre">Solid()</span></tt></a>这个函数里。</li>
+<li>一个图像名称。任何其他的字符串会被当做一个以image命令定义的图像名称来处理。</li>
 </ul>
 <div class="section" id="images">
-<span id="id2"></span><h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
-<p>The most commonly used displayable is Image, which loads a file from
-disk and displays it. Since Image is so commonly used, when a string
-giving a filename is used in a context that expects a displayable, an
-Image is automatically created. The only time it's necessary to use
-Image directly is when you want to create an image with style
-properties.</p>
+<span id="id2"></span><h2>图像<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
+<p>最常用的可显示对象是Image对象，也就是普通的图像。它通常从磁盘或者硬盘中被加载，然后被显示出来。因为图像是如此的常用，以至于当您向Ren'Py提供一个图片的文件名的时候，它会自动将该文件名识别为图像的文件名。除非你需要自定义一些样式，否则使用Image函数是基本上多余的。</p>
 <dl class="function">
 <dt id="Image">
 <tt class="descname">Image</tt><big>(</big><em>filename</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads an image from a file. <cite>filename</cite> is a
-string giving the name of the file.</p>
-<p><cite>filename</cite> should be a JPEG or PNG file with an appropriate
-extension.</p>
+<dd><p>从文件中载入一个图像。<cite>filename</cite>是一个提供文件名的字符串。</p>
+<p><cite>filename</cite>应该是一个jpeg文件或者png文件，且后缀应该正确（Ren'Py并不会自动识别文件的真正格式，像PS那样）。</p>
 </dd></dl>
 
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># These two lines are equivalent.</span>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c">#以下两行等价</span>
 <span class="k">image</span> <span class="n">logo</span> <span class="o">=</span> <span class="s">&quot;logo.png&quot;</span>
 <span class="k">image</span> <span class="n">logo</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">)</span>
 
-<span class="c"># Using Image allows us to specify a default position as part of</span>
-<span class="c"># an image.</span>
+<span class="c">#使用Image函数让我们能够指定一张图片的初始位置。</span>
 <span class="k">image</span> <span class="n">logo</span> <span class="n">right</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Loading an Image from from a file on disk and decoding it so it can be
-drawn to the screen takes a long amount of time. While measured in the
-tenths or hundreds of seconds, the duration of the loading process is
-long enough that it can prevent an acceptable framerate, and become
-annoying to the user.</p>
-<p>Since an Image is of a fixed size, and doesn't change in response to
-input, game state, or the size of the area available to it, an Image
-can be loaded before it is needed, and placed into an area of memory
-known as the image cache. Once an Image is decoded and in the cache,
-it can be quickly drawn to the screen.</p>
-<p>Ren'Py attempts to predict the images that will be used in the future,
-and loads them into the image cache before they are used. When space
-in the cache is needed for other images, Ren'Py will remove images
-that are no longer being used.</p>
-<p>By default, Ren'Py will predictively cache up to 8 screens worth of
-image data. (If your screen is 800x600, then a screen's worth of data
-is one 800x600 image, two 400x600 images, and so on.) This can be
-changed with the :var:config.image_cache_size configuration
-variable.</p>
-<p>Although the precise amount is dependent on implementation details and
-there is significant overhead, as a rule of thumb, each pixel in the
-image cache consumes 4 bytes of main memory and 4 bytes of video
-memory.</p>
+<p>载入图片和解码图片可能需要很久，当需要十多秒甚至几百秒的时候，它会导致游戏的帧数惨不忍睹，这可能降低玩家的游戏体验。</p>
+<p>因为图像的尺寸是固定的，而且不随输入值、游戏状态和区域的限制而发生改变，所以图像可以被预载，然后存放在图像缓存中，以便需要时能够迅速调用。</p>
+<p>Ren'Py会预测那些在游戏过程中会被使用的图片，然后预载它们到图像缓存。当需要载入其他的图像时，那些不再使用的图像缓存就会被清除。</p>
+<p>默认情况下，Ren’Py会自动加载8个屏幕大小的图像。这个值可以通过改变config.image_cache_size参数来调整。</p>
+<p>尽管具体值取决于载入图像的细节，单从理论上来说，每个图像像素占4字节的主内存和4字节的显示内存。</p>
 </div>
 <div class="section" id="image-like-displayables">
-<h2>Image-Like Displayables<a class="headerlink" href="#image-like-displayables" title="Permalink to this headline">¶</a></h2>
-<p>We call these displayables image-like because they take up a
-rectangular area of the screen, and do not react to input.  These
-differ from normal images by varying their size to fill an area
-(Frame, LiveTile, and Solid), or by allowing the user to specify their
-size (LiveComposite, LiveCrop, Null). They are not image manipulators.</p>
-<p>Image-like displayables take <a class="reference internal" href="style_properties.html#position-style-properties"><em>Position Style Properties</em></a>.</p>
+<h2>类图像可显示对象<a class="headerlink" href="#image-like-displayables" title="Permalink to this headline">¶</a></h2>
+<p>我们把这种可显示对象叫做类图像类可显示对象因为他们占据了一个屏幕上的长方形区域，并且对于输入的任何值没有反应。这种可显示对象和普通的图像的不同之处在于他们会调整自己的尺寸来填满一个区域（Frame, LiveTile和 Solid函数），或者允许玩家来确定它们的具体尺寸（LiveComposite, LiveCrop, Null函数）。他们不是图像操作器。</p>
+<p>类图像可显示对象接受<a class="reference internal" href="style_properties.html#position-style-properties"><em>位置样式属性</em></a>.</p>
 <dl class="function">
 <dt id="Flatten">
 <tt class="descname">Flatten</tt><big>(</big><em>child</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Flatten" title="Permalink to this definition">¶</a></dt>
-<dd><p>This flattens <cite>child</cite>, which may be made up of multiple textures, into
-a single texture.</p>
-<p>Certain operations, like the alpha transform property, apply to every
-texture making up a displayable, which can yield incorrect results
-when the textures overlap on screen. Flatten creates a single texture
-from multiple textures, which can prevent this problem.</p>
-<p>Flatten is a relatively expensive operation, and so should only be used
-when absolutely required.</p>
+<dd><p>这个函数将一个可能由多个纹理（texture）组成的子对象<cite>child</cite>转换成一个单纹理的对象。</p>
+<p>某些操作，比如alpha变换，应用到某一个多纹理的可显示对象上的时候，可能会在纹理重叠处产生不正确的结果。Flatten函数返回的对象是单纹理的，因此不会有这个问题。</p>
+<p>Flatten函数相对来说比较消耗资源，所以请仅在十分有必要的时候使用。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="Frame">
 <tt class="descname">Frame</tt><big>(</big><em>image</em>, <em>left</em>, <em>top</em>, <em>right=None</em>, <em>bottom=None</em>, <em>tile=False</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>A displayable that resizes an image to fill the available area,
-while preserving the width and height of its borders.  is often
-used as the background of a window or button.</p>
+<dd><p>返回一个可显示对象，用于调整一个图像的尺寸来填满所给区域，同时保持边界的宽和高（不被图片撑大）。这个函数通常用来填充窗口背景或者按钮背景。</p>
 <div class="figure">
 <img alt="_images/frame_example.png" src="_images/frame_example.png" />
-<p class="caption">Using a frame to resize an image to double its size.</p>
+<p class="caption">您可以使用一个Frame对象来将一个图像放大两倍。</p>
 </div>
 <dl class="docutils">
 <dt><cite>image</cite></dt>
-<dd>An image manipulator that will be resized by this frame.</dd>
+<dd>需要缩放的图像操作器。</dd>
 <dt><cite>left</cite></dt>
-<dd>The size of the border on the left side.</dd>
+<dd>左侧的边框粗细。</dd>
 <dt><cite>top</cite></dt>
-<dd>The size of the border on the top.</dd>
+<dd>顶部的边框粗细。</dd>
 <dt><cite>right</cite></dt>
-<dd>The size of the border on the right side. If None, defaults
-to <cite>left</cite>.</dd>
+<dd>右侧的边框粗细。如果是None，则等于<cite>left</cite>。</dd>
 <dt><cite>bottom</cite></dt>
-<dd>The side of the border on the bottom. If None, defaults to <cite>top</cite>.</dd>
+<dd>底部的边框粗细。如果是None，则等于<cite>top</cite>。</dd>
 <dt><cite>tile</cite></dt>
-<dd>If true, tiling is used to resize sections of the image,
-rather than scaling.</dd>
+<dd>若为True，将以平铺的方式填充区域，而不是拉伸。（具体细节参考将图片设置成桌面背景的两种方式）</dd>
 </dl>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Resize the background of the text window if it&#39;s too small.</span>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 如果文本框的背景太小，用这个方法来重新调整它。</span>
 <span class="k">init</span> <span class="k">python</span><span class="p">:</span>
     <span class="k">style</span><span class="o">.</span><span class="k">window</span><span class="o">.</span><span class="na">background</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="s">&quot;frame.png&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
@@ -226,8 +178,7 @@ rather than scaling.</dd>
 <dl class="function">
 <dt id="LiveCrop">
 <tt class="descname">LiveCrop</tt><big>(</big><em>rect</em>, <em>child</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#LiveCrop" title="Permalink to this definition">¶</a></dt>
-<dd><p>This created a displayable by cropping <cite>child</cite> to <cite>rect</cite>, where
-<cite>rect</cite> is an (x, y, width, height) tuple.</p>
+<dd><p>该函数返回一个新的可显示对象，通过<cite>rect</cite>来裁切<cite>child</cite>对象生成。<cite>rect</cite>是一个四元数组（x坐标,y坐标，宽，高）。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">eileen</span> <span class="n">cropped</span> <span class="o">=</span> <span class="n">LiveCrop</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s">&quot;eileen happy&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -236,7 +187,7 @@ rather than scaling.</dd>
 <dl class="function">
 <dt id="LiveTile">
 <tt class="descname">LiveTile</tt><big>(</big><em>child</em>, <em>style='tile'</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#LiveTile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tiles <cite>child</cite> until it fills the area allocated to this displayable.</p>
+<dd><p>在该可显示对象的区域内平铺<cite>child</cite>。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">bg</span> <span class="n">tile</span> <span class="o">=</span> <span class="n">LiveTile</span><span class="p">(</span><span class="s">&quot;bg.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -245,10 +196,7 @@ rather than scaling.</dd>
 <dl class="function">
 <dt id="Null">
 <tt class="descname">Null</tt><big>(</big><em>width=0</em>, <em>height=0</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Null" title="Permalink to this definition">¶</a></dt>
-<dd><p>A displayable that creates an empty box on the screen. The size
-of the box is controlled by <cite>width</cite> and <cite>height</cite>. This can be used
-when a displayable requires a child, but no child is suitable, or
-as a spacer inside a box.</p>
+<dd><p>一个会在屏幕上创建一个空的Box对象的可显示对象，大小由<cite>width</cite> 和<cite>height</cite>决定。这个可以用在当一个可显示对象需要一个图像但是没有图像合适的时候，或者在一个布局框里面充当空白。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">logo</span> <span class="n">spaced</span> <span class="o">=</span> <span class="n">HBox</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="n">Null</span><span class="p">(</span><span class="na">width</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span> <span class="s">&quot;logo.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -257,7 +205,7 @@ as a spacer inside a box.</p>
 <dl class="function">
 <dt id="Solid">
 <tt class="descname">Solid</tt><big>(</big><em>color</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Solid" title="Permalink to this definition">¶</a></dt>
-<dd><p>A displayable that fills the area its assigned with <cite>color</cite>.</p>
+<dd><p>一个将给定区域填充成<cite>color</cite>的可显示对象。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">white</span> <span class="o">=</span> <span class="n">Solid</span><span class="p">(</span><span class="s">&quot;#fff&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -266,21 +214,16 @@ as a spacer inside a box.</p>
 </div>
 <div class="section" id="dynamic-displayables">
 <h2>Dynamic Displayables<a class="headerlink" href="#dynamic-displayables" title="Permalink to this headline">¶</a></h2>
-<p>Dynamic displayables display a child displayable based on the state of
-the game. They do not take any properties, as layout is controlled
-by the properties of the child displayable they return.</p>
+<p>动态可显示对象就是会随着游戏进程发生一些变化的可显示对象。他们没有任何属性，因为他们的布局由它们所控制的对象（可显示对象）决定。</p>
 <dl class="function">
 <dt id="ConditionSwitch">
 <tt class="descname">ConditionSwitch</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#ConditionSwitch" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a displayable that changes what it is showing based on
-python conditions. The positional argument should be given in
-groups of two, where each group consists of:</p>
+<dd><p>该函数生成一个可以由python条件决定具体显示内容的可播放对象。两个位置参数是一组，每组包含：</p>
 <ul class="simple">
-<li>A string containing a python condition.</li>
-<li>A displayable to use if the condition is true.</li>
+<li>一个含python表达式的字符串。</li>
+<li>若表达式的值为真使用的可显示对象。</li>
 </ul>
-<p>The first true condition has its displayable shown, at least
-one condition should always be true.</p>
+<p>第一个表达式值为真的可显示对象将会被显示；应该至少有一个总是为真的表达式。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">jill</span> <span class="o">=</span> <span class="n">ConditionSwitch</span><span class="p">(</span>
     <span class="s">&quot;jill_beers &gt; 4&quot;</span><span class="p">,</span> <span class="s">&quot;jill_drunk.png&quot;</span><span class="p">,</span>
     <span class="s">&quot;True&quot;</span><span class="p">,</span> <span class="s">&quot;jill_sober.png&quot;</span><span class="p">)</span>
@@ -291,31 +234,26 @@ one condition should always be true.</p>
 <dl class="function">
 <dt id="DynamicDisplayable">
 <tt class="descname">DynamicDisplayable</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#DynamicDisplayable" title="Permalink to this definition">¶</a></dt>
-<dd><p>A displayable that can change its child based on a Python
-function, over the course of an interaction.</p>
+<dd><p>返回一个在交互过程中由python函数来决定控制对象的动态可显示对象。</p>
 <dl class="docutils">
 <dt><cite>function</cite></dt>
-<dd><p class="first">A function that is called with the arguments:</p>
+<dd><p class="first">该函数将会获得以下参数并被调用：</p>
 <ul class="simple">
-<li>The amount of time the displayable has been shown for.</li>
-<li>The amount of time any displayable with the same tag has been shown for.</li>
-<li>Any positional or keyword arguments supplied to DynamicDisplayable.</li>
+<li>可显示对象的总显示时间。</li>
+<li>同一个标签的可显示对象的总显示时间。</li>
+<li>任何提供给DynamicDisplayable的位置参数或者关键字参数。</li>
 </ul>
-<p>and should return a (d, redraw) tuple, where:</p>
+<p>且该函数应该返回一个(d, redraw)二元组，分别是：</p>
 <ul class="simple">
-<li><cite>d</cite> is a displayable to show.</li>
-<li><cite>redraw</cite> is the amount of time to wait before calling the
-function again, or None to not call the function again
-before the start of the next interaction.</li>
+<li><cite>d</cite>是可显示对象。</li>
+<li><cite>redraw</cite>是下一次调用该函数的等待时间。如果是None，则在下一个交互开始之前不会调用该函数。</li>
 </ul>
-<p class="last"><cite>function</cite> is called at the start of every interaction.</p>
+<p class="last"><cite>function</cite>会在每个交互开始时被调用一次。</p>
 </dd>
 </dl>
-<p>As a special case, <cite>function</cite> may also be a python string that evaluates
-to a displayable. In that case, function is run once per interaction.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># If tooltip is not empty, shows it in a text. Otherwise,</span>
-<span class="c"># show Null. Checks every tenth of a second to see if the</span>
-<span class="c"># tooltip has been updated.</span>
+<p>作为特例，<cite>function</cite>也可以是一个python字符串，它的值是一个可显示对象。在这种情况下，该function每次交互时会被调用一次。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 如果tooltip不是空的，将它显示出来；其他情况先，显示Null。</span>
+<span class="c"># 每0.1秒检查一次tooltip的情况。</span>
 <span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="k">def</span> <span class="nf">show_tooltip</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="k">at</span><span class="p">):</span>
          <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
@@ -331,16 +269,13 @@ to a displayable. In that case, function is run once per interaction.</p>
 <dl class="function">
 <dt id="ShowingSwitch">
 <tt class="descname">ShowingSwitch</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#ShowingSwitch" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a displayable that changes what it is showing based on the
-images are showing on the screen. The positional argument should
-be given in groups of two, where each group consists of:</p>
+<dd><p>返回根据屏幕上已显示的图像来调整自己的显示图像的动态可显示对象。两个位置参数是一组，每组包含：</p>
 <ul class="simple">
-<li>A string giving an image name, or None to indicate the default.</li>
-<li>A displayable to use if the condition is true.</li>
+<li>一个提供图像名称的字符串，或者None来表示默认。</li>
+<li>如果条件为真的话用来显示的一个可播放对象。</li>
 </ul>
-<p>A default image should be specified.</p>
-<p>One use of ShowingSwitch is to have side images change depending on
-the current emotion of a character. For example:</p>
+<p>应该总是为其提供一张默认图像。</p>
+<p>ShowingSwitch的一个用处就是用角色表情来确定人物小头像的表情。如：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span>
     <span class="n">show_side_image</span><span class="o">=</span><span class="n">ShowingSwitch</span><span class="p">(</span>
         <span class="s">&quot;eileen happy&quot;</span><span class="p">,</span> <span class="n">Image</span><span class="p">(</span><span class="s">&quot;eileen_happy_side.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
@@ -354,15 +289,12 @@ the current emotion of a character. For example:</p>
 
 </div>
 <div class="section" id="applying-transforms-to-displayables">
-<h2>Applying Transforms to Displayables<a class="headerlink" href="#applying-transforms-to-displayables" title="Permalink to this headline">¶</a></h2>
-<p>The At function produces a displayable from a displayable and one or
-more <a class="reference internal" href="transforms.html#transforms"><em>transforms</em></a>.</p>
+<h2>对可显示对象使用变换<a class="headerlink" href="#applying-transforms-to-displayables" title="Permalink to this headline">¶</a></h2>
+<p>At函数会返回一个应用了一个或多个<a class="reference internal" href="transforms.html#transforms"><em>变换</em></a>的可显示对象。</p>
 <dl class="function">
 <dt id="At">
 <tt class="descname">At</tt><big>(</big><em>d</em>, <em>*args</em><big>)</big><a class="headerlink" href="#At" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a displayable <cite>d</cite>, applies each of the transforms in <cite>args</cite>
-to it. The transforms are applied in left-to-right order, so that
-the outermost transform is the rightmost argument.</p>
+<dd><p>对于提供的可显示对象<cite>d</cite>将参数中的变换以此添加到它上面。变换从左到右添加，所以最后添加的变换是最右边的变换。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">transform</span> <span class="n">birds_transform</span><span class="p">:</span>
      <span class="na">xpos</span> <span class="o">-</span><span class="mi">200</span>
      <span class="n">linear</span> <span class="mi">10</span> <span class="na">xpos</span> <span class="mi">800</span>
@@ -376,125 +308,83 @@ the outermost transform is the rightmost argument.</p>
 
 </div>
 <div class="section" id="layout-boxes-and-grids">
-<h2>Layout Boxes and Grids<a class="headerlink" href="#layout-boxes-and-grids" title="Permalink to this headline">¶</a></h2>
-<p>Layout boxes are displayables that lay out their children on the
-screen. They can lay out the children in a horizontal or vertical
-manner, or can lay them out using the standard positioning algorithm.</p>
-<p>The box displayables take any number of positional and keyword
-arguments. Positional arguments should be displayables that are
-added to the box as children. Keyword arguments are style properties
-that are applied to the box.</p>
-<p>Boxes take <a class="reference internal" href="style_properties.html#position-style-properties"><em>Position Style Properties</em></a> and <a class="reference internal" href="style_properties.html#box-style-properties"><em>Box Style Properties</em></a>.</p>
+<h2>布局框和栅格<a class="headerlink" href="#layout-boxes-and-grids" title="Permalink to this headline">¶</a></h2>
+<p>布局框是那些把它包含的（可显示）对象显示在屏幕上的可显示对象。布局框可以垂直或者水平地显示那些对象，还可以使用标准布局算法（Standard Positioning Algorithm）来排列。</p>
+<p>布局框可以带任意数量的位置参数和关键词参数。位置参数应该是将会被显示的可显示对象，关键词参数应该是对该布局框使用的样式。</p>
+<p>布局框接受<a class="reference internal" href="style_properties.html#position-style-properties"><em>位置样式属性</em></a>和<a class="reference internal" href="style_properties.html#box-style-properties"><em>盒状样式属性</em></a>.</p>
 <dl class="function">
 <dt id="Fixed">
 <tt class="descname">Fixed</tt><big>(</big><em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Fixed" title="Permalink to this definition">¶</a></dt>
-<dd><p>A box that fills the screen. Its members are laid out
-from back to front, with their position properties
-controlling their position.</p>
+<dd><p>返回一个填满屏幕的布局框。它的所有包含对象会从依次显示，早显示的在下面，晚显示的在上面，位置由他们的位置属性决定。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="HBox">
 <tt class="descname">HBox</tt><big>(</big><em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#HBox" title="Permalink to this definition">¶</a></dt>
-<dd><p>A box that lays out its members from left to right.</p>
+<dd><p>返回一个<s>装满糟糕物的盒子</s>水平布局框，它的所有包含对象会从左到右依次显示。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="VBox">
 <tt class="descname">VBox</tt><big>(</big><em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#VBox" title="Permalink to this definition">¶</a></dt>
-<dd><p>A layout that lays out its members from top to bottom.</p>
+<dd><p>返回一个竖直布局框，它的所有包含对象会从上到下依次显示。</p>
 </dd></dl>
 
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Display two logos, to the left and right of each other.</span>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 水平显示两个logo。</span>
 <span class="k">image</span> <span class="n">logo</span> <span class="k">hbox</span> <span class="o">=</span> <span class="n">HBox</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="s">&quot;logo.png&quot;</span><span class="p">)</span>
 
-<span class="c"># Display two logos, one on top of the other.</span>
+<span class="c"># 垂直显示两个logo。</span>
 <span class="k">image</span> <span class="n">logo</span> <span class="k">vbox</span> <span class="o">=</span> <span class="n">VBox</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="s">&quot;logo.png&quot;</span><span class="p">)</span>
 
-<span class="c"># Display two logos. Since both default to the upper-left</span>
-<span class="c"># corner of the screen, we need to use Image to place</span>
-<span class="c"># those logos on the screen.</span>
+<span class="c"># 显示两个logo。因为初始位置都是默认在左上角，我们需要用Image函数来调整他们的位置。</span>
 <span class="k">image</span> <span class="n">logo</span> <span class="k">fixed</span> <span class="o">=</span> <span class="n">Fixed</span><span class="p">(</span>
     <span class="n">Image</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.0</span><span class="p">),</span>
     <span class="n">Image</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>The Grid layout displays its children in a grid on the screen. It takes
-<a class="reference internal" href="style_properties.html#position-style-properties"><em>Position Style Properties</em></a> and the <a class="reference internal" href="style_properties.html#style-property-spacing"><tt class="xref std std-propref docutils literal"><span class="pre">spacing</span></tt></a> style
-property.</p>
+<p>Grid布局框（又叫栅格）会以栅格状在屏幕上显示它的子对象。它接受
+<a class="reference internal" href="style_properties.html#position-style-properties"><em>位置样式属性</em></a>以及<a class="reference internal" href="style_properties.html#style-property-spacing"><tt class="xref std std-propref docutils literal"><span class="pre">spacing</span></tt></a>样式属性。</p>
 <dl class="function">
 <dt id="Grid">
 <tt class="descname">Grid</tt><big>(</big><em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Grid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lays out displayables in a a grid. The first two positional arguments
-are the number of columns and rows in the grid. This must be followed
-by <cite>columns * rows</cite> positional arguments giving the displayables that
-fill the grid.</p>
+<dd><p>用栅格来显示可显示对象。前两个位置参数是列与行的数量。之后的位置参数必须是与之对应个数的可显示对象。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="effects">
-<h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
-<p>These displayables are used to create certain visual effects.</p>
+<h2>特效<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
+<p>以下可显示对象用于创造特效。</p>
 <dl class="function">
 <dt id="AlphaBlend">
 <tt class="descname">AlphaBlend</tt><big>(</big><em>control</em>, <em>old</em>, <em>new</em>, <em>alpha=False</em><big>)</big><a class="headerlink" href="#AlphaBlend" title="Permalink to this definition">¶</a></dt>
-<dd><p>This transition uses a <cite>control</cite> displayable (almost always some sort of
-animated transform) to transition from one displayable to another. The
-transform is evaluated. The <cite>new</cite> displayable is used where the transform
-is opaque, and the <cite>old</cite> displayable is used when it is transparent.</p>
+<dd><p>该特效使用<cite>control</cite>可显示对象（几乎总是某种渐变遮片）来将一个可显示对象渐变成另一个。在遮片不透明的地方将使用<cite>new</cite>可显示对象，在遮片透明的地方将使用<cite>old</cite>可显示对象。</p>
 <dl class="docutils">
 <dt><cite>alpha</cite></dt>
-<dd>If true, the image is composited with what's behind it. If false,
-the default, the image is opaque and overwrites what's behind it.</dd>
+<dd>若为True，该图像将与在它后面的图像拼接在一起。若为False，也就是默认值，则会覆盖它后面的图像。</dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="image-manipulators">
-<h2>Image Manipulators<a class="headerlink" href="#image-manipulators" title="Permalink to this headline">¶</a></h2>
-<p>An image manipulator is a displayable that takes an image or image
-manipulator, performs an operation to it, and stores the result of
-that operation in the image cache. Since image manipulators can be
-predicted like images, they can perform expensive operations without
-incuring a display-time overhead.</p>
-<p>Image manipulators are limited to storing image data to the
-cache. This means that their result is of a fixed size, known in
-advance, and they can't change in response to game state or
-input. Generally, image manipulators can only take images or other
-image manipulators as input.</p>
-<p>An image manipulator can be used any place a displayable can, but not
-vice-versa. An <a class="reference internal" href="#Image" title="Image"><tt class="xref py py-func docutils literal"><span class="pre">Image()</span></tt></a> is a kind of image manipulator, so an
-Image can be used whenever an image manipulator is required.</p>
-<p>Many image manipulators provide the same functionality as other
-displayables. Most of these exist so they can be provided as input to
-other image manipulators, and so the game-maker can choose between
-cache memory usage and work done at render-time. There's also an
-element of historical accident here - many of these image manipulators
-predate their equivalents.</p>
+<h2>图像操作器<a class="headerlink" href="#image-manipulators" title="Permalink to this headline">¶</a></h2>
+<p>图像操作器是一种处理图像或者图像操作器的可显示对象，并且可以对图像进行一些处理并在图像缓存里保存结果。因为图像操作器可以像图像一样工作，所以它们可以处理一些麻烦的图像，同时避免浪费时间。</p>
+<p>图像操作器在图像缓存中存放的数据是有限制的。这导致了它们处理产生的结果是固定的，不能也不会随着游戏的过程或者输入值而改变。一般来说，图像操作器只能以图像或者其他图像操作器作为输入对象。</p>
+<p>图像操作器可以在任何能够使用可显示对象的地方使用，但是反过来不行。<a class="reference internal" href="#Image" title="Image"><tt class="xref py py-func docutils literal"><span class="pre">Image()</span></tt></a>也是一种图像操作器，所以可以使用图像操作器的地方都可以使用Image对象。</p>
+<p>许多图像操作器有着其他可显示对象类似的功能。很多图像控制器就是专门给其他控制器当做输入对象的，这样游戏制作者能够选择即时渲染或者图像缓存。而且这里也有些历史因素：许多图像控制器是在他们的等价功能函数之前就被设计好了。</p>
 <dl class="function">
 <dt id="im.AlphaMask">
 <tt class="descclassname">im.</tt><tt class="descname">AlphaMask</tt><big>(</big><em>base</em>, <em>mask</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.AlphaMask" title="Permalink to this definition">¶</a></dt>
-<dd><p>An image manipulator that takes two image manipulators, <cite>base</cite> and
-<cite>mask</cite>, as arguments. It replaces the alpha channel of <cite>base</cite> with
-the red channel of <cite>mask</cite>.</p>
-<p>This is used to provide an image's alpha channel in a second
-image, like having one jpeg for color data, and a second one
-for alpha. In some cases, two jpegs can be smaller than a
-single png file.</p>
+<dd><p>该图像操作器接受两个图像操作器作为参数，分别是<cite>base</cite>和
+<cite>mask</cite>。返回的图像是以<cite>mask</cite>的红色通道作为alpha通道的<cite>base</cite>图像。</p>
+<p>这是用来提供一张图片的alpha通道的，有时候两张jpg比一张png要小。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.Composite">
 <tt class="descclassname">im.</tt><tt class="descname">Composite</tt><big>(</big><em>size</em>, <em>*args</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Composite" title="Permalink to this definition">¶</a></dt>
-<dd><p>This image manipulator composites multiple images together to
-form a single image.</p>
-<p>The <cite>size</cite> should be a (width, height) tuple giving the size
-of the composed image.</p>
-<p>The remaining positional arguments are interpreted as groups of
-two. The first argument in a group should be an (x, y) tuple,
-while the second should be an image manipulator. The image
-produced by the image manipulator is composited at the location
-given by the tuple.</p>
+<dd><p>该图像操作器将多张图像合成一张图像。</p>
+<p><cite>size</cite>参数应该是一个（宽，高）的二元组，用于给定新图像的尺寸。 </p>
+<p>剩下的位置参数将被两个一组地处理。每组中，第一个参数应该是一个二元组，用于指定第二个参数所代表的图像操作器的位置。.</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">girl</span> <span class="n">clothed</span> <span class="n">happy</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">Composite</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span>
     <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s">&quot;girl_body.png&quot;</span><span class="p">,</span>
@@ -508,8 +398,7 @@ given by the tuple.</p>
 <dl class="function">
 <dt id="im.Crop">
 <tt class="descclassname">im.</tt><tt class="descname">Crop</tt><big>(</big><em>im</em>, <em>rect</em><big>)</big><a class="headerlink" href="#im.Crop" title="Permalink to this definition">¶</a></dt>
-<dd><p>An image manipulator that crops <cite>rect</cite>, a (x, y, width, height) tuple,
-out of <cite>im</cite>, an image manipulator.</p>
+<dd><p>该图像操作器返回的是使用<cite>rect</cite>矩形（格式为一个四元组，（x,y,宽,高）裁切图像操作器<cite>im</cite>后得到的图像。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">logo</span> <span class="na">crop</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">Crop</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">307</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -518,11 +407,8 @@ out of <cite>im</cite>, an image manipulator.</p>
 <dl class="function">
 <dt id="im.FactorScale">
 <tt class="descclassname">im.</tt><tt class="descname">FactorScale</tt><big>(</big><em>im</em>, <em>width</em>, <em>height=None</em>, <em>bilinear=True</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.FactorScale" title="Permalink to this definition">¶</a></dt>
-<dd><p>An image manipulator that scales <cite>im</cite> (a second image manipulator)
-to <cite>width</cite> times its original <cite>width</cite>, and <cite>height</cite> times its
-original height. If <cite>height</cite> is ommitted, it defaults to <cite>width</cite>.</p>
-<p>If <cite>bilinear</cite> is true, then bilinear interpolation is used for
-the scaling. Otherwise, nearest neighbor interpolation is used.</p>
+<dd><p>该图像操作器会将原图像操作器<cite>im</cite>缩放到原宽度的<cite>width</cite>倍，以及原告度的<cite>height</cite>倍。 若不提供<cite>height</cite>参数，它的值默认与<cite>width</cite>相等。</p>
+<p>若<cite>bilinear</cite>参数为True，在缩放时使用的是双线性插值，否则使用的是最临近插值。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">logo</span> <span class="n">doubled</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">FactorScale</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -531,9 +417,7 @@ the scaling. Otherwise, nearest neighbor interpolation is used.</p>
 <dl class="function">
 <dt id="im.Flip">
 <tt class="descclassname">im.</tt><tt class="descname">Flip</tt><big>(</big><em>im</em>, <em>horizontal=False</em>, <em>vertical=False</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Flip" title="Permalink to this definition">¶</a></dt>
-<dd><p>An image manipulator that flips <cite>im</cite> (an image manipulator)
-vertically or horizontally.  <cite>vertical</cite> and <cite>horizontal</cite> control
-the directions in which the image is flipped.</p>
+<dd><p>该图像操作器用于水平或垂直翻转图像操作器<cite>im</cite>。<cite>vertical</cite>和<cite>horizontal</cite>决定了到底朝哪个方向翻转。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">eileen</span> <span class="n">flip</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">Flip</span><span class="p">(</span><span class="s">&quot;eileen_happy.png&quot;</span><span class="p">,</span> <span class="na">vertical</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -542,17 +426,15 @@ the directions in which the image is flipped.</p>
 <dl class="function">
 <dt id="im.Grayscale">
 <tt class="descclassname">im.</tt><tt class="descname">Grayscale</tt><big>(</big><em>im</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Grayscale" title="Permalink to this definition">¶</a></dt>
-<dd><p>An image manipulator that creats a desaturated version of the image
-manipulator <cite>im</cite>.</p>
+<dd><p>该图像操作器返回一个给定图像操作器<cite>im</cite>的灰度版本。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.Scale">
 <tt class="descclassname">im.</tt><tt class="descname">Scale</tt><big>(</big><em>im</em>, <em>width</em>, <em>height</em>, <em>bilinear=True</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>An image manipulator that scales <cite>im</cite> (an image manipulator) to
-<cite>width</cite> and <cite>height</cite>.</p>
-<p>If <cite>bilinear</cite> is true, then bilinear interpolation is used for
-the scaling. Otherwise, nearest neighbor interpolation is used.</p>
+<dd><p>该图像操作器会将另一个图像操作器<cite>im</cite>缩放到指定尺寸，
+<cite>width</cite>和<cite>height</cite>.</p>
+<p>若<cite>bilinear</cite>参数为True，在缩放时使用的是双线性插值，否则使用的是最临近插值。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">logo</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="s">&quot;logo.png&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -561,105 +443,75 @@ the scaling. Otherwise, nearest neighbor interpolation is used.</p>
 <dl class="function">
 <dt id="im.Sepia">
 <tt class="descclassname">im.</tt><tt class="descname">Sepia</tt><big>(</big><em>im</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Sepia" title="Permalink to this definition">¶</a></dt>
-<dd><p>An image manipulator that creates a sepia-toned version of the image
-manipulator <cite>im</cite>.</p>
+<dd><p>该图像操作器返回另一个图像操作器<cite>im</cite>的旧照片版本。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.Tile">
 <tt class="descclassname">im.</tt><tt class="descname">Tile</tt><big>(</big><em>im</em>, <em>size=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.Tile" title="Permalink to this definition">¶</a></dt>
-<dd><p>An image manipulator that tiles the image manipulator <cite>im</cite>, until
-it is <cite>size</cite>.</p>
+<dd><p>该图像操作器返回一个使用图像操作器<cite>im</cite>平铺出来的图像，尺寸为<cite>size</cite>。</p>
 <dl class="docutils">
 <dt><cite>size</cite></dt>
-<dd>If not None, a (width, height) tuple. If None, this defaults to
-(<a class="reference internal" href="config.html#var-config.screen_width"><tt class="xref std std-var docutils literal"><span class="pre">config.screen_width</span></tt></a>, <a class="reference internal" href="config.html#var-config.screen_height"><tt class="xref std std-var docutils literal"><span class="pre">config.screen_height</span></tt></a>).</dd>
+<dd>如果不是None，则为（宽，高）二元组。若为None，则默认为
+(<a class="reference internal" href="config.html#var-config.screen_width"><tt class="xref std std-var docutils literal"><span class="pre">config.screen_width</span></tt></a>, <a class="reference internal" href="config.html#var-config.screen_height"><tt class="xref std std-var docutils literal"><span class="pre">config.screen_height</span></tt></a>)（也就是整个屏幕）。</dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="im-matrixcolor">
 <h2>im.MatrixColor<a class="headerlink" href="#im-matrixcolor" title="Permalink to this headline">¶</a></h2>
-<p>The im.MatrixColor image manipulator is an image manipulator that uses
-a matrix to control how the colors of an image are transformed. The
-matrix used can be an im.matrix object, which encodes a 5x5 matrix in
-an object that supports matrix multiplication, and is returned by a
-series of functions. im.matrix objects may be multiplied together to
-yield a second object that performs both operations. For example, the
-code:</p>
+<p>im.MatrixColor图像操作器可以使用一个色彩矩阵来决定如何处理图像的颜色。该矩阵可以是一个im.matrix对象，包含了一个5*5的矩阵，可以进行矩阵乘法。您可以使用多个im.matrix对象的积来获得复杂的色彩处理效果。例如，以下代码：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">city</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">MatrixColor</span><span class="p">(</span>
     <span class="s">&quot;city.jpg&quot;</span><span class="p">,</span>
     <span class="n">im</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">desaturate</span><span class="p">()</span> <span class="o">*</span> <span class="n">im</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">tint</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>first desaturates the image, and then tints it blue. When the
-intermediate image is not needed, multiplying matrices is far
-more efficient, in both time and image cache space, than using
-two im.MatrixColors.</p>
+<p>首先会令图像变成灰度的，然后将其染成蓝色。当不需要中间图像时，使用矩阵的乘积比使用两个im.MatrixColors的效率高得多。</p>
 <dl class="function">
 <dt id="im.MatrixColor">
 <tt class="descclassname">im.</tt><tt class="descname">MatrixColor</tt><big>(</big><em>im</em>, <em>matrix</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#im.MatrixColor" title="Permalink to this definition">¶</a></dt>
-<dd><p>An image operator that uses <cite>matrix</cite> to linearly transform the
-image manipulator <cite>im</cite>.</p>
-<p><cite>Matrix</cite> should be a list, tuple, or <a class="reference internal" href="#im.matrix" title="im.matrix"><tt class="xref py py-func docutils literal"><span class="pre">im.matrix()</span></tt></a> that is 20
-or 25 elements long. If the object has 25 elements, then elements
-past the 20th are ignored.</p>
-<p>When the four components of the source color are R, G, B, and A,
-which range from 0.0 to 1.0; the four components of the transformed
-color are R', G', B', and A', with the same range; and the elements
-of the matrix are named:</p>
+<dd><p>该图像操作器使用<cite>matrix</cite>来线性地处理图像控制器<cite>im</cite>的颜色。</p>
+<p><cite>Matrix</cite>应该是一个列表，元组或者<a class="reference internal" href="#im.matrix" title="im.matrix"><tt class="xref py py-func docutils literal"><span class="pre">im.matrix()</span></tt></a>。它的长度应该是20或者25.若对象有25个元素，第20个元素之后的元素将被无视。</p>
+<p>若原始像素的RGBA值分别是R, G, B, A,范围是0.0~1.0，变换后的像素的RGBA值是R', G', B',A', 范围相同，且矩阵是下面这个样子的：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="p">[</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span>
   <span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span>
   <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span>
   <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="p">]</span>
 </pre></div>
 </div>
-<p>the transformed colors can be computed with the formula:</p>
+<p>那么它们之间的关系是：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="s">R&#39; = (a * R) + (b * G) + (c * B) + (d * A) + e</span>
 <span class="n">G</span><span class="s">&#39; = (f * R) + (g * G) + (h * B) + (i * A) + j</span>
 <span class="n">B</span><span class="s">&#39; = (k * R) + (l * G) + (m * B) + (n * A) + o</span>
 <span class="n">A</span><span class="s">&#39; = (p * R) + (q * G) + (r * B) + (s * A) + t</span>
 </pre></div>
 </div>
-<p>The components of the transformed color are clamped to the
-range [0.0, 1.0].</p>
+<p>变换后的RGBA值会被限制在0.0~1.0这个范围内，若小于0.0则自动处理成0.0，若大于1.0则自动处理成1.0。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix">
-<tt class="descclassname">im.</tt><tt class="descname">matrix</tt><big>(</big><big>)</big><a class="headerlink" href="#im.matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs an im.matrix object from <cite>matrix</cite>. im.matrix objects
-support The operations supported are matrix multiplication, scalar
-multiplication, element-wise addition, and element-wise
-subtraction. These operations are invoked using the standard
-mathematical operators (*, *, +, and -, respectively). If two
-im.matrix objects are multiplied, matrix multiplication is
-performed, otherwise scalar multiplication is used.</p>
-<p><cite>matrix</cite> is a 20 or 25 element list or tuple. If it is 20 elements
-long, it is padded with (0, 0, 0, 0, 1) to make a 5x5 matrix,
-suitable for multiplication.</p>
+<tt class="descclassname">im.</tt><tt class="descname">matrix</tt><big>(</big><em>matrix</em><big>)</big><a class="headerlink" href="#im.matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>返回一个使用<cite>matrix</cite>构造的im.matrix对象。im.matrix对象支持矩阵乘法，矩阵元素加减法以及矩阵的标量乘法。若要使用这些运算，请使用标准数学操作符（*,+,-）。如果相乘的两个量都是矩阵，那么将进行矩阵乘法运算，否则进行标量乘法运算。</p>
+<p><cite>matrix</cite>是一个20或25个元素的列表或者元组。如果提供的是20个元素的元组或列表，它会自动在后面加上(0, 0, 0, 0, 1)，这样就可以进行矩阵乘法了。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix.brightness">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">brightness</tt><big>(</big><em>b</em><big>)</big><a class="headerlink" href="#im.matrix.brightness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an im.matrix that alters the brightness of an image.</p>
+<dd><p>返回一个能够调整图像亮度的im.matrix对象。</p>
 <dl class="docutils">
 <dt><cite>b</cite></dt>
-<dd>The amount of change in image brightness. This should be
-a number between -1 and 1, with -1 the darkest possible
-image and 1 the brightest.</dd>
+<dd>亮度的改变量，应该是-1到1之间的一个数。-1代表最暗，1代表最亮。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix.colorize">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">colorize</tt><big>(</big><em>black_color</em>, <em>white_color</em><big>)</big><a class="headerlink" href="#im.matrix.colorize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an im.matrix that colorizes a black and white image.
-<cite>black_color</cite> and <cite>white_color</cite> are Ren'Py style colors, so
-they may be specfied as strings or tuples of (0-255) color
-values.</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># This makes black colors red, and white colors blue.</span>
+<dd><p>返回一个能够给黑白图片上色的im.matrix对象。
+<cite>black_color</cite>和<cite>white_color</cite>是Ren'Py风格的颜色，所以他们可以是字符串或者元组。</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 这个矩阵会把黑色换成红色，把白色换成蓝色。</span>
 <span class="k">image</span> <span class="n">logo</span> <span class="n">colored</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">MatrixColor</span><span class="p">(</span>
     <span class="s">&quot;bwlogo.png&quot;</span><span class="p">,</span>
     <span class="n">im</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">colorize</span><span class="p">(</span><span class="s">&quot;#f00&quot;</span><span class="p">,</span> <span class="s">&quot;#00f&quot;</span><span class="p">))</span>
@@ -670,76 +522,57 @@ values.</p>
 <dl class="function">
 <dt id="im.matrix.contrast">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">contrast</tt><big>(</big><em>c</em><big>)</big><a class="headerlink" href="#im.matrix.contrast" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an im.matrix that alters the contrast of an image. <cite>c</cite> should
-be greater than 0.0, with values between 0.0 and 1.0 decreasing contrast, and
-values greater than 1.0 increasing contrast.</p>
+<dd><p>返回一个能够调整图像对比度的im.matrix对象。<cite>c</cite>应该大于0，当c介于0和1之间时，降低对比度；c大于1时，增加对比度。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix.desaturate">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">desaturate</tt><big>(</big><big>)</big><a class="headerlink" href="#im.matrix.desaturate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an im.matrix that desaturates the image (makes it
-grayscale). This is equivalent to calling
-im.matrix.saturation(0).</p>
+<dd><p>返回一个能将图像处理成灰度的im.matrix对象。这与使用
+im.matrix.saturation(0)等价。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix.hue">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">hue</tt><big>(</big><em>h</em><big>)</big><a class="headerlink" href="#im.matrix.hue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an im.matrix that rotates the hue by <cite>h</cite> degrees, while
-preserving luminosity.</p>
+<dd><p>返回一个能加图像的色调旋转<cite>h</cite>度同时保持亮度的im.matrix对象。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix.identity">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">identity</tt><big>(</big><big>)</big><a class="headerlink" href="#im.matrix.identity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an identity matrix, one that does not change color or
-alpha.</p>
+<dd><p>返回一个等于自身的im.matrix对象，不对图像进行任何改变。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix.invert">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">invert</tt><big>(</big><big>)</big><a class="headerlink" href="#im.matrix.invert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an im.matrix that inverts the red, green, and blue
-channels of the image without changing the alpha channel.</p>
+<dd><p>返回一个能将图像的RGB通道反转并保持alpha通道不变的im.matrix对象。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix.opacity">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">opacity</tt><big>(</big><em>o</em><big>)</big><a class="headerlink" href="#im.matrix.opacity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an im.matrix that alters the opacity of an image. An
-<cite>o</cite> of 0.0 is fully transparent, while 1.0 is fully opaque.</p>
+<dd><p>返回一个能改变图像透明度的im.matrix对象。
+<cite>o</cite>为0.0时表示全透明，1.0表示完全不透明。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix.saturation">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">saturation</tt><big>(</big><em>level</em>, <em>desat=(0.2126</em>, <em>0.7152</em>, <em>0.0722)</em><big>)</big><a class="headerlink" href="#im.matrix.saturation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an im.matrix that alters the saturation of an
-image. The alpha channel is untouched.</p>
+<dd><p>返回一个能够调整图像饱和度的im.matrix对象，不会改变alpha通道。</p>
 <dl class="docutils">
 <dt><cite>level</cite></dt>
-<dd>The amount of saturation in the resulting image. 1.0 is
-the unaltered image, while 0.0 is grayscale.</dd>
+<dd>目标图像的饱和度。1.0是原图效果，0.0是灰度图效果。</dd>
 <dt><cite>desat</cite></dt>
-<dd>This is a 3-element tuple that controls how much of the
-red, green, and blue channels will be placed into all
-three channels of a fully desaturated image. The default
-is based on the constants used for the luminance channel
-of an NTSC television signal. Since the human eye is
-mostly sensitive to green, more of the green channel is
-kept then the other two channels.</dd>
+<dd>该参数为3元组，决定了各通道保留色彩的比例。默认值是基于NTSC电视信号的对比度来设置的。因为人眼对于绿色最为敏感，所以绿色通道保留得更加多一些。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="im.matrix.tint">
 <tt class="descclassname">im.matrix.</tt><tt class="descname">tint</tt><big>(</big><em>r</em>, <em>g</em>, <em>b</em><big>)</big><a class="headerlink" href="#im.matrix.tint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an im.matrix that tints an image, without changing
-the alpha channel. <cite>r</cite>, <cite>g</cite>, and <cite>b</cite> should be numbers between
-0 and 1, and control what fraction of the given channel is
-placed into the final image. (For example, if <cite>r</cite> is .5, and
-the value of the red channel is 100, the transformed color
-will have a red value of 50.)</p>
+<dd><p>返回一个将图片染色但是不改变alpha通道的im.matrix对象。<cite>r</cite>, <cite>g</cite>, <cite>b</cite>应该介于0和1之间，决定了对应通道的保留比例。（例如，若<cite>r</cite>为.5，且红色通道的值为100，那么变换后的颜色的R值为50。）</p>
 </dd></dl>
 
 </div>
