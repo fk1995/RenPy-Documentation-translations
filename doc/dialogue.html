@@ -256,8 +256,8 @@
     <span class="n">e</span> <span class="s">&quot;不过现在都无所谓了。&quot;</span>
 </pre></div>
 </div>
-<p>若您希望当以此法改变图像时，有一个转场效果的话，您可以将
-<a class="reference internal" href="config.html#var-config.say_attribute_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.say_attribute_transition</span></tt></a>设定为您希望的转场效果来达到这一点。</p>
+<p>若您希望当以此法改变图像时，有一个渐变特效的话，您可以将
+<a class="reference internal" href="config.html#var-config.say_attribute_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.say_attribute_transition</span></tt></a>设定为您希望的特效来达到这一点。</p>
 </div>
 <div class="section" id="example-characters">
 <h2>Character对象范例<a class="headerlink" href="#example-characters" title="Permalink to this headline">¶</a></h2>
@@ -314,24 +314,24 @@
 <h2>对话窗口管理<a class="headerlink" href="#dialogue-window-management" title="Permalink to this headline">¶</a></h2>
 <p>Ren'Py提供了几个命令，使您能够自由地控制对话窗口。在对话交互的过程中，对话窗口是不会被隐藏的，因此这些命令用于在非对话交互中控制对话窗口的出现和隐藏。</p>
 <p><tt class="docutils literal"><span class="pre">window</span> <span class="pre">show</span></tt></p>
-<p>window show命令会显示对话窗口。它可以带一个转场效果作为参数，如果没有提供此参数，<a class="reference internal" href="config.html#var-config.window_show_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_show_transition</span></tt></a>
+<p>window show命令会显示对话窗口。它可以带一个渐变特效作为参数，如果没有提供此参数，<a class="reference internal" href="config.html#var-config.window_show_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_show_transition</span></tt></a>
 将被使用。</p>
 <p><tt class="docutils literal"><span class="pre">window</span> <span class="pre">hide</span></tt></p>
-<p>window hide命令会隐藏对话窗口。它可以带一个转场效果作为参数，如果没有提供此参数，<a class="reference internal" href="config.html#var-config.window_hide_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_hide_transition</span></tt></a>将被使用。</p>
+<p>window hide命令会隐藏对话窗口。它可以带一个渐变特效作为参数，如果没有提供此参数，<a class="reference internal" href="config.html#var-config.window_hide_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_hide_transition</span></tt></a>将被使用。</p>
 <p><tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt></p>
 <p>此命令将开启窗口自动管理。窗口将在<a class="reference internal" href="config.html#var-config.window_auto_show"><tt class="xref std std-var docutils literal"><span class="pre">config.window_auto_show</span></tt></a>中指定的命令前被显示（默认情况下是say命令）；在
 <a class="reference internal" href="config.html#var-config.window_auto_hide"><tt class="xref std std-var docutils literal"><span class="pre">config.window_auto_hide</span></tt></a>中指定的命令前被隐藏（默认情况下是scene命令）。</p>
 <p><tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt>命令使用<a class="reference internal" href="config.html#var-config.window_show_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_show_transition</span></tt></a>
 和<a class="reference internal" href="config.html#var-config.window_hide_transition"><tt class="xref std std-var docutils literal"><span class="pre">config.window_hide_transition</span></tt></a>来显示和隐藏对话窗口。 <tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt>会在使用<tt class="docutils literal"><span class="pre">window</span> <span class="pre">show</span></tt>或<tt class="docutils literal"><span class="pre">window</span> <span class="pre">hide</span></tt>后无效。</p>
 <p>如：</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="k">window</span> <span class="k">show</span> <span class="c"># 以默认转场效果显示对话窗口。</span>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="k">window</span> <span class="k">show</span> <span class="c"># 以默认特效显示对话窗口。</span>
 <span class="k">pause</span>       <span class="c"># 对话窗口在此暂停过程中出现。</span>
 <span class="k">window</span> <span class="k">hide</span> <span class="c"># 隐藏对话窗口</span>
 <span class="k">pause</span>       <span class="c"># 对话窗口在此暂停过程中消失。</span>
 
-<span class="k">window</span> <span class="k">show</span> <span class="n">dissolve</span> <span class="c"># 以dissolve转场效果显示窗口。</span>
+<span class="k">window</span> <span class="k">show</span> <span class="n">dissolve</span> <span class="c"># 以dissolve特效显示窗口。</span>
 <span class="k">pause</span>                <span class="c"># the window is shown during this pause.</span>
-<span class="k">window</span> <span class="k">hide</span> <span class="n">dissolve</span> <span class="c"># 以dissolve转场效果隐藏窗口。</span>
+<span class="k">window</span> <span class="k">hide</span> <span class="n">dissolve</span> <span class="c"># 以dissolve特效隐藏窗口。</span>
 <span class="k">pause</span>                <span class="c">#对话窗口在此暂停过程中消失。</span>
 
 

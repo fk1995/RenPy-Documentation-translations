@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>转场效果</title>
+    <title>Transitions &mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,21 +57,21 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">转场效果</a><ul>
-<li><a class="reference internal" href="#pre-defined-transitions">预定义的转场效果</a></li>
-<li><a class="reference internal" href="#transition-classes">转场效果的类</a></li>
-<li><a class="reference internal" href="#transition-families">转场效果系</a></li>
+<li><a class="reference internal" href="#">Transitions</a><ul>
+<li><a class="reference internal" href="#pre-defined-transitions">Pre-Defined Transitions</a></li>
+<li><a class="reference internal" href="#transition-classes">Transition Classes</a></li>
+<li><a class="reference internal" href="#transition-families">Transition Families</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="transforms.html"
-                        title="previous chapter">变换</a></p>
+                        title="previous chapter">Transforms</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="atl.html"
-                        title="next chapter">动画变换语言（ATL）</a></p>
-            <h4>搜索</h4>
+                        title="next chapter">Animation and Transformation Language</a></p>
+            <h4>Search</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
 
@@ -91,11 +91,16 @@
           <div class="body">
             
   <div class="section" id="transitions">
-<span id="id1"></span><h1>转场效果<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h1>
-<p>转场效果可以在<a class="reference internal" href="displaying_images.html#with-statement"><em>with命令</em></a>中使用，也可以在Ren'Py的其他地方发挥用处。它的主要功能是提供场景切换时的特效。Ren'Py为您预定义了一些转场效果，可以直接在with命令中使用。同时，它也有转场效果的类，使得您能够自己编写新的转场效果。</p>
+<span id="id1"></span><h1>Transitions<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h1>
+<p>Transitions can be used as part of the <a class="reference internal" href="displaying_images.html#with-statement"><em>with statement</em></a>, as well as in other parts of Ren'Py, to apply
+effects to changes in the scene. Ren'Py comes with a small number of
+pre-defined transitions, which can be given directly to the with
+statement. It also includes transition classes, which can be used to
+create new transitions.</p>
 <div class="section" id="pre-defined-transitions">
-<h2>预定义的转场效果<a class="headerlink" href="#pre-defined-transitions" title="Permalink to this headline">¶</a></h2>
-<p>预定义的转场效果可以直接在with命令中使用，例如：</p>
+<h2>Pre-Defined Transitions<a class="headerlink" href="#pre-defined-transitions" title="Permalink to this headline">¶</a></h2>
+<p>Pre-defined transitions can be given directly to the with
+statement. For example:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">show</span> <span class="n">bg</span> <span class="n">washington</span>
 <span class="k">with</span> <span class="n">dissolve</span>
 </pre></div>
@@ -111,126 +116,143 @@ class.</p>
 <dl class="var">
 <dt id="var-dissolve">
 <tt class="descname">dissolve</tt><a class="headerlink" href="#var-dissolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>用0.5秒从旧画面渐变到新画面。是<a class="reference internal" href="#Dissolve" title="Dissolve"><tt class="xref py py-func docutils literal"><span class="pre">Dissolve()</span></tt></a>类的一个实例。</p>
+<dd><p>Takes 0.5 seconds to dissolve from the old to the new screen. An
+instance of the <a class="reference internal" href="#Dissolve" title="Dissolve"><tt class="xref py py-func docutils literal"><span class="pre">Dissolve()</span></tt></a> transition class.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-pixellate">
 <tt class="descname">pixellate</tt><a class="headerlink" href="#var-pixellate" title="Permalink to this definition">¶</a></dt>
-<dd><p>使用马赛克特效在1秒内从旧画面变成新画面。是<a class="reference internal" href="#Pixellate" title="Pixellate"><tt class="xref py py-func docutils literal"><span class="pre">Pixellate()</span></tt></a>
-类的一个实例。</p>
+<dd><p>Pixellates the old scene for .5 seconds, and the new scene for
+another .5 seconds. An instance of the <a class="reference internal" href="#Pixellate" title="Pixellate"><tt class="xref py py-func docutils literal"><span class="pre">Pixellate()</span></tt></a>
+transition class.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-move">
 <tt class="descname">move</tt><a class="headerlink" href="#var-move" title="Permalink to this definition">¶</a></dt>
-<dd><p>在0.5秒内将位置发生变化的图片移动到新的位置。是<a class="reference internal" href="#MoveTransition" title="MoveTransition"><tt class="xref py py-func docutils literal"><span class="pre">MoveTransition()</span></tt></a>的一个实例。</p>
+<dd><p>Takes 0.5 seconds to the move images that have changed location to
+their new locations. An instance of the <a class="reference internal" href="#MoveTransition" title="MoveTransition"><tt class="xref py py-func docutils literal"><span class="pre">MoveTransition()</span></tt></a>
+transition class.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-moveinright">
 <tt class="descname">moveinright</tt><a class="headerlink" href="#var-moveinright" title="Permalink to this definition">¶</a></dt>
-<dd><p>也有<strong>moveinleft, moveintop, moveinbottom</strong>。</p>
-<p>这些转场效果会将新进入画面的图片从相应的方向推入画面，耗时0.5秒。</p>
+<dd><p>Also: <strong>moveinleft, moveintop, moveinbottom</strong></p>
+<p>These move entering images onto the screen from the appropriate
+side, taking 0.5 seconds to do so.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-moveoutright">
 <tt class="descname">moveoutright</tt><a class="headerlink" href="#var-moveoutright" title="Permalink to this definition">¶</a></dt>
-<dd><p>也有<strong>moveoutleft, moveouttop, moveoutbottom</strong>。</p>
-<p>这些转场效果会将离开画面的图片从相应的方向推离画面，耗时0.5秒。</p>
+<dd><p>Also: <strong>moveoutleft, moveouttop, moveoutbottom</strong></p>
+<p>These move leaving images off the screen via the appropriate side,
+taking 0.5 seconds to do so.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-ease">
 <tt class="descname">ease</tt><a class="headerlink" href="#var-ease" title="Permalink to this definition">¶</a></dt>
-<dd><p>也有<strong>easeinright, easeinleft, easeintop, easeinbottom, easeoutright, easeoutleft, easeouttop, easeoutbottom</strong>。</p>
-<p>和move系的效果类似，不同的是他们的速度曲线是基于cos函数而非匀速的。</p>
+<dd><p>Also: <strong>easeinright, easeinleft, easeintop, easeinbottom, easeoutright, easeoutleft, easeouttop, easeoutbottom</strong></p>
+<p>These are similar to the move- family of transitions, except that
+they use a cosine-based curve to slow down the start and end of
+the transition.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-zoomin">
 <tt class="descname">zoomin</tt><a class="headerlink" href="#var-zoomin" title="Permalink to this definition">¶</a></dt>
-<dd><p>放大进入即将进入画面的图片，耗时0.5秒。</p>
+<dd><p>This zooms in entering images, taking 0.5 seconds to do so.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-zoomout">
 <tt class="descname">zoomout</tt><a class="headerlink" href="#var-zoomout" title="Permalink to this definition">¶</a></dt>
-<dd><p>缩小推出即将离开画面的图片，耗时0.5秒。</p>
+<dd><p>This zooms out leaving images, taking 0.5 seconds to do so.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-zoominout">
 <tt class="descname">zoominout</tt><a class="headerlink" href="#var-zoominout" title="Permalink to this definition">¶</a></dt>
-<dd><p>同时进行以上两个特效，耗时0.5秒。</p>
+<dd><p>This zooms in entering images and zooms out leaving images, taking 0.5 seconds to do so.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-vpunch">
 <tt class="descname">vpunch</tt><a class="headerlink" href="#var-vpunch" title="Permalink to this definition">¶</a></dt>
-<dd><p>垂直方向震动0.25秒。</p>
+<dd><p>When invoked, this transition shakes the screen vertically for a
+quarter second.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-hpunch">
 <tt class="descname">hpunch</tt><a class="headerlink" href="#var-hpunch" title="Permalink to this definition">¶</a></dt>
-<dd><p>水平方向震动0.25秒。</p>
+<dd><p>When invoked, this transition shakes the screen horizontally for a
+quarter second.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-blinds">
 <tt class="descname">blinds</tt><a class="headerlink" href="#var-blinds" title="Permalink to this definition">¶</a></dt>
-<dd><p>百叶窗转场效果，耗时1秒。是<a class="reference internal" href="#ImageDissolve" title="ImageDissolve"><tt class="xref py py-func docutils literal"><span class="pre">ImageDissolve()</span></tt></a>类的一个实例。</p>
+<dd><p>Transitions the screen in a vertical blinds effect lasting 1
+second. An instance of the <a class="reference internal" href="#ImageDissolve" title="ImageDissolve"><tt class="xref py py-func docutils literal"><span class="pre">ImageDissolve()</span></tt></a> transition class.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-squares">
 <tt class="descname">squares</tt><a class="headerlink" href="#var-squares" title="Permalink to this definition">¶</a></dt>
-<dd><p>使用方形效果渐变画面，耗时1秒。</p>
+<dd><p>Transitions the screen in a squares effect lasting 1 second.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-wipeleft">
 <tt class="descname">wipeleft</tt><a class="headerlink" href="#var-wipeleft" title="Permalink to this definition">¶</a></dt>
-<dd><p>也有<strong>wiperight, wipeup, wipedown</strong>。</p>
-<p>向指定方向进行的擦除效果。是
-<a class="reference internal" href="#CropMove" title="CropMove"><tt class="xref py py-func docutils literal"><span class="pre">CropMove()</span></tt></a> 的一个实例。</p>
+<dd><p>Also: <strong>wiperight, wipeup, wipedown</strong></p>
+<p>Wipes the scene in the given direction. Instances of the
+<a class="reference internal" href="#CropMove" title="CropMove"><tt class="xref py py-func docutils literal"><span class="pre">CropMove()</span></tt></a> transition class.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-slideleft">
 <tt class="descname">slideleft</tt><a class="headerlink" href="#var-slideleft" title="Permalink to this definition">¶</a></dt>
-<dd><p>也有<strong>slideright, slideup, slidedown</strong>。</p>
-<p>将新画面从相应方向滑入旧画面。是
-<a class="reference internal" href="#CropMove" title="CropMove"><tt class="xref py py-func docutils literal"><span class="pre">CropMove()</span></tt></a>的一个实例。</p>
+<dd><p>Also: <strong>slideright, slideup, slidedown</strong></p>
+<p>Slides the new scene in the given direction. Instances of the
+<a class="reference internal" href="#CropMove" title="CropMove"><tt class="xref py py-func docutils literal"><span class="pre">CropMove()</span></tt></a> transition class.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-slideawayleft">
 <tt class="descname">slideawayleft</tt><a class="headerlink" href="#var-slideawayleft" title="Permalink to this definition">¶</a></dt>
-<dd><p>也有<strong>slideawayright, slideawayup, slideawaydown</strong></p>
-<p>将旧画面从指定方向滑出屏幕。是
-<a class="reference internal" href="#CropMove" title="CropMove"><tt class="xref py py-func docutils literal"><span class="pre">CropMove()</span></tt></a>的一个实例。</p>
+<dd><p>Also: <strong>slideawayright, slideawayup, slideawaydown</strong></p>
+<p>Slides the old scene in the given direction. Instances of the
+<a class="reference internal" href="#CropMove" title="CropMove"><tt class="xref py py-func docutils literal"><span class="pre">CropMove()</span></tt></a> transition class.</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-irisin">
 <tt class="descname">irisin</tt><a class="headerlink" href="#var-irisin" title="Permalink to this definition">¶</a></dt>
-<dd><p>也有<strong>irisout</strong>。</p>
-<p>长方形眨眼效果，in的话是显示新画面，out的话是隐藏旧画面。具体效果难以描述，试一试就知道了。是<a class="reference internal" href="#CropMove" title="CropMove"><tt class="xref py py-func docutils literal"><span class="pre">CropMove()</span></tt></a>的一个实例。</p>
+<dd><p>Also: <strong>irisout</strong></p>
+<p>Use a rectangular iris to display the new screen, or hide the old
+screen. Instances of the <a class="reference internal" href="#CropMove" title="CropMove"><tt class="xref py py-func docutils literal"><span class="pre">CropMove()</span></tt></a> transition class.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="transition-classes">
-<h2>转场效果的类<a class="headerlink" href="#transition-classes" title="Permalink to this headline">¶</a></h2>
-<p>转场效果的类是一些能生成新的转场效果的函数。这些函数的参数可以自由调整，来完成各种各样的效果。</p>
-<p>可以在with命令里调用这些效果。例如：</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 一个很长的渐变</span>
+<h2>Transition Classes<a class="headerlink" href="#transition-classes" title="Permalink to this headline">¶</a></h2>
+<p>Transition classes are functions that can be called to create new
+transitions. These functions are parameterized, allowing entire
+families of transitions to be created.</p>
+<p>Calling transition classes can be done as part of the with
+statement. For example:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># A very long dissolve.</span>
 <span class="k">with</span> <span class="n">Dissolve</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>若我们要反复调用同一个不是预定义的效果，我们可以使用<a class="reference internal" href="python.html#define-statement"><em>define statement</em></a>来将该效果赋值给一个变量：</p>
+<p>If we find ourselves calling the same transition class repeatedly, we
+can use the <a class="reference internal" href="python.html#define-statement"><em>define statement</em></a> to assign the
+transition to a variable:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">annoytheuser</span> <span class="o">=</span> <span class="n">Dissolve</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
 
 <span class="k">label</span> <span class="n">start</span><span class="p">:</span>
@@ -241,24 +263,33 @@ class.</p>
 <dl class="function">
 <dt id="AlphaDissolve">
 <tt class="descname">AlphaDissolve</tt><big>(</big><em>control</em>, <em>delay=0.0</em>, <em>alpha=False</em>, <em>reverse=False</em><big>)</big><a class="headerlink" href="#AlphaDissolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>返回一个使用control可显示对象（一般是某种带动画的蒙板）的转场特效。该蒙板的透明部分显示旧画面，而不透明部分使用新画面。</p>
+<dd><p>Returns a transition that uses a control displayable (almost always some
+sort of animated transform) to transition from one screen to another. The
+transform is evaluated. The new screen is used where the transform is
+opaque, and the old image is used when it is transparent.</p>
 <dl class="docutils">
 <dt><cite>control</cite></dt>
-<dd>控制用的可显示对象。</dd>
+<dd>The control transform.</dd>
 <dt><cite>delay</cite></dt>
-<dd>转场效果的持续时间。</dd>
+<dd>The time the transition takes, before ending.</dd>
 <dt><cite>alpha</cite></dt>
-<dd>若为True，新画面与旧画面重叠。否则新画面将覆盖旧画面。</dd>
+<dd>If true, the image is composited with what's behind it. If false,
+the default, the image is opaque and overwrites what's behind it.</dd>
 <dt><cite>reverse</cite></dt>
-<dd>若为True，alpha通道将会反转。不透明区域显示旧画面，透明区域显示新画面。</dd>
+<dd>If true, the alpha channel is reversed. Opaque areas are taken
+from the old image, while transparent areas are taken from the
+new image.</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ComposeTransition">
 <tt class="descname">ComposeTransition</tt><big>(</big><em>trans</em>, <em>before</em>, <em>after</em><big>)</big><a class="headerlink" href="#ComposeTransition" title="Permalink to this definition">¶</a></dt>
-<dd><p>将返回一个同时调用多个切换效果的转场效果。如果值不是“None”的话，<cite>before</cite>的切换效果对应的是旧图片，而<cite>after</cite>的切换效果对应的是新图片。在切换的同时调用<cite>trans</cite>中所给的切换效果。</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c">#在移动过程中同时调用淡入淡出效果，这个切换效果很占内存。</span>
+<dd><p>Returns a transition that composes up to three transitions. If not None,
+the <cite>before</cite> and <cite>after</cite> transitions are applied to the old and new
+scenes, respectively. These updated old and new scenes are then supplied
+to the <cite>trans</cite> transition.</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Move the images in and out while dissolving. (This is a fairly expensive transition.)</span>
 <span class="k">define</span> <span class="n">moveinoutdissolve</span> <span class="o">=</span> <span class="n">ComposeTransition</span><span class="p">(</span><span class="n">dissolve</span><span class="p">,</span> <span class="n">before</span><span class="o">=</span><span class="n">moveoutleft</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="n">moveinright</span><span class="p">)</span>
 </pre></div>
 </div>
