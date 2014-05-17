@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
-
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Styles &mdash; Ren&#39;Py Documentation</title>
+    <title>样式</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,13 +56,13 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Styles</a><ul>
-<li><a class="reference internal" href="#using-styles-and-style-inheritance">Using Styles and Style Inheritance</a></li>
-<li><a class="reference internal" href="#style-inspector">Style Inspector</a></li>
-<li><a class="reference internal" href="#defining-styles-style-statement">Defining Styles: Style Statement</a></li>
-<li><a class="reference internal" href="#defining-styles-python">Defining Styles: Python</a><ul>
-<li><a class="reference internal" href="#style-preferences">Style Preferences</a></li>
-<li><a class="reference internal" href="#other-style-functions">Other Style Functions</a></li>
+<li><a class="reference internal" href="#">样式</a><ul>
+<li><a class="reference internal" href="#using-styles-and-style-inheritance">使用样式和样式继承</a></li>
+<li><a class="reference internal" href="#style-inspector">样式检测器</a></li>
+<li><a class="reference internal" href="#defining-styles-style-statement">定义样式:样式命令</a></li>
+<li><a class="reference internal" href="#defining-styles-python">定义样式:Python</a><ul>
+<li><a class="reference internal" href="#style-preferences">样式选项</a></li>
+<li><a class="reference internal" href="#other-style-functions">其他样式函数</a></li>
 </ul>
 </li>
 </ul>
@@ -72,11 +71,11 @@
 
   <h4>上一节</h4>
   <p class="topless"><a href="atl.html"
-                        title="previous chapter">Animation and Transformation Language</a></p>
+                        title="previous chapter">动画变换语言（ATL）</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="style_properties.html"
-                        title="next chapter">Style Properties</a></p>
-            <h4>Search</h4>
+                        title="next chapter">样式属性</a></p>
+            <h4>搜索</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
 
@@ -96,146 +95,102 @@
           <div class="body">
             
   <div class="section" id="styles">
-<span id="id1"></span><h1>Styles<a class="headerlink" href="#styles" title="Permalink to this headline">¶</a></h1>
-<p>Styles allow the look of displayables to be customized. This is done by
-changing the value of style properties for displayables. For example,
-changing the <a class="reference internal" href="style_properties.html#style-property-background"><tt class="xref std std-propref docutils literal"><span class="pre">background</span></tt></a> property allows the background of a window
-or button to be customized.</p>
-<p>Style properties consist of two parts, a prefix that
-specifies when the property is used, and the property itself. For example, a
-button's <tt class="docutils literal"><span class="pre">hover_background</span></tt> property is used when a button is focused,
-while its <tt class="docutils literal"><span class="pre">idle_background</span></tt> property is used when the button is unfocused.
-(Setting the <tt class="docutils literal"><span class="pre">background</span></tt> property sets the <tt class="docutils literal"><span class="pre">idle_background</span></tt> and
-<tt class="docutils literal"><span class="pre">hover_background</span></tt>, among others.)</p>
-<p>While Ren'Py has over 100 style properties, only a few properties are
-used in this section. Along with <tt class="docutils literal"><span class="pre">background</span></tt>, we use <tt class="docutils literal"><span class="pre">color</span></tt>, <tt class="docutils literal"><span class="pre">font</span></tt>,
-<tt class="docutils literal"><span class="pre">outlines</span></tt> and <tt class="docutils literal"><span class="pre">size</span></tt> as style properties. For a full list of style
-properties, please read the <a class="reference internal" href="style_properties.html#style-properties"><em>style properties</em></a>
-documentation.</p>
+<span id="id1"></span><h1>样式<a class="headerlink" href="#styles" title="Permalink to this headline">¶</a></h1>
+<p>样式允许用户可以自定义可显示对象的外观。这只需更改显示样式的属性参数就能够做到。比如，更改<a class="reference internal" href="style_properties.html#style-property-background"><tt class="xref std std-propref docutils literal"><span class="pre">background</span></tt></a>项目的参数就可以自定义窗口或按钮的背景。</p>
+<p>样式属性包含两部分，前一部分是属性何时应当生效的限定性前缀，另一部分是属性名。例如：按钮的<tt class="docutils literal"><span class="pre">hover_background</span></tt>属性表示，当按钮处于焦点时生效的背景属性；<tt class="docutils literal"><span class="pre">idle_background</span></tt>属性表示，当按钮不在焦点时生效的背景属性。(设置<tt class="docutils literal"><span class="pre">background</span></tt>是设置<tt class="docutils literal"><span class="pre">idle_background</span></tt>和<tt class="docutils literal"><span class="pre">hover_background</span></tt>还有其他以background结尾的属性。)</p>
+
+<p>RenPy有超过100条的样式属性，在此文档中，我们只使用了少数的几条属性。就<tt class="docutils literal"><span class="pre">background</span></tt>来说，我们使用了<tt class="docutils literal"><span class="pre">color</span></tt>, <tt class="docutils literal"><span class="pre">font</span></tt>,
+<tt class="docutils literal"><span class="pre">outlines</span></tt> 和 <tt class="docutils literal"><span class="pre">size</span></tt>作为样式属性。
+若您想了解完整的样式属性列表，请阅读<a class="reference internal" href="style_properties.html#style-properties"><em>样式属性</em></a>文档。</p>
 <div class="section" id="using-styles-and-style-inheritance">
-<h2>Using Styles and Style Inheritance<a class="headerlink" href="#using-styles-and-style-inheritance" title="Permalink to this headline">¶</a></h2>
-<p>Each displayable has a style built-into it. When the displayable is created,
-either directly or using the screen system, style properties can be supplied
-to it, and these styles are used to update the look of the displayable. In
-the following example:</p>
+<h2>使用样式和样式继承
+<a class="headerlink" href="#using-styles-and-style-inheritance" title="Permalink to this headline">¶</a></h2>
+<p>每一个可显示对象都对应一个内置的样式属性。只要创建了可显示对象，不管是直接创建的还是使用视屏系统创建的，就可以设置它的样式属性，并用来更新可显示对象的外观。在下面的例子中:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">big</span> <span class="n">hello</span> <span class="n">world</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello, World&quot;</span><span class="p">,</span> <span class="na">size</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>the <a class="reference internal" href="style_properties.html#style-property-size"><tt class="xref std std-propref docutils literal"><span class="pre">size</span></tt></a> property is supplied to a Text displayable, allowing us to
-change its text size. This will customize the look of the text displayable by
-displaying the text 40 pixels high.</p>
-<p>Similarly, when using Screen Language, each user interface statement takes
-relevant style properties:</p>
+<p>
+您可以设置Text可显示对象的<a class="reference internal" href="style_properties.html#style-property-size"><tt class="xref std std-propref docutils literal"><span class="pre">size</span></tt></a>属性，来更改文字的尺寸。在例子中，我们将显示文字的文本高度设为40像素。</p>
+<p>类似的，在使用视屏语言时，每一句用户界面命令处，都可以添加相关的样式属性:</p>
+<p>例子:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">big_hello_world</span><span class="p">:</span>
     <span class="k">text</span> <span class="s">&quot;Hello, World&quot;</span> <span class="na">size</span> <span class="mi">40</span>
 </pre></div>
 </div>
-<p>Ren'Py supports style inheritance, with each style having a single
-parent. If a style property is not defined in a style, the value of the
-property is inherited from the closest parent, grandparent, or other
-ancestor.</p>
-<p>Each displayable takes a property named <tt class="docutils literal"><span class="pre">style</span></tt>, which gives the parent
-of the displayable's style:</p>
+<p>Ren'Py支持样式继承，每一个样式都有一个单独的父类。如果一个样式中没有定义某个样式属性，那么该项属性对应的属性值将从它最近的父类，或是父类的父类，再或是其他的原型当中继承过来。</p>
+<p>每个可显示对象都有一个叫做<tt class="docutils literal"><span class="pre">style</span></tt>的属性，用于指出该可显示对象的样式的父类：</p>
+
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">image</span> <span class="n">big</span> <span class="n">hello</span> <span class="n">world</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="k">style</span><span class="o">=</span><span class="s">&quot;big&quot;</span><span class="p">)</span>
 
 <span class="k">screen</span> <span class="n">hello_world</span><span class="p">:</span>
     <span class="k">text</span> <span class="s">&quot;Hello, World&quot;</span> <span class="k">style</span> <span class="s">&quot;big&quot;</span>
 </pre></div>
 </div>
-<p>When no <tt class="docutils literal"><span class="pre">style</span></tt> property is given, a parent is chosen based on the kind of
-displayable be that has been supplied. The parent chosen can be influenced
-by the <a class="reference internal" href="screens.html#style-group"><em>style_group</em></a> property of user interface statements
-in the screen language.</p>
-<p>When a style is defined without a parent being specified, a default
-parent is chosen for the style. If the style contains an underscore (_)
-in its name, the parent is named by removing everything up to and
-including the first underscore. For example, a style named <tt class="docutils literal"><span class="pre">my_button</span></tt>
-will inherity from <tt class="docutils literal"><span class="pre">button</span></tt>. This inheritance can be changed using the
-style statement or by calling a method on a style object.  When a style that
-does not exist is used, and the style has an underscore in its name, Ren'Py will create
-it using the default parent.</p>
-<p>Style names beginning with an underscore are reserved for Ren'Py use.</p>
-<p>As Ren'Py builds styles on startup, named styles should not be changed
-outside of init code.</p>
+<p>如果没有给出<tt class="docutils literal"><span class="pre">style</span></tt>属性，将根据支持的可显示对象的种类来选择一个父类。样式的父类选择受到视屏语言中的用户界面命令中的<a class="reference internal" href="screens.html#style-group"><em>style_group</em></a>属性的影响。</p>
+<p>如果一个样式定义时没有指定一个父类，那么样式将默认选择一个父类。如果一个样式名中包含下划线(_)，其父类的名称将消去下划线及下划线前的内容。例如:一个叫<tt class="docutils literal"><span class="pre">my_button</span></tt>的样式，将从<tt class="docutils literal"><span class="pre">button</span></tt>获得属性继承。
+继承可以用样式命令或调用样式对象的方法的手段来改变。如果要使用一个不存在的样式，且样式名中含有下划线，Ren'Py将使用默认的父类来创建它。</p>
+<p>样式名以下划线开头的样式由Ren'Py保留。由于Ren'Py在启动时加载样式，您不应在初始化代码以外的地方进行对已定义样式的修改。</p>
 </div>
 <div class="section" id="style-inspector">
-<h2>Style Inspector<a class="headerlink" href="#style-inspector" title="Permalink to this headline">¶</a></h2>
-<p>When <a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a> is true, the style inspector can be used to
-see which styles are being used by a displayable.</p>
-<p>To activate the style inspector, place the mouse over a displayable, and
-press shift+I. Ren'Py will display a list of displayables that include
-the mouse position, in the order they are drawn to the screen. (That is,
-the last displayable is the one on top of the others.)</p>
-<p>Click the name of a style to display the styles the displayable inherits
-from, and the properties each style contributes the to the final displayable.</p>
+<h2>样式检测器<a class="headerlink" href="#style-inspector" title="Permalink to this headline">¶</a></h2>
+<p>当<a class="reference internal" href="config.html#var-config.developer"><tt class="xref std std-var docutils literal"><span class="pre">config.developer</span></tt></a>为True时，就可以使用样式检测器来检测某一个可显示对象使用了哪些样式。</p>
+<p>要激活样式检测器，您应将鼠标悬停在显示对象上，并按下shift和I键。Ren'Py将列出样式属性的列表和鼠标的位置，将其按顺序显示在屏幕上。(最后的属性将显示在最上方。)</p>
+<p>
+<p>单击样式名来显示这个样式检查器继承的样式和每个样式显示的属性。</p>
 </div>
 <div class="section" id="defining-styles-style-statement">
-<h2>Defining Styles: Style Statement<a class="headerlink" href="#defining-styles-style-statement" title="Permalink to this headline">¶</a></h2>
-<p>The preferred way to define styles is through the style statement:</p>
+<h2>定义样式:style命令<a class="headerlink" href="#defining-styles-style-statement" title="Permalink to this headline">¶</a></h2>
+<p>我们推荐您使用style命令来定义样式:
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">style</span> <span class="n">my_text</span> <span class="k">is</span> <span class="k">text</span><span class="p">:</span>
     <span class="na">size</span> <span class="mi">40</span>
     <span class="na">font</span> <span class="s">&quot;gentium.ttf&quot;</span>
 </pre></div>
 </div>
-<p>If a style does not exist, the style statement creates it. Otherwise,
-the existing style is modified by the style statement.</p>
-<p>A style statement begins with the keyword <tt class="docutils literal"><span class="pre">style</span></tt> and the name of the
-style to define. This is followed on the first line by zero or more
-clauses, and an optional colon.</p>
-<p>If the colon is present, a block must follow. Each line of the block should
-contain one ore more clauses. Otherwise, the statement is complete.</p>
-<p>The style statement accepts the following clauses:</p>
+<p>如果样式不存在，style命令将创建它。否则，style命令将修改该样式。</p>
+<p>style命令以关键字<tt class="docutils literal"><span class="pre">style</span></tt>和要定义的样式名称开头。
+关键字和名称后接0个到多个参数，以一个冒号结尾。</p>
+<p>如果使用了冒号，冒号后面必须有一个块。块的每行都应包含一个或多个从句。否则，该style命令到此结束。</p>
+<p>style命令接受以下的从句:</p>
 <dl class="docutils">
 <dt><cite>style-property</cite> <cite>simple-expression</cite></dt>
-<dd>Assigns the value of the simple expression to the given style
-property.</dd>
+<dd>用简单表达式给样式属性分配属性值。</dd>
 <dt><tt class="docutils literal"><span class="pre">is</span></tt> <cite>parent</cite></dt>
-<dd>Sets the parent of this style. The parent must be a word giving the
-name of a style.</dd>
+<dd>设置该样式的父类。必须是一个提供父类名称的字符串。</dd>
 <dt><tt class="docutils literal"><span class="pre">clear</span></tt></dt>
-<dd>Removes all properties of this style that were assigned before
-this style statement was run. This does not prevent the style
-from inheriting property values from its parents.</dd>
+<dd>若使用此从句，将移除该样式之前声明的所有样式属性。此从句不会影响该样式从其父类继承的属性。</dd>
 <dt><tt class="docutils literal"><span class="pre">take</span></tt> <cite>style-name</cite></dt>
-<dd>Removes all properties of this style that were assigned before
-this style statement was run, and replaces them with the properties
-of the named style. This does not change the parent of this style.</dd>
-<dt><tt class="docutils literal"><span class="pre">variant</span></tt> <cite>simple-expression</cite></dt>
-<dd>Evaluates the simple expression, to yield a string or list of strings,
-which are interpreted as <a class="reference internal" href="screens.html#screen-variants"><em>screen variants</em></a>. If at
-least one of the variants given is active, the style statement is run,
-otherwise it is ignored.</dd>
+<dd>若使用此从句，将移除该样式之前声明的所有样式属性，并且将属性替换为指定样式的属性。这么做并不会更改样式的父类。</dd>
+<dt><tt class="docutils literal"><span class="pre">variant </span></tt> <cite>simple-expression</cite></dt>
+<dd>计算简单表达式，然后得出一个或是一列字符串。该字符串将被理解为<a class="reference internal" href="screens.html#screen-variants">屏幕变体</em></a>。如果至少有一个变体处于活动状态，该style命令将会运行，否则它将被忽略。</dd>
 </dl>
-<p>Examples of style statements are:</p>
+<p>style命令的例子:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Creates a new style, inheriting from default.</span>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c">#创建一个新样式，继承自default</span>
 <span class="k">style</span> <span class="n">big_red</span><span class="p">:</span>
     <span class="na">size</span> <span class="mi">40</span>
 
-<span class="c"># Updates the style.</span>
+<span class="c"># 更新样式</span>
 <span class="k">style</span> <span class="n">big_red</span> <span class="na">color</span> <span class="s">&quot;#f00&quot;</span>
 
-<span class="c"># Takes the properties of label_text from big_red, but only if we&#39;re</span>
-<span class="c"># on a touch system.</span>
+<span class="c"># 当我们使用一个触摸系统的时候，label_text样式使用big_red的属性。
+</span>
 
 <span class="k">style</span> <span class="n">label_text</span><span class="p">:</span>
     <span class="n">variant</span> <span class="s">&quot;touch&quot;</span>
     <span class="n">take</span> <span class="n">big_red</span>
 </pre></div>
 </div>
-<p>Style statements are always run at init-time. If a style statement is not
-in an init block, it is automatically placed init an init 0 block.</p>
+<p>样式命令通常是在初始化时运行的。如果样式命令不在init区块当中，它将自动被放置在一个init 0的区块中。</p>
+
 </div>
 <div class="section" id="defining-styles-python">
-<h2>Defining Styles: Python<a class="headerlink" href="#defining-styles-python" title="Permalink to this headline">¶</a></h2>
-<p>Named styles exists as fields on the global <tt class="docutils literal"><span class="pre">style</span></tt> object. To create a new
-style, create an instance of the Style class, and assign it to a field on the
-<tt class="docutils literal"><span class="pre">style</span></tt> object.:</p>
+<h2>定义样式:Python的方法<a class="headerlink" href="#defining-styles-python" title="Permalink to this headline">¶</a></h2>
+<p>声明的样式是一个全局style对象的域。若您想创建一个新的样式，您可以创建一个样式类的实例，然后将其赋值给style对象的一个域：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="k">style</span><span class="o">.</span><span class="n">big_red</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="k">style</span><span class="o">.</span><span class="na">default</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Style properties can be set by assigning to field-like properties of the
-Styles.</p>
+<p>样式属性可以通过给样式的属性赋值来设置（就像给它的域赋值一样）。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="k">style</span><span class="o">.</span><span class="n">big_red</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="s">&quot;#f00&quot;</span>
      <span class="k">style</span><span class="o">.</span><span class="n">big_red</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="mi">42</span>
@@ -244,47 +199,40 @@ Styles.</p>
 <dl class="class">
 <dt id="Style">
 <em class="property">class </em><tt class="descname">Style</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#Style" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a new style object. Style properties can be assigned to
-the fields of this object.</p>
+<dd><p>创建一个新的Style对象。对象的样式属性可以被赋值给此对象的域。</p>
 <dl class="docutils">
 <dt><cite>parent</cite></dt>
-<dd>The styles parent. This can be another style object, or a
-string.</dd>
+<dd>该样式的父类，它可以是另一个样式对象，或是一个字符串。</dd>
 </dl>
 <dl class="method">
 <dt id="Style.clear">
 <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#Style.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>This removes all style properties from this object. Values will be
-inherited from this object's parent.</p>
+<dd><p>它将移除该对象的所有样式属性。属性值将从对象的父类中继承。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Style.set_parent">
 <tt class="descname">set_parent</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#Style.set_parent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the parent of this style object to <cite>parent</cite>.</p>
+<dd><p>设置该属性对象的父类为<cite>parent</cite>。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Style.take">
 <tt class="descname">take</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#Style.take" title="Permalink to this definition">¶</a></dt>
-<dd><p>This takes all style properties from <cite>other</cite>. <cite>other</cite> must be a
-style object.</p>
+<dd><p>当前样式将从<cite>other</cite>获取样式属性。<cite>other</cite>必须是样式对象。</p>
 </dd></dl>
 
 </dd></dl>
 
 <blockquote>
-<div><p>Indexed Styles</p>
-<p>Indexed styles are lightweight styles that can be used to customize the look
-of a displayable based on the data supplied to that displayable. An index
-style is created by indexing a style object with a string or integer. If an
-indexed style does not exist, indexing creates it.:</p>
+<div><p>索引样式</p>
+<p>索引样式是轻量级样式，可以用来自定义基于数据支持的可显示对象的显示效果。创建一个索引样式需要一个索引样式对象和一段字符串或是常数。如果一个索引样式不存在，它将被创建:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
     <span class="k">style</span><span class="o">.</span><span class="k">button</span><span class="p">[</span><span class="s">&#39;Foo&#39;</span><span class="p">]</span><span class="o">.</span><span class="na">background</span> <span class="o">=</span> <span class="s">&quot;#f00&quot;</span>
     <span class="k">style</span><span class="o">.</span><span class="k">button</span><span class="p">[</span><span class="s">&#39;Bar&#39;</span><span class="p">]</span><span class="o">.</span><span class="na">background</span> <span class="o">=</span> <span class="s">&quot;#00f&quot;</span>
 </pre></div>
 </div>
-<p>An index style is used by supplying the indexed style to a displayable.:</p>
+<p>索引样式是这么用的：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">indexed_style_test</span><span class="p">:</span>
     <span class="k">vbox</span><span class="p">:</span>
         <span class="k">textbutton</span> <span class="s">&quot;Foo&quot;</span> <span class="k">style</span> <span class="k">style</span><span class="o">.</span><span class="k">button</span><span class="p">[</span><span class="s">&quot;Foo&quot;</span><span class="p">]</span>
@@ -293,79 +241,77 @@ indexed style does not exist, indexing creates it.:</p>
 </div>
 </div></blockquote>
 <div class="section" id="style-preferences">
-<span id="id2"></span><h3>Style Preferences<a class="headerlink" href="#style-preferences" title="Permalink to this headline">¶</a></h3>
-<p>It's often desirable to allow the user to customize aspects of the user
-interface that are best expressed as styles. For example, a creator may want
-to give players of his game the ability to adjust the look, color, and size
-of the text. Style preferences allow for this customization.</p>
-<p>A style preference is a preference that controls one or more style properties.
-A style preference has a name and one or more alternatives. At any given
-time, one of the alternatives is the selected alternative for the style
-preference. The selected alternative is saved in the persistent data, and
-defaults to the first alternative registered for a style property.</p>
-<p>An alternative has one or more associations of style, property, and value
-associated with it, and represents a promise that when the alternative
-becomes the selected alternative for the style preference, the property on
-the style will be assigned the given value. This occurs when Ren'Py first
-initializes, and then whenever a new alternative is selected.</p>
-<p>One should ensure that every alternative for a given style preference updates
-the same set of styles and properties. Otherwise, some styles may not be
-assigned values, and the result will not be deterministic.</p>
-<p>The style preference functions are:</p>
+<span id="id2"></span><h3>Style Preferences  #样式选项<a class="headerlink" href="#style-preferences" title="Permalink to this headline">¶</a></h3>
+<p>
+经常由用户自定义的用户接口，最好表述为样式。例如，一个创作者希望玩家能够随意调整显示文本的字体颜色和大小。样式设置可以帮您做到这样的自定义效果。</p>
+<p>
+样式设置是用来控制一个或多个样式属性的设置。一个设置包含一个设置名称以及一个或多个可选值。在任何时候，样式设置中有其中的一个可选值处于选中状态。选中的可选值将被保存到永久性数据中，并且默认注册为该样式属性的首选项。
+</p>
+
+<p>
+一个样式选项可以关联一个或多个样式和属性，及其关联的属性值。当Ren'Py首次初始化和选择新的可选值时，样式属性将会被赋予被选中的可选值对应的属性值。</p>
+<p>
+您应该确保，对于一个给定的样式选项来说，每一个选择项更新的都是同样的样式和属性。否则某些样式中可能没有被赋值。这样做的结果将是不可确定的。</p>
+<p>
+样式设置的函数有:</p>
+<p>
 <dl class="function">
 <dt id="StylePreference">
 <tt class="descname">StylePreference</tt><big>(</big><em>preference</em>, <em>alternative</em><big>)</big><a class="headerlink" href="#StylePreference" title="Permalink to this definition">¶</a></dt>
-<dd><p>An action that causes <cite>alternative</cite> to become the selected alternative for the given style preference.</p>
+<dd><p>
+该动作将选中<cite>alternative</cite>作为该样式属性的可选值。</p>
 <dl class="docutils">
 <dt><cite>preference</cite></dt>
-<dd>A string giving the name of the style preference.</dd>
+<dd>作为样式设置名称的字符串。</dd>
 <dt><cite>alternative</cite></dt>
-<dd>A string giving the name of the alternative.</dd>
+<dd>作为可选值名称的字符串。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.get_style_preference">
 <tt class="descclassname">renpy.</tt><tt class="descname">get_style_preference</tt><big>(</big><em>preference</em><big>)</big><a class="headerlink" href="#renpy.get_style_preference" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a string giving the name of the selected alternative for the named style preference.</p>
+<dd><p>返回指定的样式设置的当前使用的可选值的名称。</p>
 <dl class="docutils">
-<dt><cite>preference</cite></dt>
-<dd>A string giving the name of the style preference.</dd>
+<dt><cite>preference </cite></dt>
+<dd>内容为样式设置名称的字符串。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.register_style_preference">
 <tt class="descclassname">renpy.</tt><tt class="descname">register_style_preference</tt><big>(</big><em>preference</em>, <em>alternative</em>, <em>style</em>, <em>property</em>, <em>value</em><big>)</big><a class="headerlink" href="#renpy.register_style_preference" title="Permalink to this definition">¶</a></dt>
-<dd><p>Registers information about an alternative for a style preference.</p>
+<dd><p>在样式设置中，注册可选值的信息。</p>
 <dl class="docutils">
 <dt><cite>preference</cite></dt>
-<dd>A string, the name of the style preference.</dd>
+<dd>作为样式设置名称的字符串。</dd>
 <dt><cite>alternative</cite></dt>
-<dd>A string, the name of the alternative.</dd>
-<dt><cite>style</cite></dt>
-<dd>The style that will be updated. This may be a style object or a string giving the style name.</dd>
+<dd>作为可选值名称的字符串。</dd>
+<dt><cite>style </cite></dt>
+<dd>此处可以是一个样式对象，或是作为样式名称的字符串。对应的样式将被更新。</dd>
 <dt><cite>property</cite></dt>
-<dd>A string giving the name of the style property that will be update.</dd>
+<dd>将被更新的样式属性的作为名称的字符串。</dd>
 <dt><cite>value</cite></dt>
-<dd>The value that will be assigned to the style property.</dd>
+<dd>将要分配给样式属性的属性值。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="renpy.set_style_preference">
 <tt class="descclassname">renpy.</tt><tt class="descname">set_style_preference</tt><big>(</big><em>preference</em>, <em>alternative</em><big>)</big><a class="headerlink" href="#renpy.set_style_preference" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the selected alternative for the style preference.</p>
+<dd><p>将样式设置设为选中的可选值。</p>
+<p>Sets the selected alternative for the style preference.</p>
 <dl class="docutils">
-<dt><cite>preference</cite></dt>
+<dt><cite>preference  #选项</cite></dt>
+<dd>作为样式设置名称的字符串。</dd>
 <dd>A string giving the name of the style preference.</dd>
 <dt><cite>alternative</cite></dt>
+<dd>作为可选值名称的字符串。</dd>
 <dd>A string giving the name of the alternative.</dd>
 </dl>
 </dd></dl>
 
-<p>Here's an example of registering a style property that allows the user to
-choose between large, simple text and smaller outlined text.</p>
+<p>下面是一个注册样式属性的例子，让用户选择文本字体的大小，和缩小字体的轮廓。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
     <span class="n">renpy</span><span class="o">.</span><span class="n">register_style_preference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;decorated&quot;</span><span class="p">,</span> <span class="k">style</span><span class="o">.</span><span class="n">say_dialogue</span><span class="p">,</span> <span class="s">&quot;outlines&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;#000&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">])</span>
     <span class="n">renpy</span><span class="o">.</span><span class="n">register_style_preference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;decorated&quot;</span><span class="p">,</span> <span class="k">style</span><span class="o">.</span><span class="n">say_dialogue</span><span class="p">,</span> <span class="s">&quot;size&quot;</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span>
@@ -374,25 +320,21 @@ choose between large, simple text and smaller outlined text.</p>
     <span class="n">renpy</span><span class="o">.</span><span class="n">register_style_preference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;large&quot;</span><span class="p">,</span> <span class="k">style</span><span class="o">.</span><span class="n">say_dialogue</span><span class="p">,</span> <span class="s">&quot;size&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The following code will allow the user to select these alternatives using
-buttons:</p>
+<p>下面的代码能让玩家通过按钮来调整可选值。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">textbutton</span> <span class="s">&quot;Decorated&quot;</span> <span class="na">action</span> <span class="n">StylePreference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;decorated&quot;</span><span class="p">)</span>
 <span class="k">textbutton</span> <span class="s">&quot;Large&quot;</span> <span class="na">action</span> <span class="n">StylePreference</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;large&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="other-style-functions">
-<h3>Other Style Functions<a class="headerlink" href="#other-style-functions" title="Permalink to this headline">¶</a></h3>
+<h3>其他样式函数<a class="headerlink" href="#other-style-functions" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="style.rebuild">
 <tt class="descclassname">style.</tt><tt class="descname">rebuild</tt><big>(</big><big>)</big><a class="headerlink" href="#style.rebuild" title="Permalink to this definition">¶</a></dt>
-<dd><p>This causes named styles to be rebuilt, allowing styles to be
-changed outside of init code.</p>
+<dd><p>该函数将重构指定样式，允许在初始化代码以外进行修改。</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Named styles are not saved as part of the per-game data. This
-means that changes to them will not be persisted through a save
-and load cycle.</p>
+<p class="first admonition-title">Warning  #注意</p>
+<p class="last">指名的样式不会被存到每个游戏数据中，这意味着，这些改变将不会记录在存档里。</p>
 </div>
 </dd></dl>
 
