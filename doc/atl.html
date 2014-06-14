@@ -128,7 +128,7 @@
 <strong id="grammar-token-atl_transform">atl_transform</strong> 定义为  &quot;transform&quot; <tt class="xref docutils literal"><span class="pre">变换名称</span></tt> &quot;(&quot; <tt class="xref docutils literal"><span class="pre">参数</span></tt> &quot;)&quot; &quot;:&quot;
                       <tt class="xref docutils literal"><span class="pre">ATL 区块</span></tt>
 </pre>
-<p>transform命令必须在初始化时运行。如果它不再一个init区块里的话，它会以优先度0在程序初始化时运行。Transform对象可以带参数，表示当调用它时需要向它提供的参数。</p>
+<p>transform命令必须在初始化时运行。如果它不在一个init区块里的话，它会以优先度0在程序初始化时运行。Transform对象可以带参数，表示当调用它时需要向它提供的参数。</p>
 <p><cite>变换名称</cite>必须是一个python标识符。该transform创建的对象将被绑定到这个名称上：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">transform</span> <span class="n">left_to_right</span><span class="p">:</span>
     <span class="na">xalign</span> <span class="mf">0.0</span>
