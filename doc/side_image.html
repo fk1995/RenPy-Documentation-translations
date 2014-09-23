@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Side Images &mdash; Ren&#39;Py Documentation</title>
+    <title>对话框头像 &mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,21 +57,21 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Side Images</a><ul>
-<li><a class="reference internal" href="#invisible-characters">Invisible Characters</a></li>
-<li><a class="reference internal" href="#variations">Variations</a></li>
-<li><a class="reference internal" href="#leaving-room-customization">Leaving Room / Customization</a></li>
+<li><a class="reference internal" href="#">对话框头像</a><ul>
+<li><a class="reference internal" href="#invisible-characters">隐藏的角色</a></li>
+<li><a class="reference internal" href="#variations">变种</a></li>
+<li><a class="reference internal" href="#leaving-room-customization">其他 / 自定义相关</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="input.html"
-                        title="previous chapter">Text Input</a></p>
+                        title="previous chapter">文本输入</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="rooms.html"
-                        title="next chapter">Image Gallery, Music Room, and Replay Actions</a></p>
-            <h4>Search</h4>
+                        title="next chapter">鉴赏</a></p>
+            <h4>搜索</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
 
@@ -91,24 +91,15 @@
           <div class="body">
             
   <div class="section" id="side-images">
-<span id="id1"></span><h1>Side Images<a class="headerlink" href="#side-images" title="Permalink to this headline">¶</a></h1>
-<p>Many visual novels include a picture of the character that is speaking as
-part of their interface. Ren'Py calls this image a side image, and has
-support for automatically selecting and displaying a side image as part
-of the dialogue.</p>
-<p>The side image support assumes that a <a class="reference internal" href="dialogue.html#Character" title="Character"><tt class="xref py py-func docutils literal"><span class="pre">Character()</span></tt></a> is declared with
-a linked image tag:</p>
+<span id="id1"></span><h1>对话框头像<a class="headerlink" href="#side-images" title="Permalink to this headline">¶</a></h1>
+<p>许多视觉小说当中都包含了在角色对话当中只显示其面部图像的功能。Ren'Py将他们称为对话框头像，此功能支持自动选择并在对话中显示对话框头像。</p>
+<p>使用对话框头像的时候，Ren'Py默认您的这个<a class="reference internal" href="dialogue.html#Character" title="Character"><tt class="xref py py-func docutils literal"><span class="pre">Character()</span></tt></a>对象有一个关联的图像标签：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span> <span class="k">image</span><span class="o">=</span><span class="s">&quot;eileen&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>When a character with a linked image tag speaks, Ren'Py creates a pool of
-image attributes. The linked image tag is added to this pool, as are the
-current image attributes that are associated with that tag.</p>
-<p>To determine the side image associated with a tag, Ren'Py tries to find
-an image with the tag &quot;side&quot;, and the largest number of attributes from
-the pool. If no image can be found, or more than one image has the same
-number of attributes, an <a class="reference internal" href="displayables.html#Null" title="Null"><tt class="xref py py-class docutils literal"><span class="pre">Null</span></tt></a> is shown instead.</p>
-<p>For example, say we have the following script:</p>
+<p>当这样的角色说话时 ，Ren'Py将创建一个关于图像属性的池，这个角色所关联的图像标签以及与该图像标签关联的图像属性都会被添加到这个池里。</p>
+<p>为了确定使用的头像， Ren'Py 将试图从池检索所有带有&quot;side&quot;标签属性的图像,  如果没有图像被检索到，或者一个以上的图像具有相同的属性， 将会显示一个<a class="reference internal" href="displayables.html#Null" title="Null"><tt class="xref py py-class docutils literal"><span class="pre">Null</span></tt></a>对象。</p>
+<p>比如，我们有下列脚本：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span> <span class="k">image</span><span class="o">=</span><span class="s">&quot;eileen&quot;</span><span class="p">)</span>
 
 <span class="k">image</span> <span class="n">eileen</span> <span class="n">happy</span> <span class="o">=</span> <span class="s">&quot;eileen_happy.png&quot;</span>
@@ -126,22 +117,16 @@ number of attributes, an <a class="reference internal" href="displayables.html#N
     <span class="n">e</span> <span class="n">concerned</span> <span class="s">&quot;And this one is point B.&quot;</span>
 </pre></div>
 </div>
-<p>At point A, the character <tt class="docutils literal"><span class="pre">e</span></tt> is speaking, which is linked to the image
-tag &quot;eileen&quot;. The &quot;eileen happy&quot; image is showing, so the pool of attributes
-is &quot;eileen&quot; and &quot;happy&quot;. We look for an image with the &quot;side&quot; tag, and as
-many of those attributes as possible - and we match &quot;side eileen happy&quot;,
-which is the side image Ren'Py will display.</p>
-<p>At point B, the &quot;eileen concerned&quot; image is showing. The pool of attributes
-is now &quot;eileen&quot; and &quot;concerned&quot;. The only matching image is &quot;side eileen&quot;,
-so that's what Ren'Py selects. If there was a &quot;side concerned&quot; image, there
-would be ambiguity, and Ren'Py wouldn't display an image.</p>
+<p>在point A, 角色 <tt class="docutils literal"><span class="pre">e</span></tt> 正在说话，而她与图像标签 &quot;eileen&quot;相关联。&quot;eileen happy&quot; 的图像被显示, 所以池中的图像属性就是
+&quot;eileen&quot; 和 &quot;happy&quot;。 接下来让我们尽可能的寻找和 &quot;side&quot; 有关的标签属性 - 于是我们找到了 &quot;side eileen happy&quot;这些属性,
+于是Ren'Py 将显示和这些属性匹配的对话框头像。</p>
+<p>在 point B,&quot;eileen concerned&quot; 图像被显示. 池中的属性现在便是
+ &quot;eileen&quot; and &quot;concerned&quot;。 所匹配的图像只有 &quot;side eileen&quot;,
+所以Ren'Py筛选了他们。 如果这里只有 &quot;side concerned&quot; 图像， 这里将会有歧义， 于是 Ren'Py 不会显示图像。</p>
 <div class="section" id="invisible-characters">
-<h2>Invisible Characters<a class="headerlink" href="#invisible-characters" title="Permalink to this headline">¶</a></h2>
-<p>Another use of the side image is to show an image of the player character,
-when that character has dialogue. The way to do this is to link an image to
-the character, and then use the say with attributes construct to select
-the side image to show.</p>
-<p>For example:</p>
+<h2>隐藏的角色<a class="headerlink" href="#invisible-characters" title="Permalink to this headline">¶</a></h2>
+<p>另一个关于对话框头像的用法是，当角色有台词的时候，您可以用对话框头像的方式来限时角色立绘。具体用法是：为角色指定一张图像，然后让其以对话框头像属性的方式来显示。</p>
+<p>示例:</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Player&quot;</span><span class="p">,</span> <span class="k">image</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">)</span>
 
 <span class="k">image</span> <span class="k">side</span> <span class="n">player</span> <span class="n">happy</span> <span class="o">=</span> <span class="s">&quot;side_player_happy.png&quot;</span>
@@ -158,52 +143,43 @@ the side image to show.</p>
 </div>
 </div>
 <div class="section" id="variations">
-<h2>Variations<a class="headerlink" href="#variations" title="Permalink to this headline">¶</a></h2>
-<p>There are two variants of side image support that can be selected - either alone
-or together - using config variables:</p>
+<h2>变种<a class="headerlink" href="#variations" title="Permalink to this headline">¶</a></h2>
+<p>以下有两个用于支持对话框头像的配置方式 - 单独或者一起使用 - 请使用配置变量：</p>
 <dl class="var">
 <dt id="var-config.side_image_tag">
 <tt class="descname">config.side_image_tag</tt> = None<a class="headerlink" href="#var-config.side_image_tag" title="Permalink to this definition">¶</a></dt>
-<dd><p>If this is given, then the side image will track the given image tag,
-rather than the image associated with currently speaking character. For example,</p>
+<dd><p>如果给出了具体的值, 对话框头像就会跟踪给定的图像标签，而不是正在说话角色所关联的图像。例如，</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">define</span> <span class="n">e</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span> <span class="k">image</span><span class="o">=</span><span class="s">&quot;eileen&quot;</span><span class="p">)</span>
 
 <span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="n">config</span><span class="o">.</span><span class="n">side_image_tag</span> <span class="o">=</span> <span class="s">&quot;eileen&quot;</span>
 </pre></div>
 </div>
-<p>Will make the side image track the &quot;eileen&quot; image tag, which is associated
-with the <tt class="docutils literal"><span class="pre">e</span></tt> character.</p>
+<p>以上语句将会使对话框头像跟踪&quot;eileen&quot; 图像标签,并与角色
+<tt class="docutils literal"><span class="pre">e</span></tt>相关联。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.side_image_only_not_showing">
 <tt class="descname">config.side_image_only_not_showing</tt> = False<a class="headerlink" href="#var-config.side_image_only_not_showing" title="Permalink to this definition">¶</a></dt>
-<dd><p>When set to true, the side image will only show if an image with that tag
-is not already being shown on the screen.</p>
+<dd><p>当设定为 True 时, 对话框头像将只在被关联图像（立绘）不被显示的时候显示。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="leaving-room-customization">
-<h2>Leaving Room / Customization<a class="headerlink" href="#leaving-room-customization" title="Permalink to this headline">¶</a></h2>
-<p>By default, the entire width of the screen is taken up by the text. If one
-tries to display a side image, it will be displayed on top of the text. To
-fix this, one should include margin or padding on the appropriate side of
-the text window, using code like:</p>
+<h2>其他 / 自定义相关<a class="headerlink" href="#leaving-room-customization" title="Permalink to this headline">¶</a></h2>
+<p>一般情况下，文字的宽度和屏幕的宽度基本一样。 如果您打算让对话框头像显示，他将会显示在文字的上面。为了修正这个问题， 一种是 将 margin 或 padding 放在文本适当位置，代码如下：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
      <span class="k">style</span><span class="o">.</span><span class="k">window</span><span class="o">.</span><span class="n">padding_left</span> <span class="o">=</span> <span class="mi">150</span>
 </pre></div>
 </div>
-<p>The position of the side image can be changed by customizing the <tt class="docutils literal"><span class="pre">say</span></tt>
-or <tt class="docutils literal"><span class="pre">nvl</span></tt> screens. Both include the line:</p>
+<p>对话框头像的位置可以通过自定义 <tt class="docutils literal"><span class="pre">say</span></tt>
+或 <tt class="docutils literal"><span class="pre">nvl</span></tt> 来修改。 同时包括以下两种：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">add</span> <span class="n">SideImage</span><span class="p">()</span> <span class="na">xalign</span> <span class="mf">0.0</span> <span class="na">yalign</span> <span class="mf">1.0</span>
 </pre></div>
 </div>
-<p>By changing the xalign and yalign properties, you can control the positioning
-of the side image on the screen.</p>
-<p>Finally, the <a class="reference internal" href="screen_actions.html#SideImage" title="SideImage"><tt class="xref py py-func docutils literal"><span class="pre">SideImage()</span></tt></a> function returns, as a displayable, the
-current side image. This can be used as part of more advanced screen
-customization.</p>
+<p>通过改变 xalign 和 yalign 属性， 您可以在屏幕上控制对话框头像的位置。</p>
+<p>最后， <a class="reference internal" href="screen_actions.html#SideImage" title="SideImage"><tt class="xref py py-func docutils literal"><span class="pre">SideImage()</span></tt></a> 函数会返回现在对话框头像中的可显示对象。 您可以在较高级的自定义视屏中使用它。</p>
 </div>
 </div>
 
