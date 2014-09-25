@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Screen Actions, Values, and Functions &mdash; Ren&#39;Py Documentation</title>
+    <title>视屏操作，值和函数&mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,22 +57,22 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Screen Actions, Values, and Functions</a><ul>
-<li><a class="reference internal" href="#actions">Actions</a><ul>
-<li><a class="reference internal" href="#control-actions">Control Actions</a></li>
-<li><a class="reference internal" href="#data-actions">Data Actions</a></li>
-<li><a class="reference internal" href="#menu-actions">Menu Actions</a></li>
-<li><a class="reference internal" href="#file-actions">File Actions</a></li>
-<li><a class="reference internal" href="#audio-actions">Audio Actions</a></li>
-<li><a class="reference internal" href="#other-actions">Other Actions</a></li>
+<li><a class="reference internal" href="#">视屏操作，值和函数</a><ul>
+<li><a class="reference internal" href="#actions">操作</a><ul>
+<li><a class="reference internal" href="#control-actions">控制操作</a></li>
+<li><a class="reference internal" href="#data-actions">数据操作</a></li>
+<li><a class="reference internal" href="#menu-actions">菜单操作</a></li>
+<li><a class="reference internal" href="#file-actions">文件操作</a></li>
+<li><a class="reference internal" href="#audio-actions">音频操作</a></li>
+<li><a class="reference internal" href="#other-actions">其他操作</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#values">Values</a></li>
-<li><a class="reference internal" href="#functions-and-classes">Functions and Classes</a><ul>
-<li><a class="reference internal" href="#preferences">Preferences</a></li>
-<li><a class="reference internal" href="#file-functions">File Functions</a></li>
-<li><a class="reference internal" href="#side-image-functions">Side Image Functions</a></li>
-<li><a class="reference internal" href="#tooltips">Tooltips</a></li>
+<li><a class="reference internal" href="#values">值</a></li>
+<li><a class="reference internal" href="#functions-and-classes">函数和类</a><ul>
+<li><a class="reference internal" href="#preferences">设置选项</a></li>
+<li><a class="reference internal" href="#file-functions">文件函数</a></li>
+<li><a class="reference internal" href="#side-image-functions">对话框头像函数</a></li>
+<li><a class="reference internal" href="#tooltips">帮助信息条</a></li>
 </ul>
 </li>
 </ul>
@@ -81,11 +81,11 @@
 
   <h4>上一节</h4>
   <p class="topless"><a href="screens.html"
-                        title="previous chapter">Screens and Screen Language</a></p>
+                        title="previous chapter">视屏和视屏语言</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="screen_special.html"
-                        title="next chapter">Special Screen Names</a></p>
-            <h4>Search</h4>
+                        title="next chapter">有特殊含义的视屏</a></p>
+            <h4>搜索</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
 
@@ -105,499 +105,434 @@
           <div class="body">
             
   <div class="section" id="screen-actions-values-and-functions">
-<span id="screen-actions"></span><h1>Screen Actions, Values, and Functions<a class="headerlink" href="#screen-actions-values-and-functions" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py ships with a number of actions, values, and functions intended
-for use with screens and the screen language.</p>
+<span id="screen-actions"></span><h1>视屏操作，值和函数<a class="headerlink" href="#screen-actions-values-and-functions" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py有一些专为视屏语言配套设计的操作，值以及函数。</p>
 <div class="section" id="actions">
-<h2>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h2>
-<p>Actions are invoked when a button (including imagebuttons,
-textbuttons, and hotspots) is activated, hovered, or
-unhovered. Actions may determine when a button is selected or
-insensitive.</p>
-<p>Along with these actions, an action may be a function that does not
-take any arguments. The function is called when the action is
-invoked. If the action returns a value, then the value is returned
-from an interaction.</p>
-<p>An action may also be a list of actions, in which case the actions in
-the list are run in order.</p>
+<h2>操作<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h2>
+<p>视屏操作会在按钮被激活，获焦或者失焦时背执行。某些操作会决定按钮是否处于敏感和选中状态。</p>
+<p>除了这些操作外，action属性也可以是一个不带任何参数的函数。当需要执行操作时，这个函数将被执行。如果这个函数有返回值，它会作为交互的返回值被返回。</p>
+<p>action也可以是一个由操作组成的列表，这些操作会被依次执行。</p>
 <div class="section" id="control-actions">
-<h3>Control Actions<a class="headerlink" href="#control-actions" title="Permalink to this headline">¶</a></h3>
-<p>These are actions that manage screens, interaction results, and control flow.</p>
+<h3>控制操作<a class="headerlink" href="#control-actions" title="Permalink to this headline">¶</a></h3>
+<p>以下这些操作可以管理视屏，处理交互结果，以及处理控制流。</p>
 <dl class="function">
 <dt id="Hide">
 <tt class="descname">Hide</tt><big>(</big><em>screen</em>, <em>transition=None</em><big>)</big><a class="headerlink" href="#Hide" title="Permalink to this definition">¶</a></dt>
-<dd><p>This causes the screen named <cite>screen</cite> to be hidden, if it is shown.</p>
+<dd><p>该操作将会使名为<cite>screen</cite>的视屏被隐藏，如果它处于显示状态的话。</p>
 <dl class="docutils">
 <dt><cite>transition</cite></dt>
-<dd>If not None, a transition that occurs when hiding the screen.</dd>
+<dd>如果不是None，则为隐藏该视屏时使用的转场特效。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="Jump">
 <tt class="descname">Jump</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#Jump" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes control to transfer to the given label. This can be used in
-conjunction with renpy.run_screen to define an imagemap that jumps
-to a label when run.</p>
+<dd><p>将导致脚本执行器跳转到指定的标签。这个操作可以和renpy.run_screen配合使用，来定义一个用于决定目的地的热点地图。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="NullAction">
 <tt class="descname">NullAction</tt><big>(</big><big>)</big><a class="headerlink" href="#NullAction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does nothing.</p>
-<p>This can be used to make a button responsive to hover/unhover events,
-without actually doing anything.</p>
+<dd><p>什么也不做。</p>
+<p>这个操作可以使按钮能够对hover和unhover事件作出响应，但是点击它不会发生任何事情。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="Return">
 <tt class="descname">Return</tt><big>(</big><em>value=None</em><big>)</big><a class="headerlink" href="#Return" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes the current interaction to return the supplied value. This is
-often used with menus and imagemaps, to select what the return value
-of the interaction is.</p>
-<p>When in a menu, this returns from the menu.</p>
+<dd><p>该操作将返回给定的值，作为交互的返回值。这个操作经常用于菜单和热点地图，这样系统便能知道玩家做出的选择到底是什么。</p>
+<p>在菜单中的话，该操作将退出菜单。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="Show">
 <tt class="descname">Show</tt><big>(</big><em>screen</em>, <em>transition=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#Show" title="Permalink to this definition">¶</a></dt>
-<dd><p>This causes another screen to be shown. <cite>screen</cite> is a string
-giving the name of the screen. The keyword arguments are
-passed to the screen being shown.</p>
-<p>If not None, <cite>transition</cite> is use to show the new screen.</p>
+<dd><p>此操作会显示另一个视屏。<cite>screen</cite>是该视屏的名称。关键字参数会传递给被显示的视屏。</p>
+<p>如果不是None，系统将使用<cite>transition</cite>作为转场特效。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="ShowTransient">
 <tt class="descname">ShowTransient</tt><big>(</big><em>screen</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#ShowTransient" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shows a transient screen. A transient screen will be hidden when
-the current interaction completes.</p>
+<dd><p>显示一个过渡视屏。该视屏将在此交互结束后被隐藏。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="data-actions">
-<h3>Data Actions<a class="headerlink" href="#data-actions" title="Permalink to this headline">¶</a></h3>
-<p>These set or toggle data.</p>
+<h3>数据操作<a class="headerlink" href="#data-actions" title="Permalink to this headline">¶</a></h3>
+<p>这些操作可以设置或者调整数据。</p>
 <dl class="function">
 <dt id="SetDict">
 <tt class="descname">SetDict</tt><big>(</big><em>dict</em>, <em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#SetDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes the value of <cite>key</cite> in <cite>dict</cite> to be set to <cite>value</cite>.</p>
+<dd><p>此操作将会把<cite>dict</cite>字典里的键<cite>key</cite>的值设置为<cite>value</cite>。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="SetField">
 <tt class="descname">SetField</tt><big>(</big><em>object</em>, <em>field</em>, <em>value</em><big>)</big><a class="headerlink" href="#SetField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes the a field on an object to be set to a given value.
-<cite>object</cite> is the object, <cite>field</cite> is a string giving the name of the
-field to set, and <cite>value</cite> is the value to set it to.</p>
+<dd><p>将一个对象的域设置为一个给定值。
+<cite>object</cite>是要设置的对象，<cite>field</cite>是域名的字符串，<cite>value</cite>是要设置成的值。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="SetScreenVariable">
 <tt class="descname">SetScreenVariable</tt><big>(</big><em>name</em>, <em>value</em><big>)</big><a class="headerlink" href="#SetScreenVariable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes the variable <cite>name</cite> associated with the current screen to
-be set to <cite>value</cite>.</p>
+<dd><p>将导致当前视屏作用域内的变量<cite>name</cite>的值变成<cite>value</cite>。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="SetVariable">
 <tt class="descname">SetVariable</tt><big>(</big><em>variable</em>, <em>value</em><big>)</big><a class="headerlink" href="#SetVariable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes <cite>variable</cite> to be set to <cite>value</cite>.</p>
+<dd><p>将变量<cite>variable</cite>的值设置为<cite>value</cite>。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="ToggleDict">
 <tt class="descname">ToggleDict</tt><big>(</big><em>dict</em>, <em>key</em>, <em>true_value=None</em>, <em>false_value=None</em><big>)</big><a class="headerlink" href="#ToggleDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Toggles the value of <cite>key</cite> in <cite>dict</cite>. Toggling means to invert the
-value when the action is performed.</p>
+<dd><p>切换<cite>dict</cite>字典的<cite>key</cite>的值。切换的意思是如果原来它的值是True（或者给定的值），那么将改成False（或者给定的值）；如果原来是False则改成True。其他情况下，不发生变化。</p>
 <dl class="docutils">
 <dt><cite>true_value</cite></dt>
-<dd>If not None, then this is the true value we use.</dd>
+<dd>如果不是None，则为处于True状态下我们使用的值。</dd>
 <dt><cite>false_value</cite></dt>
-<dd>If not None, then this is the false value we use.</dd>
+<dd>如果不是None，则为处于False状态下我们使用的值。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ToggleField">
 <tt class="descname">ToggleField</tt><big>(</big><em>object</em>, <em>field</em>, <em>true_value=None</em>, <em>false_value=None</em><big>)</big><a class="headerlink" href="#ToggleField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Toggles <cite>field</cite> on <cite>object</cite>. Toggling means to invert the boolean
-value of that field when the action is performed.</p>
+<dd><p>切换<cite>object</cite>对象的<cite>field</cite>域。切换的意思和上面一样。 </p>
 <dl class="docutils">
 <dt><cite>true_value</cite></dt>
-<dd>If not None, then this is the true value we use.</dd>
+<dd>如果不是None，则为处于True状态下我们使用的值。</dd>
 <dt><cite>false_value</cite></dt>
-<dd>If not None, then this is the false value we use.</dd>
+<dd>如果不是None，则为处于False状态下我们使用的值。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ToggleScreenVariable">
 <tt class="descname">ToggleScreenVariable</tt><big>(</big><em>name</em>, <em>true_value=None</em>, <em>false_value=None</em><big>)</big><a class="headerlink" href="#ToggleScreenVariable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Toggles the value of the variable <cite>name</cite> in the current screen.</p>
+<dd><p>切换此视屏作用域内的变量<cite>name</cite>的值。</p>
 <dl class="docutils">
 <dt><cite>true_value</cite></dt>
-<dd>If not None, then this is the true value we use.</dd>
+<dd>如果不是None，则为处于True状态下我们使用的值。</dd>
 <dt><cite>false_value</cite></dt>
-<dd>If not None, then this is the false value we use.</dd>
+<dd>如果不是None，则为处于False状态下我们使用的值。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ToggleVariable">
 <tt class="descname">ToggleVariable</tt><big>(</big><em>variable</em>, <em>true_value=None</em>, <em>false_value=None</em><big>)</big><a class="headerlink" href="#ToggleVariable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Toggles <cite>variable</cite>.</p>
+<dd><p>切换<cite>variable</cite>的值。</p>
 <dl class="docutils">
 <dt><cite>true_value</cite></dt>
-<dd>If not None, then this is the true value we use.</dd>
+<dd>如果不是None，则为处于True状态下我们使用的值。</dd>
 <dt><cite>false_value</cite></dt>
-<dd>If not None, then this is the false value we use.</dd>
+<dd>如果不是None，则为处于False状态下我们使用的值。</dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="menu-actions">
-<h3>Menu Actions<a class="headerlink" href="#menu-actions" title="Permalink to this headline">¶</a></h3>
-<p>These actions invoke menus, or are primarily useful while in the main
-or game menus.</p>
+<h3>菜单操作<a class="headerlink" href="#menu-actions" title="Permalink to this headline">¶</a></h3>
+<p>这些操作可以唤出菜单，或者主要是菜单内使用的动作。</p>
 <dl class="function">
 <dt id="MainMenu">
 <tt class="descname">MainMenu</tt><big>(</big><em>confirm=True</em><big>)</big><a class="headerlink" href="#MainMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes Ren'Py to return to the main menu.</p>
+<dd><p>将导致Ren'Py返回主菜单。</p>
 <dl class="docutils">
 <dt><cite>confirm</cite></dt>
-<dd>If true, causes Ren'Py to ask the user if he wishes to
-return to the main menu, rather than returning
-directly.</dd>
+<dd>若为True,Ren'Py会在退回主菜单时进行确认，而不是直接返回。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="Quit">
 <tt class="descname">Quit</tt><big>(</big><em>confirm=True</em><big>)</big><a class="headerlink" href="#Quit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Quits the game.</p>
+<dd><p>退出游戏。</p>
 <dl class="docutils">
 <dt><cite>confirm</cite></dt>
-<dd>If true, prompts the user if he wants to quit, rather
-than quitting directly.</dd>
+<dd>若为True，将先询问用户是否真的想退出游戏，而不是直接退出。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ShowMenu">
 <tt class="descname">ShowMenu</tt><big>(</big><em>screen=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#ShowMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes us to enter the game menu, if we're not there already. If we
-are in the game menu, then this shows a screen or jumps to a label.</p>
-<p><cite>screen</cite> is usually the name of a screen, which is shown using
-the screen mechanism. If the screen doesn't exist, then &quot;_screen&quot;
-is appended to it, and that label is jumped to.</p>
+<dd><p>将导致玩家进入菜单。如果已经在菜单内里了，这将显示一个视屏或者跳到一个标签。</p>
+<p><cite>screen</cite>通常是视屏的名称。如果该视屏不存在，那么将在此名称后面加上 &quot;_screen&quot;，并跳转到该标签。</p>
 <ul class="simple">
 <li>ShowMenu(&quot;load&quot;)</li>
 <li>ShowMenu(&quot;save&quot;)</li>
 <li>ShowMenu(&quot;preferences&quot;)</li>
 </ul>
-<p>This can also be used to show user-defined menu screens. For
-example, if one has a &quot;stats&quot; screen defined, one can
-show it as part of the game menu using:</p>
+<p>此操作也可以显示开发者定义的菜单视屏。比如说，如果定义了一个&quot;stats&quot;视屏，您可以将它作为菜单的一部分来使用，代码如下：</p>
 <ul class="simple">
 <li>ShowMenu(&quot;stats&quot;)</li>
 </ul>
-<p>ShowMenu without an argument will enter the game menu at the
-default screen, taken from _game_menu_screen.</p>
-<p>Extra arguments and kewyord arguments are passed on to the screen</p>
+<p>不带参数的ShowMenu操作会进入默认的游戏菜单。该菜单的名称是_game_menu_screen决定的。您可以在游戏运行中修改它来做到在游戏的不同阶段进入不同的菜单。</p>
+<p>额外的参数和关键字参数会传递给显示的视屏。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="Start">
 <tt class="descname">Start</tt><big>(</big><em>label='start'</em><big>)</big><a class="headerlink" href="#Start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes Ren'Py to jump out of the menu context to the named
-label. The main use of this is to start a new game from the
-main menu. Common uses are:</p>
+<dd><p>将导致Ren'Py的脚本执行器跳出菜单的环境，跳到给定的表情。主要用于从主菜单开始新游戏。一般的用法有：</p>
 <ul class="simple">
-<li>Start() - Start at the start label.</li>
-<li>Start(&quot;foo&quot;) - Start at the &quot;foo&quot; label.</li>
+<li>Start() - 从start标签开始游戏。</li>
+<li>Start(&quot;foo&quot;) - 从&quot;foo&quot;标签开始游戏。</li>
 </ul>
 </dd></dl>
 
 </div>
 <div class="section" id="file-actions">
-<h3>File Actions<a class="headerlink" href="#file-actions" title="Permalink to this headline">¶</a></h3>
-<p>These actions handle saving, loading, and deleting of files. Many of these
-take the <cite>name</cite> and <cite>page</cite> arguments.</p>
+<h3>文件操作<a class="headerlink" href="#file-actions" title="Permalink to this headline">¶</a></h3>
+<p>这些操作处理了存档，读档和删除存档文件相关的动作。有很多接受以下两个参数：</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the file to save to. This can be a string or an integer. It's
-combined with the page to create the filename.</dd>
+<dd>存档的名称。可以是一个字符串也可以是整数。它和页码page变量一起构成了存档文件名。</dd>
 <dt><cite>page</cite></dt>
-<dd>The page that this action acts on. This is one of &quot;auto&quot;,
-&quot;quick&quot;, or a positive integer. If None, the page is determined
-automatically, based on a persistent page number.</dd>
+<dd>该操作使用的页码数。这个值是&quot;auto&quot;,
+&quot;quick&quot;,或者一个整数。如果是None，那么这个页码会被自动决定。</dd>
 </dl>
 <dl class="function">
 <dt id="FileAction">
 <tt class="descname">FileAction</tt><big>(</big><em>name</em>, <em>page=None</em><big>)</big><a class="headerlink" href="#FileAction" title="Permalink to this definition">¶</a></dt>
-<dd><p>&quot;Does the right thing&quot; with the file. This means loading it if the
-load screen is showing, and saving to it otherwise.</p>
+<dd><p>对文件做&quot;正确的事情&quot;。也就是说如果load菜单显示的话，就读档，否则就执行存档动作。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the slot to save to or load from. If None, an unused slot
-(a large number based on the current time) will be used.</dd>
+<dd>存档槽的名称。如果为None，那么将使用一个未被使用的存档槽。</dd>
 <dt><cite>page</cite></dt>
-<dd>The page that the file will be saved to or loaded from. If None, the
-current page is used.</dd>
+<dd>存档或读档的页数。如果为None，将使用当前的页码。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileDelete">
 <tt class="descname">FileDelete</tt><big>(</big><em>name</em>, <em>confirm=True</em>, <em>page=None</em><big>)</big><a class="headerlink" href="#FileDelete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the file.</p>
+<dd><p>删除存档文件。</p>
 <dl class="docutils">
 <dt><cite>confirm</cite></dt>
-<dd>If true, prompts before deleting a file.</dd>
+<dd>若为True，将向用户确认是否要删除档案文件。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileLoad">
 <tt class="descname">FileLoad</tt><big>(</big><em>name</em>, <em>confirm=True</em>, <em>page=None</em>, <em>newest=True</em><big>)</big><a class="headerlink" href="#FileLoad" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads the file.</p>
+<dd><p>读取存档。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the slot to load from. If None, an unused slot
-the file will not be loadable.</dd>
+<dd>读取存档的名称。如果不提供则无法读档。</dd>
 <dt><cite>confirm</cite></dt>
-<dd>If true, prompt if loading the file will end the game.</dd>
+<dd>若为True，将向用户询问是否要从该文件读取。</dd>
 <dt><cite>page</cite></dt>
-<dd>The page that the file will be loaded from. If None, the
-current page is used.</dd>
+<dd>读取存档的页码。如果是None，则使用当前的页码。</dd>
 <dt><cite>newest</cite></dt>
-<dd>If true, the button is selected if this is the newest file.</dd>
+<dd>如果是true且按钮对应的存档是最新的存档，则按钮会处于选中状态。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="FilePage">
 <tt class="descname">FilePage</tt><big>(</big><em>page</em><big>)</big><a class="headerlink" href="#FilePage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the file page to <cite>page</cite>, which should be one of &quot;auto&quot;, &quot;quick&quot;,
-or an integer.</p>
+<dd><p>将页码设置为<cite>page</cite>，这个参数的值应为&quot;auto&quot;, &quot;quick&quot;,或者一个整数。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FilePageNext">
 <tt class="descname">FilePageNext</tt><big>(</big><em>max=None</em>, <em>wrap=False</em><big>)</big><a class="headerlink" href="#FilePageNext" title="Permalink to this definition">¶</a></dt>
-<dd><p>Goes to the next file page.</p>
+<dd><p>前进到下一页。</p>
 <dl class="docutils">
 <dt><cite>max</cite></dt>
-<dd>If set, this should be an integer that gives the number of
-the maximum file page we can go to.</dd>
+<dd>如果设定该参数，那么应该是指定最大页数的数字。</dd>
 <dt><cite>wrap</cite></dt>
-<dd>If true, we can go to the first page when on the last file page if max is set.</dd>
+<dd>如果为True，在最后一页使用该操作会回到第一页。（在设置了max的情况下）</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="FilePagePrevious">
 <tt class="descname">FilePagePrevious</tt><big>(</big><em>max=None</em>, <em>wrap=False</em><big>)</big><a class="headerlink" href="#FilePagePrevious" title="Permalink to this definition">¶</a></dt>
-<dd><p>Goes to the previous file page, if possible.</p>
+<dd><p>返回前一页。（如果可能的话）</p>
 <dl class="docutils">
 <dt><cite>max</cite></dt>
-<dd>If set, this should be an integer that gives the number of
-the maximum file page we can go to. This is required to enable
-wrap.</dd>
+<dd>如果设定该参数，那么应该是指定最大页数的数字。（您必须设置该参数来启用下面的wrap参数）</dd>
 <dt><cite>wrap</cite></dt>
-<dd>If true, we can go to the last page when on the first file page if max is set.</dd>
+<dd>若为True，在第一页使用该操作会回到最后一页。（在设置了max的情况下）</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileSave">
 <tt class="descname">FileSave</tt><big>(</big><em>name</em>, <em>confirm=True</em>, <em>newest=True</em>, <em>page=None</em>, <em>cycle=False</em><big>)</big><a class="headerlink" href="#FileSave" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves the file.</p>
-<p>The button with this slot is selected if it's marked as the
-newest save file.</p>
+<dd><p>保存档案。</p>
+<p>如果按钮对应的存档是最新的存档，则按钮会处于选中状态。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the slot to save to. If None, an unused slot
-(a large number based on the current time) will be used.</dd>
+<dd>存档槽的名称。如果是None则会使用一个未使用的存档槽。</dd>
 <dt><cite>confirm</cite></dt>
-<dd>If true, then we will prompt before overwriting a file.</dd>
+<dd>如果为True，在覆盖原有存档时会提醒玩家即将覆盖档案。</dd>
 <dt><cite>newest</cite></dt>
-<dd>Ignored.</dd>
+<dd>请无视此属性。（该功能已默认开启）</dd>
 <dt><cite>page</cite></dt>
-<dd>The name of the page that the slot is on. If None, the current
-page is used.</dd>
+<dd>存档所在的页数。如果是None则使用当前的存档页数。</dd>
 <dt><cite>cycle</cite></dt>
-<dd>If true, then saves on the supplied page will be cycled before
-being shown to the user.</dd>
+<dd>如果为True，那么存档将作为提供的页码的一号存档保存，而剩下的存档都会自动向后移动一位。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileTakeScreenshot">
 <tt class="descname">FileTakeScreenshot</tt><big>(</big><big>)</big><a class="headerlink" href="#FileTakeScreenshot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take a screenshot to be used when the game is saved. This can
-be used to ensure that the screenshot is accurate, by taking
-a picture of the screen before a file save screen is shown.</p>
+<dd><p>进行游戏保存时的截图。在存档视屏打开前调用该操作可以用来保证存档使用的截图是准确的。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="QuickLoad">
 <tt class="descname">QuickLoad</tt><big>(</big><big>)</big><a class="headerlink" href="#QuickLoad" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs a quick load.</p>
+<dd><p>进行快速读档。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="QuickSave">
 <tt class="descname">QuickSave</tt><big>(</big><em>message='Quick save complete.'</em>, <em>newest=False</em><big>)</big><a class="headerlink" href="#QuickSave" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs a quick save.</p>
+<dd><p>进行快速存档。</p>
 <dl class="docutils">
 <dt><cite>message</cite></dt>
-<dd>A message to display to the user when the quick save finishes.</dd>
+<dd>当快速存档结束时显示的信息。</dd>
 <dt><cite>newest</cite></dt>
-<dd>Set to true to mark the quicksave as the newest save.</dd>
+<dd>如果此参数为True，那么快速存档会被标记为最新存档。</dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="audio-actions">
-<h3>Audio Actions<a class="headerlink" href="#audio-actions" title="Permalink to this headline">¶</a></h3>
+<h3>音频操作<a class="headerlink" href="#audio-actions" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="Play">
 <tt class="descname">Play</tt><big>(</big><em>channel</em>, <em>file</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#Play" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes an audio file to be played on a given channel.</p>
+<dd><p>在指定频道播放音频文件。</p>
 <dl class="docutils">
 <dt><cite>channel</cite></dt>
-<dd>The channel to play the sound on.</dd>
+<dd>用于播放音频的频道。</dd>
 <dt><cite>file</cite></dt>
-<dd>The file to play.</dd>
+<dd>用于播放的文件。</dd>
 </dl>
-<p>Any keyword arguments are passed to <a class="reference internal" href="audio.html#renpy.music.play" title="renpy.music.play"><tt class="xref py py-func docutils literal"><span class="pre">renpy.music.play()</span></tt></a></p>
+<p>其他的关键字参数将传递给<a class="reference internal" href="audio.html#renpy.music.play" title="renpy.music.play"><tt class="xref py py-func docutils literal"><span class="pre">renpy.music.play()</span></tt></a>。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="Queue">
 <tt class="descname">Queue</tt><big>(</big><em>channel</em>, <em>file</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#Queue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes an audio file to be queued on a given channel.</p>
+<dd><p>将音频文件加入指定频道的队列。</p>
 <dl class="docutils">
 <dt><cite>channel</cite></dt>
-<dd>The channel to play the sound on.</dd>
+<dd>用于播放音频的频道。</dd>
 <dt><cite>file</cite></dt>
-<dd>The file to play.</dd>
+<dd>要播放的文件。</dd>
 </dl>
-<p>Any keyword arguments are passed to <a class="reference internal" href="audio.html#renpy.music.queue" title="renpy.music.queue"><tt class="xref py py-func docutils literal"><span class="pre">renpy.music.queue()</span></tt></a></p>
+<p>其他的关键字参数将传递给<a class="reference internal" href="audio.html#renpy.music.queue" title="renpy.music.queue"><tt class="xref py py-func docutils literal"><span class="pre">renpy.music.queue()</span></tt></a>。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="SetMixer">
 <tt class="descname">SetMixer</tt><big>(</big><em>mixer</em>, <em>volume</em><big>)</big><a class="headerlink" href="#SetMixer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the volume of <cite>mixer</cite> to <cite>value</cite>.</p>
+<dd><p>设置<cite>mixer</cite>的音量为<cite>value</cite>.</p>
 <dl class="docutils">
 <dt><cite>mixer</cite></dt>
-<dd>The mixer to set the volume of. A string, usually one of
-&quot;music&quot;, &quot;sfx&quot;, or &quot;voice&quot;.</dd>
+<dd>要改变音量的mixer名称。是一个字符串，通常是
+&quot;music&quot;, &quot;sfx&quot;, or &quot;voice&quot;之一。</dd>
 <dt><cite>value</cite></dt>
-<dd>The value to set the volume to. A number between 0.0 and 1.0,
-inclusive.</dd>
+<dd>目标音量。应在0.0和1.0之间（包括0.0和1.0）。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="Stop">
 <tt class="descname">Stop</tt><big>(</big><em>channel</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#Stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes an audio channel to be stopped.</p>
+<dd><p>停止一个频道正在播放的音频。</p>
 <dl class="docutils">
 <dt><cite>channel</cite></dt>
-<dd>The channel to stop the sound on.</dd>
+<dd>需要停止播放的频道。</dd>
 </dl>
-<p>Any keyword arguments are passed to <a class="reference internal" href="audio.html#renpy.music.stop" title="renpy.music.stop"><tt class="xref py py-func docutils literal"><span class="pre">renpy.music.stop()</span></tt></a></p>
+<p>其他关键字参数将传递给<a class="reference internal" href="audio.html#renpy.music.stop" title="renpy.music.stop"><tt class="xref py py-func docutils literal"><span class="pre">renpy.music.stop()</span></tt></a>。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="other-actions">
-<h3>Other Actions<a class="headerlink" href="#other-actions" title="Permalink to this headline">¶</a></h3>
-<p>These are other actions, not found anywhere else.</p>
+<h3>其他操作<a class="headerlink" href="#other-actions" title="Permalink to this headline">¶</a></h3>
+<p>以下是剩下的操作。</p>
 <dl class="function">
 <dt id="Help">
 <tt class="descname">Help</tt><big>(</big><em>help=None</em><big>)</big><a class="headerlink" href="#Help" title="Permalink to this definition">¶</a></dt>
-<dd><p>Displays help.</p>
+<dd><p>显示帮助文件。</p>
 <dl class="docutils">
 <dt><cite>help</cite></dt>
-<dd>If this is a string giving a label in the programe, then
-that label is called in a new context when the button is
-chosen. Otherwise, it should be a string giving a file
-that is opened in a web browser. If None, the value of
-config.help is used in the same wayt.</dd>
+<dd>如果是游戏里的一个标签，那么将呼叫该标签。否则它应该是一个能在web浏览器里打开的文件。如果是None，那么将使用config.help，处理方法相同。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="If">
 <tt class="descname">If</tt><big>(</big><em>expression</em>, <em>true=None</em>, <em>false=None</em><big>)</big><a class="headerlink" href="#If" title="Permalink to this definition">¶</a></dt>
-<dd><p>This returns <cite>true</cite> if <cite>expression</cite> is true, and <cite>false</cite>
-otherwise. Use this to select an action based on an expression.
-Note that the default, None, can be used as an action that causes
-a button to be disabled.</p>
+<dd><p>它返回<cite>true</cite>如果<cite>expression</cite>为true，否则返回<cite>false</cite>。您可以使用该操作来根据一个表达式的不同值做出不同的操作。注意如果使用None的话会让该按钮处于非敏感状态。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="InvertSelected">
 <tt class="descname">InvertSelected</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#InvertSelected" title="Permalink to this definition">¶</a></dt>
-<dd><p>This inverts the selection state of the provided action, while
-proxying over all of the other methods.</p>
+<dd><p>该方法将撤销指定操作的效果。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="MouseMove">
 <tt class="descname">MouseMove</tt><big>(</big><em>x</em>, <em>y</em>, <em>duration=0</em><big>)</big><a class="headerlink" href="#MouseMove" title="Permalink to this definition">¶</a></dt>
-<dd><p>Move the mouse pointer to <cite>x</cite>, <cite>y</cite>. If the device does not have a mouse
-pointer or _preferences.mouse_move is False, this does nothing.</p>
+<dd><p>让鼠标指向<cite>x</cite>, <cite>y</cite>。如果设备没有鼠标或者_preferences.moust_move是False，那么什么也不会发生。</p>
 <dl class="docutils">
 <dt><cite>duration</cite></dt>
-<dd>The time it will take to perform the move, in seconds. During
-this time, the mouse may be unresponsive.</dd>
+<dd>该移动持续的时间，单位是秒。在这段时间里，鼠标会处于无法响应的状态。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="Notify">
 <tt class="descname">Notify</tt><big>(</big><em>message</em><big>)</big><a class="headerlink" href="#Notify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Displays <cite>message</cite> using <a class="reference internal" href="other.html#renpy.notify" title="renpy.notify"><tt class="xref py py-func docutils literal"><span class="pre">renpy.notify()</span></tt></a>.</p>
+<dd><p>用<a class="reference internal" href="other.html#renpy.notify" title="renpy.notify"><tt class="xref py py-func docutils literal"><span class="pre">renpy.notify()</span></tt></a>向用户显示信息<cite>message</cite> 。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="OpenURL">
 <tt class="descname">OpenURL</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#OpenURL" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes <cite>url</cite> to be opened in a web browser.</p>
+<dd><p>用网页浏览器打开给定的网址 <cite>url</cite>。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="RollForward">
 <tt class="descname">RollForward</tt><big>(</big><big>)</big><a class="headerlink" href="#RollForward" title="Permalink to this definition">¶</a></dt>
-<dd><p>This action causes a rollforward to occur, if a roll forward is
-possible. Otherwise, it is insensitive.</p>
+<dd><p>如果可以向前滚动的话，该操作将开始向前滚动剧情，否则该按钮处于非敏感状态。（正常剧情发展方向是向前发展）</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="Rollback">
 <tt class="descname">Rollback</tt><big>(</big><big>)</big><a class="headerlink" href="#Rollback" title="Permalink to this definition">¶</a></dt>
-<dd><p>This action causes a rollback to occur, when a rollback is possible.
-Otherwise, nothing happens.</p>
+<dd><p>如果可以向后滚动的话，该操作将开始向后滚动剧情。否则什么也不发生。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="Screenshot">
 <tt class="descname">Screenshot</tt><big>(</big><big>)</big><a class="headerlink" href="#Screenshot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes a screenshot.</p>
+<dd><p>截图。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="SelectedIf">
 <tt class="descname">SelectedIf</tt><big>(</big><em>expression</em><big>)</big><a class="headerlink" href="#SelectedIf" title="Permalink to this definition">¶</a></dt>
-<dd><p>This allows an expression to control if a button should be marked
-as selected. It should be used as part of a list with one or more
-actions. For example:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># The button is selected if mars_flag is True</span>
+<dd><p>该操作使用一个表达式来决定一个按钮是否处于被选中状态。它应该作为一个或者更多操作组成的列表的一部分使用。比如：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c">#如果mars_flag为True，该按钮处于被选中状态。</span>
 <span class="k">textbutton</span> <span class="s">&quot;Marsopolis&quot;</span><span class="p">:</span>
     <span class="na">action</span> <span class="p">[</span> <span class="n">Jump</span><span class="p">(</span><span class="s">&quot;mars&quot;</span><span class="p">),</span> <span class="n">SelectedIf</span><span class="p">(</span><span class="n">mars_flag</span><span class="p">)</span> <span class="p">]</span>
 </pre></div>
@@ -607,99 +542,87 @@ actions. For example:</p>
 <dl class="function">
 <dt id="Skip">
 <tt class="descname">Skip</tt><big>(</big><em>fast=False</em>, <em>confirm=False</em><big>)</big><a class="headerlink" href="#Skip" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes the game to begin skipping. If the game is in a menu
-context, then this returns to the game. Otherwise, it just
-enables skipping.</p>
+<dd><p>此操作会使游戏开始快进。如果在菜单中，将会返回游戏。</p>
 <dl class="docutils">
 <dt><cite>fast</cite></dt>
-<dd>If true, skips directly to the next menu choice.</dd>
+<dd>如果为True，会直接跳到下一个选项处。</dd>
 <dt><cite>confirm</cite></dt>
-<dd>If true, asks for confirmation before beginning skipping.</dd>
+<dd>如果为True，在开始快进前向用户确认。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="With">
 <tt class="descname">With</tt><big>(</big><em>transition</em><big>)</big><a class="headerlink" href="#With" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes <cite>transition</cite> to occur.</p>
+<dd><p>显示<cite>transition</cite>转场效果。</p>
 </dd></dl>
 
 </div>
 </div>
 <div class="section" id="values">
-<h2>Values<a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h2>
-<p>Values are used with bars, to set the bar value, and to allow the bar
-to adjust an underlying property.</p>
+<h2>值<a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h2>
+<p>值是配合滑条使用的，用于绘制滑条，以及允许它们控制指定的值。</p>
 <dl class="function">
 <dt id="AnimatedValue">
 <tt class="descname">AnimatedValue</tt><big>(</big><em>value=0.0</em>, <em>range=1.0</em>, <em>delay=1.0</em>, <em>old_value=None</em><big>)</big><a class="headerlink" href="#AnimatedValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>This animates a value, taking <cite>delay</cite> seconds to vary the value from
-<cite>old_value</cite> to <cite>value</cite>.</p>
+<dd><p>该操作动态地改变一个值，过程时长<cite>delay</cite>秒，值从
+<cite>old_value</cite>变化到<cite>value</cite>。</p>
 <dl class="docutils">
 <dt><cite>value</cite></dt>
-<dd>The value itself, a number.</dd>
+<dd>目标的数值。</dd>
 <dt><cite>range</cite></dt>
-<dd>The range of the value, a number.</dd>
+<dd>该值的范围，一个数字。</dd>
 <dt><cite>delay</cite></dt>
-<dd>The time it takes to animate the value, in seconds. Defaults
-to 1.0.</dd>
+<dd>变化时间。默认为1.0秒。</dd>
 <dt><cite>old_value</cite></dt>
-<dd>The old value. If this is None, then the value is taken from the
-AnimatedValue we replaced, if any. Otherwise, it is initialized
-to <cite>value</cite>.</dd>
+<dd>初始值。如果为None，那么我们将从被取代的AnimatedValue里面获取，如果有的话，否则它被初始化为<cite>value</cite>。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="FieldValue">
 <tt class="descname">FieldValue</tt><big>(</big><em>object</em>, <em>field</em>, <em>range</em>, <em>max_is_zero=False</em>, <em>style='bar'</em>, <em>offset=0</em>, <em>step=None</em><big>)</big><a class="headerlink" href="#FieldValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>A value that allows the user to adjust the value of a field
-on an object.</p>
+<dd><p>这个值允许您来调整一个对象上的一个域所对应的值。</p>
 <dl class="docutils">
 <dt><cite>object</cite></dt>
-<dd>The object.</dd>
+<dd>要调整的对象。</dd>
 <dt><cite>field</cite></dt>
-<dd>The field, a string.</dd>
+<dd>要调整的域，一个字符串。</dd>
 <dt><cite>range</cite></dt>
-<dd>The range to adjust over.</dd>
+<dd>调整的范围。</dd>
 <dt><cite>max_is_zero</cite></dt>
-<dd><p class="first">If True, then when the field is zero, the value of the
-bar will be range, and all other values will be shifted
-down by 1. This works both ways - when the bar is set to
-the maximum, the field is set to 0.</p>
+<dd><p class="first">若为True，那么当域的值是0时，该滑条的值会变成range，然后所有的其他的值会变成1-当前值。（也就是满的时候值是0）</p>
 <p class="last">This is used internally, for some preferences.</p>
 </dd>
 <dt><cite>style</cite></dt>
-<dd>The styles of the bar created.</dd>
+<dd>滑条的样式。</dd>
 <dt><cite>offset</cite></dt>
-<dd>An offset to add to the value.</dd>
+<dd>值的偏移量、</dd>
 <dt><cite>step</cite></dt>
-<dd>The amount to change the bar by. If None, defaults to 1/10th of
-the bar.</dd>
+<dd>每次改变的最小值，默认情况下是滑条的1/10。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="MixerValue">
 <tt class="descname">MixerValue</tt><big>(</big><em>mixer</em><big>)</big><a class="headerlink" href="#MixerValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>The value of an audio mixer.</p>
+<dd><p>音频mixer的音量对应的值。</p>
 <dl class="docutils">
 <dt><cite>mixer</cite></dt>
-<dd>The name of the mixer to adjust. This is usually one of
-&quot;music&quot;, &quot;sfx&quot;, or &quot;voice&quot;, but user code can create new
-mixers.</dd>
+<dd>要调整的mixer的名称，通常是
+&quot;music&quot;, &quot;sfx&quot;,或 &quot;voice&quot;，但您可以自己创建新的mixer。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="StaticValue">
 <tt class="descname">StaticValue</tt><big>(</big><em>value=0.0</em>, <em>range=1.0</em><big>)</big><a class="headerlink" href="#StaticValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>This allows a value to be specified statically.</p>
+<dd><p>该操作可以静态地创建一个值。</p>
 <dl class="docutils">
 <dt><cite>value</cite></dt>
-<dd>The value itself, a number.</dd>
+<dd>要创建的值，一个数字。</dd>
 <dt><cite>range</cite></dt>
-<dd>The range of the value.</dd>
+<dd>该值的范围。</dd>
 </dl>
 </dd></dl>
 
@@ -708,115 +631,100 @@ mixers.</dd>
 <tt class="descname">VariableValue</tt><big>(</big><em>variable</em>, <em>range</em>, <em>max_is_zero=False</em>, <em>style='bar'</em>, <em>offset=0</em>, <em>step=None</em><big>)</big><a class="headerlink" href="#VariableValue" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt><cite>variable</cite></dt>
-<dd>A string giving the name of the variable to adjust.</dd>
+<dd>字符串，提供需要调整的变量名称。</dd>
 <dt><cite>range</cite></dt>
-<dd>The range to adjust over.</dd>
+<dd>能够调整的范围。</dd>
 <dt><cite>max_is_zero</cite></dt>
-<dd><p class="first">If True, then when the field is zero, the value of the
-bar will be range, and all other values will be shifted
-down by 1. This works both ways - when the bar is set to
-the maximum, the field is set to 0.</p>
-<p class="last">This is used internally, for some preferences.</p>
+<dd><p class="first">若为True，那么当变量的值是0时，该滑条的值会变成range，然后所有的其他的值会变成1-当前值。（也就是满的时候值是0）</p>
+<p class="last">对于有些设置，这个属性也被内部使用。</p>
 </dd>
 <dt><cite>style</cite></dt>
-<dd>The styles of the bar created.</dd>
+<dd>创建的滑条使用的样式。</dd>
 <dt><cite>offset</cite></dt>
-<dd>An offset to add to the value.</dd>
+<dd>值的偏移量。</dd>
 <dt><cite>step</cite></dt>
-<dd>The amount to change the bar by. If None, defaults to 1/10th of
-the bar.</dd>
+<dd>每次改变的最小值，默认情况下是滑条的1/10。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="XScrollValue">
 <tt class="descname">XScrollValue</tt><big>(</big><em>viewport</em><big>)</big><a class="headerlink" href="#XScrollValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>The value of an adjustment that horizontally scrolls the the viewport with the
-given id, on the current screen. The viewport must be defined
-before a bar with this value is.</p>
+<dd><p>这个值是一个当前视屏上给定id的视端的x轴的值。视端必须在使用这个值的滑条之前定义。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="YScrollValue">
 <tt class="descname">YScrollValue</tt><big>(</big><em>viewport</em><big>)</big><a class="headerlink" href="#YScrollValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>The value of an adjustment that vertically scrolls the the viewport with the
-given id, on the current screen. The viewport must be defined
-before a bar with this value is.</p>
+<dd><p>这个值是一个当前视屏上给定id的视端的y轴的值。视端必须在使用这个值的滑条之前定义。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="functions-and-classes">
-<h2>Functions and Classes<a class="headerlink" href="#functions-and-classes" title="Permalink to this headline">¶</a></h2>
-<p>These functions and classes are useful in association with screens.</p>
+<h2>函数和类<a class="headerlink" href="#functions-and-classes" title="Permalink to this headline">¶</a></h2>
+<p>这些函数和类在编写视屏时有用。</p>
 <div class="section" id="preferences">
 <h3>Preferences<a class="headerlink" href="#preferences" title="Permalink to this headline">¶</a></h3>
-<p>While all preferences can be defined based on the Actions and Values
-given above, it requires some knowledge of Ren'Py to figure out the
-correct one to use. The preferences constructor makes this easy,
-by creation an action or value, as appropriate, based on the
-names used in the default preferences screen.</p>
+<p>虽然所有的设置都可以通过以上的操作和值来修改，但这需要对Ren'Py的一定认识才能做到。为了简化这一点，我们提供了Preferences这个方便的函数。您只需要提供合适的字符串作为参数，Preferences就会为您关联相应的设置选项。</p>
 <dl class="function">
 <dt id="Preference">
 <tt class="descname">Preference</tt><big>(</big><em>name</em>, <em>value=None</em><big>)</big><a class="headerlink" href="#Preference" title="Permalink to this definition">¶</a></dt>
-<dd><p>This constructs the approprate action or value from a preference.
-The preference name should be the name given in the standard
-menus, while the value should be either the name of a choice,
-&quot;toggle&quot; to cycle through choices, a specific value, or left off
-in the case of buttons.</p>
-<p>Actions that can be used with buttons and hotspots are:</p>
+<dd><p>该函数会根据参数返回合适的值或操作。value应该是选项的名称，
+&quot;toggle&quot;，一个具体的值，或者留空（如果是按钮的话）。</p>
+<p>能够作为按钮和hotspot的操作有：</p>
 <ul class="simple">
-<li>Preference(&quot;display&quot;, &quot;fullscreen&quot;) - displays in fullscreen mode.</li>
-<li>Preference(&quot;display&quot;, &quot;window&quot;) - displays in windowed mode at 1x normal size.</li>
-<li>Preference(&quot;display&quot;, 2.0) - displays in windowed mode at 2.0x normal size.</li>
-<li>Preference(&quot;display&quot;, &quot;any window&quot;) - displays in windowed mode at the previous size.</li>
-<li>Preference(&quot;display&quot;, &quot;toggle&quot;) - toggle display mode.</li>
-<li>Preference(&quot;transitions&quot;, &quot;all&quot;) - show all transitions.</li>
-<li>Preference(&quot;transitions&quot;, &quot;none&quot;) - do not show transitions.</li>
-<li>Preference(&quot;transitions&quot;, &quot;toggle&quot;) - toggle transitions.</li>
-<li>Preference(&quot;show empty window&quot;, &quot;show&quot;) - Allow the &quot;window show&quot; and &quot;window auto&quot; statement to show an empty window outside of the say statement.</li>
-<li>Preference(&quot;show empty window&quot;, &quot;hide&quot;) - Prevent the above.</li>
-<li>Preference(&quot;show empty window&quot;, &quot;toggle&quot;) - Toggle the above.</li>
-<li>Preference(&quot;text speed&quot;, 0) - make text appear instantaneously.</li>
-<li>Preference(&quot;text speed&quot;, 142) - set text speed to 142 characters per second.</li>
-<li>Preference(&quot;joystick&quot;) - Show the joystick preferences.</li>
-<li>Preference(&quot;skip&quot;, &quot;seen&quot;) - Only skip seen messages.</li>
-<li>Preference(&quot;skip&quot;, &quot;all&quot;) - Skip unseen messages.</li>
-<li>Preference(&quot;skip&quot;, &quot;toggle&quot;) - Toggle between skip seen and skip all.</li>
-<li>Preference(&quot;begin skipping&quot;) - Starts skipping.</li>
-<li>Preference(&quot;after choices&quot;, &quot;skip&quot;) - Skip after choices.</li>
-<li>Preference(&quot;after choices&quot;, &quot;stop&quot;) - Stop skipping after choices.</li>
-<li>Preference(&quot;after choices&quot;, &quot;toggle&quot;) - Toggle skipping after choices.</li>
-<li>Preference(&quot;auto-forward time&quot;, 0) - Set the auto-forward time to infinite.</li>
-<li>Preference(&quot;auto-forward time&quot;, 10) - Set the auto-forward time (unit is seconds per 250 characters).</li>
-<li>Preference(&quot;auto-forward&quot;, &quot;enable&quot;) - Enable auto-forward mode.</li>
-<li>Preference(&quot;auto-forward&quot;, &quot;disable&quot;) - Disable auto-forward mode.</li>
-<li>Preference(&quot;auto-forward&quot;, &quot;toggle&quot;) - Toggle auto-forward mode.</li>
-<li>Preference(&quot;auto-forward after click&quot;, &quot;enable&quot;) - Remain in auto-forward mode after a click.</li>
-<li>Preference(&quot;auto-forward after click&quot;, &quot;disable&quot;) - Disable auto-forward mode after a click.</li>
-<li>Preference(&quot;auto-forward after click&quot;, &quot;toggle&quot;) - Toggle auto-forward after click.</li>
-<li>Preference(&quot;automatic move&quot;, &quot;enable&quot;) - Enable automatic mouse mode.</li>
-<li>Preference(&quot;automatic move&quot;, &quot;disable&quot;) - Disable automatic mouse mode.</li>
-<li>Preference(&quot;automatic move&quot;, &quot;toggle&quot;) - Toggle automatic mouse mode.</li>
-<li>Preference(&quot;wait for voice&quot;, &quot;enable&quot;)  - Wait for the currently playing voice to complete before auto-forwarding.</li>
-<li>Preference(&quot;wait for voice&quot;, &quot;disable&quot;) - Do not wait for the currently playing voice to complete before auto-forwarding.</li>
-<li>Preference(&quot;wait for voice&quot;, &quot;toggle&quot;)  - Toggle wait voice.</li>
-<li>Preference(&quot;voice sustain&quot;, &quot;enable&quot;)  - Sustain voice past the current interaction.</li>
-<li>Preference(&quot;voice sustain&quot;, &quot;disable&quot;) - Don't sustain voice past the current interaction.</li>
-<li>Preference(&quot;voice sustain&quot;, &quot;toggle&quot;)  - Toggle voice sustain.</li>
-<li>Preference(&quot;music mute&quot;, &quot;enable&quot;) - Mute the music mixer.</li>
-<li>Preference(&quot;music mute&quot;, &quot;disable&quot;) - Un-mute the music mixer.</li>
-<li>Preference(&quot;music mute&quot;, &quot;toggle&quot;) - Toggle music mute.</li>
-<li>Preference(&quot;sound mute&quot;, &quot;enable&quot;) - Mute the sound mixer.</li>
-<li>Preference(&quot;sound mute&quot;, &quot;disable&quot;) - Un-mute the sound mixer.</li>
-<li>Preference(&quot;sound mute&quot;, &quot;toggle&quot;) - Toggle sound mute.</li>
-<li>Preference(&quot;voice mute&quot;, &quot;enable&quot;) - Mute the voice mixer.</li>
-<li>Preference(&quot;voice mute&quot;, &quot;disable&quot;) - Un-mute the voice mixer.</li>
-<li>Preference(&quot;voice mute&quot;, &quot;toggle&quot;) - Toggle voice mute.</li>
-<li>Preference(&quot;music volume&quot;, 0.5) - Set the music volume.</li>
-<li>Preference(&quot;sound volume&quot;, 0.5) - Set the sound volume.</li>
-<li>Preference(&quot;voice volume&quot;, 0.5) - Set the voice volume.</li>
+<li>Preference(&quot;display&quot;, &quot;fullscreen&quot;) - 以全屏模式显示。</li>
+<li>Preference(&quot;display&quot;, &quot;window&quot;) - 以1x窗口模式显示。</li>
+<li>Preference(&quot;display&quot;, 2.0) - 以2x窗口模式显示。</li>
+<li>Preference(&quot;display&quot;, &quot;any window&quot;) - 以之前的窗口模式显示。</li>
+<li>Preference(&quot;display&quot;, &quot;toggle&quot;) - 切换显示模式。</li>
+<li>Preference(&quot;transitions&quot;, &quot;all&quot;) - 显示所有转场特效。</li>
+<li>Preference(&quot;transitions&quot;, &quot;none&quot;) - 不显示转场特效。</li>
+<li>Preference(&quot;transitions&quot;, &quot;toggle&quot;) - 切换转场效果设置。</li>
+<li>Preference(&quot;show empty window&quot;, &quot;show&quot;) - 允许&quot;window show&quot;和&quot;window auto&quot;命令来显示空对话窗口。</li>
+<li>Preference(&quot;show empty window&quot;, &quot;hide&quot;) - 禁止以上命令执行。</li>
+<li>Preference(&quot;show empty window&quot;, &quot;toggle&quot;) - 切换以上的设置状态。</li>
+<li>Preference(&quot;text speed&quot;, 0) - 文本立即显示。</li>
+<li>Preference(&quot;text speed&quot;, 142) - 将文本速度设置为142个字符每秒。</li>
+<li>Preference(&quot;joystick&quot;) - 显示摇杆设置。</li>
+<li>Preference(&quot;skip&quot;, &quot;seen&quot;) - 仅跳过已读文本。</li>
+<li>Preference(&quot;skip&quot;, &quot;all&quot;) - 跳过未读文本。</li>
+<li>Preference(&quot;skip&quot;, &quot;toggle&quot;) - 在以上两种模式间切换。</li>
+<li>Preference(&quot;begin skipping&quot;) - 开始快进。</li>
+<li>Preference(&quot;after choices&quot;, &quot;skip&quot;) - 在选项后继续快进。</li>
+<li>Preference(&quot;after choices&quot;, &quot;stop&quot;) - 在选项后停止快进。</li>
+<li>Preference(&quot;after choices&quot;, &quot;toggle&quot;) - 在以上两种模式间切换。</li>
+<li>Preference(&quot;auto-forward time&quot;, 0) - 将自动阅读的速度设置为无穷。</li>
+<li>Preference(&quot;auto-forward time&quot;, 10) - 将自动阅读的速度设置为10（单位为250字/每单位时间）。</li>
+<li>Preference(&quot;auto-forward&quot;, &quot;enable&quot;) - 开启自动模式。</li>
+<li>Preference(&quot;auto-forward&quot;, &quot;disable&quot;) - 关闭自动模式。</li>
+<li>Preference(&quot;auto-forward&quot;, &quot;toggle&quot;) - 切换自动模式。</li>
+<li>Preference(&quot;auto-forward after click&quot;, &quot;enable&quot;) - 在单击后仍保留自动模式。</li>
+<li>Preference(&quot;auto-forward after click&quot;, &quot;disable&quot;) - 再单击后退出自动模式。</li>
+<li>Preference(&quot;auto-forward after click&quot;, &quot;toggle&quot;) - 在以上两种模式之间切换。</li>
+<li>Preference(&quot;automatic move&quot;, &quot;enable&quot;) - 开启自动鼠标模式。</li>
+<li>Preference(&quot;automatic move&quot;, &quot;disable&quot;) - 关闭自动鼠标模式。（与上面的模式的区别在于，之前是按照字数来阅读，而这个是在文本显示完毕后自动模拟点击一下鼠标）</li>
+<li>Preference(&quot;automatic move&quot;, &quot;toggle&quot;) - 切换自动鼠标模式。</li>
+<li>Preference(&quot;wait for voice&quot;, &quot;enable&quot;)  - 自动模式中等待当前播放的语音播放完成后再显示下一句。</li>
+<li>Preference(&quot;wait for voice&quot;, &quot;disable&quot;) - 自动模式中不等待当前播放的语音播放完成后再显示下一句。</li>
+<li>Preference(&quot;wait for voice&quot;, &quot;toggle&quot;)  - 切换是否等待语音。</li>
+<li>Preference(&quot;voice sustain&quot;, &quot;enable&quot;)  - 在交互间保持语音的播放（即点击鼠标不会导致语音停止播放）</li>
+<li>Preference(&quot;voice sustain&quot;, &quot;disable&quot;) - 在交互间不保持语音的播放。</li>
+<li>Preference(&quot;voice sustain&quot;, &quot;toggle&quot;)  - 在以上两种模式切换。</li>
+<li>Preference(&quot;music mute&quot;, &quot;enable&quot;) - 使music混音器静音。</li>
+<li>Preference(&quot;music mute&quot;, &quot;disable&quot;) - 取消上述设置。</li>
+<li>Preference(&quot;music mute&quot;, &quot;toggle&quot;) - 在两个模式间切换。</li>
+<li>Preference(&quot;sound mute&quot;, &quot;enable&quot;) - 使sound混音器静音。</li>
+<li>Preference(&quot;sound mute&quot;, &quot;disable&quot;) - 取消上述设置。</li>
+<li>Preference(&quot;sound mute&quot;, &quot;toggle&quot;) - 在两个模式间切换。</li>
+<li>Preference(&quot;voice mute&quot;, &quot;enable&quot;) - 使voice混音器静音。</li>
+<li>Preference(&quot;voice mute&quot;, &quot;disable&quot;) - 取消上述设置。</li>
+<li>Preference(&quot;voice mute&quot;, &quot;toggle&quot;) - 在两个模式间切换。</li>
+<li>Preference(&quot;music volume&quot;, 0.5) - 设置music的音量。</li>
+<li>Preference(&quot;sound volume&quot;, 0.5) - 设置sound的音量。</li>
+<li>Preference(&quot;voice volume&quot;, 0.5) - 设置voice的音量。</li>
 </ul>
-<p>Values that can be used with bars are:</p>
+<p>可以作为滑条的值有：</p>
 <ul class="simple">
 <li>Preference(&quot;text speed&quot;)</li>
 <li>Preference(&quot;auto-forward time&quot;)</li>
@@ -828,168 +736,135 @@ in the case of buttons.</p>
 
 </div>
 <div class="section" id="file-functions">
-<h3>File Functions<a class="headerlink" href="#file-functions" title="Permalink to this headline">¶</a></h3>
-<p>These functions return useful information about files. They use the
-same default page as the file actions.</p>
+<h3>存档文件函数<a class="headerlink" href="#file-functions" title="Permalink to this headline">¶</a></h3>
+<p>下面这些函数可以返回一些关于存档文件的有用信息。它们使用和文件操作一样的页码。</p>
 <dl class="function">
 <dt id="FileCurrentPage">
 <tt class="descname">FileCurrentPage</tt><big>(</big><big>)</big><a class="headerlink" href="#FileCurrentPage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the current file page as a string.</p>
+<dd><p>返回一个字符串，它是当前的页码。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileCurrentScreenshot">
 <tt class="descname">FileCurrentScreenshot</tt><big>(</big><em>empty=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#FileCurrentScreenshot" title="Permalink to this definition">¶</a></dt>
-<dd><p>A displayable that shows the screenshot that will be saved with the current
-file, if a screenshot has been taken when entering a menu or with
-<a class="reference internal" href="#FileTakeScreenshot" title="FileTakeScreenshot"><tt class="xref py py-func docutils literal"><span class="pre">FileTakeScreenshot()</span></tt></a>.</p>
-<p>If there is no current screenshot, <cite>empty</cite> is shown in its place. (If <cite>empty</cite> is
-None, it defaults to <a class="reference internal" href="displayables.html#Null" title="Null"><tt class="xref py py-func docutils literal"><span class="pre">Null()</span></tt></a>.)</p>
+<dd><p>返回一个可显示对象，是当前存档使用的截图，如果曾经使用
+<a class="reference internal" href="#FileTakeScreenshot" title="FileTakeScreenshot"><tt class="xref py py-func docutils literal"><span class="pre">FileTakeScreenshot()</span></tt></a>进行过截图的话。</p>
+<p>否则将显示<cite>empty</cite>。(如果<cite>empty</cite>是None，那么默认为<a class="reference internal" href="displayables.html#Null" title="Null"><tt class="xref py py-func docutils literal"><span class="pre">Null()</span></tt></a>。）</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileJson">
 <tt class="descname">FileJson</tt><big>(</big><em>name</em>, <em>key=None</em>, <em>empty=None</em>, <em>missing=None</em>, <em>page=None</em><big>)</big><a class="headerlink" href="#FileJson" title="Permalink to this definition">¶</a></dt>
-<dd><p>Accesses the Json information associated with <cite>name</cite>.</p>
-<p>If <cite>key</cite> is None, returns the entire Json other object, or <cite>empty</cite> if the slot
-is empty.</p>
-<p>Otherwise, this returns json[key] if <cite>key</cite> is defined on the json object of the save,
-<cite>missing</cite> if there is a save with the given name, but it does not contain <cite>key</cite>, or
-<cite>empty</cite> if the save slot is empty.</p>
+<dd><p>检索与<cite>name</cite>存档相关联的json文件。</p>
+<p>如果<cite>key</cite>是None，则返回整个json对象，或者<cite>empty</cite>如果存档文件不存在。</p>
+<p>否则，该函数返回json[key]如果<cite>key</cite>在这个json对象中有定义；返回
+<cite>missing</cite>如果找不到这个<cite>key</cite>，或者<cite>empty</cite>如果存档不存在。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileLoadable">
 <tt class="descname">FileLoadable</tt><big>(</big><em>name</em>, <em>page=None</em><big>)</big><a class="headerlink" href="#FileLoadable" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a function that returns true
-if the file is loadable, and false otherwise.</p>
+<dd><p>如果存档文件可读取，返回True，否则返回False。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileNewest">
 <tt class="descname">FileNewest</tt><big>(</big><em>name</em>, <em>page=None</em><big>)</big><a class="headerlink" href="#FileNewest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns True if this is the newest file slot, or False otherwise.</p>
+<dd><p>如果存档文件是最新的存档，返回True，否则返回False。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FilePageName">
 <tt class="descname">FilePageName</tt><big>(</big><em>auto='a'</em>, <em>quick='q'</em><big>)</big><a class="headerlink" href="#FilePageName" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the name of the current file page, as a string. If a normal
-page, this returns the page number. Otherwise, it returns
-<cite>auto</cite> or <cite>quick</cite>.</p>
+<dd><p>返回当前页码的名称。如果是普通的存档页，那么是一个数字；否则是
+<cite>auto</cite>或<cite>quick</cite>。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileSaveName">
 <tt class="descname">FileSaveName</tt><big>(</big><em>name</em>, <em>empty=''</em>, <em>page=None</em><big>)</big><a class="headerlink" href="#FileSaveName" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the save_name that was in effect when the file was saved,
-or <cite>empty</cite> if the file does not exist.</p>
+<dd><p>返回具体的存档文件名，或者<cite>empty</cite>如果文件不存在。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileScreenshot">
 <tt class="descname">FileScreenshot</tt><big>(</big><em>name</em>, <em>empty=None</em>, <em>page=None</em><big>)</big><a class="headerlink" href="#FileScreenshot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the screenshot associated with the given file. If the
-file is not loadable, then <cite>empty</cite> is returned, unless it's None,
-in which case, a Null displayable is created.</p>
-<p>The return value is a displayable.</p>
+<dd><p>返回存档文件相关联的截图。如果存档无法被读取，那么返回<cite>empty</cite>，除非它是None；如果真是None，那就返回一个Null()。 </p>
+<p>返回值应该是一个可显示对象。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileSlotName">
 <tt class="descname">FileSlotName</tt><big>(</big><em>slot</em>, <em>slots_per_page</em>, <em>auto='a'</em>, <em>quick='q'</em>, <em>format='%s%d'</em><big>)</big><a class="headerlink" href="#FileSlotName" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the name of the numbered slot. This assumes that slots on
-normal pages are numbered in a linear order starting with 1, and
-that page numbers start with 1. When slot is 2, and slots_per_page
-is 10, and the other variables are the defaults:</p>
+<dd><p>返回该编号的存档槽的名称。该函数假设存档槽是按顺序从1开始排列，并且页码也是从1开始的。当slot是2，slots_per_page是10的时候，其他变量是默认情况：</p>
 <ul class="simple">
-<li>When the first page is showing, this returns &quot;2&quot;.</li>
-<li>When the second page is showing, this returns &quot;12&quot;.</li>
-<li>When the auto page is showing, this returns &quot;a2&quot;.</li>
-<li>When the quicksave page is showing, this returns &quot;q2&quot;.</li>
+<li>当显示的是第一页时，返回&quot;2&quot;。</li>
+<li>当显示的是第二页时，返回&quot;12&quot;。</li>
+<li>当显示的是auto时，返回&quot;a2&quot;。</li>
+<li>当显示的是quick时，返回&quot;q2&quot;。</li>
 </ul>
 <dl class="docutils">
 <dt><cite>slot</cite></dt>
-<dd>The number of the slot to access.</dd>
+<dd>存档槽的编号。</dd>
 <dt><cite>slots_per_page</cite></dt>
-<dd>The number of slots per page.</dd>
+<dd>每页的存档数量。</dd>
 <dt><cite>auto</cite></dt>
-<dd>A prefix to use for the auto page.</dd>
+<dd>自动存档页使用的前缀。</dd>
 <dt><cite>quick</cite></dt>
-<dd>A prefix to use for the quick page.</dd>
+<dd>快速存档页使用的前缀。</dd>
 <dt><cite>format</cite></dt>
-<dd>The formatting code to use. This is given two arguments: A string
-giving the page prefix, and an integer giving the slot number.</dd>
+<dd>格式化字符串。有两个参数：一个参数是页码前缀，而后一个是存档槽编号。</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileTime">
 <tt class="descname">FileTime</tt><big>(</big><em>name</em>, <em>format='%b %d</em>, <em>%H:%M'</em>, <em>empty=''</em>, <em>page=None</em><big>)</big><a class="headerlink" href="#FileTime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the time the file was saved, formatted according
-to the supplied <cite>format</cite>. If the file is not found, <cite>empty</cite> is
-returned.</p>
-<p>The return value is a string.</p>
+<dd><p>返回存档时间。格式是<cite>format</cite>。如果没有找到文件，返回<cite>empty</cite>。</p>
+<p>这个函数的返回值是字符串。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="FileUsedSlots">
 <tt class="descname">FileUsedSlots</tt><big>(</big><em>page=None</em>, <em>highest_first=True</em><big>)</big><a class="headerlink" href="#FileUsedSlots" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of used numeric file slots on the page.</p>
+<dd><p>返回一个这一页已经使用的存档编号的列表。</p>
 <dl class="docutils">
 <dt><cite>page</cite></dt>
-<dd>The name of the page that will be scanned. If None, the current page
-is used.</dd>
+<dd>扫描的页码。如果是None，则使用当前的页码。</dd>
 <dt><cite>highest_first</cite></dt>
-<dd>If true, the highest-numbered file slot is listed first.
-Otherwise, the lowest-numbered slot is listed first.</dd>
+<dd>如果为True，则编号是降序排列，否则是升序排列。</dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="side-image-functions">
-<h3>Side Image Functions<a class="headerlink" href="#side-image-functions" title="Permalink to this headline">¶</a></h3>
-<p>This function returns the side image to use.</p>
+<h3>对话框头像函数<a class="headerlink" href="#side-image-functions" title="Permalink to this headline">¶</a></h3>
+<p>这个函数返回使用的对话框头像。</p>
 <dl class="function">
 <dt id="SideImage">
 <tt class="descname">SideImage</tt><big>(</big><em>prefix_tag='side'</em><big>)</big><a class="headerlink" href="#SideImage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the side image associated with the currently speaking character,
-or a Null displayable if no such side image exists.</p>
+<dd><p>返回当前正在说话的角色使用的对话框头像，如果没有的话，返回Null()。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="tooltips">
-<h3>Tooltips<a class="headerlink" href="#tooltips" title="Permalink to this headline">¶</a></h3>
-<p>The tooltip class changes the screen when a button is hovered.</p>
+<h3>帮助信息条<a class="headerlink" href="#tooltips" title="Permalink to this headline">¶</a></h3>
+<p>Tooltip 对象是当按钮被悬停时内容发生改变的区域。</p>
 <dl class="class">
 <dt id="Tooltip">
 <em class="property">class </em><tt class="descname">Tooltip</tt><big>(</big><em>default</em><big>)</big><a class="headerlink" href="#Tooltip" title="Permalink to this definition">¶</a></dt>
-<dd><p>A tooltip object can be used to define a portion of a screen that is
-updated when the mouse hovers an area.</p>
-<p>A tooltip object has a <tt class="docutils literal"><span class="pre">value</span></tt> field, which is set to the <cite>default</cite>
-value passed to the constructor when the tooltip is created. When
-a button using an action creadted by the tooltip is hovered, the
-value field changes to the value associated with the action.</p>
+<dd><p>Tooltip对象可以用来将屏幕上的一块区域定义成鼠标悬停在某个区域时内容发生改变的区域。</p>
+<p>Tooltip对象有一个<tt class="docutils literal"><span class="pre">value</span></tt>域，它的值被设置成<cite>default</cite>。当一个使用tooltip作为操作的对象被悬停时，这个value域会被修改为与这个操作相关联的值。</p>
 <dl class="method">
 <dt id="Tooltip.Action">
 <tt class="descname">Action</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#Tooltip.Action" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an action that is generally used as the hovered property
-of a button. When the button is hovered, the value field of this
-tooltip is set to <cite>value</cite>. When the buttton loses focus, the
-value field of this tooltip reverts to the default.</p>
+<dd><p>返回一个action对象，用来作为button的hover状态的操作。当按钮被悬停时，tooltip对象的值会被设置为。<cite>value</cite>当button失焦时，tootip的value域会变回默认值。</p>
 </dd></dl>
 
 </dd></dl>
 
-<p>When using a tooltip with a screen, the usual behavior is to create a
-tooltip object in a default statement. The value of the tooltip and
-the action method can then be used within the screen. The order of
-use within a screen doesn't matter - it's possible to use the value
-before an action is used.</p>
-<p>Tooltips can take on any value. While in the example below we use the
-text statement to display a string on the screen, it's also possible
-to use the add statement to add a displayable. More complex behavior
-is also possible.</p>
+<p>当使用tooltip的时候，通常的方法是使用default命令创建一个tooltip对象。在一个视屏里使用action和修改value并不一定要讲究顺序——在使用action之前使用value也是没问题的。</p>
+<p>tooltips可以接受任意的value。在例子中我们使用text命令来显示一个字符串，但您也可以使用add命令来添加一个可显示对象。更复杂的行为也是可以的。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">tooltip_test</span><span class="p">:</span>
 
     <span class="na">default</span> <span class="n">tt</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="s">&quot;No button selected.&quot;</span><span class="p">)</span>

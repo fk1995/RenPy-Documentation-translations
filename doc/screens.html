@@ -121,7 +121,7 @@
                         title="previous chapter">样式属性</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="screen_actions.html"
-                        title="next chapter">视屏相关动作，值和函数</a></p>
+                        title="next chapter">视屏相关操作，值和函数</a></p>
             <h4>Search</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
@@ -148,12 +148,12 @@
 <ul class="simple">
 <li>隐式显示。当Ren'Py命令执行时相关视屏会被显示。例如，say命令会将<cite>say</cite>视屏显示出来。</li>
 <li>自动显示。例如，当启动时或者玩家返回主菜单时Ren'Py会自动显示<cite>main_menu</cite>视屏。</li>
-<li>通过一个动作显示出来。该动作一般与按钮，鼠标按钮或者键盘按钮挂钩。默认情况下，玩家按下右键或者ESC键时，系统将显示<cite>save</cite>视屏。您也可以在屏幕上定义一个点击后显示<cite>save</cite>视屏的按钮。</li>
+<li>通过一个操作显示出来。该操作一般与按钮，鼠标按钮或者键盘按钮挂钩。默认情况下，玩家按下右键或者ESC键时，系统将显示<cite>save</cite>视屏。您也可以在屏幕上定义一个点击后显示<cite>save</cite>视屏的按钮。</li>
 <li>显式显示。使用可以显示一个视屏的命令来显示。</li>
 </ul>
 <p>您可以同时显示多个视屏。</p>
 <p>视屏有两个主要功能。第一个功能是向玩家显示信息。您可以使用文本，滑条和图像来显示相关信息。有一些以此方式显示的信息对于游戏来说至关重要。例如，<cite>say</cite>视屏用于显示对话内容，包括角色姓名和他说的话。</p>
-<p>另一个重要功能是允许玩家与游戏进行互动。按钮和滑条允许玩家能够做出决定以及调整相关参数的值。Ren'Py已经包含了一系列预定义的动作，使得玩家能够推进游戏，调整设置，存读档以及做很多其他的事情。游戏制作者也可以使用Python来往Ren'Py中添加新的动作。</p>
+<p>另一个重要功能是允许玩家与游戏进行互动。按钮和滑条允许玩家能够做出决定以及调整相关参数的值。Ren'Py已经包含了一系列预定义的操作，使得玩家能够推进游戏，调整设置，存读档以及做很多其他的事情。游戏制作者也可以使用Python来往Ren'Py中添加新的操作。</p>
 <p>所有视频会在每个交互开始或者重新开始时被更新一次。</p>
 <p><strong>视屏相关代码不能导致任何在该视屏没有显示时的副作用。</strong>Ren'Py会运行视屏代码许多次，因为它需要这么做来实现资源预读和其他的功能。它把运行视屏相关代码作为预读资源的一部分，而这发生在该视屏第一次显示之前。因此，如果视屏代码有任何显示之前就会影响游戏的副作用，这些副作用出现的时间是不可预知的。</p>
 <p>每个视屏有一个独立的作用域。当系统在视屏代码中获取变量的值时，首先会在该作用域内查找，然后再到全局作用域里查找。</p>
@@ -261,9 +261,9 @@
 <dt><cite>changed</cite></dt>
 <dd>如果提供此参数，则该参数应为一个Python函数。这个函数将会在该滑条的值发生变化时被调用，新的滑条值将被作为参数传入。</dd>
 <dt><cite>hovered</cite></dt>
-<dd>当滑条获焦时执行的动作。</dd>
+<dd>当滑条获焦时执行的操作。</dd>
 <dt><cite>unhovered</cite></dt>
-<dd>当滑条失焦时执行的动作。</dd>
+<dd>当滑条失焦时执行的操作。</dd>
 </dl>
 <p>您必须提供<cite>value</cite> 或 <cite>adjustment</cite>之一。除了以上属性外，该命令还接受以下参数：</p>
 <ul class="simple">
@@ -284,16 +284,16 @@
 </div>
 <div class="section" id="button">
 <span id="sl-button"></span><h3>Button<a class="headerlink" href="#button" title="Permalink to this headline">¶</a></h3>
-<p>创建一个在激活后可以运行视屏动作的区域。按钮不接受参数，带有以下属性：</p>
+<p>创建一个在激活后可以运行视屏操作的区域。按钮不接受参数，带有以下属性：</p>
 <dl class="docutils">
 <dt><cite>action</cite></dt>
-<dd>当按钮被激活后，此动作将被执行。按钮在被点击时，或在被选中后按回车时被激活。该动作同时也决定了这个按钮是否处于敏感状态，或者这个按钮是否处于被选中状态。</dd>
+<dd>当按钮被激活后，此操作将被执行。按钮在被点击时，或在被选中后按回车时被激活。该操作同时也决定了这个按钮是否处于敏感状态，或者这个按钮是否处于被选中状态。</dd>
 <dt><cite>alternate</cite></dt>
 <dd>当按钮被右键（支持鼠标的平台）或者被长按（支持触摸的平台）时触发的事件。</dd>
 <dt><cite>hovered</cite></dt>
-<dd>按钮获焦时执行的动作。</dd>
+<dd>按钮获焦时执行的操作。</dd>
 <dt><cite>unhovered</cite></dt>
-<dd>按钮失焦时执行的动作。</dd>
+<dd>按钮失焦时执行的操作。</dd>
 </dl>
 <p>它也接受以下属性：</p>
 <ul class="simple">
@@ -415,11 +415,11 @@
 <dt><cite>selected_hover</cite></dt>
 <dd>在选中获焦状态下使用的图像。</dd>
 <dt><cite>action</cite></dt>
-<dd>当按钮被激活时执行的动作。这也决定了该按钮是否处于选中状态或者敏感状态。</dd>
+<dd>当按钮被激活时执行的操作。这也决定了该按钮是否处于选中状态或者敏感状态。</dd>
 <dt><cite>hovered</cite></dt>
-<dd>当按钮获焦时执行的动作。</dd>
+<dd>当按钮获焦时执行的操作。</dd>
 <dt><cite>unhovered</cite></dt>
-<dd>当按钮失焦时执行的动作。</dd>
+<dd>当按钮失焦时执行的操作。</dd>
 </dl>
 <p>它也接受以下属性：</p>
 <ul class="simple">
@@ -481,7 +481,7 @@
 <p>该命令带一个位置参数，是一个用于指定绑定的按键的字符串。请查看<a class="reference internal" href="keymap.html#keymap"><em>自定义映射</em></a>这一部分，里面记载了可用的按键字符串。它有一个属性：</p>
 <dl class="docutils">
 <dt><cite>action</cite></dt>
-<dd>当按键被按下后执行的动作。这个属性是必须提供的。</dd>
+<dd>当按键被按下后执行的操作。这个属性是必须提供的。</dd>
 </dl>
 <p>它没有子对象。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">keymap_screen</span><span class="p">:</span>
@@ -546,9 +546,9 @@
 <p>鼠标响应区域指的是会对鼠标的进入和离开做出反应的区域。但是它和按钮不同，因为它不会获焦。所以，您可以在鼠标区域内设置按钮。该命令不接受参数，有以下属性：</p>
 <dl class="docutils">
 <dt><cite>hovered</cite></dt>
-<dd>当鼠标进入区域内时执行的动作。</dd>
+<dd>当鼠标进入区域内时执行的操作。</dd>
 <dt><cite>unhovered</cite></dt>
-<dd>当鼠标离开区域时执行的动作。</dd>
+<dd>当鼠标离开区域时执行的操作。</dd>
 </dl>
 <p>它也有以下属性：</p>
 <ul class="simple">
@@ -625,11 +625,11 @@
 <p>创建一个含有文字标签的按钮。这个按钮带一个参数，就是作为文字标签的文本内容的字符串。它有以下属性：</p>
 <dl class="docutils">
 <dt><cite>action</cite></dt>
-<dd>当按钮被激活时执行的动作。这也决定了按钮是否处于敏感状态或者选中状态。</dd>
+<dd>当按钮被激活时执行的操作。这也决定了按钮是否处于敏感状态或者选中状态。</dd>
 <dt><cite>hovered</cite></dt>
-<dd>当按钮获焦时执行的动作。</dd>
+<dd>当按钮获焦时执行的操作。</dd>
 <dt><cite>unhovered</cite></dt>
-<dd>当按钮失焦时执行的动作。</dd>
+<dd>当按钮失焦时执行的操作。</dd>
 <dt><cite>text_style</cite></dt>
 <dd>按钮文本使用的样式名称。如果不提供这个属性，且<cite>style</cite>属性是一个字符串，那么该字符串+<tt class="docutils literal"><span class="pre">&quot;_text&quot;</span></tt>将被作为文本使用的样式名称。</dd>
 <dt><cite>text_</cite>-</dt>
@@ -653,10 +653,10 @@
 </div>
 <div class="section" id="timer">
 <span id="sl-timer"></span><h3>Timer<a class="headerlink" href="#timer" title="Permalink to this headline">¶</a></h3>
-<p>该命令将为此视屏创建一个计时器，当一定的时间过去后系统会执行一个动作。它带有一个位置参数，也就是等待的时间。它有以下属性：</p>
+<p>该命令将为此视屏创建一个计时器，当一定的时间过去后系统会执行一个操作。它带有一个位置参数，也就是等待的时间。它有以下属性：</p>
 <dl class="docutils">
 <dt><cite>action</cite></dt>
-<dd>当设定的时间过去后，执行的动作。您必须提供该属性。</dd>
+<dd>当设定的时间过去后，执行的操作。您必须提供该属性。</dd>
 <dt><cite>repeat</cite></dt>
 <dd>若为True,该计时器将被反复触发。</dd>
 </dl>
@@ -784,7 +784,7 @@
 </div>
 <div class="section" id="imagemap-statements">
 <h2>Imagemap命令<a class="headerlink" href="#imagemap-statements" title="Permalink to this headline">¶</a></h2>
-<p>作为一个创建视屏的捷径，尤其是那些喜欢形象思维的人，热点地图是一种非常不错的选择。当创建一个热点地图时，imagemap命令可以用来指定至多六张图像。hotspot和hotbar图像用于处理热点地图的一些长方形区域，并为这些区域指定特定的动作。</p>
+<p>作为一个创建视屏的捷径，尤其是那些喜欢形象思维的人，热点地图是一种非常不错的选择。当创建一个热点地图时，imagemap命令可以用来指定至多六张图像。hotspot和hotbar图像用于处理热点地图的一些长方形区域，并为这些区域指定特定的操作。</p>
 <p>下面是一个使用imagemap的设置视屏的例子。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">preferences</span><span class="p">:</span>
 
@@ -845,11 +845,11 @@
 <p>hotspot对象是imagemap的一部分按钮区域。它有一个参数（x,y,width,height），这四个元素分别对应的是x坐标，y坐标，宽度，高度。这样的一个长方形区域将作为该hotspot的有效范围。它也有以下属性：</p>
 <dl class="docutils">
 <dt><cite>action</cite></dt>
-<dd>当按钮被激活时执行的动作。这个属性也决定了这个按钮是否是敏感的，以及是否被选中。</dd>
+<dd>当按钮被激活时执行的操作。这个属性也决定了这个按钮是否是敏感的，以及是否被选中。</dd>
 <dt><cite>hovered</cite></dt>
-<dd>当按钮获焦时执行的动作。</dd>
+<dd>当按钮获焦时执行的操作。</dd>
 <dt><cite>unhovered</cite></dt>
-<dd>当按钮失焦时执行的动作。</dd>
+<dd>当按钮失焦时执行的操作。</dd>
 </dl>
 <p>It also takes:</p>
 <ul class="simple">
@@ -953,14 +953,14 @@
 </div>
 <div class="section" id="on">
 <span id="sl-on"></span><h3>On<a class="headerlink" href="#on" title="Permalink to this headline">¶</a></h3>
-<p>on命令允许您定义在某些事件发生时执行一个特定的动作。它接受一个字符串作为参数，该字符串是一个事件的名称。它应该为以下之一：</p>
+<p>on命令允许您定义在某些事件发生时执行一个特定的操作。它接受一个字符串作为参数，该字符串是一个事件的名称。它应该为以下之一：</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">&quot;show&quot;</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">&quot;hide&quot;</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">&quot;replace&quot;</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">&quot;replaced&quot;</span></tt></li>
 </ul>
-<p>它有一个action属性，当事件被触发时将执行该属性指定的动作。</p>
+<p>它有一个action属性，当事件被触发时将执行该属性指定的操作。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">preferences</span><span class="p">:</span>
     <span class="k">frame</span><span class="p">:</span>
         <span class="k">has</span> <span class="k">hbox</span>
