@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Special Screen Names &mdash; Ren&#39;Py Documentation</title>
+    <title>有特殊含义的视屏 &mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,8 +57,8 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Special Screen Names</a><ul>
-<li><a class="reference internal" href="#in-game-screens">In-Game Screens</a><ul>
+<li><a class="reference internal" href="#">有特殊含义的视屏</a><ul>
+<li><a class="reference internal" href="#in-game-screens">游戏内视屏</a><ul>
 <li><a class="reference internal" href="#say">Say</a></li>
 <li><a class="reference internal" href="#choice">Choice</a></li>
 <li><a class="reference internal" href="#input">Input</a></li>
@@ -66,7 +66,7 @@
 <li><a class="reference internal" href="#notify">Notify</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#menu-screens">Menu Screens</a><ul>
+<li><a class="reference internal" href="#menu-screens">菜单视屏</a><ul>
 <li><a class="reference internal" href="#main-menu">Main Menu</a></li>
 <li><a class="reference internal" href="#navigation">Navigation</a></li>
 <li><a class="reference internal" href="#save">Save</a></li>
@@ -81,11 +81,11 @@
 
   <h4>上一节</h4>
   <p class="topless"><a href="screen_actions.html"
-                        title="previous chapter">Screen Actions, Values, and Functions</a></p>
+                        title="previous chapter">视屏操作，值和函数</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="config.html"
-                        title="next chapter">Configuration Variables</a></p>
-            <h4>Search</h4>
+                        title="next chapter">配置变量</a></p>
+            <h4>搜索</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
 
@@ -105,55 +105,32 @@
           <div class="body">
             
   <div class="section" id="special-screen-names">
-<h1>Special Screen Names<a class="headerlink" href="#special-screen-names" title="Permalink to this headline">¶</a></h1>
-<p>There are two kinds of special screen names in Ren'Py. The first are
-screens that will be automatically displayed when Ren'Py script
-language commands (or their programmatic equivalents) are run. The
-other type are menu screens. These have conventional names for
-conventional functionality, but screens can be omitted or changed as
-is deemed necessary.</p>
-<p>On this page, we'll give example screens. It's important to realize
-that, while some screens must have minimal functionality, the screen
-system makes it possible to add additional functionality to
-screens. For example, while the standard say screen only displays
-text, the screen systen makes it easy to add features like skipping,
-auto-forward mode, or muting.</p>
-<p>Some special screens take parameters. These parameters can be accessed
-as variables in the screen's scope.</p>
-<p>Some of the screens also have special ids associated with them. A
-special id should be assigned to a displayable of a given type. It can
-cause properties to be assigned to that displayable, and can make that
-displayable accessible to calling code.</p>
+<h1>有特殊含义的视屏<a class="headerlink" href="#special-screen-names" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py中有两大类具有特殊含义的视屏。第一类是在Ren'Py脚本语言运行（或者它们的等价命令运行）时会被自动显示的视屏，第二类是菜单类食品。它们有传统的命名方式和传统的默认功能，但是您也可以省略它们或者对它们做一些必要的修改。</p>
+<p>在这一页上面，我们会给出一些范例视屏。需要注意的是，虽然一些视屏必须提供与它相应的功能，视屏语言系统使得您可以在这些视屏上添加各种新功能。例如，虽然默认的say视屏只用于显示文本，您可以很容易地在上面添加一些按钮，用于开启快进模式、自动模式或者静音等功能。</p>
+<p>一些特殊视屏接受参数，可以在该视屏的作用域内像变量一样来访问这些参数。</p>
+<p>有些视屏也有属于它们的特殊id。您在设计它们的时候应该将特定的id留给特定的可显示对象。这样可以保证一些属性会被应用到该可显示对象上，也可以保证调用该视屏的代码可以正确地访问到这个可显示对象。</p>
 <div class="section" id="in-game-screens">
-<h2>In-Game Screens<a class="headerlink" href="#in-game-screens" title="Permalink to this headline">¶</a></h2>
-<p>These screens are automatically displayed when certain Ren'Py
-statements execute.</p>
+<h2>游戏内视屏<a class="headerlink" href="#in-game-screens" title="Permalink to this headline">¶</a></h2>
+<p>这些视屏会在Ren'Py命令运行时自动显示出来。</p>
 <div class="section" id="say">
 <span id="say-screen"></span><h3>Say<a class="headerlink" href="#say" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">say</span></tt> screen is called by the say statement, when displaying
-ADV-mode dialogue. It is displayed with the following parameters:</p>
+<p><tt class="docutils literal"><span class="pre">say</span></tt>视屏会被say命令调用，用于显示ADV模式的对话。它有以下参数：</p>
 <dl class="docutils">
 <dt><cite>who</cite></dt>
-<dd>The text of the name of the speaking character.</dd>
+<dd>说话的角色的姓名。</dd>
 <dt><cite>what</cite></dt>
-<dd>The dialogue being said by the speaking character.</dd>
+<dd>说话的内容。</dd>
 </dl>
-<p>It's expected to declare displayables with the following ids:</p>
+<p>该视屏应该有以下id的可显示对象：</p>
 <dl class="docutils">
 <dt>&quot;who&quot;</dt>
-<dd>A text displayable, displaying the name of the speaking
-character. The character object can be given arguments that style
-this displayable.</dd>
+<dd>文本可显示对象，用于显示说话角色的姓名。Character对象可以带有修改此对象的样式的参数。</dd>
 <dt>&quot;what&quot;</dt>
-<dd>A text displayable, displaying the dialogue being said by the
-speaking character. The character object can be given arguments that style
-this displayable. <strong>A displayable with this id must be defined</strong>,
-as Ren'Py uses it to calculate auto-forward-mode time,
-click-to-continue, and other things.</dd>
+<dd>文本可显示对象，用于显示说话的内容。Character对象可以带有修改此对象的样式的参数。<strong>您必须定义一个这个id的可显示对象。</strong>,
+因为Ren'Py会用它来计算自动阅读模式的时间，自动快进模式的时间，等待点击标志的位置和其他内容。</dd>
 <dt>&quot;window&quot;</dt>
-<dd>A window or frame. This conventionally contains the who and what
-text. The character object can be given arguments that style
-this displayable.</dd>
+<dd>一个Window对象或者Frame对象。这个对象一般包含who和what对象。Character对象可以带有修改此对象的样式的参数。</dd>
 </dl>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">say</span><span class="p">:</span>
 
@@ -169,16 +146,11 @@ this displayable.</dd>
 </div>
 <div class="section" id="choice">
 <span id="choice-screen"></span><h3>Choice<a class="headerlink" href="#choice" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">choice</span></tt> screen is used to display the in-game choices created
-with the menu statement. It is given the following parameter:</p>
+<p><tt class="docutils literal"><span class="pre">choice</span></tt>视屏用于显示游戏内的选项，使用的是menu命令。它有以下参数：</p>
 <dl class="docutils">
 <dt><cite>items</cite></dt>
-<dd>This is a list of (<cite>caption</cite>, <cite>action</cite>, <cite>chosen</cite>)
-tuples. For each choice, <cite>caption</cite> is the name of the choice, and
-<cite>action</cite> is the action to invoke for the choice, or None if this
-is a choice label. <cite>Chosen</cite> if a choice with this label has been
-chosen by the user before. (It doesn't have to be in the current
-game.)</dd>
+<dd>这个参数是一个列表，列表的每一个元素都是这样一个元组：(<cite>caption</cite>, <cite>action</cite>, <cite>chosen</cite>)。对于每一个选项，<cite>caption</cite>是这个选项的内容，
+<cite>action</cite>是要调用的动作，如果是一个选择的标签那么这个值会是None。如果玩家之前选择过这个选项，<cite>Chosen</cite>的值是True（并不一定是当前游戏选择过该选项）。</dd>
 </dl>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="k">choice</span><span class="p">:</span>
 
@@ -205,17 +177,15 @@ game.)</dd>
 </div>
 <div class="section" id="input">
 <span id="input-screen"></span><h3>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">input</span></tt> screen is used to display <a class="reference internal" href="input.html#renpy.input" title="renpy.input"><tt class="xref py py-func docutils literal"><span class="pre">renpy.input()</span></tt></a>. It is given one
-parameter:</p>
+<p><tt class="docutils literal"><span class="pre">input</span></tt>视屏用于显示<a class="reference internal" href="input.html#renpy.input" title="renpy.input"><tt class="xref py py-func docutils literal"><span class="pre">renpy.input()</span></tt></a>，一个接受输入的窗口。它有以下参数：</p>
 <dl class="docutils">
 <dt><cite>prompt</cite></dt>
-<dd>The prompt text supplied to renpy.input.</dd>
+<dd>在renpy.input中显示的提示用户输入的信息。</dd>
 </dl>
-<p>It is expected to declare a displayable with the following id:</p>
+<p>它应该有定义了以下id的可显示对象：</p>
 <dl class="docutils">
 <dt>&quot;input&quot;</dt>
-<dd>An input displayable, which must exist. This is given all the
-parameters supplied to renpy.input, so it must exist.</dd>
+<dd>一个input可显示对象，必须被定义。该视屏会把所有参数传递给renpy.input，所以它必须存在。</dd>
 </dl>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="nb">input</span><span class="p">:</span>
 
@@ -229,29 +199,18 @@ parameters supplied to renpy.input, so it must exist.</dd>
 </div>
 <div class="section" id="nvl">
 <span id="nvl-screen"></span><h3>NVL<a class="headerlink" href="#nvl" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">nvl</span></tt> screen is used to display NVL-mode dialogue. It is given
-the following parameter:</p>
+<p><tt class="docutils literal"><span class="pre">nvl</span></tt>视屏用于显示NVL模式下的对话。它有以下参数：</p>
 <dl class="docutils">
 <dt><cite>dialogue</cite></dt>
-<dd>This is a list of ( <cite>who</cite>, <cite>what</cite>, <cite>who_id</cite>, <cite>what_id</cite>,
-<cite>window_id</cite>) tuples, each of which corresponds to a line of
-dialogue on the screen. <cite>Who</cite> and <cite>what</cite> are strings containing
-the speaking character and the line of dialogue, respectively. The
-ids should be assigned to the who and what text displayables, and
-a window containing each unit of dialogue.</dd>
+<dd>该参数是一个列表，每一个元素都是( <cite>who</cite>, <cite>what</cite>, <cite>who_id</cite>, <cite>what_id</cite>,
+<cite>window_id</cite>)这样的元组。每一个元组对应视屏上的一行对话。=<cite>Who</cite>和<cite>what</cite>是字符串，提供了说话角色的姓名以及说话的内容。who_id合what_id是用于显示该行文本的文本可显示对象，而window_id是显示该行文本的window对象的id。</dd>
 <dt><cite>items</cite></dt>
-<dd><p class="first">This is a list of (<cite>caption</cite>, <cite>action</cite>, <cite>chosen</cite>)
-tuples. For each choice, <cite>caption</cite> is the name of the choice, and
-<cite>action</cite> is the action to invoke for the choice, or None if this
-is a choice label. <cite>Chosen</cite> if a choice with this label has been
-chosen by the user before. (It doesn't have to be in the current
-game.)</p>
-<p class="last">If items is empty, the menu should not be shown.</p>
+<dd><p class="first">这个参数是一个列表，列表的每一个元素都是这样一个元组：(<cite>caption</cite>, <cite>action</cite>, <cite>chosen</cite>)。对于每一个选项，<cite>caption</cite>是这个选项的内容，
+<cite>action</cite>是要调用的动作，如果是一个选择的标签那么这个值会是None。如果玩家之前选择过这个选项，<cite>Chosen</cite>的值是True（并不一定是当前游戏选择过该选项）。</p>
+<p class="last">如果items是空的，那么选项将不会被显示。</p>
 </dd>
 </dl>
-<p>Ren'Py also supports an <tt class="docutils literal"><span class="pre">nvl_choice</span></tt> screen, which takes the same
-parameters as <tt class="docutils literal"><span class="pre">nvl</span></tt>, and is used in preference to <tt class="docutils literal"><span class="pre">nvl</span></tt> when
-an in-game choice is presented to the user, if it exists.</p>
+<p>Ren'Py也支持<tt class="docutils literal"><span class="pre">nvl_choice</span></tt>视屏，和<tt class="docutils literal"><span class="pre">nvl</span></tt>有一样的参数，但是如果在NVL模式中遇到选项时，如果该视屏存在，将优先使用它而不是<tt class="docutils literal"><span class="pre">nvl</span></tt>。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="k">nvl</span><span class="p">:</span>
 
     <span class="k">window</span><span class="p">:</span>
@@ -297,29 +256,25 @@ an in-game choice is presented to the user, if it exists.</p>
 </div>
 <div class="section" id="notify">
 <span id="notify-screen"></span><h3>Notify<a class="headerlink" href="#notify" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">notify</span></tt> screen is used by <a class="reference internal" href="other.html#renpy.notify" title="renpy.notify"><tt class="xref py py-func docutils literal"><span class="pre">renpy.notify()</span></tt></a> to display
-notifications to the user. It's generally used in conjunction with a
-transform to handle the entire task of notification. It's given a
-single parameter:</p>
+<p><tt class="docutils literal"><span class="pre">notify</span></tt>视屏是 <a class="reference internal" href="other.html#renpy.notify" title="renpy.notify"><tt class="xref py py-func docutils literal"><span class="pre">renpy.notify()</span></tt></a>用来向玩家显示通知。它通常和一个Transofrm对象一起处理整个通知的过程。它有一个参数：</p>
 <dl class="docutils">
 <dt><cite>message</cite></dt>
-<dd>The message to display.</dd>
+<dd>显示的信息。</dd>
 </dl>
-<p>The default notify screen, and its associated transform, are:</p>
+<p>默认的notify视屏，以及和它关联的transform对象如下：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">notify</span><span class="p">:</span>
     <span class="k">zorder</span> <span class="mi">100</span>
 
     <span class="k">text</span> <span class="n">message</span> <span class="k">at</span> <span class="n">_notify_transform</span>
 
-    <span class="c"># This controls how long it takes between when the screen is</span>
-    <span class="c"># first shown, and when it begins hiding.</span>
+    <span class="c"># 这个值决定了从通知显示到消失经过的时间</span>
     <span class="k">timer</span> <span class="mf">3.25</span> <span class="na">action</span> <span class="n">Hide</span><span class="p">(</span><span class="s">&#39;notify&#39;</span><span class="p">)</span>
 
 <span class="k">transform</span> <span class="n">_notify_transform</span><span class="p">:</span>
-    <span class="c"># These control the position.</span>
+    <span class="c"># 以下属性决定了通知的位置。</span>
     <span class="na">xalign</span> <span class="o">.</span><span class="mo">02</span> <span class="na">yalign</span> <span class="o">.</span><span class="mo">015</span>
 
-    <span class="c"># These control the actions on show and hide.</span>
+    <span class="c"># 以下属性决定了show和hide事件触发的动作。</span>
     <span class="k">on</span> <span class="k">show</span><span class="p">:</span>
         <span class="na">alpha</span> <span class="mi">0</span>
         <span class="n">linear</span> <span class="o">.</span><span class="mi">25</span> <span class="na">alpha</span> <span class="mf">1.0</span>
@@ -330,26 +285,23 @@ single parameter:</p>
 </div>
 </div>
 <div class="section" id="menu-screens">
-<h2>Menu Screens<a class="headerlink" href="#menu-screens" title="Permalink to this headline">¶</a></h2>
-<p>These are the menu screens. The <tt class="docutils literal"><span class="pre">main_menu</span></tt> and <tt class="docutils literal"><span class="pre">yesno_prompt</span></tt> are
-invoked implictly.  When the user invokes the game menu, the screen
-named in <tt class="xref py py-data docutils literal"><span class="pre">_game_menu_screen</span></tt> will be displayed. (This defaults
-to <tt class="docutils literal"><span class="pre">save</span></tt>.)</p>
-<p>Remember, menu screens can be combined and modified fairly freely.</p>
+<h2>菜单视屏<a class="headerlink" href="#menu-screens" title="Permalink to this headline">¶</a></h2>
+<p>以下为菜单视屏。<tt class="docutils literal"><span class="pre">main_menu</span></tt>和<tt class="docutils literal"><span class="pre">yesno_prompt</span></tt>视屏会被隐式地调用。当用户进入游戏菜单时，<tt class="xref py py-data docutils literal"><span class="pre">_game_menu_screen</span></tt>对应的视屏将被显示（默认为
+to <tt class="docutils literal"><span class="pre">save</span></tt>。）</p>
+<p>请记住，菜单视屏能改动的地方较多，改动的幅度也相对较大。</p>
 <div class="section" id="main-menu">
 <span id="main-menu-screen"></span><h3>Main Menu<a class="headerlink" href="#main-menu" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">main_menu</span></tt> screen is the first screen shown when the game
-begins.</p>
+<p><tt class="docutils literal"><span class="pre">main_menu</span></tt>视屏是游戏开始后第一个显示的视屏。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">main_menu</span><span class="p">:</span>
 
-    <span class="c"># This ensures that any other menu screen is replaced.</span>
+    <span class="c"># 确保其他主菜单视屏被隐藏起来</span>
     <span class="n">tag</span> <span class="k">menu</span>
 
-    <span class="c"># The background of the main menu.</span>
+    <span class="c"># 指定主菜单背景</span>
     <span class="k">window</span><span class="p">:</span>
         <span class="k">style</span> <span class="s">&quot;mm_root&quot;</span>
 
-    <span class="c"># The main menu buttons.</span>
+    <span class="c"># 主菜单按钮</span>
     <span class="k">frame</span><span class="p">:</span>
         <span class="na">style_group</span> <span class="s">&quot;mm&quot;</span>
         <span class="na">xalign</span> <span class="o">.</span><span class="mi">98</span>
@@ -365,23 +317,21 @@ begins.</p>
 
 <span class="k">init</span> <span class="k">python</span><span class="p">:</span>
 
-    <span class="c"># Make all the main menu buttons be the same size.</span>
+    <span class="c"># 让所有按钮等大</span>
     <span class="k">style</span><span class="o">.</span><span class="n">mm_button</span><span class="o">.</span><span class="na">size_group</span> <span class="o">=</span> <span class="s">&quot;mm&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="navigation">
 <span id="navigation-screen"></span><h3>Navigation<a class="headerlink" href="#navigation" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">navigation</span></tt> screen isn't special to Ren'Py. But by convention,
-we place the game menu navigation in a screen named <tt class="docutils literal"><span class="pre">navigation</span></tt>, and
-then use that screen from the save, load and preferences screens.</p>
+<p><tt class="docutils literal"><span class="pre">navigation</span></tt>视屏并不是Ren'Py的特殊视屏之一，但是传统上来说，我们会把游戏的导航菜单放在<tt class="docutils literal"><span class="pre">navigation</span></tt>视屏中，然后在存档、读档和设置视屏中use它。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">navigation</span><span class="p">:</span>
 
-    <span class="c"># The background of the game menu.</span>
+    <span class="c"># 游戏菜单的背景</span>
     <span class="k">window</span><span class="p">:</span>
         <span class="k">style</span> <span class="s">&quot;gm_root&quot;</span>
 
-    <span class="c"># The various buttons.</span>
+    <span class="c"># 各种按钮</span>
     <span class="k">frame</span><span class="p">:</span>
         <span class="na">style_group</span> <span class="s">&quot;gm_nav&quot;</span>
         <span class="na">xalign</span> <span class="o">.</span><span class="mi">98</span>
@@ -404,11 +354,10 @@ then use that screen from the save, load and preferences screens.</p>
 </div>
 <div class="section" id="save">
 <span id="save-screen"></span><h3>Save<a class="headerlink" href="#save" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">save</span></tt> screen is used to select a file in which to save the
-game.</p>
+<p><tt class="docutils literal"><span class="pre">save</span></tt>视屏是存档界面。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">save</span><span class="p">:</span>
 
-    <span class="c"># This ensures that any other menu screen is replaced.</span>
+    <span class="c"># 这行保证其他的菜单被隐藏</span>
     <span class="n">tag</span> <span class="k">menu</span>
 
     <span class="k">use</span> <span class="n">navigation</span>
@@ -416,8 +365,7 @@ game.</p>
     <span class="k">frame</span><span class="p">:</span>
         <span class="k">has</span> <span class="k">vbox</span>
 
-        <span class="c"># The buttons at the top allow the user to pick a</span>
-        <span class="c"># page of files.</span>
+        <span class="c"># 选择页面的按钮</span>
         <span class="k">hbox</span><span class="p">:</span>
             <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Previous&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePagePrevious</span><span class="p">()</span>
             <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Auto&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePage</span><span class="p">(</span><span class="s">&quot;auto&quot;</span><span class="p">)</span>
@@ -427,15 +375,15 @@ game.</p>
 
             <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Next&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePageNext</span><span class="p">()</span>
 
-        <span class="c"># Display a grid of file slots.</span>
+        <span class="c"># 显示存档槽的栅格</span>
         <span class="k">grid</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">:</span>
             <span class="na">transpose</span> <span class="bp">True</span>
             <span class="na">xfill</span> <span class="bp">True</span>
 
-            <span class="c"># Display ten file slots, numbered 1 - 10.</span>
+            <span class="c"># 显示十个存档槽，编号为1-10</span>
             <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="na">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
 
-                <span class="c"># Each file slot is a button.</span>
+                <span class="c"># 每个存档槽是一个按钮</span>
                 <span class="k">button</span><span class="p">:</span>
                     <span class="na">action</span> <span class="n">FileAction</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
                     <span class="na">xfill</span> <span class="bp">True</span>
@@ -443,8 +391,7 @@ game.</p>
 
                     <span class="k">has</span> <span class="k">hbox</span>
 
-                    <span class="c"># Add the screenshot and the description to the</span>
-                    <span class="c"># button.</span>
+                    <span class="c"># 向按钮中添加存档截图和说明</span>
                     <span class="k">add</span> <span class="n">FileScreenshot</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
                     <span class="k">text</span> <span class="p">(</span> <span class="s">&quot; </span><span class="si">%2d</span><span class="s">. &quot;</span> <span class="o">%</span> <span class="n">i</span>
                            <span class="o">+</span> <span class="n">FileTime</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">empty</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;Empty Slot.&quot;</span><span class="p">))</span>
@@ -455,11 +402,10 @@ game.</p>
 </div>
 <div class="section" id="load">
 <span id="load-screen"></span><h3>Load<a class="headerlink" href="#load" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">load</span></tt> screen is used to select a file from which to load the
-game.</p>
+<p><tt class="docutils literal"><span class="pre">load</span></tt>视屏是读档界面。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">load</span><span class="p">:</span>
 
-    <span class="c"># This ensures that any other menu screen is replaced.</span>
+    <span class="c"># 这行保证其他菜单被隐藏。</span>
     <span class="n">tag</span> <span class="k">menu</span>
 
     <span class="k">use</span> <span class="n">navigation</span>
@@ -467,8 +413,7 @@ game.</p>
     <span class="k">frame</span><span class="p">:</span>
         <span class="k">has</span> <span class="k">vbox</span>
 
-        <span class="c"># The buttons at the top allow the user to pick a</span>
-        <span class="c"># page of files.</span>
+        <span class="c"># 存档页码的按钮条</span>
         <span class="k">hbox</span><span class="p">:</span>
             <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Previous&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePagePrevious</span><span class="p">()</span>
             <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Auto&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePage</span><span class="p">(</span><span class="s">&quot;auto&quot;</span><span class="p">)</span>
@@ -478,15 +423,15 @@ game.</p>
 
             <span class="k">textbutton</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Next&quot;</span><span class="p">)</span> <span class="na">action</span> <span class="n">FilePageNext</span><span class="p">()</span>
 
-        <span class="c"># Display a grid of file slots.</span>
+        <span class="c"># 显示存档槽的栅格。</span>
         <span class="k">grid</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">:</span>
             <span class="na">transpose</span> <span class="bp">True</span>
             <span class="na">xfill</span> <span class="bp">True</span>
 
-            <span class="c"># Display ten file slots, numbered 1 - 10.</span>
+            <span class="c"># 显示10个存档槽，编号1-10。</span>
             <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="na">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
 
-                <span class="c"># Each file slot is a button.</span>
+                <span class="c"># 每一个槽都是一个按钮。</span>
                 <span class="k">button</span><span class="p">:</span>
                     <span class="na">action</span> <span class="n">FileAction</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
                     <span class="na">xfill</span> <span class="bp">True</span>
@@ -494,8 +439,7 @@ game.</p>
 
                     <span class="k">has</span> <span class="k">hbox</span>
 
-                    <span class="c"># Add the screenshot and the description to the</span>
-                    <span class="c"># button.</span>
+                    <span class="c"># 向按钮添加存档截图和描述。</span>
                     <span class="k">add</span> <span class="n">FileScreenshot</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
                     <span class="k">text</span> <span class="p">(</span> <span class="s">&quot; </span><span class="si">%2d</span><span class="s">. &quot;</span> <span class="o">%</span> <span class="n">i</span>
                            <span class="o">+</span> <span class="n">FileTime</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">empty</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;Empty Slot.&quot;</span><span class="p">))</span>
@@ -506,21 +450,19 @@ game.</p>
 </div>
 <div class="section" id="preferences">
 <span id="preferences-screen"></span><h3>Preferences<a class="headerlink" href="#preferences" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">preferences</span></tt> screen is used to select options that control the
-display of the game.</p>
+<p><tt class="docutils literal"><span class="pre">preferences</span></tt> 视屏是设置界面。</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">preferences</span><span class="p">:</span>
 
     <span class="n">tag</span> <span class="k">menu</span>
 
-    <span class="c"># Include the navigation.</span>
+    <span class="c"># 使用navigation。</span>
     <span class="k">use</span> <span class="n">navigation</span>
 
-    <span class="c"># Put the navigation columns in a three-wide grid.</span>
     <span class="k">grid</span> <span class="mi">3</span> <span class="mi">1</span><span class="p">:</span>
         <span class="na">style_group</span> <span class="s">&quot;prefs&quot;</span>
         <span class="na">xfill</span> <span class="bp">True</span>
 
-        <span class="c"># The left column.</span>
+        <span class="c"># 左边的列</span>
         <span class="k">vbox</span><span class="p">:</span>
             <span class="k">frame</span><span class="p">:</span>
                 <span class="na">style_group</span> <span class="s">&quot;pref&quot;</span>
@@ -627,27 +569,24 @@ display of the game.</p>
 </div>
 <div class="section" id="yesno-prompt">
 <span id="yesno-prompt-screen"></span><h3>Yesno_Prompt<a class="headerlink" href="#yesno-prompt" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">yesno_prompt</span></tt> message is used to ask yes/no choices of the
-user. It takes the following parameters:</p>
+<p><tt class="docutils literal"><span class="pre">yesno_prompt</span></tt>视屏用于向用户确认操作。有以下参数：</p>
 <dl class="docutils">
 <dt><cite>message</cite></dt>
-<dd><p class="first">The message to display to the user. This is one of:</p>
+<dd><p class="first">显示给用户的信息，应为以下之一：</p>
 <ul class="simple">
-<li>layout.ARE_YOU_SURE - &quot;Are you sure?&quot; This should be
-the default if the message is unknown.</li>
-<li>layout.DELETE_SAVE - &quot;Are you sure you want to delete this save?&quot;</li>
-<li>layout.OVERWRITE_SAVE - &quot;Are you sure you want to overwrite your save?&quot;</li>
-<li>layout.LOADING - &quot;Loading will lose unsaved progress.nAre you sure you want to do this?&quot;</li>
-<li>layout.QUIT - &quot;Are you sure you want to quit?&quot;</li>
-<li>layout.MAIN_MENU - &quot;Are you sure you want to return to the mainnmenu? This will lose unsaved progress.&quot;</li>
+<li>layout.ARE_YOU_SURE - &quot;您确定吗？&quot; 如果不知道要询问什么，默认值是这个。</li>
+<li>layout.DELETE_SAVE - &quot;您确定您希望删除此存档吗？&quot;</li>
+<li>layout.OVERWRITE_SAVE - &quot;您确定您希望覆盖此存档吗？&quot;</li>
+<li>layout.LOADING - &quot;读取游戏会使当前游戏进度丢失。\n您确定这么做吗？&quot;</li>
+<li>layout.QUIT - &quot;您确定要退出游戏吗？&quot;</li>
+<li>layout.MAIN_MENU - &quot;您确定要返回主菜单吗？没有保存的游戏进度将会丢失。&quot;</li>
 </ul>
-<p class="last">The values of the variables are strings, which means they can be
-displayed using a text displayable.</p>
+<p class="last">这些变量的值是字符串，所以您可以用文本可显示对象来显示它们。</p>
 </dd>
 <dt><cite>yes_action</cite></dt>
-<dd>The action to run when the user picks &quot;Yes&quot;.</dd>
+<dd>用户选择&quot;Yes&quot;后执行的动作。</dd>
 <dt><cite>no_action</cite></dt>
-<dd>The action to run when the user picks &quot;No&quot;.</dd>
+<dd>用户选择&quot;No&quot;后执行的动作。</dd>
 </dl>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">screen</span> <span class="n">yesno_prompt</span><span class="p">:</span>
 

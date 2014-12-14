@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Configuration Variables &mdash; Ren&#39;Py Documentation</title>
+    <title>配置变量&mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -57,22 +57,22 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Configuration Variables</a><ul>
-<li><a class="reference internal" href="#commonly-used">Commonly Used</a></li>
-<li><a class="reference internal" href="#transitions">Transitions</a></li>
-<li><a class="reference internal" href="#preference-defaults">Preference Defaults</a></li>
-<li><a class="reference internal" href="#occasionally-used">Occasionally Used</a></li>
-<li><a class="reference internal" href="#rarely-or-internally-used">Rarely or Internally Used</a></li>
+<li><a class="reference internal" href="#">配置变量</a><ul>
+<li><a class="reference internal" href="#commonly-used">常用变量</a></li>
+<li><a class="reference internal" href="#transitions">转场效果</a></li>
+<li><a class="reference internal" href="#preference-defaults">系统设置默认值</a></li>
+<li><a class="reference internal" href="#occasionally-used">偶尔用到的变量</a></li>
+<li><a class="reference internal" href="#rarely-or-internally-used">很少或者内部使用的变量</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="screen_special.html"
-                        title="previous chapter">Special Screen Names</a></p>
+                        title="previous chapter">有特殊含义的视屏</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="store_variables.html"
-                        title="next chapter">Store Variables</a></p>
+                        title="next chapter">内置变量</a></p>
             <h4>Search</h4>
             
             <div id="cse-search-form" style="width: 100%;"></div>
@@ -93,16 +93,10 @@
           <div class="body">
             
   <div class="section" id="configuration-variables">
-<h1>Configuration Variables<a class="headerlink" href="#configuration-variables" title="Permalink to this headline">¶</a></h1>
-<p>Configuration variables control the behavior of Ren'Py's implementation,
-allowing Ren'Py itself to be customized in a myriad of ways. These range from
-the common (such as changing the screen size) to the obscure (adding new
-kinds of archive files).</p>
-<p>Ren'Py's implementation makes the assumption that, once the GUI system has
-initialized, configuration variables will not change. Changing configuration
-variables outside of init blocks can lead to undefined behavior.
-Configuration variables are not part of the save data.</p>
-<p>Configuration variables are often changed in init python blocks:</p>
+<h1>配置变量<a class="headerlink" href="#configuration-variables" title="Permalink to this headline">¶</a></h1>
+<p>配置变量决定了Ren'Py的一些行为，使得您可以按照自己的需求随意地配置Ren'Py，这些变量有些很常用（例如改变屏幕尺寸大小），有些很奇怪（比如指定新的档案文件格式）</p>
+<p>Ren'Py的实现机制认为，当GUI系统初始化后，配置变量不会发生变化。在init区块外部改变config变量的域的值会导致未定义的行为。配置变量并不是存档数据的一部分。</p>
+<p>配置变量通常在init区块里设置：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
 
     <span class="c"># Use a widescreen resolution.</span>
@@ -111,45 +105,31 @@ Configuration variables are not part of the save data.</p>
 </pre></div>
 </div>
 <div class="section" id="commonly-used">
-<h2>Commonly Used<a class="headerlink" href="#commonly-used" title="Permalink to this headline">¶</a></h2>
+<h2>常用变量<a class="headerlink" href="#commonly-used" title="Permalink to this headline">¶</a></h2>
 <dl class="var">
 <dt id="var-config.developer">
 <tt class="descname">config.developer</tt> = False<a class="headerlink" href="#var-config.developer" title="Permalink to this definition">¶</a></dt>
-<dd><p>If set to True, developer mode is enabled. Developer mode gives
-access to the shift+D developer menu, shift+R reloading, and
-various other features that are not intended for end users.</p>
-<p>The default game template sets this to True. We suggest setting it
-to False before releasing a game.</p>
+<dd><p>如果是True，那么将启用开发者模式。您可以使用SHIFT+D在游戏中进入开发者菜单，以及使用SHIFT+R来重载脚本，并能使用许多并不是为了玩家设计的功能。</p>
+<p>游戏模板中此设置为True。我们建议您在发布游戏前将它设置为False。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.help">
 <tt class="descname">config.help</tt> = &quot;README.html&quot;<a class="headerlink" href="#var-config.help" title="Permalink to this definition">¶</a></dt>
-<dd><p>This controls the functionality of the help system invoked by the
-help button on the main and game menus, or by pressing f1 or
-command-?.</p>
-<p>If None, the help system is disabled and does not show up on
-menus.  If a string corresponding to a label found in the script,
-that label is invoked in a new context. This allows you to define
-an in-game help-screen.  Otherwise, this is interpreted as a
-filename relative to the base directory, that is opened in a web
-browser.</p>
+<dd><p>该变量决定了帮助系统的运行方式。玩家可以通过在主菜单和游戏内菜单的帮助按钮或者按F1或command-?来呼出帮助系统。</p>
+<p>若为None，帮助系统将被禁用并不会在菜单中显示出来。如果一个提供一个标签名称的字符串，那么系统将在一个新的语境中调用该标签。这允许您定义一个游戏中的帮助菜单。否则，该字符串将被解释为一个文件，它的路径是相对于最外层路径的。该文件将会在网页浏览器中被打开。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.name">
 <tt class="descname">config.name</tt> = &quot;&quot;<a class="headerlink" href="#var-config.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>This should be a string giving the name of the game. This is included
-as part of tracebacks and other log files, helping to identify the
-version of the game being used.</p>
+<dd><p>此变量应为一个字符串，用于提供游戏的名称。它会在traceback和其他日志文件中出现，帮助辨别游戏的版本。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.save_directory">
 <tt class="descname">config.save_directory</tt> = &quot;...&quot;<a class="headerlink" href="#var-config.save_directory" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is used to generate the directory in which games and
-persistent information are saved. The name generated depends on
-the platform:</p>
+<dd><p>此变量用于生产放置存档文件和数据的目录名称。不同平台上产生的名称不同：</p>
 <dl class="docutils">
 <dt>Windows</dt>
 <dd>%APPDATA%/RenPy/<cite>save_directory</cite></dd>
@@ -158,187 +138,151 @@ the platform:</p>
 <dt>Linux/Other</dt>
 <dd>~/.renpy/<cite>save_directory</cite></dd>
 </dl>
-<p>Setting this to None creates a &quot;saves&quot; directory underneath the
-game directory. This is not recommended, as it prevents the game
-from being shared between multiple users on a system. It can also
-lead to problems when a game is installed as Administrator, but run
-as a user.</p>
-<p>This must be set in a python early block, so that persistent
-information can be loaded before init code is run.</p>
-<p>The user may change the directory. Code that needs to know the save
-directory should read <a class="reference internal" href="#var-config.savedir"><tt class="xref std std-var docutils literal"><span class="pre">config.savedir</span></tt></a> instead of this
-variable.</p>
+<p>将此变量设置为None会导致Ren'Py将存档文件放置在game目录下的save文件夹里。我们并不推荐这么做，因为这样的话存档文件就不能在各个用户之间共享。在以管理员身份安装游戏后，以一般用户的权限运行此游戏也会有问题。</p>
+<p>该变量必须在python early区块内配置，这样persistent数据才可以在init区块运行前被读取。</p>
+<p>用户可以改变此目录。需要使用存档路径的代码应该调用<a class="reference internal" href="#var-config.savedir"><tt class="xref std std-var docutils literal"><span class="pre">config.savedir</span></tt></a>而不是这个变量。 </p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.screen_height">
 <tt class="descname">config.screen_height</tt> = 600<a class="headerlink" href="#var-config.screen_height" title="Permalink to this definition">¶</a></dt>
-<dd><p>The height of the screen.</p>
+<dd><p>画面的高度。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.screen_width">
 <tt class="descname">config.screen_width</tt> = 800<a class="headerlink" href="#var-config.screen_width" title="Permalink to this definition">¶</a></dt>
-<dd><p>The width of the screen.</p>
+<dd><p>画面的宽度。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.translations">
 <tt class="descname">config.translations</tt> = dict(...)<a class="headerlink" href="#var-config.translations" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a map used to translate text in the game menu into your
-language. See Localizing Ren'Py for how to use it, and here for a
-list of available translations.</p>
+<dd><p>此变量的值为翻译文本时使用的映射关系。具体用法见相关章节。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.window_icon">
 <tt class="descname">config.window_icon</tt> = None<a class="headerlink" href="#var-config.window_icon" title="Permalink to this definition">¶</a></dt>
-<dd><p>If not None, this is expected to be the filename of an image
-giving an icon that is used for the window on Linux and Mac OS
-X. This should be a large image, with 8-bit alpha.</p>
-<p>This should generally be a PNG format file.</p>
+<dd><p>如果不为None，应为程序在Linux和Mac OS X系统下使用的窗口图标。该文件应该是一个较大的支持8位alpha通道的png文件。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.windows_icon">
 <tt class="descname">config.windows_icon</tt> = None<a class="headerlink" href="#var-config.windows_icon" title="Permalink to this definition">¶</a></dt>
-<dd><p>If not None, this is expected to be the filename of an image
-giving an icon that is used for the window on Windows. This should
-be a 32x32 image with 1-bit alpha. (Opaque images work the best.)</p>
-<p>This should be a PNG format file.</p>
+<dd><p>如果不为None，应为程序在Windows系统下使用的窗口图标。该文件应该是一个32*32大小带1位alpha通道的图像。（模糊的图像效果更佳）。一般为PNG文件。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.window_title">
 <tt class="descname">config.window_title</tt> = &quot;A Ren'Py Game&quot;<a class="headerlink" href="#var-config.window_title" title="Permalink to this definition">¶</a></dt>
-<dd><p>The static portion of the title of the window containing the
-Ren'Py game. <a class="reference internal" href="store_variables.html#var-_window_subtitle"><tt class="xref std std-var docutils literal"><span class="pre">_window_subtitle</span></tt></a> is appended to this to get
-the full title of the window.</p>
+<dd><p>游戏窗口的标题的静态部分。<a class="reference internal" href="store_variables.html#var-_window_subtitle"><tt class="xref std std-var docutils literal"><span class="pre">_window_subtitle</span></tt></a>会被添加在该变量后，组成完整的标题。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.version">
 <tt class="descname">config.version</tt> = &quot;&quot;<a class="headerlink" href="#var-config.version" title="Permalink to this definition">¶</a></dt>
-<dd><p>This should be a string giving the version of the game. This is included
-as part of tracebacks and other log files, helping to identify the
-version of the game being used.</p>
+<dd><p>该变量应该是提供游戏版本的一个字符串。它出现在traceback和其他log文件中，用于帮助识别游戏的版本。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="transitions">
 <h2>Transitions<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
-<p>These control transitions between various screens.</p>
+<p>以下变量控制在各个窗口之间的转场特效。</p>
 <dl class="var">
 <dt id="var-config.adv_nvl_transition">
 <tt class="descname">config.adv_nvl_transition</tt> = None<a class="headerlink" href="#var-config.adv_nvl_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>A transition that is used when showing NVL-mode text directly
-after ADV-mode text.</p>
+<dd><p>在ADV模式文本之后直接显示NVL模式文本时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.after_load_transition">
 <tt class="descname">config.after_load_transition</tt> = None<a class="headerlink" href="#var-config.after_load_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>A transition that is used after loading, when entering the loaded
-game.</p>
+<dd><p>在载入完成后使用的转场效果。设为dissolve可以使得读档结束时画面平滑地渐变到新画面上。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.end_game_transition">
 <tt class="descname">config.end_game_transition</tt> = None<a class="headerlink" href="#var-config.end_game_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>The transition that is used to display the main menu after the
-game ends normally, either by invoking return with no place to
-return to, or by calling <a class="reference internal" href="other.html#renpy.full_restart" title="renpy.full_restart"><tt class="xref py py-func docutils literal"><span class="pre">renpy.full_restart()</span></tt></a>.</p>
+<dd><p>在游戏正常结束后显示主菜单时使用的转场特效。可以通过在没有call过的时候调用return或者直接调用<a class="reference internal" href="other.html#renpy.full_restart" title="renpy.full_restart"><tt class="xref py py-func docutils literal"><span class="pre">renpy.full_restart()</span></tt></a>来触发。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.end_splash_transition">
 <tt class="descname">config.end_splash_transition</tt> = None<a class="headerlink" href="#var-config.end_splash_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>The transition that is used to display the main menu after the end
-of the splashscreen.</p>
+<dd><p>在splashscreen结束后显示主菜单时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.enter_replay_transition">
 <tt class="descname">config.enter_replay_transition</tt> = None<a class="headerlink" href="#var-config.enter_replay_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>If not None, a transition that is used when entering a replay.</p>
+<dd><p>如果不为None，为进入回想模式时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.enter_transition">
 <tt class="descname">config.enter_transition</tt> = None<a class="headerlink" href="#var-config.enter_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>If not None, this variable should give a transition that will be
-used when entering the game menu.</p>
+<dd><p>如果不为None，为进入菜单时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.enter_yesno_transition">
 <tt class="descname">config.enter_yesno_transition</tt> = None<a class="headerlink" href="#var-config.enter_yesno_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>If not None, a transition that is used when entering the yes/no
-prompt screen.</p>
+<dd><p>如果不为None，为进入yes/no选择屏幕时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.exit_replay_transition">
 <tt class="descname">config.exit_replay_transition</tt> = None<a class="headerlink" href="#var-config.exit_replay_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>If not None, a transition that is used when exiting a replay.</p>
+<dd><p>如果不是None，为退出回想模式时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.exit_transition">
 <tt class="descname">config.exit_transition</tt> = None<a class="headerlink" href="#var-config.exit_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>If not None, this variable should give a transition that will be
-performed when exiting the game menu.</p>
+<dd><p>如果不是None，为退出游戏菜单时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.exit_yesno_transition">
 <tt class="descname">config.exit_yesno_transition</tt> = None<a class="headerlink" href="#var-config.exit_yesno_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>If not None, a transition that is used when exiting the yes/no
-prompt screen.</p>
+<dd><p>如果不是None，为推出yes/no窗口时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.game_main_transition">
 <tt class="descname">config.game_main_transition</tt> = None<a class="headerlink" href="#var-config.game_main_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>The transition that is used to display the main menu after leaving
-the game menu. This is used when the load and preferences screens
-are invoked from the main menu, and it's also used when the user
-picks &quot;Main Menu&quot; from the game menu.</p>
+<dd><p>该特效在从游戏菜单进入主菜单时被使用。默认情况下，这将会在从读取和设置菜单进入主菜单时被调用。他也会在玩家选择了菜单中的&quot;Main Menu&quot;时被调用。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.main_game_transition">
 <tt class="descname">config.main_game_transition</tt> = None<a class="headerlink" href="#var-config.main_game_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>The transition used when entering the game menu from the main
-menu, as is done when clicking &quot;Load Game&quot; or &quot;Preferences&quot;.</p>
+<dd><p>从主菜单进入游戏菜单时使用的转场特效，比如当点击&quot;Load Game&quot;或者&quot;Preferences&quot;时。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.nvl_adv_transition">
 <tt class="descname">config.nvl_adv_transition</tt> = None<a class="headerlink" href="#var-config.nvl_adv_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>A transition that is used when showing ADV-mode text directly
-after NVL-mode text.</p>
+<dd><p>在NVL模式文本之后直接显示ADV模式文本时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.say_attribute_transition">
 <tt class="descname">config.say_attribute_transition</tt> = None<a class="headerlink" href="#var-config.say_attribute_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>If not None, a transition to use when the image is changed by a
-say statement with image attributes.</p>
+<dd><p>如果不是None，应为图像被带有image属性的say命令替换时使用的转场特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.window_hide_transition">
 <tt class="descname">config.window_hide_transition</tt> = None<a class="headerlink" href="#var-config.window_hide_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>The transition used by the window hide statement when no
-transition has been explicitly specified.</p>
+<dd><p>当使用window hide命令时如果没有显式地指定使用的特效，将使用该特效。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-config.window_show_transition">
 <tt class="descname">config.window_show_transition</tt> = None<a class="headerlink" href="#var-config.window_show_transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>The transition used by the window show statement when no
-transition has been explicitly specified.</p>
+<dd><p>当使用window show命令时如果没有显式地指定使用的特效，将使用该特效。</p>
 </dd></dl>
 
 </div>
