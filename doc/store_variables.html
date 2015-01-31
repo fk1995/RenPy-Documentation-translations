@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+
     <title>Store Variables &mdash; Ren&#39;Py Documentation</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
     <link rel="next" title="NVL-Mode Tutorial" href="nvl_mode.html" />
-    <link rel="prev" title="Configuration Variables" href="config.html" /> 
+    <link rel="prev" title="Configuration Variables" href="config.html" />
   </head>
   <body>
     <div class="related">
@@ -45,24 +45,24 @@
           <a href="config.html" title="Configuration Variables"
              accesskey="P">上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <img src="_static/logo.png" width=19 height=21 align=center>
         <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
+        <li><a href="index.html">文档</a></li>
       </ul>
     </div>
   <div class="container">
   <div class="span4">
-    
+
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>上一节</h4>
   <p class="topless"><a href="config.html"
-                        title="previous chapter">Configuration Variables</a></p>
+                        title="previous chapter">配置变量</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="nvl_mode.html"
-                        title="next chapter">NVL-Mode Tutorial</a></p>
-            <h4>Search</h4>
-            
+                        title="next chapter">视觉小说模式向导</a></p>
+            <h4>搜索</h4>
+
             <div id="cse-search-form" style="width: 100%;"></div>
 
       <div class="copydata">
@@ -71,86 +71,73 @@
       </div>
         </div>
       </div>
-  
+
   </div>
-  
-    
+
+
     <div class="document span20 last">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
-            
+
   <div class="section" id="store-variables">
-<h1>Store Variables<a class="headerlink" href="#store-variables" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py has a number of store variables that control its function. Store
-variables may be changed at any time. If a store variable is changed after
-the game has started, it will be be saved and loaded by the save system,
-and rolled-back when rollback occurs.</p>
+<h1>内置变量<a class="headerlink" href="#store-variables" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py 拥有许多控制其函数运行的内置变量。内置变量随时可以改变。游戏开始后发生改变的内置变量将可以通过存档系统保存和读取并通过回滚系统复原。</p>
 <dl class="var">
 <dt id="var-adv">
 <tt class="descname">adv</tt> = Character(...)<a class="headerlink" href="#var-adv" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a template ADV-mode character, and the default character kind
-that is used when <a class="reference internal" href="dialogue.html#Character" title="Character"><tt class="xref py py-func docutils literal"><span class="pre">Character()</span></tt></a> is called.</p>
+<dd><p>设置文字冒险模式下的角色模板，这个角色模板将作为 <a class="reference internal" href="dialogue.html#Character" title="Character"><tt class="xref py py-func docutils literal"><span class="pre">Character()</span></tt></a> 函数执行时的默认值使用。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-_game_menu_screen">
 <tt class="descname">_game_menu_screen</tt> = &quot;save&quot;<a class="headerlink" href="#var-_game_menu_screen" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the screen that is displayed when entering the game menu with no
-more specific screen selected. (For example, when right-clicking, pressing
-escape, or when <a class="reference internal" href="screen_actions.html#ShowMenu" title="ShowMenu"><tt class="xref py py-func docutils literal"><span class="pre">ShowMenu()</span></tt></a> is not given an argument.) If None, entry
-to the game menu is disallowed.</p>
-<p>This is set to None at the start of the splashscreen, and restored to its
-original value when the splashscreen ends.</p>
+<dd><p>这个视屏将在没有选择特殊视屏的情况下进入游戏菜单时显示。（例如右键、按下 esc 键或者执行
+  <a class="reference internal" href="screen_actions.html#ShowMenu" title="ShowMenu"><tt class="xref py py-func docutils literal"><span class="pre">ShowMenu()</span></tt></a> 函数没有传递参数时。）若设置为 None, 则禁止打开游戏菜单。</p>
+<p>在开始画面中这个变量被设置为了 None，离开开始画面后则恢复成了默认值。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-main_menu">
 <tt class="descname">main_menu</tt> = False<a class="headerlink" href="#var-main_menu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ren'Py sets this variable to True while in the main menu. This can be used
-to have screens display differently while in the main menu.</p>
+<dd><p>在主菜单中 Ren'Py 将这个变量的值设置为了 True 。可以使用这个变量来让视屏在处于主菜单时发生改变。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-menu">
 <tt class="descname">menu</tt> = renpy.display_menu<a class="headerlink" href="#var-menu" title="Permalink to this definition">¶</a></dt>
-<dd><p>The function that's called to display the in-gamemenu. It should take the same
-arguments as :func`renpy.display_menu`. Assigning <tt class="xref py py-func docutils literal"><span class="pre">nvl_menu()</span></tt> to this
-will display an nvl-mode menu.</p>
+<dd><p>设置在游戏中打开菜单时执行的函数。这个函数的参数应该与 :func`renpy.display_menu` 相同。将这里设置为 <tt class="xref py py-func docutils literal"><span class="pre">nvl_menu()</span></tt> 将打开视觉小说模式的菜单。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-mouse_visible">
 <tt class="descname">mouse_visible</tt> = True<a class="headerlink" href="#var-mouse_visible" title="Permalink to this definition">¶</a></dt>
-<dd><p>Controls if the mouse is visible. This is automatically set to true when
-entering the standard game menus.</p>
+<dd><p>设置鼠标是否可见。当进入游戏的标准菜单时这个变量将自动设置为真。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-name_only">
 <tt class="descname">name_only</tt> = Character(...)<a class="headerlink" href="#var-name_only" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a template character that is used when a string is given as the
-character name in a say statement. The code:</p>
+<dd><p>在角色名称为字符串的情况下的角色模板。代码：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;Eileen&quot;</span> <span class="s">&quot;Hello, world.&quot;</span>
 </pre></div>
 </div>
-<p>is equivalent to:</p>
+<p>等同于：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">$</span> <span class="n">temp_char</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&quot;Eileen&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">name_only</span><span class="p">)</span>
 <span class="n">temp_char</span> <span class="s">&quot;Hello, world.&quot;</span>
 </pre></div>
 </div>
-<p>except that the temp_char variable is not used.</p>
+<p>除非 temp_char 变量已经使用过了。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-narrator">
 <tt class="descname">narrator</tt> = Character(...)<a class="headerlink" href="#var-narrator" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the character that speaks narration (say statements that do not
-give a character or character name). The code:</p>
+<dd><p>（Say命令没有设置角色或者角色姓名的时候）旁白的角色模板。代码：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="s">&quot;Hello, world.&quot;</span>
 </pre></div>
 </div>
-<p>is equivalent to:</p>
+<p>等同于：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">narrator</span> <span class="s">&quot;Hello, world.&quot;</span>
 </pre></div>
 </div>
@@ -159,51 +146,40 @@ give a character or character name). The code:</p>
 <dl class="var">
 <dt id="var-_rollback">
 <tt class="descname">_rollback</tt> = True<a class="headerlink" href="#var-_rollback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Controls if rollback is allowed.</p>
+<dd><p>设置是否允许回滚模式。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-say">
 <tt class="descname">say</tt> = ...<a class="headerlink" href="#var-say" title="Permalink to this definition">¶</a></dt>
-<dd><p>A function that is called by Ren'Py to display dialogue. This is called
-with three arguments. The first argument (<cite>who</cite>) is the character saying the
-dialogue (or None for the narrator). The second argument(<cite>what</cite>) is what dialogue
-is being said.</p>
-<p>The third argument must be a keyword argument named <cite>interact</cite> and defaulting
-to True. If true, the say function will wait for a click. If false, it will
-immediately return with the dialogue displayed on the screen.</p>
-<p>It's rare to call this function directly, as one can simply call a character
-with dialogue. This variable mostly exists to be redefined, as a way of
-hooking the say statement.</p>
+<dd><p>Ren'Py 用于显示对话时执行的函数。调用这个函数时传递了三个参数。第一个参数 (<cite>who</cite>) 为说出这句对话的角色（若为旁白则为 None）。第二个参数(<cite>what</cite>)为对话的内容。</p>
+<p>第三个参数是一个名为 <cite>interact</cite> 的关键字参数，默认为 True。当为真的情况下对话命令将等待玩家的按键，若为假则将立刻返回。</p>
+<p>由于可以很简单的使一个角色做出对话，通常情况下很少直接调用这个函数。这个变量更主要是为了给对话命令重新定义钩子方法而存在的。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-save_name">
 <tt class="descname">save_name</tt> = &quot;&quot;<a class="headerlink" href="#var-save_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>A save name that is included with saves.</p>
+<dd><p>包含在存档内的存档名称。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-_window">
 <tt class="descname">_window</tt> = False<a class="headerlink" href="#var-_window" title="Permalink to this definition">¶</a></dt>
-<dd><p>This set by the <tt class="docutils literal"><span class="pre">window</span> <span class="pre">show</span></tt> and <tt class="docutils literal"><span class="pre">window</span> <span class="pre">hide</span></tt> statements, and indirectly
-by <tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt>. If true, the dialogue window is shown during non-dialogue
-statements.</p>
+<dd><p>这个变量由 <tt class="docutils literal"><span class="pre">window</span> <span class="pre">show</span></tt> 和 <tt class="docutils literal"><span class="pre">window</span> <span class="pre">hide</span></tt> 命令控制，并间接的受到 <tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt> 的控制。若设置为真，即使没有对话命令也将立刻显示对话窗口。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-_window_auto">
 <tt class="descname">_window_auto</tt> = False<a class="headerlink" href="#var-_window_auto" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is set to true by <tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt> and to false by <tt class="docutils literal"><span class="pre">window</span> <span class="pre">show</span></tt> and
-<tt class="docutils literal"><span class="pre">window</span> <span class="pre">hide</span></tt>. If true, the window auto behavior occurs.</p>
+<dd><p>这个变量将被 <tt class="docutils literal"><span class="pre">window</span> <span class="pre">auto</span></tt> 设置为真，被 <tt class="docutils literal"><span class="pre">window</span> <span class="pre">show</span></tt> 和
+<tt class="docutils literal"><span class="pre">window</span> <span class="pre">hide</span></tt> 设置为假。如果设置为真则将开启窗口自动管理。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-_window_subtitle">
 <tt class="descname">_window_subtitle</tt> = ''<a class="headerlink" href="#var-_window_subtitle" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is appended to <a class="reference internal" href="config.html#var-config.window_title"><tt class="xref std std-var docutils literal"><span class="pre">config.window_title</span></tt></a> to produce the caption for the game
-window. This is automatically set to <a class="reference internal" href="config.html#var-config.menu_window_subtitle"><tt class="xref std std-var docutils literal"><span class="pre">config.menu_window_subtitle</span></tt></a> while in
-the game menu.</p>
+<dd><p>这个变量的值将跟在 <a class="reference internal" href="config.html#var-config.window_title"><tt class="xref std std-var docutils literal"><span class="pre">config.window_title</span></tt></a> 之后从而组成完整的游戏标题。在菜单中，这个变量的值将被自动设置为 <a class="reference internal" href="config.html#var-config.menu_window_subtitle"><tt class="xref std std-var docutils literal"><span class="pre">config.menu_window_subtitle</span></tt></a> 。</p>
 </dd></dl>
 
 </div>
@@ -227,15 +203,15 @@ the game menu.</p>
           <a href="config.html" title="Configuration Variables"
              >上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <img src="_static/logo.png" width=19 height=21 align=center>
         <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
+        <li><a href="index.html">文档</a></li>
       </ul>
     </div>
 
 
 	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-	<script type="text/javascript"> 
+	<script type="text/javascript">
 	  google.load('search', '1', {language : 'en' });
 	  google.setOnLoadCallback(function() {
 	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
