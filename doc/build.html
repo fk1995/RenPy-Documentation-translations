@@ -4,8 +4,8 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Building Distributions &mdash; Ren&#39;Py Documentation</title>
+
+    <title>构建游戏发布包 &mdash; Ren&#39;Py 文档</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
     <link rel="next" title="Web Updater" href="updater.html" />
-    <link rel="prev" title="Other Functions" href="other.html" /> 
+    <link rel="prev" title="Other Functions" href="other.html" />
   </head>
   <body>
     <div class="related">
@@ -45,39 +45,39 @@
           <a href="other.html" title="Other Functions"
              accesskey="P">上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <img src="_static/logo.png" width=19 height=21 align=center>
         <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
+        <li><a href="index.html">文档</a></li>
       </ul>
     </div>
   <div class="container">
   <div class="span4">
-    
+
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Building Distributions</a><ul>
-<li><a class="reference internal" href="#basic-configuration">Basic Configuration</a></li>
-<li><a class="reference internal" href="#special-files">Special Files</a></li>
-<li><a class="reference internal" href="#classifying-and-ignoring-files">Classifying and Ignoring Files</a></li>
-<li><a class="reference internal" href="#documentation">Documentation</a></li>
-<li><a class="reference internal" href="#packages">Packages</a></li>
-<li><a class="reference internal" href="#archives">Archives</a></li>
-<li><a class="reference internal" href="#build-functions">Build Functions</a></li>
-<li><a class="reference internal" href="#advanced-configuration">Advanced Configuration</a></li>
+<li><a class="reference internal" href="#">构建游戏发布包</a><ul>
+<li><a class="reference internal" href="#basic-configuration">基本设置</a></li>
+<li><a class="reference internal" href="#special-files">特殊文件</a></li>
+<li><a class="reference internal" href="#classifying-and-ignoring-files">文件的分类和排除</a></li>
+<li><a class="reference internal" href="#documentation">游戏文档</a></li>
+<li><a class="reference internal" href="#packages">游戏包</a></li>
+<li><a class="reference internal" href="#archives">游戏档案</a></li>
+<li><a class="reference internal" href="#build-functions">Build 函数</a></li>
+<li><a class="reference internal" href="#advanced-configuration">高级设置</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="other.html"
-                        title="previous chapter">Other Functions</a></p>
+                        title="previous chapter">其他函数</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="updater.html"
-                        title="next chapter">Web Updater</a></p>
-            <h4>Search</h4>
-            
+                        title="next chapter">网络更新</a></p>
+            <h4>搜索</h4>
+
             <div id="cse-search-form" style="width: 100%;"></div>
 
       <div class="copydata">
@@ -86,313 +86,249 @@
       </div>
         </div>
       </div>
-  
+
   </div>
-  
-    
+
+
     <div class="document span20 last">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
-            
+
   <div class="section" id="building-distributions">
-<h1>Building Distributions<a class="headerlink" href="#building-distributions" title="Permalink to this headline">¶</a></h1>
-<p>Ren'Py includes support for building game distributions. Upon choosing
-&quot;Build Distributions&quot; in the launcher, Ren'Py will scan itself and the
-project to determine the files to include in the distribution, will
-create any archives that are necessary, and will build package and
-update files.</p>
-<p>With no configuration, Ren'Py will build the following four kinds of
-packages:</p>
-<p>All Desktop Platofrms</p>
+<h1>构建游戏发布包<a class="headerlink" href="#building-distributions" title="Permalink to this headline">¶</a></h1>
+<p>Ren'Py 支持构建游戏的发布包。在启动器中选择&quot;构建游戏发布包（Build Distributions）&quot;后，Ren'Py 将扫描其本体以及游戏工程来确定发布包中需要包含的文件、 需要创建的档案并打包游戏更新文件。</p>
+<p>默认情况下，Ren'Py允许构建以下四种游戏包：</p>
+<p>桌面平台</p>
 <blockquote>
-<div>A zip file targeting Windows x86, Macintosh x86, Linux x86, and
-Linux x86_64.</div></blockquote>
+<div>一个面向Windows x86, Macintosh x86, Linux x86, 以及 Linux x86_64 的 zip 文件。</div></blockquote>
 <p>Linux x86/x86_64</p>
 <blockquote>
-<div>A tar.bz2 file targeting Linux x86 and Linux x86_64.</div></blockquote>
+<div>一个面向 Linux x86 以及 Linux x86_64 的 tar.bz2 文件。</div></blockquote>
 <p>Macintosh x86</p>
 <blockquote>
-<div>A zip file containing a Macintosh application targeting Macintosh
-OS X on Intel processors. Game data will be included inside the
-application, which appears to the user as a single file.</div></blockquote>
+<div>一个包含 Macintosh 应用的面向英特尔处理器上 Macintosh OS X 的 zip 文件。游戏数据将包含在应用内，玩家看到的将是一个单独的文件。</div></blockquote>
 <p>Windows x86</p>
 <blockquote>
-<div>A zip file targeting Windows x86.</div></blockquote>
+<div>一个面向 Windows x86 的 zip 文件。</div></blockquote>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p>The zip and tar.bz2 files that Ren'Py produces contain permissions
-information that must be present for Ren'Py to run on Linux and
-Macintosh.</p>
-<p class="last">Unpacking and re-packing a zip file on Windows and then running it
-on Linux or Macintosh is not supported.</p>
+<p class="first admonition-title">警告</p>
+<p>Ren'Py 生成的 zip 和 tar.bz2 文件包含了游戏在 Linux 以及 Macintosh 平台运行的许可信息。</p>
+<p class="last">Windows 平台生成的 zip 文件无法在 Linux 以及 Macintosh 平台运行。</p>
 </div>
 <div class="section" id="basic-configuration">
-<h2>Basic Configuration<a class="headerlink" href="#basic-configuration" title="Permalink to this headline">¶</a></h2>
-<p>The build process can be configured by setting variables and calling
-function that live in the build namespace. This must be done from
-inside an init python block.</p>
-<p>There are a few basic variables and functions that many games will
-use.</p>
+<h2>基础设置<a class="headerlink" href="#basic-configuration" title="Permalink to this headline">¶</a></h2>
+<p>
+  构建游戏发布包的过程可以通过在 build 命名空间内设置变量、执行函数来自定义。
+  这些指令必须在一个 init python 区块内执行。</p>
+<p>下面是大部分游戏常用的几个变量和函数。</p>
 <dl class="var">
 <dt id="var-build.directory_name">
 <tt class="descname">build.directory_name</tt> = &quot;...&quot;<a class="headerlink" href="#var-build.directory_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is used to create the names of directories in the archive
-files. For example, if this is set to &quot;mygame-1.0&quot;, the Linux
-version of the project will unpack to &quot;mygame-1.0-linux&quot;.</p>
-<p>This is also used to determine the name of the directory in
-which the package files are placed. For example, if you set
-build.directory_name to mygame-1.0, the archive files will
-be placed in mygame-1.0-dists in the directory above the base
-directory.</p>
+<dd><p>这个变量用于设置档案文件夹的名称。例如，将这里设置为&quot;mygame-1.0&quot;时在 Linux 下工程解压缩后就将命名为&quot;mygame-1.0-linux&quot;。</p>
+<p>这个变量也用于确定游戏包文件应该放在哪个文件夹下。例如，如果将 build.directory_name 设置为 mygame-1.0, 游戏档案就将保存在主目录的 mygame-1.0-dists 文件夹下。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-build.executable_name">
 <tt class="descname">build.executable_name</tt> = &quot;...&quot;<a class="headerlink" href="#var-build.executable_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>This variable controls the name of the executables that the user
-clicks on to start the game.</p>
-<p>For example, if this is set to &quot;mygame&quot;, the user will be able
-to run mygame.exe on Windows, mygame.app on Macintosh, and
-mygame.sh on Linux.</p>
+<dd><p>这个变量设置了玩家要运行游戏时打开的可执行文件的名称。</p>
+<p>例如，若这里设置为了 &quot;mygame&quot;，在 Windows 平台下玩家将运行 mygame.exe 开始游戏，Mac 平台下运行 mygame.app 开始游戏，Linux 平台下运行 mygame.sh 开始游戏。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="special-files">
-<h2>Special Files<a class="headerlink" href="#special-files" title="Permalink to this headline">¶</a></h2>
-<p>There are two files that can be included in your game's base directory
-to customize the build.</p>
+<h2>特殊文件<a class="headerlink" href="#special-files" title="Permalink to this headline">¶</a></h2>
+<p>游戏根目录下的这两个文件可以自定义游戏的发布包。</p>
 <dl class="docutils">
 <dt>icon.ico</dt>
-<dd>The icon that is used on Windows.</dd>
+<dd>这个图标文件将用于 Windows 平台。</dd>
 <dt>icon.icns</dt>
-<dd>The icon that is used on Macintosh.</dd>
+<dd>这个图标文件将用于 Mac 平台。</dd>
 </dl>
-<p>These icon files much be in specific formats. You'll need to use a
-program or web service (such as <a class="reference external" href="http://iconverticons.com/">http://iconverticons.com/</a> ) to convert
-them.</p>
+<p>图标文件使用特殊的格式。你必须通过某些软件或者在线服务（例如 <a class="reference external" href="http://iconverticons.com/">http://iconverticons.com/</a> ）对其进行转换。</p>
 </div>
 <div class="section" id="classifying-and-ignoring-files">
-<h2>Classifying and Ignoring Files<a class="headerlink" href="#classifying-and-ignoring-files" title="Permalink to this headline">¶</a></h2>
-<p>The build process works by first classifying files in the Ren'Py
-distribution and your game into file lists. These file lists are then
-added to package files.</p>
-<p>The classification is done by the build.classify function. It takes a
-patterns and a space-separated list of filenames. Patterns are matched
-from first to last, with the first match taking precedence (even if a
-more-specific pattern follows.) Patterns are matched with and without
-a leading /. Patterns may include the following special characters:</p>
+<h2>文件的分类和排除<a class="headerlink" href="#classifying-and-ignoring-files" title="Permalink to this headline">¶</a></h2>
+<p>开始构建发行包时，Ren'Py 将先对发行包以及游戏工程内的文件分类并生成文件列表，接着将文件列表内的文件制作成游戏包。
+</p>
+<p>可以使用 build.classify 函数对文件进行分类。函数的两个参数分别是匹配模式以及一个以空格分隔的文件名列表。
+  匹配过程中将从头到尾进行匹配并优先选择先匹配到的内容（即使之后有更加接近的匹配结果）。匹配过程中还将判断开头 / 的有无。匹配模式包含以下几个特殊字符：</p>
 <dl class="docutils">
 <dt>/</dt>
-<dd>The directory separator.</dd>
+<dd>文件夹分隔符。</dd>
 <dt>*</dt>
-<dd>Matches all characters except for the directory separator.</dd>
+<dd>匹配除了文件夹分隔符以外的任意字符。</dd>
 <dt>**</dt>
-<dd>Matches all characters.</dd>
+<dd>匹配任意字符</dd>
 </dl>
-<p>For example:</p>
+<p>例如：</p>
 <dl class="docutils">
 <dt>**.txt</dt>
-<dd>Matches all txt files.</dd>
+<dd>将匹配所有的txt文件。</dd>
 <dt>game/*.txt</dt>
-<dd>Matches txt files in the game directory.</dd>
+<dd>将匹配game目录下所有的txt文件。</dd>
 </dl>
-<p>There are seven file lists that files can be classified into by
-default. (Ren'Py places its own files into the first six of these.)</p>
+<p>默认情况下文件将被分成以下七类。（Ren'Py 将把其自身的文件加进前六种文件列表中。）</p>
 <dl class="docutils">
 <dt>all</dt>
-<dd>These files will be included in all packages, and in Android
-builds.</dd>
+<dd>包括所有游戏包以及安卓端所需的文件。</dd>
 <dt>linux</dt>
-<dd>These files will be included in packages targeting Linux.</dd>
+<dd>包括所有面向 Linux 所需的文件。</dd>
 <dt>mac</dt>
-<dd>These files will be included in packages targeting Macintosh.</dd>
+<dd>包括所有面向 Mac 所需的文件。</dd>
 <dt>windows</dt>
-<dd>These files will be included in packages targeting Windows.</dd>
+<dd>包括所有面向 Windows 所需的文件。</dd>
 <dt>renpy</dt>
-<dd>These files will be included in packages that require the Ren'Py
-engine files. (Linux, Macintosh, and Windows.)</dd>
+<dd>包括所有游戏包所需的 Ren'Py 引擎的文件。（Linux, Macintosh, Windows。）。</dd>
 <dt>android</dt>
-<dd>These files will be included in Android builds.</dd>
+<dd>包括所有安卓端所需的文件。</dd>
 <dt>archive</dt>
-<dd>These files will be included in the archive.rpa archive.</dd>
+<dd>
+  这些文件将包含在 archive.rpa 档案中。
+  </dd>
 </dl>
-<p>Files that are not otherwise classified are placed in the &quot;all&quot; file
-list.</p>
-<p>To exclude files from distribution, classify them as None or the
-empty string.</p>
-<p>For example:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Include README.txt</span>
+<p>未分类的文件将被放进文件列表 &quot;all&quot; 中。</p>
+<p>希望从发行包中排除某些文件时可以将它们分类为None或者分类为空白字符串。</p>
+<p>例如:</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 包含 README.txt</span>
 <span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;README.txt&quot;</span><span class="p">,</span> <span class="s">&quot;all&quot;</span><span class="p">)</span>
 
-<span class="c"># But exclude all other txt files.</span>
+<span class="c"># 但是排除其他的 txt 文件。</span>
 <span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;**.txt&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-<span class="c"># Add png and jpg files in the game directory into an archive.</span>
+<span class="c"># 将游戏目录下的 png 和 jpg 文件加入到档案中。</span>
 <span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.png&quot;</span><span class="p">,</span> <span class="s">&quot;archive&quot;</span><span class="p">)</span>
 <span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.jpg&quot;</span><span class="p">,</span> <span class="s">&quot;archive&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>Calling the build.documentation function with patterns marks files
-matching those patterns as documentation. Documentation files are
-included twice in a Macintosh application - both inside and outside
-of the application itself.</p>
-<p>For example, to mark all txt and html files in the base directory as
-documentation, call:</p>
+<h2>游戏文档<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>使用 build.documentation 函数通过匹配模式来标记符合模式的文件为游戏文档。
+在 Mac 平台下，游戏文档文件一份在应用外，一份被包含在了应用内。</p>
+<p>例如，希望将游戏目录下所有的 html 文件标记为游戏文档时，执行以下代码：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">build</span><span class="o">.</span><span class="n">documentation</span><span class="p">(</span><span class="s">&quot;*.txt&quot;</span><span class="p">)</span>
 <span class="n">build</span><span class="o">.</span><span class="n">documentation</span><span class="p">(</span><span class="s">&quot;*.html&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="packages">
-<h2>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h2>
-<p>It's also possible to add new types of packages to the Ren'Py build
-process. This is done by calling the build.package function with a
-package name, type, and a string containing the file lists to
-include.</p>
-<p>Say we wanted to build a normal version of our game, and one
-containing bonus material. We could classify the bonus files in to a
-&quot;bonus&quot; file list, and then declare an all-premium package with:</p>
+<h2>游戏包<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py 还可以构建新的游戏包类型。你可以通过执行 build.package 函数并设置游戏包名字、类型以及包含的文件列表字符串这三个参数来实现。</p>
+<p>假设，我们希望构建一个普通版本的游戏包以及一个包含附赠素材的豪华版游戏包，我们可以将附赠素材分类进文件列表 &quot;bonus&quot;  中，接着通过下面的方式定义一个豪华版游戏包：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="n">build</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="s">&quot;all-premium&quot;</span><span class="p">,</span> <span class="s">&quot;zip&quot;</span><span class="p">,</span> <span class="s">&quot;windows mac linux all bonus&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="archives">
-<h2>Archives<a class="headerlink" href="#archives" title="Permalink to this headline">¶</a></h2>
-<p>Ren'Py supports combining files into a simple archive format. While
-not very secure, this protects files from casual copying.</p>
-<p>By default, all files classified into the &quot;archive&quot; file list will be
-placed in an archive.rpa archive, which is included in the all file
-list.</p>
-<p>By calling build.archive, it's possible to declare a new archives and
-the file lists they will be included in. (It's rare to use anything
-but the all file list, however.) To use an archive, classify files
-into a list with its name.</p>
-<p>For example, the following code will archive images in images.rpa, and
-game scripts into scripts.rpa:</p>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Declare two archives.</span>
+<h2>游戏档案<a class="headerlink" href="#archives" title="Permalink to this headline">¶</a></h2>
+<p>Ren'Py 支持将文件合并为一个单独的档案格式。尽管不是万无一失，这个档案一定程度上能防止文件被随意复制。</p>
+<p>默认情况下，所有被分类到文件列表&quot;archive&quot;下的文件都将被加入到包含在文件列表 all 下的档案文件 archive.rpa 中。</p>
+<p>使用 build.archive 函数可以构造一个新的档案文件并为其设置所属的文件列表分类（基本上我们都将其分类为 all）。接着将要加入这个档案的文件分类为该档案的名字。</p>
+<p>例如，以下的代码将图片档案储存进 images.rpa，将游戏脚本档案储存进 scripts.rpa：</p>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 定义两个新档案。</span>
 <span class="n">build</span><span class="o">.</span><span class="n">archive</span><span class="p">(</span><span class="s">&quot;scripts&quot;</span><span class="p">,</span> <span class="s">&quot;all&quot;</span><span class="p">)</span>
 <span class="n">build</span><span class="o">.</span><span class="n">archive</span><span class="p">(</span><span class="s">&quot;images&quot;</span><span class="p">,</span> <span class="s">&quot;all&quot;</span><span class="p">)</span>
 
-<span class="c"># Put script files into the scripts archive.</span>
+<span class="c"># 将脚本文件加入到脚本档案中。</span>
 <span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.rpy&quot;</span><span class="p">,</span> <span class="s">&quot;scripts&quot;</span><span class="p">)</span>
 <span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.rpyc&quot;</span><span class="p">,</span> <span class="s">&quot;scripts&quot;</span><span class="p">)</span>
 
-<span class="c"># Put images into the images archive.</span>
+<span class="c"># 将图片文件加入到图片档案中</span>
 <span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.jpg&quot;</span><span class="p">,</span> <span class="s">&quot;images&quot;</span><span class="p">)</span>
 <span class="n">build</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;game/**.png&quot;</span><span class="p">,</span> <span class="s">&quot;images&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If an archive file is empty, it will not be built.</p>
-<p>Please think twice about archiving your game. Keeping files open will
-help others run your game on future platforms - platforms that may not
-exist until after you're gone.</p>
+<p>如果某个档案中什么都没有，它将不会被构建。</p>
+<p>请仔细考虑是否要打包你的游戏。保持游戏文件的开放可以帮助别人在未来你无法接触到的平台上运行你的游戏。</p>
 </div>
 <div class="section" id="build-functions">
-<h2>Build Functions<a class="headerlink" href="#build-functions" title="Permalink to this headline">¶</a></h2>
+<h2>Build 函数<a class="headerlink" href="#build-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="build.archive">
 <tt class="descclassname">build.</tt><tt class="descname">archive</tt><big>(</big><em>name</em>, <em>file_list='all'</em><big>)</big><a class="headerlink" href="#build.archive" title="Permalink to this definition">¶</a></dt>
-<dd><p>Declares the existence of an archive. If one or more files are
-classified with <cite>name</cite>, <cite>name</cite>.rpa is build as an archive. The
-archive is included in the named file lists.</p>
+<dd><p>定义一个档案文件。被分类到 <cite>name</cite> 目录下的文件将在构建游戏发布包时被保存进名为 <cite>name</cite>.rpa 的档案内。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="build.classify">
 <tt class="descclassname">build.</tt><tt class="descname">classify</tt><big>(</big><em>pattern</em>, <em>file_list</em><big>)</big><a class="headerlink" href="#build.classify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Classifies files that match <cite>pattern</cite> into <cite>file_list</cite>.</p>
+<dd><p>将符合 <cite>pattern</cite> 模式的文件归类为 <cite>file_list</cite> 分类。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="build.clear">
 <tt class="descclassname">build.</tt><tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#build.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clears the list of patterns used to classify files.</p>
+<dd><p>清除用于分类文件的模式列表。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="build.documentation">
 <tt class="descclassname">build.</tt><tt class="descname">documentation</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#build.documentation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Declares a pattern that matches documentation. In a mac app build,
-files matching the documentation pattern are stored twice - once
-inside the app package, and again outside of it.</p>
+<dd><p>将符合匹配模式的文件定义为游戏文档。构建 Mac 应用时，一份游戏文档在应用外，另一份文档则被包含在应用内。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="build.executable">
 <tt class="descclassname">build.</tt><tt class="descname">executable</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#build.executable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a pattern marking files as executable on platforms that support it.
-(Linux and Macintosh)</p>
+<dd><p>通过模式匹配定义某个平台支持的可执行文件（Linux 和 Macintosh）。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="build.package">
 <tt class="descclassname">build.</tt><tt class="descname">package</tt><big>(</big><em>name</em>, <em>format</em>, <em>file_lists</em>, <em>description=None</em>, <em>update=True</em>, <em>dlc=False</em>, <em>hidden=False</em><big>)</big><a class="headerlink" href="#build.package" title="Permalink to this definition">¶</a></dt>
-<dd><p>Declares a package that can be built by the packaging
-tool.</p>
+<dd><p>定义一个软件可以构建的游戏包。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the package.</dd>
+<dd>游戏包的名字。</dd>
 <dt><cite>format</cite></dt>
-<dd><p class="first">The format of the package. A string containing a space separated
-list of:</p>
+<dd><p class="first">游戏包格式。一个字符串格式的列表，列表由空格进行分隔：</p>
 <dl class="docutils">
 <dt>zip</dt>
-<dd>A zip file.</dd>
+<dd>zip 文件。</dd>
 <dt>app-zip</dt>
-<dd>A zip file containing a macintosh application.</dd>
+<dd>包含 Mac 应用的 zip 文件。</dd>
 <dt>tar.bz2</dt>
-<dd>A tar.bz2 file.</dd>
+<dd>一个 tar.bz2 文件。</dd>
 </dl>
-<p class="last">The empty string will not build any package formats (this
-makes dlc possible).</p>
+<p class="last">若为空白字符串，则不生成任何格式的游戏包。（用于制作 DLC )。</p>
 </dd>
 <dt><cite>file_lists</cite></dt>
-<dd>A list containing the file lists that will be contained
-within the package.</dd>
+<dd>一个需要包含在游戏包中文件的文件列表。</dd>
 <dt><cite>description</cite></dt>
-<dd>An optional description of the package to be built.</dd>
+<dd>用于描述游戏包的可选参数。</dd>
 <dt><cite>update</cite></dt>
-<dd>If true and updates are being built, an update will be
-built for this package.</dd>
+<dd>设置为 true 并且已经构建过升级版时，将为这个游戏包构建一个升级包。</dd>
 <dt><cite>dlc</cite></dt>
-<dd>If true, any zip or tar.bz2 file will be built in
-standalone DLC mode, without an update directory.</dd>
+<dd>设置为 true 时，不构建升级目录且所有的 zip 或者 tar.bz2 将以标准的 DLC 模式构建。</dd>
 <dt><cite>hidden</cite></dt>
-<dd>If true, this will be hidden from the list of packages in
-the launcher.</dd>
+<dd>设置为 true 时将不显示在启动器的游戏包列表中。</dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="advanced-configuration">
-<h2>Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
-<p>The following variables provide further control of the build process:</p>
+<h2>高级设置<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
+<p>以下的变量可以控制游戏构建过程中的一些高级设置：</p>
 <dl class="var">
 <dt id="var-build.exclude_empty_directories">
 <tt class="descname">build.exclude_empty_directories</tt> = True<a class="headerlink" href="#var-build.exclude_empty_directories" title="Permalink to this definition">¶</a></dt>
-<dd><p>If true, empty directories (including directories left empty by
-file archiving) will be removed from generated packages. If false,
-empty directories will be included.</p>
+<dd><p>设置为 true 的情况下，空目录（包括原本的文件被合并进档案文件中的目录）将不被包含进游戏发行包内。设置为 false 时反之。</p>
 </dd></dl>
 
 <dl class="var">
 <dt id="var-build.destination">
 <tt class="descname">build.destination</tt> = &quot;{directory_name}-dists&quot;<a class="headerlink" href="#var-build.destination" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gives the path to the directory the archive files will be placed in. This
-may be an absolute or a relative path. A relative path is considered to
-be relative to the projects directory.</p>
-<p>The following values are substituted in using python's str.format function.</p>
+<dd><p>设置存放档案文件的目录。目录可以是绝对路径也可以是相对路径。设置为相对路径时将相对工程的路径来确定路径。</p>
+<p>通过python的字符串格式函数可以获取以下数值。</p>
 <dl class="docutils">
 <dt><tt class="docutils literal"><span class="pre">{directory_name}</span></tt></dt>
-<dd>The value of build.directory_name.</dd>
+<dd>build.directory_name 的值。</dd>
 <dt><tt class="docutils literal"><span class="pre">{executable_name}</span></tt></dt>
-<dd>The value of build.executable_name.</dd>
+<dd>build.executable_name 的值。</dd>
 <dt><tt class="docutils literal"><span class="pre">{version}</span></tt></dt>
-<dd>The value of build.version.</dd>
+<dd>build.version 的值。</dd>
 </dl>
 </dd></dl>
 
@@ -418,15 +354,15 @@ be relative to the projects directory.</p>
           <a href="other.html" title="Other Functions"
              >上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <img src="_static/logo.png" width=19 height=21 align=center>
         <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
+        <li><a href="index.html">文档</a></li>
       </ul>
     </div>
 
 
 	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-	<script type="text/javascript"> 
+	<script type="text/javascript">
 	  google.load('search', '1', {language : 'en' });
 	  google.setOnLoadCallback(function() {
 	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
