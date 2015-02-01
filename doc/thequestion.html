@@ -4,8 +4,8 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Script of The Question &mdash; Ren&#39;Py Documentation</title>
+
+    <title>The Question 的脚本 &mdash; Ren&#39;Py 文档</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
     <link rel="next" title="NVL-mode script for The Question" href="thequestion_nvl.html" />
-    <link rel="prev" title="Documentation and Translation Credits" href="credits.html" /> 
+    <link rel="prev" title="Documentation and Translation Credits" href="credits.html" />
   </head>
   <body>
     <div class="related">
@@ -45,19 +45,19 @@
           <a href="credits.html" title="Documentation and Translation Credits"
              accesskey="P">上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <img src="_static/logo.png" width=19 height=21 align=center>
         <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
+        <li><a href="index.html">文档</a></li>
       </ul>
     </div>
   <div class="container">
   <div class="span4">
-    
+
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Script of The Question</a><ul>
+<li><a class="reference internal" href="#">The Question 的脚本</a><ul>
 <li><a class="reference internal" href="#script-rpy">script.rpy</a></li>
 <li><a class="reference internal" href="#options-rpy">options.rpy</a></li>
 </ul>
@@ -66,12 +66,12 @@
 
   <h4>上一节</h4>
   <p class="topless"><a href="credits.html"
-                        title="previous chapter">Documentation and Translation Credits</a></p>
+                        title="previous chapter">文档作者和翻译者</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="thequestion_nvl.html"
-                        title="next chapter">NVL-mode script for The Question</a></p>
-            <h4>Search</h4>
-            
+                        title="next chapter">视觉小说模式下 The Question 的脚本</a></p>
+            <h4>搜索</h4>
+
             <div id="cse-search-form" style="width: 100%;"></div>
 
       <div class="copydata">
@@ -80,26 +80,25 @@
       </div>
         </div>
       </div>
-  
+
   </div>
-  
-    
+
+
     <div class="document span20 last">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
-            
+
   <div class="section" id="script-of-the-question">
-<span id="thequestion"></span><h1>Script of The Question<a class="headerlink" href="#script-of-the-question" title="Permalink to this headline">¶</a></h1>
-<p>The script is divided over two files.</p>
+<span id="thequestion"></span><h1>The Question 的脚本<a class="headerlink" href="#script-of-the-question" title="Permalink to this headline">¶</a></h1>
+<p>脚本分成两个部分。</p>
 <ul class="simple">
-<li><a class="reference internal" href="#script-rpy">script.rpy</a> contains the main body of the game.</li>
-<li><a class="reference internal" href="#options-rpy">options.rpy</a> contains options which customize the display of parts
-of the game.</li>
+<li><a class="reference internal" href="#script-rpy">script.rpy</a> 包含游戏的主体内容。</li>
+<li><a class="reference internal" href="#options-rpy">options.rpy</a> 包含游戏显示方式的自定义设置。</li>
 </ul>
 <div class="section" id="script-rpy">
 <h2>script.rpy<a class="headerlink" href="#script-rpy" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># Declare images used by this game.</span>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c"># 定义游戏使用的图片。</span>
 <span class="k">image</span> <span class="n">bg</span> <span class="n">lecturehall</span> <span class="o">=</span> <span class="s">&quot;lecturehall.jpg&quot;</span>
 <span class="k">image</span> <span class="n">bg</span> <span class="n">uni</span> <span class="o">=</span> <span class="s">&quot;uni.jpg&quot;</span>
 <span class="k">image</span> <span class="n">bg</span> <span class="n">meadow</span> <span class="o">=</span> <span class="s">&quot;meadow.jpg&quot;</span>
@@ -115,12 +114,12 @@ of the game.</li>
 <span class="k">image</span> <span class="n">sylvie2</span> <span class="n">smile</span> <span class="o">=</span> <span class="s">&quot;sylvie2_smile.png&quot;</span>
 <span class="k">image</span> <span class="n">sylvie2</span> <span class="n">surprised</span> <span class="o">=</span> <span class="s">&quot;sylvie2_surprised.png&quot;</span>
 
-<span class="c"># Define characters used by this game.</span>
+<span class="c"># 定义游戏的角色。</span>
 <span class="k">define</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&#39;Sylvie&#39;</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#c8ffc8&quot;</span><span class="p">)</span>
 <span class="k">define</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s">&#39;Me&#39;</span><span class="p">,</span> <span class="na">color</span><span class="o">=</span><span class="s">&quot;#c8c8ff&quot;</span><span class="p">)</span>
 
 
-<span class="c"># The game starts here.</span>
+<span class="c"># 游戏从这里开始。</span>
 <span class="k">label</span> <span class="n">start</span><span class="p">:</span>
 
     <span class="k">$</span> <span class="n">bl_game</span> <span class="o">=</span> <span class="bp">False</span>
@@ -324,31 +323,26 @@ of the game.</li>
 </div>
 <div class="section" id="options-rpy">
 <h2>options.rpy<a class="headerlink" href="#options-rpy" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-renpy"><div class="highlight"><pre><span class="c">## This file contains some of the options that can be changed to customize</span>
-<span class="c">## your Ren&#39;Py game. It only contains the most common options... there</span>
-<span class="c">## is quite a bit more customization you can do.</span>
+<div class="highlight-renpy"><div class="highlight"><pre><span class="c">## 这个文件包含了某些你可以自定义的游戏设置。它只包含了常见的设置。</span>
+<span class="c">## 你可以自己添加更多的自定义设置。</span>
 <span class="c">##</span>
-<span class="c">## Lines beginning with two &#39;#&#39; marks are comments, and you shouldn&#39;t</span>
-<span class="c">## uncomment them. Lines beginning with a single &#39;#&#39; mark are</span>
-<span class="c">## commented-out code, and you may want to uncomment them when</span>
-<span class="c">## appropriate.</span>
+<span class="c">## 以两个 &#39;#&#39; 号开头的行为提示文本，请不要取消提示文本的注释。</span>
+<span class="c">## 以一个 &#39;#&#39; 号开头的行为可选的设置，如果希望它生效的话你可以取消该行文字的注释</span>
 
 <span class="k">init</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
     <span class="k">python</span> <span class="k">hide</span><span class="p">:</span>
 
-        <span class="c">## Should we enable the use of developer tools? This should be</span>
-        <span class="c">## set to False before the game is released, so the user can&#39;t</span>
-        <span class="c">## cheat using developer tools.</span>
+        <span class="c">## 是否要使用开发者工具？</span>
+        <span class="c">## 在游戏发布前请将这里设置为 False 以防止玩家使用开发者工具作弊。</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">developer</span> <span class="o">=</span> <span class="bp">True</span>
 
-        <span class="c">## These control the width and height of the screen.</span>
+        <span class="c">## 在这里设置屏幕的宽和高。</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">screen_width</span> <span class="o">=</span> <span class="mi">800</span>
         <span class="n">config</span><span class="o">.</span><span class="n">screen_height</span> <span class="o">=</span> <span class="mi">600</span>
 
-        <span class="c">## This controls the title of the window, when Ren&#39;Py is</span>
-        <span class="c">## running in a window.</span>
+        <span class="c">## 在这里设置窗口模式下运行游戏时游戏的标题。</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">window_title</span> <span class="o">=</span> <span class="s">u&quot;The Question&quot;</span>
 
@@ -406,39 +400,33 @@ of the game.</li>
             <span class="p">)</span>
 
 
-        
-        <span class="c">## These settings let you customize the window containing the</span>
-        <span class="c">## dialogue and narration, by replacing it with an image.</span>
 
-        <span class="c">## The background of the window. In a Frame, the two numbers</span>
-        <span class="c">## are the size of the left/right and top/bottom borders,</span>
-        <span class="c">## respectively.</span>
+        <span class="c">## 这个设置允许你使用一张图片替代默认显示文字的窗口。
+
+        <span class="c">## 窗口的背景图片。Frame 的两个数字参数分别是窗口的左右和上下边距。
 
         <span class="c"># style.window.background = Frame(&quot;frame.png&quot;, 12, 12)</span>
 
-        <span class="c">## Margin is space surrounding the window, where the background</span>
-        <span class="c">## is not drawn.</span>
+        <span class="c">## 窗口的外补白。</span>
 
         <span class="c"># style.window.left_margin = 6</span>
         <span class="c"># style.window.right_margin = 6</span>
         <span class="c"># style.window.top_margin = 6</span>
         <span class="c"># style.window.bottom_margin = 6</span>
 
-        <span class="c">## Padding is space inside the window, where the background is</span>
-        <span class="c">## drawn.</span>
+        <span class="c">## 窗口的内补白。</span>
 
         <span class="c"># style.window.left_padding = 6</span>
         <span class="c"># style.window.right_padding = 6</span>
         <span class="c"># style.window.top_padding = 6</span>
         <span class="c"># style.window.bottom_padding = 6</span>
 
-        <span class="c">## This is the minimum height of the window, including the margins</span>
-        <span class="c">## and padding.</span>
+        <span class="c">## 包括补白的情况下窗口的最小高度。</span>
 
         <span class="c"># style.window.yminimum = 250</span>
 
 
-        
+
         <span class="c">## This lets you change the placement of the main menu.</span>
 
         <span class="c">## The way placement works is that we find an anchor point</span>
@@ -458,61 +446,58 @@ of the game.</li>
         <span class="c"># style.mm_menu_frame.yanchor = 0.5</span>
 
 
-        
-        <span class="c">## These let you customize the default font used for text in Ren&#39;Py.</span>
 
-        <span class="c">## The file containing the default font.</span>
+        <span class="c">## 设置 Ren&#39;Py 使用的默认字体。</span>
+
+        <span class="c">## 设置默认的字体文件。</span>
 
         <span class="c"># style.default.font = &quot;DejaVuSans.ttf&quot;</span>
 
-        <span class="c">## The default size of text.</span>
+        <span class="c">## 设置默认的字体大小。</span>
 
         <span class="c"># style.default.size = 22</span>
 
-        <span class="c">## Note that these only change the size of some of the text. Other</span>
-        <span class="c">## buttons have their own styles.</span>
+        <span class="c">## 请注意，这里的设置仅改变部分文字的大小，其他按钮有它自己的样式设置。</span>
 
 
-        
-        <span class="c">## These settings let you change some of the sounds that are used by</span>
-        <span class="c">## Ren&#39;Py.</span>
 
-        <span class="c">## Set this to False if the game does not have any sound effects.</span>
+        <span class="c">## 在这里对 Ren&#39;Py 使用的部分声音做出修改。</span>
+
+        <span class="c">## 如果游戏没有使用音效的话这里设置为 False 。</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">has_sound</span> <span class="o">=</span> <span class="bp">True</span>
 
-        <span class="c">## Set this to False if the game does not have any music.</span>
+        <span class="c">## 如果游戏没有音乐的话这里设置为 False 。</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">has_music</span> <span class="o">=</span> <span class="bp">True</span>
 
-        <span class="c">## Set this to False if the game does not have voicing.</span>
+        <span class="c">## 如果游戏没有语音的话这里设置为 False 。</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">has_voice</span> <span class="o">=</span> <span class="bp">True</span>
 
-        <span class="c">## Sounds that are used when button and imagemaps are clicked.</span>
+        <span class="c">## 设置文字按钮或图片按钮按下时的音效。</span>
 
         <span class="c"># style.button.activate_sound = &quot;click.wav&quot;</span>
         <span class="c"># style.imagemap.activate_sound = &quot;click.wav&quot;</span>
 
-        <span class="c">## Sounds that are used when entering and exiting the game menu.</span>
+        <span class="c">## 设置进入和退出主菜单时的音效。</span>
 
         <span class="c"># config.enter_sound = &quot;click.wav&quot;</span>
         <span class="c"># config.exit_sound = &quot;click.wav&quot;</span>
 
-        <span class="c">## A sample sound that can be played to check the sound volume.</span>
+        <span class="c">## 设置菜单中调整音量时播放的声音。</span>
 
         <span class="c"># config.sample_sound = &quot;click.wav&quot;</span>
 
-        <span class="c">## Music that is played while the user is at the main menu.</span>
+        <span class="c">## 设置开始界面的背景音乐。</span>
 
         <span class="c"># config.main_menu_music = &quot;main_menu_theme.ogg&quot;</span>
 
 
-        
+
         <span class="c">## Miscellaneous customizations</span>
 
-        <span class="c">## These let you change the transitions that are used when entering</span>
-        <span class="c">## and exiting the game menu.</span>
+        <span class="c">## 在这里设置进入和退出菜单时的转场效果。</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">enter_transition</span> <span class="o">=</span> <span class="n">dissolve</span>
         <span class="n">config</span><span class="o">.</span><span class="n">exit_transition</span> <span class="o">=</span> <span class="n">dissolve</span>
@@ -540,15 +525,15 @@ of the game.</li>
           <a href="credits.html" title="Documentation and Translation Credits"
              >上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <img src="_static/logo.png" width=19 height=21 align=center>
         <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
+        <li><a href="index.html">文档</a></li>
       </ul>
     </div>
 
 
 	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-	<script type="text/javascript"> 
+	<script type="text/javascript">
 	  google.load('search', '1', {language : 'en' });
 	  google.setOnLoadCallback(function() {
 	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
