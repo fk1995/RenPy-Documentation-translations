@@ -4,8 +4,8 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Image Gallery, Music Room, and Replay Actions &mdash; Ren&#39;Py Documentation</title>
+
+    <title>画廊、音乐室以及回想模式 &mdash; Ren&#39;Py 文档</title>
     <link rel="stylesheet" href="_static/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="_static/renpydoc.css" type="text/css" media="print" />
 
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Ren&#39;Py Documentation" href="index.html" />
     <link rel="next" title="Drag and Drop" href="drag_drop.html" />
-    <link rel="prev" title="Side Images" href="side_image.html" /> 
+    <link rel="prev" title="Side Images" href="side_image.html" />
   </head>
   <body>
     <div class="related">
@@ -45,34 +45,34 @@
           <a href="side_image.html" title="Side Images"
              accesskey="P">上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <img src="_static/logo.png" width=19 height=21 align=center>
         <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
+        <li><a href="index.html">文档</a></li>
       </ul>
     </div>
   <div class="container">
   <div class="span4">
-    
+
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目录</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Image Gallery, Music Room, and Replay Actions</a><ul>
-<li><a class="reference internal" href="#image-gallery">Image Gallery</a></li>
-<li><a class="reference internal" href="#music-room">Music Room</a></li>
-<li><a class="reference internal" href="#replay">Replay</a></li>
+<li><a class="reference internal" href="#">画廊、音乐室以及回想模式</a><ul>
+<li><a class="reference internal" href="#image-gallery">画廊</a></li>
+<li><a class="reference internal" href="#music-room">音乐室</a></li>
+<li><a class="reference internal" href="#replay">回想模式</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>上一节</h4>
   <p class="topless"><a href="side_image.html"
-                        title="previous chapter">Side Images</a></p>
+                        title="previous chapter">对话头像</a></p>
   <h4>下一节</h4>
   <p class="topless"><a href="drag_drop.html"
-                        title="next chapter">Drag and Drop</a></p>
-            <h4>Search</h4>
-            
+                        title="next chapter">可拖动对象</a></p>
+            <h4>搜索</h4>
+
             <div id="cse-search-form" style="width: 100%;"></div>
 
       <div class="copydata">
@@ -81,79 +81,75 @@
       </div>
         </div>
       </div>
-  
+
   </div>
-  
-    
+
+
     <div class="document span20 last">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
-            
+
   <div class="section" id="image-gallery-music-room-and-replay-actions">
-<h1>Image Gallery, Music Room, and Replay Actions<a class="headerlink" href="#image-gallery-music-room-and-replay-actions" title="Permalink to this headline">¶</a></h1>
+<h1>画廊、音乐室以及回想模式<a class="headerlink" href="#image-gallery-music-room-and-replay-actions" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="image-gallery">
-<span id="id1"></span><h2>Image Gallery<a class="headerlink" href="#image-gallery" title="Permalink to this headline">¶</a></h2>
-<p>A image gallery is a screen that allows the player to unlock images,
-and then view those images. The screen has one or more buttons associated
-with it, and each button has one or more associated images. Buttons and
-images also have conditions that determine if they have unlocked.</p>
-<p>Image galleries are managed by instances of the Gallery class. A
-single instance of the gallery class may be shared between multiple
-image gallery screens.</p>
-<p>A gallery has one or more buttons associated with it, a button has one
-or more images associated with it, and each image has one or more displayables
-associated with it. Conditions can be assigned to buttons and images. A button
-is unlocked when all of the conditions associated with it are satisfied and
-at least one image associated with that button is unlocked. An image is unlocked
-when all associated conditions are satisfied.</p>
-<p>Creating an image gallery consists of the following four steps.</p>
+<span id="id1"></span><h2>画廊<a class="headerlink" href="#image-gallery" title="Permalink to this headline">¶</a></h2>
+<p>
+  画廊是允许玩家查看已经解锁CG的视屏。这个视屏包含一个或多个按钮，每个按钮则包含一个或多个图片与之相关联。而按钮和图片都需要判定是否已经解锁。
+</p>
+<p>
+  画廊由 Gallery 类的实例管理。一个 Gallery 实例由多个画廊视屏共用。
+</p>
+<p>
+  画廊中包含一个或多个按钮，每个按钮则包含一个或多个图片与之相关联，每个图片则拥有一个或多个可显示对象。既可以设置按钮的出现条件也可以设置图片的出现条件。当按钮的解锁条件被满足且按钮包含至少一张已经解锁的图片时按钮将解锁。当图片的解锁条件被满足时图片则将解锁。
+</p>
+<p>可以通过以下四个步骤制作一个这样的画廊界面。</p>
 <ol class="arabic">
-<li><p class="first">Create an instance of Gallery.</p>
+<li><p class="first">生成一个 Gallery 实例。</p>
 </li>
-<li><p class="first">Add buttons and images to that gallery, along with conditions that
-determine if the buttons and images they belong to are unlocked. This
-is also a multi-step process.</p>
+<li><p class="first">
+  为画廊添加按钮和图片并分别设置它们的解锁条件。这一过程也分为好几步。
+</p>
 <ol class="arabic simple">
-<li>Declare a new button by calling <a class="reference internal" href="#Gallery.button" title="Gallery.button"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.button()</span></tt></a>.</li>
-<li>Optionally, add one or more unlock conditions to the button by
-calling <a class="reference internal" href="#Gallery.unlock" title="Gallery.unlock"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.unlock()</span></tt></a> or <a class="reference internal" href="#Gallery.condition" title="Gallery.condition"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.condition()</span></tt></a>.</li>
-<li>Declare an image by calling <a class="reference internal" href="#Gallery.image" title="Gallery.image"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.image()</span></tt></a> with one or
-displayables as arguments. Or call the convenience method
-<a class="reference internal" href="#Gallery.unlock_image" title="Gallery.unlock_image"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.unlock_image()</span></tt></a> instead.</li>
-<li>Optionally, call <a class="reference internal" href="#Gallery.transform" title="Gallery.transform"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.transform()</span></tt></a> to associate
-transforms with the displayables.</li>
-<li>Optionally, add one or more unlock conditions to the image by
-calling <a class="reference internal" href="#Gallery.unlock" title="Gallery.unlock"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.unlock()</span></tt></a>, <a class="reference internal" href="#Gallery.condition" title="Gallery.condition"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.condition()</span></tt></a>,
-or <a class="reference internal" href="#Gallery.allprior" title="Gallery.allprior"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.allprior()</span></tt></a>.</li>
+<li>
+  调用 <a class="reference internal" href="#Gallery.button" title="Gallery.button"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.button()</span></tt></a> 来定义一个新的按钮。</li>
+<li>调用 <a class="reference internal" href="#Gallery.unlock" title="Gallery.unlock"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.unlock()</span></tt></a> 或者 <a class="reference internal" href="#Gallery.condition" title="Gallery.condition"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.condition()</span></tt></a> 来自定义一个或多个按钮的解锁条件。</li>
+<li>以一个或多个可显示对象作为参数调用 <a class="reference internal" href="#Gallery.image" title="Gallery.image"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.image()</span></tt></a> 来定义一张新的图片。或者使用更加方便的
+<a class="reference internal" href="#Gallery.unlock_image" title="Gallery.unlock_image"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.unlock_image()</span></tt></a> 方法。</li>
+<li>调用 <a class="reference internal" href="#Gallery.transform" title="Gallery.transform"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.transform()</span></tt></a> 方法来自定义可显示对象的转场效果。</li>
+<li>调用 <a class="reference internal" href="#Gallery.unlock" title="Gallery.unlock"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.unlock()</span></tt></a>、 <a class="reference internal" href="#Gallery.condition" title="Gallery.condition"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.condition()</span></tt></a> 或者 <a class="reference internal" href="#Gallery.allprior" title="Gallery.allprior"><tt class="xref py py-meth docutils literal"><span class="pre">Gallery.allprior()</span></tt></a> 来自定义一个或多个图片的解锁条件。</li>
 </ol>
-<p>Additional images can be added to a button by repeating steps 3-5,
-while additional buttons can be added to the gallery by repeating
-all five steps.</p>
+<p>
+  重复步骤3-步骤5可以为画廊增加更多的图片，重复以上五步则可以为画廊添加更多的按钮。
+</p>
 </li>
-<li><p class="first">Create an image gallery screen. The screen should display a background,
-and should contain navigation that allows the user to show other
-image galleries, or to return to the main or extras menu.</p>
+<li><p class="first">
+  制作一个画廊视屏。画廊视屏除了显示背景以外还应该包含切换到其他画廊或者返回先前界面的导航按钮。
+</p>
 </li>
-<li><p class="first">Add code to display the image gallery screen to the main or extras menu.</p>
+<li><p class="first">
+  在标题画面或者游戏菜单中增加打开画廊的代码。
+</p>
 </li>
 </ol>
-<p>Here's an example of the first three steps:</p>
+<p>
+  下面是前三步的范例：
+</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">init</span> <span class="k">python</span><span class="p">:</span>
 
-    <span class="c"># Step 1. Create the gallery object.</span>
+    <span class="c"># 步骤 1. 生成画廊对象。</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">Gallery</span><span class="p">()</span>
 
-    <span class="c"># Step 2. Add buttons and images to the gallery.</span>
+    <span class="c"># 步骤 2. 像画廊中添加按钮和图片。</span>
 
-    <span class="c"># A button that contains an image that automatically unlocks.</span>
+    <span class="c"># 一个能够自动解锁且包含一张图片的按钮。</span>
     <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;dawn&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;dawn1&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">unlock</span><span class="p">(</span><span class="s">&quot;dawn1&quot;</span><span class="p">)</span>
 
-    <span class="c"># This button has multiple images assocated with it. We use unlock_image</span>
-    <span class="c"># so we don&#39;t have to call both .image and .unlock. We also apply a</span>
-    <span class="c"># transform to the first image.</span>
+    <span class="c"># 这个按钮包含多张图片。</span>
+    <span class="c"># 我们使用 unlock_image 方法一步完成了先执行 .image 方法再执行 .unlock 方法所实现的效果。</span>
+    <span class="c"># 同时，我们对第一张图片应用了一个转场效果。</span>
     <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;dark&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;bigbeach1&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="k">transform</span><span class="p">(</span><span class="n">slowpan</span><span class="p">)</span>
@@ -161,8 +157,7 @@ image galleries, or to return to the main or extras menu.</p>
     <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach2&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach3&quot;</span><span class="p">)</span>
 
-    <span class="c"># This button has a condition associated with it, allowing code</span>
-    <span class="c"># to choose which images unlock.</span>
+    <span class="c"># 这个按钮有解锁的条件。</span>
     <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;end1&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s">&quot;persistent.unlock_1&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;transfer&quot;</span><span class="p">)</span>
@@ -177,8 +172,8 @@ image galleries, or to return to the main or extras menu.</p>
     <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;beach1 nomoon&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;bad_ending&quot;</span><span class="p">)</span>
 
-    <span class="c"># The last image in this button has an condition associated with it,</span>
-    <span class="c"># so it will only unlock if the user gets both endings.</span>
+    <span class="c"># 这个按钮的最后一张图片拥有解锁的条件。</span>
+    <span class="c"># 只有同时达成了两个结局的玩家才能解锁这张图片。</span>
     <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;end3&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s">&quot;persistent.unlock_3&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;littlemary2&quot;</span><span class="p">)</span>
@@ -196,9 +191,8 @@ image galleries, or to return to the main or extras menu.</p>
     <span class="n">g</span><span class="o">.</span><span class="k">image</span><span class="p">(</span><span class="s">&quot;good_ending&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s">&quot;persistent.unlock_3 and persistent.unlock_4&quot;</span><span class="p">)</span>
 
-    <span class="c"># The final two buttons contain images that show multiple pictures</span>
-    <span class="c"># at the same time. This can be used to compose character art onto</span>
-    <span class="c"># a background.</span>
+    <span class="c"># 最后两个按钮同时包含了多张图片。</span>
+    <span class="c"># 这样可以制作出角色与背景合并的效果。</span>
     <span class="n">g</span><span class="o">.</span><span class="k">button</span><span class="p">(</span><span class="s">&quot;dawn mary&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;dawn1&quot;</span><span class="p">,</span> <span class="s">&quot;mary dawn wistful&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;dawn1&quot;</span><span class="p">,</span> <span class="s">&quot;mary dawn smiling&quot;</span><span class="p">)</span>
@@ -209,25 +203,25 @@ image galleries, or to return to the main or extras menu.</p>
     <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach2&quot;</span><span class="p">,</span> <span class="s">&quot;mary dark smiling&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">unlock_image</span><span class="p">(</span><span class="s">&quot;beach2&quot;</span><span class="p">,</span> <span class="s">&quot;mary dark vhappy&quot;</span><span class="p">)</span>
 
-    <span class="c"># The transition used when switching images.</span>
+    <span class="c"># 切换图片时使用下面的转场效果。</span>
     <span class="n">g</span><span class="o">.</span><span class="n">transition</span> <span class="o">=</span> <span class="n">dissolve</span>
 
-<span class="c"># Step 3. The gallery screen we use.</span>
+<span class="c"># 步骤 3. 我们所使用的图片视屏。</span>
 <span class="k">screen</span> <span class="n">gallery</span><span class="p">:</span>
 
-    <span class="c"># Ensure this replaces the main menu.</span>
+    <span class="c"># 保证这个视屏能够覆盖标题画面。</span>
     <span class="n">tag</span> <span class="k">menu</span>
 
-    <span class="c"># The background.</span>
+    <span class="c"># 视频背景。</span>
     <span class="k">add</span> <span class="s">&quot;beach2&quot;</span>
 
-    <span class="c"># A grid of buttons.</span>
+    <span class="c"># 按钮网格</span>
     <span class="k">grid</span> <span class="mi">3</span> <span class="mi">3</span><span class="p">:</span>
 
         <span class="na">xfill</span> <span class="bp">True</span>
         <span class="na">yfill</span> <span class="bp">True</span>
 
-        <span class="c"># Call make_button to show a particular button.</span>
+        <span class="c"># 使用 make_button 方法显示特别的按钮。</span>
         <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;dark&quot;</span><span class="p">,</span> <span class="s">&quot;gal-dark.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
         <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;dawn&quot;</span><span class="p">,</span> <span class="s">&quot;gal-dawn.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
         <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;end1&quot;</span><span class="p">,</span> <span class="s">&quot;gal-end1.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
@@ -239,162 +233,165 @@ image galleries, or to return to the main or extras menu.</p>
         <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;dark mary&quot;</span><span class="p">,</span> <span class="s">&quot;gal-dark_mary.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
         <span class="k">add</span> <span class="n">g</span><span class="o">.</span><span class="n">make_button</span><span class="p">(</span><span class="s">&quot;dawn mary&quot;</span><span class="p">,</span> <span class="s">&quot;gal-dawn_mary.png&quot;</span><span class="p">,</span> <span class="na">xalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="na">yalign</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
-        <span class="c"># The screen is responsible for returning to the main menu. It could also</span>
-        <span class="c"># navigate to other gallery screens.</span>
+        <span class="c"># 为视屏添加返回标题画面或者先前界面的功能。</span>
         <span class="k">textbutton</span> <span class="s">&quot;Return&quot;</span> <span class="na">action</span> <span class="n">Return</span><span class="p">()</span> <span class="na">xalign</span> <span class="mf">0.5</span> <span class="na">yalign</span> <span class="mf">0.5</span>
 </pre></div>
 </div>
-<p>Step 4 will vary based on how your game is structured, but one way of
-accomplishing it is to add the following line:</p>
+<p>步骤 4 由于不知道你的游戏工程是怎样的，这里仅以将画廊插入标题界面为例：</p>
 <div class="highlight-renpy"><div class="highlight"><pre><span class="k">textbutton</span> <span class="s">&quot;Gallery&quot;</span> <span class="na">action</span> <span class="n">ShowMenu</span><span class="p">(</span><span class="s">&quot;gallery&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>to the main menu screen.</p>
+<p>请在标题界面的视屏中插入以上代码。</p>
 <dl class="class">
 <dt id="Gallery">
 <em class="property">class </em><tt class="descname">Gallery</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#Gallery" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class supports the creation of an image gallery by handling the
-locking of images, providing an action that can show one or more images,
-and a providing method that creates buttons that use that action.</p>
+<dd><p>
+  这个类用于创建画廊，它能够处理图片的锁定和解锁、提供显示一张或多张图片的操作并提供了生成对应操作按钮的方法。</p>
 <dl class="attribute">
 <dt id="Gallery.transition">
 <tt class="descname">transition</tt><a class="headerlink" href="#Gallery.transition" title="Permalink to this definition">¶</a></dt>
-<dd><p>The transition that is used when changing images.</p>
+<dd><p>切换图片使用的转场效果。</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Gallery.locked_button">
 <tt class="descname">locked_button</tt><a class="headerlink" href="#Gallery.locked_button" title="Permalink to this definition">¶</a></dt>
-<dd><p>The default displayable used by make_button for a locked button.</p>
+<dd><p>
+  make_button 生成的按钮对于被锁定的按钮所使用的默认可显示对象。
+</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Gallery.hover_border">
 <tt class="descname">hover_border</tt><a class="headerlink" href="#Gallery.hover_border" title="Permalink to this definition">¶</a></dt>
-<dd><p>The default hover border used by make_button.</p>
+<dd><p>make_button 生成的按钮对于按钮被悬浮但还没有被选择时默认使用的可显示对象。</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Gallery.idle_border">
 <tt class="descname">idle_border</tt><a class="headerlink" href="#Gallery.idle_border" title="Permalink to this definition">¶</a></dt>
-<dd><p>The default idle border used by make_button.</p>
+<dd><p>make_button 生成的按钮对于按钮既没有被悬浮也没有被选择时默认使用的可显示对象。</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Gallery.navigation">
 <tt class="descname">navigation</tt><a class="headerlink" href="#Gallery.navigation" title="Permalink to this definition">¶</a></dt>
-<dd><p>If true, the gallery will display navigation and slideshow
-buttons on top of the images.</p>
+<dd><p>
+  如果值为真，画廊中将在图片上显示切换图片按钮和自动播放按钮。
+</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Gallery.span_buttons">
 <tt class="descname">span_buttons</tt><a class="headerlink" href="#Gallery.span_buttons" title="Permalink to this definition">¶</a></dt>
-<dd><p>If true, the gallery will advance between buttons.</p>
+<dd><p>设置为真时，画廊在按钮间跳转。</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Gallery.locked">
 <tt class="descname">locked</tt><a class="headerlink" href="#Gallery.locked" title="Permalink to this definition">¶</a></dt>
-<dd><p>If true, the gallery will advance through locked images.</p>
+<dd><p>设置为真时，画廊将跳过未解锁的图片。</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Gallery.slideshow_delay">
 <tt class="descname">slideshow_delay</tt><a class="headerlink" href="#Gallery.slideshow_delay" title="Permalink to this definition">¶</a></dt>
-<dd><p>The time it will take for the gallery to advance between images
-in slideshow mode.</p>
+<dd><p>自动播放模式下每张图片的停留时间。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.Action">
 <tt class="descname">Action</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#Gallery.Action" title="Permalink to this definition">¶</a></dt>
-<dd><p>An action that displays the images associated with the given button
-name.</p>
+<dd><p>用于显示与按钮关联图片的操作。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.Next">
 <tt class="descname">Next</tt><big>(</big><em>unlocked=False</em><big>)</big><a class="headerlink" href="#Gallery.Next" title="Permalink to this definition">¶</a></dt>
-<dd><p>Advances to the next image in the gallery.</p>
+<dd><p>跳转到画廊的下一张图片。</p>
 <dl class="docutils">
 <dt><cite>unlocked</cite></dt>
-<dd>If true, only considers unlocked images.</dd>
+<dd>如何设置为真，则只会跳转到已经解锁的图片。</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.Previous">
 <tt class="descname">Previous</tt><big>(</big><em>unlocked=False</em><big>)</big><a class="headerlink" href="#Gallery.Previous" title="Permalink to this definition">¶</a></dt>
-<dd><p>Goes to the previous image in the gallery.</p>
+<dd><p>跳转到画廊的上一张图片。</p>
 <dl class="docutils">
 <dt><cite>unlocked</cite></dt>
-<dd>If true, only considers unlocked images.</dd>
+<dd>如何设置为真，则只会跳转到已经解锁的图片。</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.Return">
 <tt class="descname">Return</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#Gallery.Return" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stops displaying gallery images.</p>
+<dd><p>停止显示图片。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.ToggleSlideshow">
 <tt class="descname">ToggleSlideshow</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#Gallery.ToggleSlideshow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Toggles slideshow mode.</p>
+<dd><p>切换自动播放模式的开关。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.allprior">
 <tt class="descname">allprior</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#Gallery.allprior" title="Permalink to this definition">¶</a></dt>
-<dd><p>A condition that is true if all prior images associated with the
-current button have been unlocked.</p>
+<dd><p>
+  若指定按钮之前的所有图片都已经解锁，则返回值为真。
+</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.button">
 <tt class="descname">button</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#Gallery.button" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a new button, named <cite>name</cite>.</p>
+<dd><p>生成一个新的按钮，命名为 <cite>name</cite> 。</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the button being created.</dd>
+<dd>按钮的名字。</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.condition">
 <tt class="descname">condition</tt><big>(</big><em>expression</em><big>)</big><a class="headerlink" href="#Gallery.condition" title="Permalink to this definition">¶</a></dt>
-<dd><p>A condition that is satisfied when an expression evaluates to true.</p>
+<dd><p>
+  当表达式的返回值为真时该条件满足。
+</p>
 <dl class="docutils">
 <dt><cite>expression</cite></dt>
-<dd>A string giving a python expression.</dd>
+<dd>一个字符串格式的 python 表达式。</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.display">
 <tt class="descname">display</tt><big>(</big><em>*displayables</em><big>)</big><a class="headerlink" href="#Gallery.display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a new image to the current button, where an image consists
-of one or more displayables.</p>
+<dd><p>
+  为特定按钮增加一张图片，图片包含一个或多个可显示对象。
+</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.get_fraction">
 <tt class="descname">get_fraction</tt><big>(</big><em>name</em>, <em>format='{seen}/{total}'</em><big>)</big><a class="headerlink" href="#Gallery.get_fraction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a text string giving the number of unlocked images and total number of images in the button
-named <cite>name</cite>.</p>
+<dd><p>
+  返回 <cite>name</cite> 按钮中由已解锁图片数目和总图片数目所组成的文本字符串。
+</p>
 <dl class="docutils">
 <dt><cite>format</cite></dt>
-<dd><p class="first">A python format string that's used to format the numbers. This has three values that
-can be substituted in:</p>
+<dd><p class="first">
+  用于格式化数字的 python 格式行。可以用下面的三个字符来代换数值。</p>
 <dl class="last docutils">
 <dt>{seen}</dt>
-<dd>The number of images that have been seen.</dd>
+<dd>已经看过的图片总数。</dd>
 <dt>{total}</dt>
-<dd>The total number of images in the button.</dd>
+<dd>这个按钮的图片总数。</dd>
 <dt>{locked}</dt>
-<dd>The number of images that are still locked.</dd>
+<dd>这个按钮中仍然未解锁的图片总数。</dd>
 </dl>
 </dd>
 </dl>
@@ -403,63 +400,67 @@ can be substituted in:</p>
 <dl class="method">
 <dt id="Gallery.image">
 <tt class="descname">image</tt><big>(</big><em>*displayables</em><big>)</big><a class="headerlink" href="#Gallery.image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a new image to the current button, where an image consists
-of one or more displayables.</p>
+<dd><p>
+  为当前按钮增加一个图片，图片包含一个或多个可显示对象。
+</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.make_button">
 <tt class="descname">make_button</tt><big>(</big><em>name</em>, <em>unlocked</em>, <em>locked=None</em>, <em>hover_border=None</em>, <em>idle_border=None</em>, <em>**properties</em><big>)</big><a class="headerlink" href="#Gallery.make_button" title="Permalink to this definition">¶</a></dt>
-<dd><p>This creates a button that displays the images associated with the given
-button name.</p>
+<dd><p>
+  生成一个能够用于显示对应按钮名所包含图片的按钮。
+</p>
 <dl class="docutils">
 <dt><cite>name</cite></dt>
-<dd>The name of the button that will be created.</dd>
+<dd>按钮的名称。</dd>
 <dt><cite>unlocked</cite></dt>
-<dd>A displayable that is displayed for this button when it is
-unlocked.</dd>
+<dd>按钮解锁时显示的可显示对象。</dd>
 <dt><cite>locked</cite></dt>
-<dd>A displayable that is displayed for this button when it is
-locked. If None, the locked_button field of the gallery
-object is used instead.</dd>
+<dd>
+  按钮未解锁时显示的可显示对象。若为 None 则使用 gallery 对象 locked_button 的值。
+</dd>
 <dt><cite>hover_border</cite></dt>
-<dd>A displayable that is used to overlay this button when
-it is unlocked and has focus. If None, the hover_border
-field of the gallery object is used.</dd>
+<dd>
+  对于已解锁按钮被悬浮但还没有被选择时使用的可显示对象。
+  若为 None 则使用 gallery 对象 hover_border 的值。
+</dd>
 <dt><cite>idle_border</cite></dt>
-<dd>A displayable that is used to overlay this button when
-it is unlocked but unfocused. If None, the idle_border
-field of the gallery object is used.</dd>
+<dd>
+  对于已解锁按钮未被悬浮且未被选择时使用的可显示对象。
+  若为 None 则使用 gallery 对象 idle_border 的值。
+</dd>
 </dl>
-<p>Additional keyword arguments become style properties of the
-created button object.</p>
+<p>其余的参数用于设置生成按钮的样式属性。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.transform">
 <tt class="descname">transform</tt><big>(</big><em>*transforms</em><big>)</big><a class="headerlink" href="#Gallery.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Applies transforms to the last image registered. This should be
-called with the same number of transforms as the image has
-displayables. The transforms are applied to the corresponding
-displayables.</p>
-<p>If a transform is None, the default transform is used.</p>
+<dd><p>
+  为最后一张图片设置的转场效果。转场效果的数目应该与图片包含的可显示对象数目相同。转场效果将应用于对应的可显示对象。
+</p>
+<p>若设置为 None，则使用默认的转场效果。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.unlock">
 <tt class="descname">unlock</tt><big>(</big><em>*images</em><big>)</big><a class="headerlink" href="#Gallery.unlock" title="Permalink to this definition">¶</a></dt>
-<dd><p>A condition that takes one or more image names as argument, and
-is satisfied when all the named images have been seen by the
-player. The image names should be given as strings.</p>
+<dd><p>
+  以一张或多张图片文件名作为参数的条件，只有当玩家看到了参数中设置的所有图片时条件才被满足。
+  图片的文件名应该为字符串格式。
+</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="Gallery.unlock_image">
 <tt class="descname">unlock_image</tt><big>(</big><em>*images</em><big>)</big><a class="headerlink" href="#Gallery.unlock_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>A convenience method that is equivalent to calling image and unlock
-with the same parameters. This will cause an image to be displayed
-if it has been seen before.</p>
-<p>The images should be specified as strings giving image names.</p>
+<dd><p>
+  一个同时调用 image 和 unlock 的简便方法。这个方法将使图片被玩家看过后才会显示。
+</p>
+<p>
+  方法的参数为字符串格式的图像文件名。
+</p>
 </dd></dl>
 
 </dd></dl>
@@ -811,15 +812,15 @@ nothing.</p>
           <a href="side_image.html" title="Side Images"
              >上一页</a> |</li>
 
-        <li> <img src="_static/logo.png" width=19 height=21 align=center> 
+        <li> <img src="_static/logo.png" width=19 height=21 align=center>
         <li> <a href="http://www.renpy.org/">主页</a> |
-        <li><a href="index.html">文档</a></li> 
+        <li><a href="index.html">文档</a></li>
       </ul>
     </div>
 
 
 	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-	<script type="text/javascript"> 
+	<script type="text/javascript">
 	  google.load('search', '1', {language : 'en' });
 	  google.setOnLoadCallback(function() {
 	    var customSearchControl = new google.search.CustomSearchControl('012476843541036121001:gx3sqkoaxkm');
