@@ -6,7 +6,7 @@ RenPy-Documentation-translations
 
 坑主：fk1995
 
-翻译：fk1995,Orion,今夜不谈风月,Icemaple,星云月,okami2012
+翻译：fk1995,Orion,今夜不谈风月,Icemaple,星云月,okami2012,喵呜咪
 
 润色：fk1995
 
